@@ -77,16 +77,38 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+        'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'main_db',
-        'USER' : 'root',
-        'PASSWORD' : 'DGU1dgu',
-        'HOST' : '35.239.117.166',
-        'PORT' : '3306',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'big': { # bigproject에 사용할 데이터베이스 설정 추가
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'big_proj',
+    'USER': 'root',
+    'PASSWORD': 'DGU1dgu',
+    'HOST': '35.239.117.166',
+    'PORT': 3306
     }
 }
 
+DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter']
+
+LOGGING = {
+    'version':1,
+    'disable_existing_loggers':False,
+    'handlers' : {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        }
+    },
+    'loggers':{
+        'django.db.backends':{
+            'handlers':['console'],
+            'level':'DEBUG',
+        },
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -110,8 +132,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
+
+#LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'ko-kr'
 
+#TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True

@@ -1,4 +1,3 @@
-from click import UsageError
 from django.db import models
 from django.db.models.fields import CharField, IntegerField, FloatField, DateField
 from pandas import to_datetime

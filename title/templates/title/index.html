@@ -35,7 +35,7 @@
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
         <li><a href="#section1">Home</a></li>
-        <li><a href="#section4">Login</a></li>
+        <li><a href="member/login/custom">Login</a></li>
       </ul>
     </nav>
   </header>
@@ -51,7 +51,7 @@
               <h6># 으로 가치를 전하는 샵</h6>
               <h2><em>HashTaig</em> 입니다</h2>
               <div class="main-button">
-                  <div class="scroll-to-section"><a href="#section2">Go to HashTaig</a></div>
+                  <div ><a href="member/login/custom">Go to HashTaig</a></div>
               </div>
           </div>
       </div>
@@ -183,7 +183,7 @@
         //according to loftblog tut
         $('.nav li:first').addClass('active');
 
-        var showSection = function showSection(section, isAnimate) {
+        {% comment %} var showSection = function showSection(section, isAnimate) {
           var
           direction = section.replace(/#/, ''),
           reqSection = $('.section').filter('[data-section="' + direction + '"]'),
@@ -197,9 +197,9 @@
             $('body, html').scrollTop(reqSectionPos);
           }
 
-        };
+        }; {% endcomment %}
 
-        var checkSection = function checkSection() {
+        {% comment %} var checkSection = function checkSection() {
           $('.section').each(function () {
             var
             $this = $(this),
@@ -214,9 +214,9 @@
               siblings().removeClass('active');
             }
           });
-        };
+        }; {% endcomment %}
 
-        $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
+        {% comment %} $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
           if($(e.target).hasClass('external')) {
             return;
           }
@@ -227,7 +227,7 @@
 
         $(window).scroll(function () {
           checkSection();
-        });
+        }); {% endcomment %}
     </script>
 </body>
 </html>

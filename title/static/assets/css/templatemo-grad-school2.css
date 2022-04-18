@@ -8,7 +8,7 @@ https://templatemo.com/tm-557-grad-school
 
 
 @import url(fontawesome.css);
-@import url("<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">");
+@import url("<link href='https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900' rel='stylesheet'>");
 body {
     font-family: 'Montserrat', sans-serif;
 }
@@ -165,7 +165,7 @@ a.menu-link { display: none; }
 }
 
 .main-header {
-    background-color: rgba(22,34,57,0.95);
+    background-color: rgba(36, 36, 36, 0.95); 
     height: 80px;
     position: fixed;
     z-index: 12;
@@ -301,7 +301,7 @@ a.menu-link { display: none; }
     min-height: 100vh;
     max-width: 100%;
     max-height: 100vh;
-    object-fit: cover;
+    
     z-index: -1;
 }
 
@@ -311,7 +311,7 @@ a.menu-link { display: none; }
 
 .video-overlay {
     position: absolute;
-    background-color: rgba(22,34,57,0.85);
+    background-color: rgba(36, 36, 36, 0.85);
     top: 0;
     left: 0;
     bottom: 7px;
@@ -402,7 +402,7 @@ section.features .col-4 {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #0c1228;
+  background-color: rgb(36, 36, 36);
   color: #fff;
   padding: 40px;
 }
@@ -490,8 +490,8 @@ section.features .col-4 {
 /* Why Choosing Us */
 
 section.why-us {
-    background-image: url(../images/choosing-bg.jpg);
-    background-color: #172238;
+    /* background-image: url(../images/choosing-bg.jpg); */
+    background-color: rgba(36, 36, 36, 0.95);
     background-repeat: no-repeat;
     background-size: cover;
     padding-bottom: 100px;
@@ -562,8 +562,9 @@ section.why-us {
   display: block;
   margin-bottom: 0.75em;
 }
-#tabs ul .ui-tabs-active {
-}
+
+/* #tabs ul .ui-tabs-active {
+} */
 #tabs ul .ui-tabs-active a {
   color: #f5a425;
 }
@@ -825,61 +826,6 @@ section.courses .item .down-content h4 {
     margin-bottom: 20px;
 }
 
-section.courses .item .down-content p {
-    margin-bottom: 25px;
-}
-
-section.courses .item .down-content img {
-    width: 40px;
-    border: 2px solid #f5a425;
-    border-radius: 50%;
-    text-align: left;
-    display: inline-block;
-}
-
-section.courses .item .down-content .text-button-pay {
-    float: right;
-    display: inline-block;
-    margin-top: -30px;
-}
-
-section.courses .item .down-content .text-button-pay a {
-    color: #f5a425;
-    font-size: 13px;
-}
-
-section.courses .item .down-content .text-button-free {
-    float: right;
-    display: inline-block;
-    margin-top: -30px;
-}
-
-section.courses .item .down-content .text-button-free a {
-    color: #7a7a7a;
-    font-size: 13px;
-}
-
-section.courses .owl-carousel .owl-nav {
-    display: none;
-}
-
-section.courses .owl-carousel .owl-dots {
-    text-align: center;
-}
-
-section.courses .owl-carousel button.owl-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #fff;
-    margin: 50px 10px 0px 10px;
-    outline: none;
-}
-section.courses .owl-carousel button.active {
-    background-color: #f5a425;
-}
-
-
-
 
 
 /* Video */
@@ -1015,7 +961,8 @@ section.video .left-content .main-button {
   z-index: 1043;
   position: fixed;
   outline: none !important;
-  -webkit-backface-visibility: hidden;
+  
+  
 }
 
 .mfp-container {
@@ -1076,14 +1023,7 @@ section.video .left-content .main-button {
   cursor: auto;
 }
 
-.mfp-close,
-.mfp-arrow,
-.mfp-preloader,
-.mfp-counter {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
+
 
 .mfp-loading.mfp-figure {
   display: none;
@@ -1199,7 +1139,7 @@ button::-moz-focus-inner {
   padding: 0;
   width: 90px;
   height: 110px;
-  -webkit-tap-highlight-color: transparent;
+  
 }
 
 .mfp-arrow:active {
@@ -1529,7 +1469,7 @@ section.contact form button {
 /* Footer */
 
 footer {
-    background-color: #152036;
+    background-color: rgba(36, 36, 36);
     text-align: center;
 }
 

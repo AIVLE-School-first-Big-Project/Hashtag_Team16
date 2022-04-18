@@ -27,15 +27,15 @@
 <body>
    
   <!--header-->
-  <header class="main-header clearfix" role="header">
+  <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
     <div class="logo">
-      <a href="#"><em>D</em> GU</a>
+      <a href="#"><em>HASH</em> TAIG</a>
     </div>
     <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
         <li><a href="#section1">Home</a></li>
-        <li><a href="#section4">Courses</a></li>
+        <li><a href="#section4">Login</a></li>
       </ul>
     </nav>
   </header>
@@ -46,12 +46,12 @@
           <source src="{% static 'assets/images/course-video3.mp4' %}" type="video/mp4" />
       </video>
 
-      <div class="video-overlay header-text">
+      <div class="video-overlay header-text" style='background-color: rgba(36, 36, 36, 0.85);'>
           <div class="caption">
               <h6># 으로 가치를 전하는 샵</h6>
               <h2><em>HashTaig</em> 입니다</h2>
               <div class="main-button">
-                  <div class="scroll-to-section"><a href="#section2">What is HashTaig</a></div>
+                  <div class="scroll-to-section"><a href="#section2">Go to HashTaig</a></div>
               </div>
           </div>
       </div>
@@ -64,15 +64,10 @@
       <div class="row">
         <div class="col-lg-4 col-12">
           <div class="features-post">
-            <div class="features-content">
+            <div class="features-content" id='abc'>
               <div class="content-show">
-                <h4><i class="fa fa-pencil"></i>All Courses</h4>
+                <h4><i class="fa-solid fa-hashtag"></i></i>해시태그 추천</h4>
               </div>
-              <div class="content-hide">
-                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
-                <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
-                <div class="scroll-to-section"><a href="#section2">More Info.</a></div>
-            </div>
             </div>
           </div>
         </div>
@@ -80,13 +75,8 @@
           <div class="features-post second-features">
             <div class="features-content">
               <div class="content-show">
-                <h4><i class="fa fa-graduation-cap"></i>Virtual Class</h4>
+                <h4><i class="fa-solid fa-hashtag"></i>이미지 설명 자동화</h4>
               </div>
-              <div class="content-hide">
-                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
-                <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
-                <div class="scroll-to-section"><a href="#section3">Details</a></div>
-            </div>
             </div>
           </div>
         </div>
@@ -94,13 +84,8 @@
           <div class="features-post third-features">
             <div class="features-content">
               <div class="content-show">
-                <h4><i class="fa fa-book"></i>Real Meeting</h4>
+                <h4><i class="fa-solid fa-hashtag"></i>해시태그 사용량 분석</h4>
               </div>
-              <div class="content-hide">
-                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
-                <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
-                <div class="scroll-to-section"><a href="#section4">Read More</a></div>
-            </div>
             </div>
           </div>
         </div>
@@ -113,48 +98,50 @@
       <div class="row">
         <div class="col-md-12">
           <div class="section-heading">
-            <h2>Why choose Grad School?</h2>
+            <h2>어떤 가치를 전해주나요?</h2>
           </div>
         </div>
         <div class="col-md-12">
           <div id='tabs'>
             <ul>
-              <li><a href='#tabs-1'>Best Education</a></li>
-              <li><a href='#tabs-2'>Top Management</a></li>
-              <li><a href='#tabs-3'>Quality Meeting</a></li>
+              <li><a href='#tabs-1'>AI 해시태그 추천</a></li>
+              <li><a href='#tabs-2'>AI 이미지 분석</a></li>
+              <li><a href='#tabs-3'>해시태그 분석 시각화</a></li>
             </ul>
             <section class='tabs-content'>
               <article id='tabs-1'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="{% static 'assets/images/choose-us-image-01.png' %}" alt="">
+                    <img src="{% static 'assets/images/Insta-Hashtag.png' %}" alt="">
                   </div>
                   <div class="col-md-6">
-                    <h4>Best Education</h4>
-                    <p>Grad School is free educational HTML template with Bootstrap 4.5.2 CSS layout. Feel free to use it for educational or commercial purposes. You may want to make <a href="https://paypal.me/templatemo" target="_parent" rel="sponsored">a little donation</a> to TemplateMo. Please tell your friends about us. Thank you.</p>
+                    <h4>AI 해시태그 추천</h4>
+                    <p>사용자가 올린 이미지를 분석하여 노출빈도를 높이는 최적의 해시태그를 AI 알고리즘을 통해서 추천해드려요. </p>
+                    <p>당신의 시간은 소중하니깐 더 이상 한글자 한글자 타이핑하지 않아도 될꺼에요!</p> 
                   </div>
                 </div>
               </article>
               <article id='tabs-2'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="{% static 'assets/images/choose-us-image-02.png' %}" alt="">
+                    <img src="{% static 'assets/images/brain-image.jpg' %}" alt="">
                   </div>
                   <div class="col-md-6">
-                    <h4>Top Level</h4>
-                    <p>You can modify this HTML layout by editing contents and adding more pages as you needed. Since this template has options to add dropdown menus, you can put many HTML pages.</p> 
-                    <p>Suspendisse tincidunt, magna ut finibus rutrum, libero dolor euismod odio, nec interdum quam felis non ante.</p>
+                    <h4>AI 이미지 분석</h4>
+                    <p>사용자가 올린 이미지에 설명을 더 해줄거에요. 구구절절!</p> 
+                    <p>AI 모델은 과연 당신이 올린 사진의 의도를 읽을 수 있을까요?</p>
                   </div>
                 </div>
               </article>
               <article id='tabs-3'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="{% static 'assets/images/choose-us-image-03.png' %}" alt="">
+                    <img src="{% static 'assets/images/data-visualization.png' %}" alt="">
                   </div>
                   <div class="col-md-6">
-                    <h4>Quality Meeting</h4>
-                    <p>You are NOT allowed to redistribute this template ZIP file on any template collection website. However, you can use this template to convert into a specific theme for any kind of CMS platform such as WordPress. For more information, you shall <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">contact TemplateMo</a> now.</p>
+                    <h4>해시태그 분석 시각화</h4>
+                    <p>어떤 해시태그가 어느 정도로 사용되고 있는건지 너무 궁금한데요?</p>
+                    <p>HashTaig는 추천하고 있는 해시태그의 사용빈도 등을 한눈에 보기 쉽도록 정리해줄거에요!</p>
                   </div>
                 </div>
               </article>
@@ -165,168 +152,6 @@
     </div>
   </section>
 
-
-  <section class="section courses" data-section="section4">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="section-heading">
-            <h2>Choose Your Course</h2>
-          </div>
-        </div>
-        <div class="owl-carousel owl-theme">
-          <div class="item">
-
-            
-            <img src="{% static 'assets/images/courses-01.jpg' %}" alt="Course #1">
-            <div class="down-content">
-              <h4>Digital Marketing</h4>
-              <p>You can get free images and videos for your websites by visiting Unsplash, Pixabay, and Pexels.</p>
-              <div class="author-image">
-                
-                <img src="{% static 'assets/images/author-01.png' %}" alt="Author 1">
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-02.jpg' %}" alt="Course #2">
-            <div class="down-content">
-              <h4>Business World</h4>
-              <p>Quisque cursus augue ut velit dictum, quis volutpat enim blandit. Maecenas a lectus ac ipsum porta.</p>
-              <div class="author-image">
-                
-                <img src="{% static 'assets/images/author-02.png' %}" alt="Author 2">
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-03.jpg' %}" alt="Course #3">
-            <div class="down-content">
-              <h4>Media Technology</h4>
-              <p>Pellentesque ultricies diam magna, auctor cursus lectus pretium nec. Maecenas finibus lobortis enim.</p>
-              <div class="author-image">
-                <img src="{% static 'assets/images/author-03.png' %}" alt="Author 3">
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-04.jpg' %}" alt="Course #4">
-            <div class="down-content">
-              <h4>Communications</h4>
-              <p>Download free images and videos for your websites by visiting Unsplash, Pixabay, and Pexels.</p>
-              <div class="author-image">
-                <img src="assets/images/author-04.png" alt="Author 4">
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-05.jpg' %}" alt="">
-            <div class="down-content">
-              <h4>Business Ethics</h4>
-              <p>Pellentesque ultricies diam magna, auctor cursus lectus pretium nec. Maecenas finibus lobortis enim.</p>
-              <div class="author-image">
-                <img src="assets/images/author-05.png" alt="">
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-01.jpg' %}" alt="">
-            <div class="down-content">
-              <h4>Photography</h4>
-              <p>Quisque cursus augue ut velit dictum, quis volutpat enim blandit. Maecenas a lectus ac ipsum porta.</p>
-              <div class="author-image">
-                <img src="assets/images/author-01.png" alt="">
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-02.jpg' %}" alt="">
-            <div class="down-content">
-              <h4>Web Development</h4>
-              <p>Pellentesque ultricies diam magna, auctor cursus lectus pretium nec. Maecenas finibus lobortis enim.</p>
-              <div class="author-image">
-                <img src="assets/images/author-02.png" alt="">
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-03.jpg' %}" alt="">
-            <div class="down-content">
-              <h4>Learn HTML CSS</h4>
-              <p>You can get free images and videos for your websites by visiting Unsplash, Pixabay, and Pexels.</p>
-              <div class="author-image">
-                <img src="assets/images/author-03.png" alt="">
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-04.jpg' %}" alt="">
-            <div class="down-content">
-              <h4>Social Media</h4>
-              <p>Pellentesque ultricies diam magna, auctor cursus lectus pretium nec. Maecenas finibus lobortis enim.</p>
-              <div class="author-image">
-                <img src="assets/images/author-04.png" alt="">
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="{% static 'assets/images/courses-05.jpg' %}" alt="">
-            <div class="down-content">
-              <h4>Digital Arts</h4>
-              <p>Quisque cursus augue ut velit dictum, quis volutpat enim blandit. Maecenas a lectus ac ipsum porta.</p>
-              <div class="author-image">
-                <img src="assets/images/author-05.png" alt="">
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="assets/images/courses-01.jpg" alt="">
-            <div class="down-content">
-              <h4>Media Streaming</h4>
-              <p>Pellentesque ultricies diam magna, auctor cursus lectus pretium nec. Maecenas finibus lobortis enim.</p>
-              <div class="author-image">
-                <img src="assets/images/author-01.png" alt="">
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
 
   <footer>
     <div class="container">
@@ -342,8 +167,10 @@
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
+  <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+
     <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
 
     <script src="{% static 'assets/js/isotope.min.js'%}"></script>
     <script src="{% static 'assets/js/owl-carousel.js'%}"></script>

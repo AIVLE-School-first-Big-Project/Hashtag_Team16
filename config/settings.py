@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'main',
     'title',
+    'member',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -91,7 +92,7 @@ DATABASES = {
     }
 }
 
-DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter']
+DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter', 'member.router.DBRouter']
 
 LOGGING = {
     'version':1,

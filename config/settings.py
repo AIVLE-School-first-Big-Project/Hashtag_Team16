@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'main',
     'title',
     'member',
+    'qna',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',

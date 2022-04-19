@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'main',
     'title',
     'member',
+    'qna',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -92,7 +93,7 @@ DATABASES = {
     }
 }
 
-DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter', 'member.router.DBRouter']
+DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter', 'member.router.DBRouter', 'qna.router.DBRouter']
 
 LOGGING = {
     'version':1,

@@ -6,5 +6,5 @@ from qna.models import ARTICLE
 
 def qna_board(request):
     qna_list = ARTICLE.objects.all()
-    write_date_list = qna_list.order_by('date')
-    return 0
+    write_date_list = qna_list.order_by('-date')
+    return render(request, 'qna/anq.html',{'write_date_list':  write_date_list})

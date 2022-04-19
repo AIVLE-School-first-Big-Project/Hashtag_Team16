@@ -37,6 +37,7 @@ class ARTICLE(models.Model):
     content = models.TextField(null=False)
     date = models.DateField(null=False, default=to_datetime)
     image = models.FileField(upload_to='%Y/%m/%d',null=True)
+    comment_cnt = models.IntegerField(null=True)
 
     a_user_id = models.ForeignKey(USER, db_column='user_id', on_delete=models.CASCADE, null=False)
     board_id = models.ForeignKey(BOARD,  db_column='board_id', on_delete=models.CASCADE, null=False)

@@ -5,11 +5,11 @@
     <input type="submit" value="로그인">
 </form>
 
-{% if request.session.user_id %}
+{% comment %} {% if request.session.user_id %}
   {{ request.session.user_name }} 님 반갑습니다.
 {% else %}
   <p>현재 상태 : Guest</p>
-{% endif %}
+{% endif %} {% endcomment %}
 
 
 {% if request.session.user_id %}

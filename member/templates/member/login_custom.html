@@ -134,9 +134,6 @@
     transform: translate(-50%, -50%);'>
     <em style="font-style: normal;color: #f5a425;">LOG</em>IN
     </div>
-
-
-    </nav>
   </header>
 
   <section class="section why-us" data-section="section2" style='padding-bottom: 294px;'>
@@ -148,20 +145,13 @@
 
             <div class="login-page">
               <div class="form">
-                <form class="register-form">
-                  <input type="text" placeholder="name"/>
-                  <input type="password" placeholder="password"/>
-                  <input type="text" placeholder="email address"/>
-                  <button>create</button>
-                  <p class="message">Already registered? <a href="#">Sign In</a></p>
-                </form>
 
                 <form class="login-form"  method="post" action="{% url 'member:login_custom' %}">
                   {% csrf_token %}
                   <input type="text" placeholder="username" name="user_id"/>
                   <input type="password" placeholder="password" name="user_pw"/>
                   <button type="submit">login</button>
-                  <p class="message">Not registered? <a href="#">Create an account</a></p>
+                  <p class="message">Not registered? <a href="/member/signup">Create an account</a></p>
                 </form>
 
                   <div >
@@ -206,12 +196,7 @@
   </footer>
 
   <script>
-    $('.message a').click(function(){
-      $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-    });
-  </script>
-
-
-
+    window.resizeTo(500,500);
+</script> 
 </body>
 </html>

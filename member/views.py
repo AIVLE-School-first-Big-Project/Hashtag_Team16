@@ -47,6 +47,7 @@ def login_custom(request):
 #회원가입
 def signup_custom(request):
     if request.method == 'POST':
+        print('post')
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('pw')
         u_name = request.POST.get('name')
@@ -61,9 +62,10 @@ def signup_custom(request):
             birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email)
         u.date_joined = timezone.now()
         u.save()
-
-        return HttpResponse(
-                '가입 완료<br>%s %s %s' % (u_id, u_pw, u_name))
+        
+        data = {'good':'잘 저장되었음!'}
+        data =  json.dumps(data)
+        return JsonResponse(data, safe=False)
         #return redirect('../../')
     else:
         return render(request, 'member/signup_custom.html')

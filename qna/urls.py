@@ -4,6 +4,6 @@ from . import views
 app_name = 'qna'
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.qna_board),
 ]
 

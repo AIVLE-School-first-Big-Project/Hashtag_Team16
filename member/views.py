@@ -48,6 +48,7 @@ def login_custom(request):
 def signup_custom(request):
     if request.method == 'POST':
         print('post')
+        
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('pw')
         u_name = request.POST.get('name')

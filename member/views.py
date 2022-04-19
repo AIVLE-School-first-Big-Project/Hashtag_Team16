@@ -1,11 +1,26 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from .models import USER
+from django.utils import timezone
+from django.http import HttpResponse
 
 # Create your views here.
 from .models import USER
 
 app_name = 'member'
+
 # Create your views here.
+
+# user 출력
+def user(request):
+   user_list = USER.objects.all()
+   return render(
+        request,
+        'member/line.html',
+        {'user_list': user_list }
+   )
+
+
 def login_custom(request):
     #user_list = USER.objects.all()
     if request.method == 'POST':
@@ -27,23 +42,29 @@ def login_custom(request):
     else:
         return render(request, 'member/login_custom.html')
 
-
-from .models import USER
-from django.utils import timezone
-from django.http import HttpResponse
+#회원가입
 def signup_custom(request):
     if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-        user_pw = request.POST.get('user_pw')
-        user_name = request.POST.get('user_name')
-        m = USER(
-        user_id=user_id, user_pw=user_pw, user_name=user_name)
-        m.date_joined = timezone.now()
-        m.save()
+        u_id = request.POST.get('user_id')
+        u_pw = request.POST.get('pw')
+        u_name = request.POST.get('name')
+        b_year = request.POST.get('birth_year')
+        b_month = request.POST.get('birth_month')
+        b_day = request.POST.get('birth_day')
+        p_num = request.POST.get('phone_num')
+        email = request.POST.get('email')
+
+        u = USER(
+            user_id=u_id, pw=u_pw, name=u_name, 
+            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email)
+        u.date_joined = timezone.now()
+        u.save()
+
         return HttpResponse(
-            '가입 완료<br>%s %s %s' % (user_id, user_pw, user_name))
+                '가입 완료<br>%s %s %s' % (u_id, u_pw, u_name))
+        #return redirect('../../')
     else:
-         return render(request, 'member/signup_custom.html')
+        return render(request, 'member/signup_custom.html')
 
 def logout_custom(request):
     del request.session['user_id']

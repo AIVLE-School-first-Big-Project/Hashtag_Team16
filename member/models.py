@@ -18,7 +18,7 @@ class USER(models.Model):
     birth_day = models.IntegerField(null=False)
     email = models.CharField(max_length=50, null=True)
     phone_num = models.CharField(max_length=20, null=True)
-    usage_count = models.IntegerField(null=False)
+    usage_count = models.IntegerField(null=True)
 
     class Meta:
         db_table = 'user'
@@ -41,6 +41,7 @@ class ARTICLE(models.Model):
     content = models.TextField(null=False)
     date = models.DateField(null=False, default=to_datetime)
     image = models.FileField(upload_to='%Y/%m/%d',null=True)
+    comment_cnt = models.IntegerField(null=True)
 
     a_user_id = models.ForeignKey(USER, db_column='user_id', on_delete=models.CASCADE, null=False)
     board_id = models.ForeignKey(BOARD,  db_column='board_id', on_delete=models.CASCADE, null=False)

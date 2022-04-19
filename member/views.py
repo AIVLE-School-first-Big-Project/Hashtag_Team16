@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+import json
+from django.http import JsonResponse
 from .models import USER
 from django.utils import timezone
 from django.http import HttpResponse
@@ -37,9 +39,9 @@ def login_custom(request):
         # 회원정보 조회 실패시 예외 발생
         
         return render(request, 'member/login_custom.html')
-        #return redirect('member:login')
-        #return redirect('index')
+
     else:
+        # return JsonResponse(data, safe=False)
         return render(request, 'member/login_custom.html')
 
 #회원가입
@@ -72,4 +74,4 @@ def logout_custom(request):
 
     request.session.flush()
 
-    return render(request, 'member/login_custom.html')
+    return redirect('/')

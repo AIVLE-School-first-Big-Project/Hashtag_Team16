@@ -12,15 +12,17 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
     <title>HashTaig</title>
-    
+
     <!-- Bootstrap core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+
+    {% comment %} <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}"> {% endcomment %}
+    
 
   </head>
 
@@ -35,7 +37,7 @@
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
         <li><a href="#section1">Home</a></li>
-        <li><a href="member/login">Login</a></li>
+        <li><a href="javascript:showPopUp()">Login</a></li>
       </ul>
     </nav>
   </header>
@@ -51,7 +53,7 @@
               <h6># 으로 가치를 전하는 샵</h6>
               <h2><em>HashTaig</em> 입니다</h2>
               <div class="main-button">
-                  <div ><a href="member/login">Go to HashTaig</a></div>
+                  <div ><a href="javascript:showPopUp()">Go to HashTaig</a></div>
               </div>
           </div>
       </div>
@@ -168,8 +170,29 @@
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
   <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+  <script>
+    function show() {
+      document.querySelector(".background").className = "background show";}
+  </script>
 
-    <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+  <script type="text/javascript"> function showPopUp() {
+     //창 크기 지정
+      var width = 500; 
+      var height = 500; 
+      //pc화면기준 가운데 정렬 
+      var left = (window.screen.width / 2) - (width/2);
+      var top = (window.screen.height / 4); 
+      //윈도우 속성 지정 
+      var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+       //연결하고싶은url 
+       const url = "member/login"; 
+       //등록된 url 및 window 속성 기준으로 팝업창을 연다. 
+       window.open(url, "hello popup", windowStatus); 
+    }
+  </script>
+
+
+    {% comment %} <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
 
     <script src="{% static 'assets/js/isotope.min.js'%}"></script>
@@ -177,57 +200,8 @@
     <script src="{% static 'assets/js/lightbox.js'%}"></script>
     <script src="{% static 'assets/js/tabs.js'%}"></script>
     <script src="{% static 'assets/js/video.js'%}"></script>
-    <script src="{% static 'assets/js/slick-slider.js'%}"></script>
-    <script src="{% static 'assets/js/custom.js'%}"></script>
-    <script>
-        //according to loftblog tut
-        $('.nav li:first').addClass('active');
+    <script src="{% static 'assets/js/slick-slider.js'%}"></script> {% endcomment %}
 
-        {% comment %} var showSection = function showSection(section, isAnimate) {
-          var
-          direction = section.replace(/#/, ''),
-          reqSection = $('.section').filter('[data-section="' + direction + '"]'),
-          reqSectionPos = reqSection.offset().top - 0;
 
-          if (isAnimate) {
-            $('body, html').animate({
-              scrollTop: reqSectionPos },
-            800);
-          } else {
-            $('body, html').scrollTop(reqSectionPos);
-          }
-
-        }; {% endcomment %}
-
-        {% comment %} var checkSection = function checkSection() {
-          $('.section').each(function () {
-            var
-            $this = $(this),
-            topEdge = $this.offset().top - 80,
-            bottomEdge = topEdge + $this.height(),
-            wScroll = $(window).scrollTop();
-            if (topEdge < wScroll && bottomEdge > wScroll) {
-              var
-              currentId = $this.data('section'),
-              reqLink = $('a').filter('[href*=\\#' + currentId + ']');
-              reqLink.closest('li').addClass('active').
-              siblings().removeClass('active');
-            }
-          });
-        }; {% endcomment %}
-
-        {% comment %} $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
-          if($(e.target).hasClass('external')) {
-            return;
-          }
-          e.preventDefault();
-          $('#menu').removeClass('active');
-          showSection($(this).attr('href'), true);
-        });
-
-        $(window).scroll(function () {
-          checkSection();
-        }); {% endcomment %}
-    </script>
 </body>
 </html>

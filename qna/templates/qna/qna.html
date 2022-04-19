@@ -241,96 +241,22 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- 게시글 -->
+                          {% for w in write_date_list %}
                           <tr>
-                            <td><!-- 체크박스 
+                            <td>
                               <div class="form-check form-check-muted m-0">
                                 <label class="form-check-label">
                                   <input type="checkbox" class="form-check-input">
                                 </label>
-                              </div>-->
+                              </div>
                             </td>
-                            <td> 1 </td>  <!-- 게시글 넘버 -->
-                            <td style="text-align: center;"> ai대구경북 인원 전원 kt합격 </td>    <!-- 게시글 제목 -->
-                            <td> 윤지민 </td>   <!-- 작성자 -->
-                            <td> 현재시간 </td> <!-- 작성시간 -->
-                            <!--<td> <div class="badge badge-outline-success">윤지민 화이팅</div> </td> 네온사인 초록색-->
-                          </tr>
-                          <tr>
+                            <td> {{w.article_id}} </td>
+                            <td style="width: 60%; height: 48.5; padding-left: 5%;"> {{w.title}} [{{w.comment_cnt}}] </td>
+                            <td> {{w.user_id}} </td>
+                            <td> {{w.date}} </td>
                             <td>
-                            </td>
-                            <td> 2 </td>
-                            <td style="text-align: center;"> 02312313123131231232132131232 </td>
-                            <td> $14,500 </td>
-                            <td> 04 Dec 2019 </td>
-                            <!-- <td> <div class="badge badge-outline-warning">손현우 화이팅</div> </td> 노란색 -->
                           </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 3 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> App design </td>
-                            <!-- <td> <div class="badge badge-outline-danger">Rejected</div> </td> 빨간색 -->
-                          </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 4 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Development </td>
-                          </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 5 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                          </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 6 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                          </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 7 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                          </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 8 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                          </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 9 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                          </tr>
-                          <tr>
-                            <td>
-                            </td>
-                            <td> 10 </td>
-                            <td style="text-align: center;"> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                          </tr>
-                          <!-- 게시글 끝 -->
+                          {% endfor%}
                         </tbody>
                       </table>
                     </div>

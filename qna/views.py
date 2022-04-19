@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from qna.models import ARTICLE
+from qna.models import *
 
 # Create your views here.
 

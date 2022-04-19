@@ -8,7 +8,7 @@ https://templatemo.com/tm-557-grad-school
 
 
 @import url(fontawesome.css);
-@import url("<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">");
+@import url("<link href='https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900' rel='stylesheet'>");
 body {
     font-family: 'Montserrat', sans-serif;
 }
@@ -230,7 +230,7 @@ a.menu-link { display: none; }
 .main-menu li .sub-menu {
     position: absolute;
     width: 160px;
-    background-color: #18233a;
+    background-color: #313131;
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s;
@@ -247,7 +247,7 @@ a.menu-link { display: none; }
     margin-left: 0px;
     margin-bottom: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #121b2f;
+    border-bottom: 1px solid #303030;
 }
 
 .main-menu li .sub-menu li:first-child {
@@ -311,7 +311,7 @@ a.menu-link { display: none; }
 
 .video-overlay {
     position: absolute;
-    background-color: rgba(22,34,57,0.85);
+    background-color: rgba(37, 37, 37, 0.85);
     top: 0;
     left: 0;
     bottom: 7px;
@@ -402,7 +402,7 @@ section.features .col-4 {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #0c1228;
+  background-color: #303030;
   color: #fff;
   padding: 40px;
 }
@@ -1529,7 +1529,7 @@ section.contact form button {
 /* Footer */
 
 footer {
-    background-color: #152036;
+    background-color: #131313;
     text-align: center;
 }
 

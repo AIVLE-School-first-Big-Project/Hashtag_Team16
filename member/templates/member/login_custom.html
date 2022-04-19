@@ -1,21 +1,217 @@
-<form method="post" action="{% url 'member:login_custom' %}">
-    {% csrf_token %}
-    아이디 : <input type="text" name="user_id"><br>
-    비밀번호 : <input type="text" name="user_pw"><br>
-    <input type="submit" value="로그인">
-</form>
+<!DOCTYPE html>
+{% load static %}
 
-{% comment %} {% if request.session.user_id %}
-  {{ request.session.user_name }} 님 반갑습니다.
-{% else %}
-  <p>현재 상태 : Guest</p>
-{% endif %} {% endcomment %}
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>HashTaig</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+      .login-page {
+        width: 360px;
+        padding: 8% 0 0;
+        margin: auto;
+      }
+      .form {
+        position: absolute;
+        z-index: 1;
+        background: #ffffff00;
+        width: 430px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        top: 120%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .form input {
+        font-family: "Roboto", sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+      .form button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #f5a425;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+      }
+      .form button:hover,.form button:active,.form button:focus {
+        background: #d6840a;
+      }
+      .form .message {
+        margin: 15px 0 0;
+        color: #b3b3b3;
+        font-size: 12px;
+      }
+      .form .message a {
+        color: #d6840a;
+        text-decoration: none;
+      }
+      .form .register-form {
+        display: none;
+      }
+      .container2 {
+        position: relative;
+        z-index: 1;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      .container2:before, .container2:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .container2 .info {
+        margin: 50px auto;
+        text-align: center;
+      }
+      .container2 .info h1 {
+        margin: 0 0 15px;
+        padding: 0;
+        font-size: 36px;
+        font-weight: 300;
+        color: #1a1a1a;
+      }
+      .container2 .info span {
+        color: #4d4d4d;
+        font-size: 12px;
+      }
+      .container2 .info span a {
+        color: #000000;
+        text-decoration: none;
+      }
+      .container2 .info span .fa {
+        color: #EF3B3A;
+      }
+
+    </style>
+
+  </head>
+
+<body>
+   
+  <!--header-->
+  <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
+    <div style='font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);'>
+    <em style="font-style: normal;color: #f5a425;">LOG</em>IN
+    </div>
 
 
-{% if request.session.user_id %}
-  <a href="{% url 'member:logout_custom' %}">
-    {{ request.session.user_name }} 님 반갑습니다. (로그아웃)
-  </a>
-{% else %}
-  <p>현재 상태 : Guest </p>
-{% endif %}
+    </nav>
+  </header>
+
+  <section class="section why-us" data-section="section2" style='padding-bottom: 294px;'>
+    <div class="container2">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            <h2>정보를 입력해주세요</h2>
+
+            <div class="login-page">
+              <div class="form">
+                <form class="register-form">
+                  <input type="text" placeholder="name"/>
+                  <input type="password" placeholder="password"/>
+                  <input type="text" placeholder="email address"/>
+                  <button>create</button>
+                  <p class="message">Already registered? <a href="#">Sign In</a></p>
+                </form>
+
+                <form class="login-form"  method="post" action="{% url 'member:login_custom' %}">
+                  {% csrf_token %}
+                  <input type="text" placeholder="username" name="user_id"/>
+                  <input type="password" placeholder="password" name="user_pw"/>
+                  <button type="submit">login</button>
+                  <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </form>
+
+                  <div >
+                    {% if request.session.user_id %}
+                    <a href="{% url 'member:logout_custom' %}" style="color:white; padding : 15px; font-size: 18px;">
+
+                      <script>
+                        alert('로그인 되었습니다!')
+                      </script>
+
+                      {{ request.session.user_name }} 님 반갑습니다. (로그아웃)
+
+                        <script language="javascript" type="text/javascript">
+                          
+                          opener.location.href = '/main/'; //부모창 리프레쉬
+                          self.close(); //현재창 닫기
+                          
+                        </script>
+                    </a>
+                    {% else %}
+
+                    {% endif %}
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> made 2022 by DGU  
+          
+           | Designer: <a rel="sponsored" target="_parent">SonHyeonWoo</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    $('.message a').click(function(){
+      $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+    });
+  </script>
+
+
+
+</body>
+</html>

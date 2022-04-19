@@ -44,3 +44,11 @@ def signup_custom(request):
             '가입 완료<br>%s %s %s' % (user_id, user_pw, user_name))
     else:
          return render(request, 'member/signup_custom.html')
+
+def logout_custom(request):
+    del request.session['user_id']
+    del request.session['user_name']
+
+    request.session.flush()
+
+    return render(request, 'member/login_custom.html')

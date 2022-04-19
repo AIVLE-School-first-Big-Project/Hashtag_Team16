@@ -18,7 +18,7 @@ class USER(models.Model):
     birth_day = models.IntegerField(null=False)
     email = models.CharField(max_length=50, null=True)
     phone_num = models.CharField(max_length=20, null=True)
-    usage_count = models.IntegerField(null=False)
+    usage_count = models.IntegerField(null=True)
 
     class Meta:
         db_table = 'user'

@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+import json
+from django.http import JsonResponse
 from .models import USER
 from django.utils import timezone
 from django.http import HttpResponse
@@ -37,14 +39,15 @@ def login_custom(request):
         # 회원정보 조회 실패시 예외 발생
         
         return render(request, 'member/login_custom.html')
-        #return redirect('member:login')
-        #return redirect('index')
+
     else:
+        # return JsonResponse(data, safe=False)
         return render(request, 'member/login_custom.html')
 
 #회원가입
 def signup_custom(request):
     if request.method == 'POST':
+        print('post')
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('pw')
         u_name = request.POST.get('name')
@@ -59,9 +62,10 @@ def signup_custom(request):
             birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email)
         u.date_joined = timezone.now()
         u.save()
-
-        return HttpResponse(
-                '가입 완료<br>%s %s %s' % (u_id, u_pw, u_name))
+        
+        data = {'good':'잘 저장되었음!'}
+        data =  json.dumps(data)
+        return JsonResponse(data, safe=False)
         #return redirect('../../')
     else:
         return render(request, 'member/signup_custom.html')
@@ -72,4 +76,4 @@ def logout_custom(request):
 
     request.session.flush()
 
-    return render(request, 'member/login_custom.html')
+    return redirect('/')

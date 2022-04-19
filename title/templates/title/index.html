@@ -20,8 +20,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
 
-    {% comment %} <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}"> {% endcomment %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
 
   </head>
@@ -37,7 +36,15 @@
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
         <li><a href="#section1">Home</a></li>
-        <li><a href="javascript:showPopUp()">Login</a></li>
+          {% if request.session.user_id %}
+
+          <li><a href="javascript:Logout()">Logout</a></li>
+          
+          {% else %}
+          <li><a href="javascript:showPopUp()">Login</a></li>
+          {% endif %}
+          
+          {% comment %} <a href="javascript:showPopUp()">Login</a></li> {% endcomment %}
       </ul>
     </nav>
   </header>
@@ -154,7 +161,6 @@
     </div>
   </section>
 
-
   <footer>
     <div class="container">
       <div class="row">
@@ -170,10 +176,6 @@
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
   <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
-  <script>
-    function show() {
-      document.querySelector(".background").className = "background show";}
-  </script>
 
   <script type="text/javascript"> function showPopUp() {
      //창 크기 지정
@@ -184,23 +186,20 @@
       var top = (window.screen.height / 4); 
       //윈도우 속성 지정 
       var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-       //연결하고싶은url 
-       const url = "member/login"; 
-       //등록된 url 및 window 속성 기준으로 팝업창을 연다. 
-       window.open(url, "hello popup", windowStatus); 
+      //연결하고싶은url 
+      const url = "member/login"; 
+      //등록된 url 및 window 속성 기준으로 팝업창을 연다. 
+
+      var new_popup = window.open(url, "hello popup", windowStatus);
     }
   </script>
 
+  <script type="text/javascript"> function Logout() {
+    alert("로그아웃 되었습니다.");
+    location.href = "member/logout"
 
-    {% comment %} <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
-
-    <script src="{% static 'assets/js/isotope.min.js'%}"></script>
-    <script src="{% static 'assets/js/owl-carousel.js'%}"></script>
-    <script src="{% static 'assets/js/lightbox.js'%}"></script>
-    <script src="{% static 'assets/js/tabs.js'%}"></script>
-    <script src="{% static 'assets/js/video.js'%}"></script>
-    <script src="{% static 'assets/js/slick-slider.js'%}"></script> {% endcomment %}
+  }
+  </script>
 
 
 </body>

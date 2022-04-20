@@ -22,6 +22,9 @@ def qna_board(request):
 
 
 def create(request):
+    ARTICLE.objects.create(
+        
+    )
     return render(request, 'qna/create.html')
 
 def post(request):

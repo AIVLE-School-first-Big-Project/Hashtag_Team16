@@ -30,8 +30,8 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="main"><img src="{% static 'assets/images/logo5.gif' %}" style = 'width:50%; height:auto; padding-top: 1%; margin-bottom: 1%;' alt="logo" /></a>
-          <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo5.gif' %}" style = 'width:50%; height:auto; padding-top: 1%; padding-bottom: 1%; padding-left:5%' alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
         </div>
         <ul class="nav">
           <!-- 좌측 프로필 -->
@@ -127,7 +127,7 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <ul class="navbar-nav w-100">
@@ -245,9 +245,9 @@
                           <tr>
                             <td>
                               <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
+                                <!--<label class="form-check-label">
                                   <input type="checkbox" class="form-check-input">
-                                </label>
+                                </label>-->
                               </div>
                             </td>
                             <td> {{w.article_id}} </td>

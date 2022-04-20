@@ -7,6 +7,6 @@ app_name = 'qna'
 urlpatterns = [
     path('', views.qna_board, name='qna_board'),
     path('create/', views.create, name='qna_create'),
-    path('post/', views.post, name='qna_post'),
+    path('post/<int:pk>/', views.post, name='qna_post'),
 ]
 

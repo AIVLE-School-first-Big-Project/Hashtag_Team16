@@ -96,22 +96,22 @@ DATABASES = {
 
 DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter', 'member.router.DBRouter', 'qna.router.DBRouter','mypage.router.DBRouter' ]
 
-LOGGING = {
-    'version':1,
-    'disable_existing_loggers':False,
-    'handlers' : {
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
-        }
-    },
-    'loggers':{
-        'django.db.backends':{
-            'handlers':['console'],
-            'level':'DEBUG',
-        },
-    }
-}
+# LOGGING = {
+#     'version':1,
+#     'disable_existing_loggers':False,
+#     'handlers' : {
+#         'console':{
+#             'level':'DEBUG',
+#             'class':'logging.StreamHandler',
+#         }
+#     },
+#     'loggers':{
+#         'django.db.backends':{
+#             'handlers':['console'],
+#             'level':'DEBUG',
+#         },
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -149,7 +149,15 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images)s
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'title', 'static'),
+)
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# )

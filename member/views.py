@@ -9,7 +9,7 @@ from django.http import HttpResponse
 # Create your views here.
 from .models import USER
 
-app_name = 'member'
+# app_name = 'member'
 
 # Create your views here.
 
@@ -32,15 +32,21 @@ def login_custom(request):
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
         except USER.DoesNotExist as e:
-            return HttpResponse('로그인 실패')
+            status = {'status' : 'F'}
+            # status = json.dumps(status)
+            
+            return JsonResponse(status)
         else:
+            print('login')
             request.session['user_id'] = user.user_id
             request.session['user_name'] = user.name
         # 회원정보 조회 실패시 예외 발생
-        
-        return render(request, 'member/login_custom.html')
+        status = {'status' : 'T'}
+        # status = json.dumps(status)
+        return JsonResponse(status)
 
     else:
+        print('get')
         # return JsonResponse(data, safe=False)
         return render(request, 'member/login_custom.html')
 
@@ -64,7 +70,7 @@ def signup_custom(request):
         u.date_joined = timezone.now()
         u.save()
         
-        data = {'good':'잘 저장되었음!'}
+        data = {'status':True}
         data =  json.dumps(data)
         return JsonResponse(data, safe=False)
         #return redirect('../../')

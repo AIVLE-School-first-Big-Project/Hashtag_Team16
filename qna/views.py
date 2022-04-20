@@ -21,6 +21,8 @@ def qna_board(request):
 
     return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1)})
 
+def qna_write(request):
+    return render(request, 'qna/qna_write.html')
 
 #def index(request):
 #    return render(request, 'qna/qna.html')

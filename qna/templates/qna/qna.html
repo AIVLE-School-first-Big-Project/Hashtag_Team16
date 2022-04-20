@@ -241,7 +241,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for w in write_date_list %}
+                          {% for w in info %}
                           <tr>
                             <td>
                               <div class="form-check form-check-muted m-0">
@@ -270,10 +270,17 @@
             <div class="row ">
               <div class="col-12 grid-margin">
                 <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
-                  <th>1</th>
-                  <th>2</th>
-                  <th>3</th>
-                  <th>4</th>
+                  <ul class='pagination'>
+                    <button type="button">◀</button>
+                    {% for i in page_range %}
+                      <li>
+                        <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
+                          <button type="button">{{ i }}</button>
+                        </a>
+                      </li>
+                    {% endfor %}
+                    <button type="button">▶</button>
+                  </ul>
                 </div>
               </div>
             </div>

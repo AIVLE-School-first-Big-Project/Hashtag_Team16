@@ -24,5 +24,8 @@ def qna_board(request):
 def create(request):
     return render(request, 'qna/create.html')
 
+def post(request):
+    return render(request, 'qna/post.html')
+
 #def index(request):
 #    return render(request, 'qna/qna.html')

@@ -7,3 +7,6 @@ from .models import USER
 # Create your views here.
 
 app_name = 'mypage'
+
+def mypage(request):
+    return render(request, 'mypage/mypage.html')

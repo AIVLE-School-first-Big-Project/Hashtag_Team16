@@ -109,7 +109,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/qna/">
+            <a class="nav-link" href="http://127.0.0.1:8000/mypage/">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
@@ -178,7 +178,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
+                    <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
                     <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
@@ -225,9 +225,9 @@
             <div class="row">
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body" style="height: 55vh;">
                     <h4 class="card-title" style="text-align: center;">이미지를 첨부해 주세요</h4>
-                    <div style="position: relative; top: 80%;">
+                    <div style="position: relative; top: 75%;">
                       <div style="padding: 10px; background-color: rgb(68, 69, 74); border-radius: 1em;">
                         <form name="이 폼의 이름" action="image" method="post" enctype="multipart/form-data">
                           <input type='file' name='' />
@@ -240,10 +240,10 @@
               <!---->
               <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body" style="width: 50vw;">
                     <div class="d-flex flex-row justify-content-between">
                       <div class="card-title mb-1"><h4>#해시태그 생성</h4>
-                        <div style="width: 50vw; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 1em; padding-top: 6%;">
+                        <div style="width: 48vw; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding-top: 6%;">
                           <p style="float: left; padding-left: 5%;">#취업해야디</p>
                           <p style="float: left; padding-left: 1%;">#KT</p>
                           <p style="float: left; padding-left: 1%;">#에이블스쿨</p>
@@ -257,8 +257,8 @@
                   <div class="card-body">
                     <div class="d-flex flex-row justify-content-between">
                       <div class="card-title mb-1"><h4>#글귀 생성</h4>
-                        <div style="width: auto; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 1em;">
-                          <p style="width: 50vw; padding: 6%;"> 에이블스쿨 대구경북 1반 에이블러들이 전부 kt에 취업했다.</p>
+                        <div style="width: 48vw; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em;">
+                          <p style="width: 48vw; padding-left: 8%; padding: 6%;"> 에이블스쿨 대구경북 1반 에이블러들이 전부 kt에 취업했다.</p>
                         </div>
                       </div>
                     </div>

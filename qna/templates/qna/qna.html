@@ -109,7 +109,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/qna/">
+            <a class="nav-link" href="http://127.0.0.1:8000/mypage/">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
@@ -251,7 +251,7 @@
                               </div>
                             </td>
                             <td> {{w.article_id}} </td>
-                            <td style="width: 60%; height: 48.5; padding-left: 5%;"> {{w.title}} [{{w.comment_cnt}}] </td>
+                            <td style="width: 60%; height: 48.5; padding-left: 5%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/post'"><u>{{w.title}} [{{w.comment_cnt}}] </u></td>
                             <td> {{w.user_id}} </td>
                             <td> {{w.date}} </td>
                             <td>

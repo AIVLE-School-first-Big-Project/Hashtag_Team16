@@ -192,17 +192,23 @@
       const url = "member/login"; 
       //등록된 url 및 window 속성 기준으로 팝업창을 연다. 
 
-      var new_popup = window.open(url, "hello popup", windowStatus);
-    }
+      window.name = "title";
+      // window name 
+      var newWindow;
+      newWindow = window.open('member/login',"login", windowStatus);
+      };
+
+    
+  </script>
+
+  <script>
+
   </script>
 
   <script type="text/javascript"> function Logout() {
     alert("로그아웃 되었습니다.");
     location.href = "member/logout"
-
   }
   </script>
-
-
 </body>
 </html>

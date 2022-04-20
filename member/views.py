@@ -24,7 +24,6 @@ def login_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
-        print(u_id, u_pw)
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
         except USER.DoesNotExist as e:
@@ -44,8 +43,6 @@ def login_custom(request):
 #회원가입
 def signup_custom(request):
     if request.method == 'POST':
-        print('post')
-        
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('pw')
         u_name = request.POST.get('name')

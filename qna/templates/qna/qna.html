@@ -262,8 +262,7 @@
                     </div>
                   </div>
                   <div>
-                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;">글 삭제</button>
-                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;">글 작성</button>
+                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>
@@ -273,13 +272,13 @@
                 <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
                   <ul class='pagination'>
                     <button type="button">◀</button>
-                    {% for i in page_range %}
-                      <li>
-                        <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
-                          <button type="button">{{ i }}</button>
-                        </a>
-                      </li>
-                    {% endfor %}
+                      {% for i in page_range %}
+                        <li>
+                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
+                            <button type="button">{{ i }}</button>
+                          </a>
+                        </li>
+                      {% endfor %}
                     <button type="button">▶</button>
                   </ul>
                 </div>

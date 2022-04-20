@@ -19,7 +19,6 @@ from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
     path('', include('title.urls')),
     path('member/', include('member.urls', namespace='member')), #셂
     

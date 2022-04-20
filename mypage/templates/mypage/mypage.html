@@ -230,39 +230,61 @@
                   <div class="card-body">
                     <h4 class="card-title">마이페이지</h4>
                     <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th> </th>
-                            <th style="width: 10%; height: 48.5;"> No </th>
-                            <th style="width: 50%; height: 48.5; text-align: center;"> 제목 </th>
-                            <th style="width: 20%; height: 48.5;"> 작성자 </th>
-                            <th style="width: 20%; height: 48.5;"> 작성시간 </th>
+                      <table class="table" style="margin-bottom: 4%;">
+                          <tr style="width: 10%; height: 48.5;"> 
+                            <h3 style="float: left; margin-top: 1%; margin-left: 5%;">윤지민</h3>
+                            <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
+                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;">회원정보 수정</button>
+                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;">비밀번호 수정</button>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {% for w in info %}
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <!--<label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>-->
-                              </div>
-                            </td>
-                            <td> {{w.article_id}} </td>
-                            <td style="width: 60%; height: 48.5; padding-left: 5%;"> {{w.title}} [{{w.comment_cnt}}] </td>
-                            <td> {{w.user_id}} </td>
-                            <td> {{w.date}} </td>
-                            <td>
-                          </tr>
-                          {% endfor%}
-                        </tbody>
                       </table>
+                      <hr color="grey" style="height: 5%;">
+                      <div>
+                        <h4 style="float: left; margin-top: 1%; margin-left: 5%;">사용 내역</h4>
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th> </th>
+                                <th style="width: 10%; height: 48.5;"><b> No </b></th>
+                                <th style="width: 20%; height: 48.5;"><b> 사용 날짜 </b></th>
+                                <th style="width: 20%; height: 48.5;"><b> 이미지 파일명 </b></th>
+                                <th style="width: 40%; height: 48.5; text-align: center;"><b> 추천 해시태그 </b></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!--
+                              {% for w in info %}
+                              <tr>
+                                <td>
+                                </td>
+                                <td> {{w.article_id}} </td>
+                                <td style="width: 60%; height: 48.5; padding-left: 5%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/post'"><u>{{w.title}} [{{w.comment_cnt}}] </u></td>
+                                <td> {{w.user_id}} </td>
+                                <td> {{w.date}} </td>
+                                <td>
+                              </tr>
+                              {% endfor%}
+                              -->
+                              <tr>
+                                <th> </th>
+                                <th style="width: 10%; height: 48.5; font-weight: normal;"> 2 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 22.04.20 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 셀카.jpg </th>
+                                <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #정우성, #장동건, #강동원, #and 나, #동원참치, #잘생김 </th>
+                              </tr>
+                              <tr>
+                                <th> </th>
+                                <th style="width: 10%; height: 48.5; font-weight: normal;"> 1 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 22.04.19 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 강아지.jpg </th>
+                                <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #큐트, #귀엽, #커엽, #댕댕, #강아지, #말티즈 </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>

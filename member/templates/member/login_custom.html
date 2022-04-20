@@ -27,6 +27,7 @@
         }
         return cookieValue;
     }
+
     </script>
 
     <title>HashTaig</title>
@@ -66,36 +67,15 @@
             <div class="login-page">
               <div class="form" style='top:110%;'>
 
-                <form class="login-form" method="post">
+                <form class="login-form">
                   {% csrf_token %}
                   <input type="text" placeholder="username" name="user_id"/>
                   <input type="password" placeholder="password" name="user_pw"/>
-                  <button type="submit" onclick="login();">login</button>
+                  <button type="button" onclick="login();">login</button>
                   <p class="message">Not registered? <a href="/member/signup">Create an account</a></p>
                 </form>
 
-                  {% comment %} <div >
-                    {% if request.session.user_id %}
-                    <a href="{% url 'member:logout_custom' %}" style="color:white; padding : 15px; font-size: 18px;">
 
-                      <script>
-                        alert('로그인 되었습니다!')
-                      </script>
-
-                      {{ request.session.user_name }} 님 반갑습니다. (로그아웃)
-
-                        <script language="javascript" type="text/javascript">
-                          
-                          opener.location.href = '/main/'; //부모창 리프레쉬
-                          self.close(); //현재창 닫기
-                          
-                        </script>
-                    </a>
-                    {% else %}
-
-
-                    {% endif %}
-                  </div> {% endcomment %}
               </div>
             </div>
           </div>
@@ -121,6 +101,11 @@
 </script>
 
 <script>
+  function sleep(ms) {
+    const wakeUpTime = Date.now() + ms;
+    while (Date.now() < wakeUpTime) {}
+  };
+
   function login() {
       var form = document.getElementsByClassName('login-form');
       const myformData = new FormData();
@@ -144,19 +129,16 @@
             },
           success : function(result) {
               if (result.status == 'T') {
-                console.log(result.status);
                 alert("로그인 완료!");
-                opener.location.href = '/main/'; //부모창 리프레쉬
-                self.close(); //현재창 닫기
+                opener.location.href = '/main'
+                window.close();
               } else {
-                console.log(result.status);
                 alert("로그인 실패!");
-                opener.location.href = '/';
-                self.close(); //현재창 닫기
+                opener.location.reload();
+                window.close();
               }
             }});
       };
 </script>
-
 </body>
 </html>

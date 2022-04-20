@@ -10,22 +10,22 @@ def qna_board(request):
     qna_list = ARTICLE.objects.all()
     write_date_list = qna_list.order_by('-date')
     p = Paginator(write_date_list, 10)
-
     now_page = int(now_page)
-
     info = p.get_page(now_page)
     start_page = (now_page - 1) // 10 * 10 + 1
     end_page = start_page + 9
     if end_page > p.num_pages:
         end_page = p.num_pages
 
+        
     return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1)})
 
-def qna_write(request):
+
+def create(request):
     ARTICLE.objects.create(
         
     )
-    return render(request, 'qna/qna_write.html')
+    return render(request, 'qna/create.html')
 
 #def index(request):
 #    return render(request, 'qna/qna.html')

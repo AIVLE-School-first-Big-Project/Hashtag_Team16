@@ -57,7 +57,7 @@ def signup_custom(request):
 
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
-            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email)
+            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0)
         u.date_joined = timezone.now()
         u.save()
         

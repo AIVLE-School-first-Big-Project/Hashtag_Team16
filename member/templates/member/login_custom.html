@@ -130,10 +130,11 @@
           success : function(result) {
               if (result.status == 'T') {
                 alert("로그인 완료!");
+                opener.location.href = '/main'
                 window.close();
- 
               } else {
                 alert("로그인 실패!");
+                opener.location.reload();
                 window.close();
               }
             }});

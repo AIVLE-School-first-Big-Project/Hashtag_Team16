@@ -179,6 +179,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
 
+
   <script type="text/javascript"> function showPopUp() {
      //창 크기 지정
       var width = 500; 
@@ -197,13 +198,56 @@
       var newWindow;
       newWindow = window.open('member/login',"login", windowStatus);
       };
+  </script>
 
+  {% comment %} <script>
+    var openDialog = function(url, name, options, closeCallback){
+      var win = window.open(url, name, options);
+      var interval = window.setInterval(function(){
+        try{
+          if (win == null || win.closed) {
+            window.clearInterval(interval);
+            closeCallback(win);
+          }
+        }
+        catch (e){
+        }
+      }, 1000);
+      return win;
+    }
     
-  </script>
+    var url = 'member/login';
+    var popupName = 'login';
 
-  <script>
+    //창 크기 지정
+    var width = 500; 
+    var height = 500; 
+    //pc화면기준 가운데 정렬 
+    var left = (window.screen.width / 2) - (width/2);
+    var top = (window.screen.height / 4); 
 
-  </script>
+    var options = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+
+    function showPopUp() {
+      openDialog(url, popupName, options, function(win){
+        alert("뭔데");
+        
+      })
+    };
+
+  </script> {% endcomment %}
+
+  <!-- <script>
+    var popup;
+    function showPopUp() {
+      
+      popup = window.open('member/login', "팝업창", "width = 500, height = 500, top = 50, left = 50, location = no");
+
+      popup.addEventListener('beforeunload', function() {
+        window.location.reload();
+      });
+    }
+  </script> -->
 
   <script type="text/javascript"> function Logout() {
     alert("로그아웃 되었습니다.");

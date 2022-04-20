@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
@@ -8,8 +7,6 @@ from django.http import HttpResponse
 
 # Create your views here.
 from .models import USER
-
-# app_name = 'member'
 
 # Create your views here.
 
@@ -24,7 +21,6 @@ def user(request):
 
 
 def login_custom(request):
-    #user_list = USER.objects.all()
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
@@ -32,21 +28,18 @@ def login_custom(request):
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
         except USER.DoesNotExist as e:
-            status = {'status' : 'F'}
-            # status = json.dumps(status)
-            
+            status = {'status' : 'F'}           
             return JsonResponse(status)
         else:
-            print('login')
+            status = {'status' : 'T'}
             request.session['user_id'] = user.user_id
             request.session['user_name'] = user.name
         # 회원정보 조회 실패시 예외 발생
-        status = {'status' : 'T'}
-        # status = json.dumps(status)
-        return JsonResponse(status)
+
+            
+            return JsonResponse(status)
 
     else:
-        print('get')
         # return JsonResponse(data, safe=False)
         return render(request, 'member/login_custom.html')
 

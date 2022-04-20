@@ -25,6 +25,7 @@ def qna_board(request):
 def create(request):  
     if request.method == 'POST':
         print('save0')
+        #a_id += 1;
         article = ARTICLE(
             #article_id = ARTICLE.objects.filter(article_id = pk)[0] ,
             article_id = 5,
@@ -46,8 +47,12 @@ def create(request):
         print("save2")
         return render(request, 'qna/create.html')
 
-def post(request):
-    return render(request, 'qna/post.html')
+def post(request, pk):
+    poster = ARTICLE.objects.get(article_id = pk)
+    p_title = poster.title
+    p_content = poster.content
+
+    return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content})
 
 #def index(request):
 #    return render(request, 'qna/qna.html')

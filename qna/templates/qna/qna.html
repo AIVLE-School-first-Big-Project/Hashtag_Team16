@@ -272,13 +272,13 @@
                 <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
                   <ul class='pagination'>
                     <button type="button">◀</button>
-                    {% for i in page_range %}
-                      <li>
-                        <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
-                          <button type="button">{{ i }}</button>
-                        </a>
-                      </li>
-                    {% endfor %}
+                      {% for i in page_range %}
+                        <li>
+                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
+                            <button type="button">{{ i }}</button>
+                          </a>
+                        </li>
+                      {% endfor %}
                     <button type="button">▶</button>
                   </ul>
                 </div>

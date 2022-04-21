@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-        'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'big': { # bigproject에 사용할 데이터베이스 설정 추가
+    #     'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+    'default': { # bigproject에 사용할 데이터베이스 설정 추가
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'big_proj',
     'USER': 'root',
@@ -153,10 +153,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)s
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'title', 'static'),
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'title', 'static'),
 )
 # STATICFILES_FINDERS = (
 #     'django.contrib.staticfiles.finders.FileSystemFinder',

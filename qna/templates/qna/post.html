@@ -25,6 +25,16 @@
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+  
+  <script type='text/javascript'>
+    function removeCheck(){ 
+        if (confirm("삭제") == true){    //확인
+            document.getElementById('del').submit();
+        }else{   //취소
+            return false;
+        }
+    }
+</script>
 </head>
 
 <body>
@@ -273,10 +283,16 @@
                   </div>
                 </div>
                 <div>
-                  <button style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
+                  <form id='upd' method = "POST">
+                    {% csrf_token %}
+                    <button name='update' style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna' ">글 수정</button>
-                  <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna' ">글 삭제</button>
+                  </form>
+                  <form id='del' method='POST'>
+                    {% csrf_token %}
+                    <button name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+                    onclick= 'removeCheck()'>글 삭제</button>
+                  </form>
                   <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna' ">뒤로</button>
                 </div>

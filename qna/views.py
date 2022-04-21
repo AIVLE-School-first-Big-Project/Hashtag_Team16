@@ -50,6 +50,7 @@ def create(request):
 def post(request, pk):
     
     poster = ARTICLE.objects.get(article_id = pk)
+    
     if request.method =='POST':
         if request.POST.get('cancel') == "삭제":
             poster.delete()

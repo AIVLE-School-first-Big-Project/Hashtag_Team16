@@ -8,6 +8,5 @@ app_name = 'mypage'
 urlpatterns = [
     path('', views.mypage, name='mypage'),
     path('modify/', views.modify, name='modify'),
-    path('changepw/', change_password, name='change_password'),
 ]
 

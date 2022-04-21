@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>HashTaig</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
@@ -30,7 +30,10 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo5.gif' %}" style = 'width:50%; height:auto; padding-top: 1%; padding-bottom: 1%; padding-left:5%' alt="logo" /></a>
+          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/">
+            <img src="{% static 'assets/images/logo3.svg' %}"
+            style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" />
+          </a>
           <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
         </div>
         <ul class="nav">
@@ -127,7 +130,9 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/">
+              <img src="{% static 'assets/images/logo-mini3.svg' %}" style = 'width:70%; height:auto;' alt="logo" />
+            </a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <ul class="navbar-nav w-100">
@@ -225,57 +230,41 @@
 
             <div class="row ">
               <div class="col-12 grid-margin">
-                <div class="card" style="height: 72vh;">
+                <div class="card" style="height: 86vh;">
                   <div class="card-body">
                     <h4 class="card-title">마이페이지</h4>
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="height: 70vh;">
                       <table class="table" style="margin-bottom: 4%;">
-                          <tr style="width: 10%; height: 48.5;"> 
+                          <tr style="width: 10%;"> 
                             <h3 style="float: left; margin-top: 1%; margin-left: 5%;">윤지민</h3>
                             <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
                           </tr>
                       </table>
-                      <table>
-                        <div style="margin-left: 40%; padding-bottom: 3%; padding-top: 5%;">
+                      <div>
+                        <div style="margin-left: 38%; padding-bottom: 3%;">
                           <h4 style="display: inline;"> 아이디 </h4>
                           <h4 style="display: inline;"> : dasdasdasd </h4>
                         </div>
-                        <div style="margin-left: 40%; padding-bottom: 3%; padding-top: 3%;">
+                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
                           <h4 style="display: inline;"> 이메일 </h4>
                           <h4 style="display: inline;"> : dasdas@dasd.com </h4>
                           <button style="margin-left: 2%;"> 변경 </button>
                         </div>
-                        <div style="margin-left: 40%; padding-bottom: 3%; padding-top: 3%;">
+                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
                           <h4 style="display: inline;"> 생년월일 </h4>
                           <h4 style="display: inline;"> : 1996-08-02 </h4>
                           <button style="margin-left: 2%;"> 변경 </button>
                         </div>
-                        <div style="margin-left: 40%; padding-bottom: 3%; padding-top: 3%;">
+                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
                           <h4 style="display: inline;"> phone</h4>
                           <h4 style="display: inline;"> : 010-0000-0000 </h4>
                           <button style="margin-left: 2%;"> 변경 </button>
                         </div>
-                      </table>
-                      <hr color="grey" style="height: 5%;">
+                      </div>
+                      <button style="margin-left: 2%; position:absolute; bottom:4%; left: 40%;"> 확인 </button>
+                      <button style="margin-left: 2%; position:absolute; bottom:4%; left: 45%;"> 뒤로 </button>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col-12 grid-margin">
-                <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
-                  <ul class='pagination'>
-                    <button type="button">◀</button>
-                      {% for i in page_range %}
-                        <li>
-                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
-                            <button type="button">{{ i }}</button>
-                          </a>
-                        </li>
-                      {% endfor %}
-                    <button type="button">▶</button>
-                  </ul>
                 </div>
               </div>
             </div>

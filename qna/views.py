@@ -95,6 +95,8 @@ def logout_custom(request):
 
 #     return render(request, 'qna/post.html')
 
+def p_modify(request):
+    return render(request, 'qna/p_modify.html')
 
 
 #def index(request):

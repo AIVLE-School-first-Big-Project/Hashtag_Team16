@@ -9,8 +9,6 @@ from django.http import HttpResponse
 # Create your views here.
 from .models import USER
 
-app_name = 'member'
-
 # Create your views here.
 
 # user 출력

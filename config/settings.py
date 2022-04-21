@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'title',
     'member',
     'qna',
-    'mypage'
+    'mypage',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

@@ -2,6 +2,8 @@ from django.urls import path
 from .views import *
 from member.views import *
 
+app_name = 'member'
+
 urlpatterns = [
     path('line/', user, name='line'),
     path('login/', login_custom, name='login_custom'),

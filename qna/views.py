@@ -24,27 +24,30 @@ def qna_board(request):
 
 def create(request):  
     if request.method == 'POST':
-        print('save0')
-        #a_id += 1;
+        print(ARTICLE.objects.order_by('-article_id').first().article_id)
+        
         article = ARTICLE(
             #article_id = ARTICLE.objects.filter(article_id = pk)[0] ,
-            article_id = 5,
+            article_id = ARTICLE.objects.order_by('-article_id').first().article_id + 1,
             board = BOARD.objects.get(board_name='qna게시판'),
             #a_user_id=USER.objects.get(u_id=request.session['u_id']),
-            user = USER.objects.get(user_id='hw'),
+            user = USER.objects.get(user_id=request.session['user_id']),
+            # user = request.session['user_id'],
             title = request.POST.get('title'),
             content = request.POST.get('content'),
             date = timezone.now(),
             image = None,
             comment_cnt = 0
             )
+        print(article.content)
+        if (article.content == '') or (article.title == ''):
+            data = {'status':'F'}
+            return JsonResponse(data)
+        
         article.save()
-        print('save1')
-        data = {'status':True}
-        data =  json.dumps(data)
-        return JsonResponse(data, safe=False)
+        data = {'status':'T'}
+        return JsonResponse(data)
     else:
-        print("save2")
         return render(request, 'qna/create.html')
 
 def post(request, pk):

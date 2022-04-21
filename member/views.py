@@ -45,22 +45,39 @@ def signup_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('pw')
+        u_pw2 = request.POST.get('pw2')
         u_name = request.POST.get('name')
-        b_year = request.POST.get('birth_year')
-        b_month = request.POST.get('birth_month')
-        b_day = request.POST.get('birth_day')
+        b_date = request.POST.get('birth_date')
         p_num = request.POST.get('phone_num')
         email = request.POST.get('email')
+        
+        b_year, b_month, b_day = b_date[:4], b_date[5:7], b_date[8:]
+        
+                
+        if (u_id=='') or (u_pw=='') or (u_name=='') or (b_date=='') or (p_num=='') or (email==''):
+            data = {'status': 'empty_error'}
+            return JsonResponse(data)
 
+        if USER.objects.filter(user_id = u_id).exists():
+            data = {'status': 'id_error'}
+            return JsonResponse(data)    
+        
+        if (u_pw != u_pw2):
+            data = {'status':'pw_error'}
+            return JsonResponse(data)
+        
+        if ('@' not in email):
+            data = {'status':'email_error'}
+            return JsonResponse(data)
+        
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
             birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0)
         u.date_joined = timezone.now()
         u.save()
-        
-        data = {'status':True}
-        data =  json.dumps(data)
-        return JsonResponse(data, safe=False)
+
+        data = {'status':'T'}
+        return JsonResponse(data)
 
     else:
         return render(request, 'member/signup_custom.html')

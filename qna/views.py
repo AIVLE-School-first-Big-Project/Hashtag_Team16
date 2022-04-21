@@ -73,6 +73,9 @@ def logout_custom(request):
 
     return redirect('/')
 
+def p_modify(request):
+    return render(request, 'qna/p_modify.html')
+
 
 #def index(request):
 #    return render(request, 'qna/qna.html')

@@ -7,13 +7,30 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Corona Admin</title>
+  <title>HashTaig</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
   <!-- endinject -->
   <!-- Plugin css for this page -->
-
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script>
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  </script>
+  
   <link rel="stylesheet" href="{% static 'assets/vendors/jvectormap/jquery-jvectormap.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
@@ -25,16 +42,6 @@
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
-  
-  <script type='text/javascript'>
-    function removeCheck(){ 
-        if (confirm("삭제") == true){    //확인
-            document.getElementById('del').submit();
-        }else{   //취소
-            return false;
-        }
-    }
-</script>
 </head>
 
 <body>
@@ -43,8 +50,8 @@
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
         <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/">
-          <img src="{% static 'assets/images/logo3.svg' %}"
-          style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" />
+          <img src="{% static 'assets/images/logo3.svg' %}" style='width:50%; height:auto; margin: 5%; padding-left:5%'
+            alt="logo" />
         </a>
         <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img
             src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
@@ -145,7 +152,7 @@
       <nav class="navbar p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
           <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/">
-            <img src="{% static 'assets/images/logo-mini3.svg' %}" style = 'width:70%; height:auto;' alt="logo" />
+            <img src="{% static 'assets/images/logo-mini3.svg' %}" style='width:70%; height:auto;' alt="logo" />
           </a>
         </div>
         <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -241,62 +248,34 @@
           </button>
         </div>
       </nav>
-
-      <!-- 여기부터 본문입니당 ㅎㅎ -->
+      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
+
+          <div class="row ">
             <div class="col-12 grid-margin">
-              <div class="card" style="height: 80vh;">
+              <div class="card" style="height: 86vh;">
                 <div class="card-body">
-                  <h4 class="card-title"></h4>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <p style="margin-left: 23%;">제목</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 3vh; background-color: #2b303f88;">
-                        <!--제목은 여기다가 작성하면 됩니둥-->
-                        <h4 style="color: rgb(108, 114, 147);">{{p_title}}</h4>
+                  <h4 class="card-title">글수정</h4>
+                  <div class="table-responsive" style="height: 70vh;">
+                    <div style="margin-top: 5%;">
+                      <div style="margin-left: 30%;">
+                        <form class="save-form">
+                          {% csrf_token %}
+                          <h4> 제목 </h4>
+                          <textarea name='title' style="width: 25.5vw; height: 4vh;">여기에 기존 데이터 입력하면 됨</textarea>
                       </div>
-                      <p style="margin-left: 23%; margin-top: 2%;">내용</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 35vh; background-color: #2b303f88;">
-                        <!--내용은 여기다가 작성하면 됩니둥-->
-                        <h5 style="color: rgb(108, 114, 147);">
-                          {{p_content}}
-                          {% comment %} 친구는 세월의 도둑이다.
-
-                          봄부터 흐르는 물은 겨울이 되어도 얼지 않듯이
-                          마음에서 우러나오는 우적은 역경이 닥친다고 해서 식지 않는다.
-                          불행했을 때 만난 친구는 가장 소중히 여겨야 한다.
-
-
-                          행복했을 때 함께 기쁨을 누리는 친구보다
-                          힘들 떄 슬픔을 덜어지는 친구를 더 많이 신뢰할 수 있다.
-
-                          부유했을 때는 친구를 사귀기 쉽지만,
-                          어려울 때는 눈을 씻고 찾아봐도 친구를 찾기 어렵다.
-
-                          누군가 진정한 우정을 나누고 있다 할지라도 그 우정을 지키려면 오랜 시간이 걸린다.
-
-                          짧은 시간 안에 많은 친구를 얻기란 불가능하다.
-                          왜냐하면 그들은 진정한 친구가 아니기 때문이다. {% endcomment %}
-                        </h5>
+                      <div style="margin-left: 30%; padding-bottom: 3%; padding-top: 1%;">
+                        <h4 style="margin-top: 2%;">내용</h4>
+                        <textarea name='content' style="width: 25.5vw;; height: 25vh;">여기에 기존 데이터 입력하면 됨</textarea>
                       </div>
-                    </table>
+                    </div>
+                    <button type="button" style="margin-left: 2%; position:absolute; bottom:4%; left: 39%;"
+                      onclick="save();"> 저장 </button>
+                    </form>
+                    <button style="margin-left: 2%; position:absolute; bottom:4%; left: 45%;"
+                      onclick="location.href = 'http://127.0.0.1:8000/qna'">취소</button>
                   </div>
-                </div>
-                <div>
-                  <form id='upd' method = "POST">
-                    {% csrf_token %}
-                    <button name='update' style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna/p_modify/' ">글 수정</button>
-                  </form>
-                  <form id='del' method='POST'>
-                    {% csrf_token %}
-                    <button name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick= 'removeCheck()'>글 삭제</button>
-                  </form>
-                  <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna' ">뒤로</button>
                 </div>
               </div>
             </div>
@@ -316,7 +295,6 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-
   <!-- container-scroller -->
   <!-- plugins:js 드롭다운 가능하게 하는 js-->
   <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
@@ -338,6 +316,46 @@
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page -->
+
+  <script>
+    function save() {
+      var form = document.getElementsByClassName('save-form');
+      const myformData = new FormData();
+      const csrftoken = getCookie('csrftoken');
+
+      myformData.append('title', form[0][1].value);
+      myformData.append('content', form[0][2].value);
+      //myformData.append('user', form[0][3].value);
+      //myformData.append('title', form[0][4].value);
+      //myformData.append('content', form[0][5].value);
+      //myformData.append('date', form[0][6].value);
+
+      $.ajax({
+        type: "POST",
+        url: "",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+        enctype: "multipart/form-data",
+        data: myformData,
+        processData: false,
+        contentType: false,
+
+        error: function () {
+          alert("fail!");
+        },
+        success: function (result) {
+          if (result.status == 'T') {
+            window.location.href = '/qna';
+            alert("등록 완료!");
+          } else {
+            window.location.href = '/qna/create';
+            alert("제목/내용을 입력해주세요");
+          }
+
+        }
+      });
+    };
+  </script>
 </body>
 
 </html>

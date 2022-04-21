@@ -4,9 +4,16 @@ from django.http import JsonResponse
 from .models import USER
 from django.utils import timezone
 from django.http import HttpResponse
+from django.contrib import auth 
+from django.contrib import messages
+# 나중에 쓸거야!
+# from django.contrib.auth.hashers import check_password
+# from django.contrib.auth import update_session_auth_hash 
+# from django.contrib.auth.forms import PasswordChangeForm
+# from django.contrib.auth.decorators import login_required 
+# from django.contrib.auth.hashers import make_password
 
-# Create your views here.
-from .models import USER
+
 
 # Create your views here.
 
@@ -89,3 +96,64 @@ def logout_custom(request):
     request.session.flush()
 
     return redirect('/')
+
+# 비밀번호 변경
+def change_password(request):
+
+    if request.method == "POST":
+        e =  USER.objects.get(user_id='sh', pw='2222')
+        request.session['user_id']= e.user_id
+        request.session['pw']= e.pw
+        user = USER.objects.get(user_id=request.session['user_id'], pw=request.session['pw'])
+        origin_password = request.POST["origin_password"]
+        
+        if origin_password==user.pw:
+            new_password = request.POST["new_password"]
+            confirm_password = request.POST["confirm_password"]
+            if new_password == confirm_password:
+
+                # user.set_password(new_password)
+                # user.save()
+                user.pw = new_password
+                user.save()
+                #auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect('../../member/line') #이거 변경 확인하려고 user 출력으로 넘어가도록 설정해놨어여
+            else:
+                return render(request, 'member/change_pw.html')
+        else:
+            return HttpResponse('<u>실!패!</u>')
+    else:
+        return render(request, 'member/change_pw.html')
+
+#회원정보 수정
+def change_info(request):
+    
+    if request.method == 'POST':
+        e =  USER.objects.get(user_id='hello', name = 'hello', email = 'hello@naver.com', phone_num = '010-1234-1234')
+        request.session['user_id']= e.user_id
+        request.session['name']= e.name
+        request.session['email']= e.email
+        request.session['phone_num']= e.phone_num
+        user = USER.objects.get(user_id=request.session['user_id'], 
+                                name = request.session['name'] , 
+                                email = request.session['email'], 
+                                phone_num = request.session['phone_num'])
+        user = request.user
+
+        new_name = request.POST.get('name')
+        new_email = request.POST.get('email')
+        
+        new_phone_num = request.POST.get('phone_num')
+        
+        
+        user.name = new_name
+        user.email = new_email
+        user.phone_num = new_phone_num
+
+        user.save()
+
+
+        return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
+
+    elif request.method == 'GET':
+        return render(request, 'member/change_info.html')

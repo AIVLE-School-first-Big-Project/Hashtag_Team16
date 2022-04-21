@@ -7,6 +7,7 @@ import json
 # Create your views here.
 
 def qna_board(request):
+    user = USER.objects.get(user_id=request.session['user_id']).user_id
     now_page = request.GET.get('page', 1)
     qna_list = ARTICLE.objects.all()
     write_date_list = qna_list.order_by('-date')
@@ -17,9 +18,9 @@ def qna_board(request):
     end_page = start_page + 9
     if end_page > p.num_pages:
         end_page = p.num_pages
-
+    
         
-    return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1)})
+    return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
 
 
 def create(request):  
@@ -64,7 +65,13 @@ def post(request, pk):
 
     return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content})
 
+def logout_custom(request):
+    del request.session['user_id']
+    del request.session['user_name']
 
+    request.session.flush()
+
+    return redirect('/')
 
 
 #def index(request):

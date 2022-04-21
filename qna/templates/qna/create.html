@@ -256,12 +256,12 @@
                         <p style="margin-left: 30%;">제목</p>
                         <input type="text" name='title' style="margin-left: 30%; width: 25.5vw;">
                         <p style="margin-left: 30%; margin-top: 2%;">내용</p>
-                        <input type="text" name='content' style="margin-left: 30%; width: 25.5vw;; height: 25vh;"><br>
+                        <textarea name='content' style="margin-left: 30%; width: 25.5vw;; height: 25vh;"></textarea>
                       </table>
                     </div>
                   </div>
                   <div>
-                    <button style="width: 5%; font-size: 80%; float: left; margin-left: 44%; margin-bottom: 5%;" onclick = "save();">저장</button>
+                    <button style="width: 5%; font-size: 80%; float: left; margin-left: 44%; margin-bottom: 5%;" onclick = "save(); location.href = ''" >저장</button>
                     <button style="width: 5%; font-size: 80%; float: left; margin-bottom: 5%;" onclick = "location.href = 'http://127.0.0.1:8000/qna' ">취소</button>
                   </form>
                   </div>

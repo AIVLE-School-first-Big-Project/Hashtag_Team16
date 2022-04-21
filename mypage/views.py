@@ -10,3 +10,6 @@ app_name = 'mypage'
 
 def mypage(request):
     return render(request, 'mypage/mypage.html')
+
+def modify(request):
+    return render(request, 'mypage/modify.html')

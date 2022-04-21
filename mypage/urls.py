@@ -6,4 +6,5 @@ from mypage import views
 
 urlpatterns = [
     path('', views.mypage, name='mypage'),
+    path('modify/', views.modify, name='modify'),
 ]

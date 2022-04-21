@@ -48,11 +48,20 @@ def create(request):
         return render(request, 'qna/create.html')
 
 def post(request, pk):
+    
     poster = ARTICLE.objects.get(article_id = pk)
+    if request.method =='POST':
+        if request.POST.get('cancel') == "삭제":
+            poster.delete()
+            return redirect('http://127.0.0.1:8000/qna')
+
     p_title = poster.title
     p_content = poster.content
 
     return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content})
+
+
+
 
 #def index(request):
 #    return render(request, 'qna/qna.html')

@@ -1,12 +1,144 @@
-<form method="post">
-    {% csrf_token %}
-    아이디 : <input type="text" name="user_id"><br>
-    비밀번호 : <input type="text" name="pw"><br>
-    이름 : <input type="text" name="name"><br>
-    생년 : <input type="text" name="birth_year"><br>
-    월 : <input type="text" name="birth_month"><br>
-    일 : <input type="text" name="birth_day"><br>
-    email : <input type="text" name="email"><br>
-    번호 : <input type="text" name="phone_num"><br>
-    <input type="submit" value="가입">
-</form>
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
+    <script>
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
+
+    <title>HashTaig</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+  </head>
+
+<body>
+   
+  <!--header-->
+  <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
+    <div style='font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);'>
+    <em style="font-style: normal;color: #f5a425;">SIGN</em> UP
+    </div>
+  </header>
+
+  <section class="section why-us" data-section="section2" style='padding-bottom: 563px;'>
+    <div class="container2">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            
+            <h2>정보를 입력해주세요</h2>
+            <div class="login-page">
+              <div class="form">
+                <form class="login-form" method="post">
+                  {% csrf_token %}
+                  <input type="text" name="user_id" placeholder="아이디"/>
+                  <input type="text" name="pw" placeholder="비밀번호"/>
+                  <input type="text" name="name" placeholder="이름"/>
+                  <input type="text" name="birth_year" placeholder="생년"/>
+                  <input type="text" name="birth_month" placeholder="월"/>
+                  <input type="text" name="birth_day" placeholder="일"/>
+                  <input type="text" name="email" placeholder="email"/>
+                  <input type="text" name="phone_num" placeholder="번호"/>
+                  <button type="button" onclick="signup();" >create</button>
+                  <p class="message">Already registered? <a href="/member/login">Sign In</a></p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> made 2022 by DGU  
+          
+           | Designer: <a rel="sponsored" target="_parent">SonHyeonWoo</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script> window.resizeTo(500,770);</script> 
+
+    <script>
+        function signup() {
+            var form = document.getElementsByClassName('login-form');
+            const myformData = new FormData();
+            const csrftoken = getCookie('csrftoken');
+
+            myformData.append('user_id', form[0][1].value);
+            myformData.append('pw', form[0][2].value);
+            myformData.append('name', form[0][3].value);
+            myformData.append('birth_year', form[0][4].value);
+            myformData.append('birth_month', form[0][5].value);
+            myformData.append('birth_day', form[0][6].value);
+            myformData.append('email', form[0][7].value);
+            myformData.append('phone_num', form[0][8].value);
+
+            $.ajax({
+                type : "POST",
+                url : "",
+                async: true,
+                headers: { 'X-CSRFToken': csrftoken },
+                enctype: "multipart/form-data",
+                data : myformData,
+                processData: false,
+                contentType: false,
+                
+                error : function() {
+                    alert("fail!");
+                  },
+                success : function(result) {
+                    alert("가입 완료!");
+                    opener.location.href = '/'; //부모창 리프레쉬
+                    self.close(); //현재창 닫기
+                  }});
+            };
+    </script> 
+</body>
+</html>
+
+
+
+

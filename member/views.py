@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
@@ -22,21 +21,20 @@ def user(request):
 
 
 def login_custom(request):
-    #user_list = USER.objects.all()
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
-
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
         except USER.DoesNotExist as e:
-            return HttpResponse('로그인 실패')
+            status = {'status' : 'F'}
+            return JsonResponse(status)
         else:
+            status = {'status' : 'T'}
             request.session['user_id'] = user.user_id
             request.session['user_name'] = user.name
         # 회원정보 조회 실패시 예외 발생
-        
-        return render(request, 'member/login_custom.html')
+            return JsonResponse(status)
 
     else:
         # return JsonResponse(data, safe=False)
@@ -56,13 +54,14 @@ def signup_custom(request):
 
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
-            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email)
+            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0)
         u.date_joined = timezone.now()
         u.save()
+        
+        data = {'status':True}
+        data =  json.dumps(data)
+        return JsonResponse(data, safe=False)
 
-        return HttpResponse(
-                '가입 완료<br>%s %s %s' % (u_id, u_pw, u_name))
-        #return redirect('../../')
     else:
         return render(request, 'member/signup_custom.html')
 

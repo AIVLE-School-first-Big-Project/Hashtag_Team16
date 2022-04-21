@@ -30,8 +30,8 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="main"><img src="{% static 'assets/images/logo5.gif' %}" style = 'width:50%; height:auto; padding-top: 1%; margin-bottom: 1%;' alt="logo" /></a>
-          <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo5.gif' %}" style = 'width:50%; height:auto; padding-top: 1%; padding-bottom: 1%; padding-left:5%' alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
         </div>
         <ul class="nav">
           <!-- 좌측 프로필 -->
@@ -109,7 +109,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/qna/">
+            <a class="nav-link" href="http://127.0.0.1:8000/mypage/">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
@@ -127,7 +127,7 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <ul class="navbar-nav w-100">
@@ -241,17 +241,17 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for w in write_date_list %}
+                          {% for w in info %}
                           <tr>
                             <td>
                               <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
+                                <!--<label class="form-check-label">
                                   <input type="checkbox" class="form-check-input">
-                                </label>
+                                </label>-->
                               </div>
                             </td>
                             <td> {{w.article_id}} </td>
-                            <td style="width: 60%; height: 48.5; padding-left: 5%;"> {{w.title}} [{{w.comment_cnt}}] </td>
+                            <td style="width: 60%; height: 48.5; padding-left: 5%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/post/{{w.article_id}}/'"><u>{{w.title}} [{{w.comment_cnt}}] </u></td>
                             <td> {{w.user_id}} </td>
                             <td> {{w.date}} </td>
                             <td>
@@ -262,8 +262,7 @@
                     </div>
                   </div>
                   <div>
-                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;">글 삭제</button>
-                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;">글 작성</button>
+                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>
@@ -271,10 +270,17 @@
             <div class="row ">
               <div class="col-12 grid-margin">
                 <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
-                  <th>1</th>
-                  <th>2</th>
-                  <th>3</th>
-                  <th>4</th>
+                  <ul class='pagination'>
+                    <button type="button">◀</button>
+                      {% for i in page_range %}
+                        <li>
+                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
+                            <button type="button">{{ i }}</button>
+                          </a>
+                        </li>
+                      {% endfor %}
+                    <button type="button">▶</button>
+                  </ul>
                 </div>
               </div>
             </div>

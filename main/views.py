@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
-def index1(request):
-    return HttpResponse('<u>Hello</u>')
-# Create your views here.
-
 def index(request):
-    return render(request, 'main/index.html')
+    # Login이 안된 상태에서는 연결하지 못하도록
+    try:                
+        request.session['user_id']
+        return render(request, 'main/index.html')
+    except KeyError:
+        return redirect('/')
+    

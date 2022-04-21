@@ -59,11 +59,16 @@ def post(request, pk):
         if request.POST.get('cancel') == "삭제":
             poster.delete()
             return redirect('http://127.0.0.1:8000/qna')
+        elif request.POST.get('update') == '수정':
+            p_title = poster.title
+            p_content = poster.content
+            return render(request, 'qna/update.html',{'p_title':p_title, 'p_content':p_content})
+
 
     p_title = poster.title
     p_content = poster.content
 
-    return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content})
+    return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk})
 
 def logout_custom(request):
     del request.session['user_id']
@@ -72,6 +77,24 @@ def logout_custom(request):
     request.session.flush()
 
     return redirect('/')
+
+# def update(request):
+    
+#     article = ARTICLE(
+#         article_id = ARTICLE.objects.get(user_id='hw').article_id,
+#         board = BOARD.objects.get(board_name='qna게시판'),
+#         #user = USER.objects.get(user_id=request.session['user_id']),
+#         user = USER.objects.get(user_id='hw'),
+#         title = request.POST.get('title'),
+#         content = request.POST.get('content'),
+#         date = timezone.now(),
+#         image = None,
+#         comment_cnt = 0
+#         )
+#     article.save()
+
+#     return render(request, 'qna/post.html')
+
 
 
 #def index(request):

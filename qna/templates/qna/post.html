@@ -27,13 +27,16 @@
   <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
   
   <script type='text/javascript'>
-    function removeCheck(){ 
+    function Check(){ 
         if (confirm("삭제") == true){    //확인
             document.getElementById('del').submit();
-        }else{   //취소
+        }
+        else{   //취소
             return false;
         }
     }
+
+    
 </script>
 </head>
 
@@ -58,7 +61,7 @@
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">Henry Klein</h5>
+                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
                 <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                 <span>로그아웃</span>
               </div>
@@ -285,13 +288,13 @@
                 <div>
                   <form id='upd' method = "POST">
                     {% csrf_token %}
-                    <button name='update' style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna' ">글 수정</button>
+                    <button name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
+                    onclick="location.href = 'http://127.0.0.1:8000/qna/update/{{w.article_id}}/'">글 수정</button>
                   </form>
                   <form id='del' method='POST'>
                     {% csrf_token %}
                     <button name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick= 'removeCheck()'>글 삭제</button>
+                    onclick= 'Check();'>글 삭제</button>
                   </form>
                   <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna' ">뒤로</button>

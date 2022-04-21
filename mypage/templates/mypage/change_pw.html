@@ -1,0 +1,18 @@
+<div class=fsize style = "text-align : center;">
+    {user.password}
+    <form method="POST">
+    <h2>비밀번호 변경</h2>
+    {% csrf_token %}
+    <h5>현재 비밀번호 :</h5>
+    <input name="origin_password" type="password">
+    <h5>변경할 비밀번호 :</h5>
+    <input name="new_password" type="password">
+    <h5>비밀번호 확인 :</h5> 
+    <input name="confirm_password" type="password">
+    <br><br>
+    <input class="btn" type="submit" value="변경"> 
+    <a href="mypage/changepw/">
+        <button type="button" class="btn">취소</button>
+    </a>
+    </form>
+</div>

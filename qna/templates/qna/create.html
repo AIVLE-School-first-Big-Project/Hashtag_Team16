@@ -30,7 +30,7 @@
       return cookieValue;
     }
   </script>
-  
+
   <link rel="stylesheet" href="{% static 'assets/vendors/jvectormap/jquery-jvectormap.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
@@ -259,18 +259,18 @@
                   <h4 class="card-title">글쓰기</h4>
                   <div class="table-responsive" style="height: 70vh;">
                     <div style="margin-top: 5%;">
-                      <div style="margin-left: 30%; padding-bottom: 3%;">
+                      <div style="margin-left: 30%;">
                         <form class="save-form">
                           {% csrf_token %}
                           <h4> 제목 </h4>
-                          <input type="text" name='title' style="width: 25.5vw;">
+                          <textarea name='title' style="width: 25.5vw; height: 4vh;"></textarea>
                       </div>
-                      <div style="margin-left: 30%; padding-bottom: 3%; padding-top: 2%;">
+                      <div style="margin-left: 30%; padding-bottom: 3%; padding-top: 1%;">
                         <h4 style="margin-top: 2%;">내용</h4>
                         <textarea name='content' style="width: 25.5vw;; height: 25vh;"></textarea>
                       </div>
                     </div>
-                    <button type="button" style="margin-left: 2%; position:absolute; bottom:4%; left: 40%;"
+                    <button type="button" style="margin-left: 2%; position:absolute; bottom:4%; left: 39%;"
                       onclick="save();"> 저장 </button>
                     </form>
                     <button style="margin-left: 2%; position:absolute; bottom:4%; left: 45%;"

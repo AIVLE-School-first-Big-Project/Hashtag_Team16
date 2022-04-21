@@ -20,7 +20,7 @@ from django.contrib.auth.hashers import make_password
 def change_password(request):
 
     if request.method == "POST":
-        e =  USER.objects.get(user_id='sh', pw='2222')
+        e =  USER.objects.get(user_id='sh', pw='1234')
         request.session['user_id']= e.user_id
         request.session['pw']= e.pw
         user = USER.objects.get(user_id=request.session['user_id'], pw=request.session['pw'])

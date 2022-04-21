@@ -8,6 +8,7 @@ from pandas import to_datetime
 
 # Create your models here.
 
+
 class USER(models.Model):
     
     

@@ -1,18 +1,145 @@
-<div class=fsize style = "text-align : center;">
-    {user.password}
-    <form method="POST">
-    <h2>비밀번호 변경</h2>
-    {% csrf_token %}
-    <h5>현재 비밀번호 :</h5>
-    <input name="origin_password" type="password">
-    <h5>변경할 비밀번호 :</h5>
-    <input name="new_password" type="password">
-    <h5>비밀번호 확인 :</h5> 
-    <input name="confirm_password" type="password">
-    <br><br>
-    <input class="btn" type="submit" value="변경"> 
-    <a href="mypage/changepw/">
-        <button type="button" class="btn">취소</button>
-    </a>
-    </form>
-</div>
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
+    <script>
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
+
+    <title>HashTaig</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+  </head>
+
+<body>
+   
+  <!--header-->
+  <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
+    <div style='font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);'>
+    <em style="font-style: normal;color: #f5a425;">PASSWORD</em> CHANGE
+    </div>
+  </header>
+
+  <section class="section why-us" data-section="section2" style='padding-bottom: 372px;'>
+    <div class="container2">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            
+            <h2>정보를 입력해주세요</h2>
+            <div class="login-page">
+              <div class="form" style="top:130%;">
+                <form class="login-form" method="post">
+                  {% csrf_token %}
+                  <input type="text" name="origin_password" placeholder="기존 비밀번호"/>
+                  <input type="password" name="new_password" placeholder="변경할 비밀번호"/>
+                  <input type="password" name="confirm_password" placeholder="비밀번호 확인"/>
+
+                  <button type="button" onclick="changePw();" style='width:45%' >change</button> <button type="button" onclick="window.close();" style='width:45%' >close</button>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> made 2022 by DGU  
+          
+            Designer: <a rel="sponsored" target="_parent">SonHyeonWoo</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script> window.resizeTo(500,770);</script> 
+
+    <script>
+        function changePw() {
+            var form = document.getElementsByClassName('login-form');
+            const myformData = new FormData();
+            const csrftoken = getCookie('csrftoken');
+
+            myformData.append('origin_password', form[0][1].value);
+            myformData.append('new_password', form[0][2].value);
+            myformData.append('confirm_password', form[0][3].value);
+
+            $.ajax({
+                type : "POST",
+                url : "",
+                async: true,
+                headers: { 'X-CSRFToken': csrftoken },
+                enctype: "multipart/form-data",
+                data : myformData,
+                processData: false,
+                contentType: false,
+                
+                error : function() {
+                    alert("fail!");
+                  },
+                success : function(result) {
+                    if (result.status == 'empty_error'){
+                        alert("공란을 채워주세요!");
+                        window.location.reload();
+                    }
+                    else if (result.status == 'cofirm_error'){
+                        alert("확인 비밀번호가 일치하지 않습니다!");
+                        window.location.reload();
+                    }
+                    else if (result.status == 'pw_error'){
+                        alert("기존 비밀번호가 일치하지 않습니다!");
+                        window.location.reload();
+                    }
+                    else if (result.status == 'T'){
+                        alert("변경되었습니다!");
+                        opener.location.href = '/mypage/';
+                        window.close();
+                    }
+                  }});
+            };
+    </script> 
+</body>
+</html>

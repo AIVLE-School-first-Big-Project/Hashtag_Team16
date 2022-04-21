@@ -99,29 +99,34 @@ def logout_custom(request):
 
 # 비밀번호 변경
 def change_password(request):
-
     if request.method == "POST":
-        e =  USER.objects.get(user_id='sh', pw='2222')
-        request.session['user_id']= e.user_id
-        request.session['pw']= e.pw
-        user = USER.objects.get(user_id=request.session['user_id'], pw=request.session['pw'])
-        origin_password = request.POST["origin_password"]
+        o_pw = request.POST.get('origin_password')
+        n_pw = request.POST.get('new_password')
+        n_pw2 = request.POST.get('confirm_password')
         
-        if origin_password==user.pw:
-            new_password = request.POST["new_password"]
-            confirm_password = request.POST["confirm_password"]
-            if new_password == confirm_password:
+        print(request.session['user_id'])
+        
+        user_inst =  USER.objects.get(user_id=request.session['user_id'])
+        if (o_pw == '') or (n_pw == '') or (n_pw2 == ''):
+            data = {'status':'empty_error'}
+            return JsonResponse(data)
+        
+        if (n_pw != n_pw2):
+            data = {'status':'cofirm_error'}
+            return JsonResponse(data)
+        
+        if (user_inst.pw != o_pw):
+            data = {'status':'pw_error'}
+            return JsonResponse(data)
+        
+        if o_pw==user_inst.pw:
+            user_inst.pw = n_pw
+            user_inst.save()
+            #auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            
+            data = {'status':'T'}
+            return JsonResponse(data)
 
-                # user.set_password(new_password)
-                # user.save()
-                user.pw = new_password
-                user.save()
-                #auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('../../member/line') #이거 변경 확인하려고 user 출력으로 넘어가도록 설정해놨어여
-            else:
-                return render(request, 'member/change_pw.html')
-        else:
-            return HttpResponse('<u>실!패!</u>')
     else:
         return render(request, 'member/change_pw.html')
 

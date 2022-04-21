@@ -67,7 +67,14 @@
               {% comment %} <h6># 으로 가치를 전하는 샵</h6> {% endcomment %}
               <h2><em>HashTaig</em> 입니다</h2>
               <div class="main-button">
-                  <div ><a href="javascript:showPopUp()">Go to HashTaig</a></div>
+                {% if request.session.user_id %}
+
+                <div ><a href="/main">Go to HashTaig</a></div>
+                
+                {% else %}
+                <div ><a href="javascript:showPopUp()">Login First !</a></div>
+                {% endif %}
+                  
               </div>
           </div>
       </div>

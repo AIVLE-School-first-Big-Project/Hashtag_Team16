@@ -69,13 +69,12 @@
                 <form class="login-form" method="post">
                   {% csrf_token %}
                   <input type="text" name="user_id" placeholder="아이디"/>
-                  <input type="text" name="pw" placeholder="비밀번호"/>
+                  <input type="password" name="pw" placeholder="비밀번호"/>
+                  <input type="password" name="pw2" placeholder="비밀번호 확인"/>
                   <input type="text" name="name" placeholder="이름"/>
-                  <input type="text" name="birth_year" placeholder="생년"/>
-                  <input type="text" name="birth_month" placeholder="월"/>
-                  <input type="text" name="birth_day" placeholder="일"/>
+                  <input type="date" name="birth_date" data-bind="dateOfBirth" />  
                   <input type="text" name="email" placeholder="email"/>
-                  <input type="text" name="phone_num" placeholder="번호"/>
+                  <input type="text" name="phone_num" placeholder="전화번호"/>
                   <button type="button" onclick="signup();" >create</button>
                   <p class="message">Already registered? <a href="/member/login">Sign In</a></p>
                 </form>
@@ -102,6 +101,55 @@
     <script> window.resizeTo(500,770);</script> 
 
     <script>
+        // Declare a global object to store view data.
+        var viewData;
+        viewData = {};
+        $(function() {
+            // Update the viewData object with the current field keys and values.
+            function updateViewData(key, value) {
+                viewData[key] = value;
+            }
+            // Register all bindable elements
+            function detectBindableElements() {
+                var bindableEls;
+                bindableEls = $('[data-bind]');
+                // Add event handlers to update viewData and trigger callback event.
+                bindableEls.on('change', function() {
+                    var $this;
+                    $this = $(this);
+                    updateViewData($this.data('bind'), $this.val());
+                    $(document).trigger('updateDisplay');
+                });
+                // Add a reference to each bindable element in viewData.
+                bindableEls.each(function() {
+                    updateViewData($(this));
+                });
+            }
+
+            // Trigger this event to manually update the list of bindable elements, useful when dynamically loading form fields.
+            $(document).on('updateBindableElements', detectBindableElements);
+
+            detectBindableElements();
+        });
+
+        $(function() {
+            // An example of how the viewData can be used by other functions.
+            function updateDisplay() {
+                var updateEls;
+
+                updateEls = $('[data-update]');
+
+                updateEls.each(function() {
+                    $(this).html(viewData[$(this).data('update')]);
+                });
+            }
+
+            // Run updateDisplay on the callback.
+            $(document).on('updateDisplay', updateDisplay);
+        });
+    </script>
+
+    <script>
         function signup() {
             var form = document.getElementsByClassName('login-form');
             const myformData = new FormData();
@@ -109,12 +157,11 @@
 
             myformData.append('user_id', form[0][1].value);
             myformData.append('pw', form[0][2].value);
-            myformData.append('name', form[0][3].value);
-            myformData.append('birth_year', form[0][4].value);
-            myformData.append('birth_month', form[0][5].value);
-            myformData.append('birth_day', form[0][6].value);
-            myformData.append('email', form[0][7].value);
-            myformData.append('phone_num', form[0][8].value);
+            myformData.append('pw2', form[0][3].value);
+            myformData.append('name', form[0][4].value);
+            myformData.append('birth_date', form[0][5].value);
+            myformData.append('email', form[0][6].value);
+            myformData.append('phone_num', form[0][7].value);
 
             $.ajax({
                 type : "POST",
@@ -130,9 +177,27 @@
                     alert("fail!");
                   },
                 success : function(result) {
+                  if (result.status == 'empty_error') {
+                    alert('공란을 채워주세요!')
+                    window.location.href = '/member/signup'; 
+                  } 
+                  else if (result.status == 'pw_error') {
+                    alert('비밀번호를 다시 확인해주세요!')
+                    window.location.href = '/member/signup'; 
+                  } 
+                  else if (result.status == 'id_error') {
+                    alert('이미 존재하는 ID 입니다!')
+                    window.location.href = '/member/signup'; 
+                  }
+                  else if (result.status == 'email_error') {
+                    alert('이메일 양식을 확인해주세요')
+                    window.location.href = '/member/signup';                     
+                  }
+                  else {
                     alert("가입 완료!");
                     opener.location.href = '/'; //부모창 리프레쉬
                     self.close(); //현재창 닫기
+                  }
                   }});
             };
     </script> 

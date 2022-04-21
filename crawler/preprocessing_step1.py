@@ -40,7 +40,9 @@ def concat_total_df(keywords, ROOT_PATH='./'):
 def null_processing(df, thresh=0):
     """좋아요가 thresh이상인 것만 가져옴. 기본값은 좋아요 상관없이 다 가져옴."""
     output_df = df.dropna().copy() #해시태그 null값, 게시글url, 이미지url 제거
-    output_df = output_df.loc[(output_df['이미지파일명'] != 'Nan') & (output_df['좋아요'] >= thresh)].copy()
+    output_df = output_df.loc[(output_df['이미지파일명'] != 'NaN') & (output_df['좋아요'] >= thresh)].copy()
+    output_df = output_df.loc[(output_df['검색키워드'] != 'NaN') | (output_df['파일경로'] != 'NaN') | 
+                              (output_df['게시글url'] != 'NaN') | (output_df['이미지url'] != 'NaN')].copy()
     output_df.reset_index(drop=True, inplace=True)
     return output_df
 
@@ -173,5 +175,4 @@ def drop_same_image(df):
     df = df.drop_duplicates(['이미지url'], keep='first')
     #df = df.drop_same_image3(['해시태그'], keep='first') 미완
     return df
-
 

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    
+    <link rel="stylesheet" href="{% static 'assets/css/image_upload.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/jvectormap/jquery-jvectormap.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
@@ -23,7 +23,9 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+
+    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <div class="container-scroller">
@@ -185,12 +187,14 @@
                 <div class="card">
                   <div class="card-body" style="height: 55vh;">
                     <h4 class="card-title" style="text-align: center;">이미지를 첨부해 주세요</h4>
-                    <div style="position: relative; top: 75%;">
-                      <div style="padding: 10px; background-color: rgb(68, 69, 74); border-radius: 1em;">
-                        <form name="이 폼의 이름" action="image" method="post" enctype="multipart/form-data">
-                          <input type='file' name='' />
-                      </div>
-                    </div>
+                    <form>
+                    <label class="uploader" ondragover="return false">
+                      <i class="fa-solid fa-upload"></i>
+                      <img src="" class="">
+                      <input type="file" accept="image/*" name="file">
+                    </label>
+                    </form>
+                    <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:20px;">Submit!</button>
                   </div>
                 </div>
               </div>
@@ -200,8 +204,9 @@
                 <div class="card">
                   <div class="card-body" style="width: 50vw;">
                     <div class="d-flex flex-row justify-content-between">
-                      <div class="card-title mb-1"><h4>#해시태그 생성</h4>
-                        <div style="width: 48vw; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding-top: 6%;">
+                      <div class="card-title mb-1" style="width: calc(100%);">
+                        <h4>#해시태그 생성</h4>
+                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding-top: 6%;">
                           <p style="float: left; padding-left: 5%;">#취업해야디</p>
                           <p style="float: left; padding-left: 1%;">#KT</p>
                           <p style="float: left; padding-left: 1%;">#에이블스쿨</p>
@@ -214,9 +219,10 @@
                   </div>
                   <div class="card-body">
                     <div class="d-flex flex-row justify-content-between">
-                      <div class="card-title mb-1"><h4>#글귀 생성</h4>
-                        <div style="width: 48vw; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em;">
-                          <p style="width: 48vw; padding-left: 8%; padding: 6%;"> 에이블스쿨 대구경북 1반 에이블러들이 전부 kt에 취업했다.</p>
+                      <div class="card-title mb-1" style="width: calc(100%);">
+                        <h4>#글귀 생성</h4>
+                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em;">
+                          <p style="width: calc(100% - 15px); padding-left: 8%; padding: 6%;"> 에이블스쿨 대구경북 1반 에이블러들이 전부 kt에 취업했다.</p>
                         </div>
                       </div>
                     </div>
@@ -410,6 +416,108 @@
         alert("로그아웃 되었습니다.");
         location.href = "/member/logout";
       }
+    </script>
+
+    <script>
+      (function() {
+  
+          function FileUploader(selector) {
+            if (undefined !== selector) {
+              this.init(selector);
+            }
+          }
+          
+          FileUploader.prototype.init = function(selector) {
+            if (undefined !== this.$el) {
+              this.unsuscribe();
+            }
+            
+            this.$el = document.querySelector(selector);
+            this.$fileInput = this.$el.querySelector('input');
+            this.$img = this.$el.querySelector('img');
+            
+            this.suscribe();
+          }
+
+          FileUploader.prototype.suscribe = function() {
+            this.$fileInput.addEventListener('change', _handleInputChange.bind(this));
+            this.$img.addEventListener('load', _handleImageLoaded.bind(this));
+            this.$el.addEventListener('dragenter', _handleDragEnter.bind(this));
+            this.$el.addEventListener('dragleave', _handleDragLeave.bind(this));
+            this.$el.addEventListener('drop', _handleDrop.bind(this));
+          }
+          
+          FileUploader.prototype.unsuscribe = function() {
+            this.$fileInput.removeEventListener('change', _handleInputChange.bind(this));
+            this.$img.removeEventListener('load', _handleImageLoaded.bind(this));
+            this.$el.removeEventListener('dragenter', _handleDragEnter.bind(this));
+            this.$el.removeEventListener('dragleave', _handleDragLeave.bind(this));
+            this.$el.removeEventListener('drop', _handleDrop.bind(this));
+          }
+
+          function _handleDragEnter(e){
+            e.preventDefault();
+
+            if (!this.$el.classList.contains('dragging')) {
+                this.$el.classList.add('dragging');
+            }
+          }
+
+          function _handleDragLeave(e) {
+            e.preventDefault();
+
+            if (this.$el.classList.contains('dragging')) {
+                this.$el.classList.remove('dragging');
+            }
+          }
+
+          function _handleDrop(e) {
+            e.preventDefault();
+            this.$el.classList.remove('dragging');
+            this.$img.files = e.dataTransfer.files;
+            this.$fileInput.files = e.dataTransfer.files;
+            _handleInputChange.call(this);
+          }
+
+          function _handleImageLoaded() {
+            if (!this.$img.classList.contains('loaded')) {
+                this.$img.classList.add('loaded');
+            }
+          }
+
+          function _handleInputChange(e) {
+            var file = (undefined !== e)
+                ? e.target.files[0]
+                : this.$img.files[0];
+
+            var pattern = /image-*/;
+            var reader = new FileReader();
+
+            if (!file.type.match(pattern)) {
+                alert('invalid format');
+                return;
+            }
+
+            if (this.$el.classList.contains('loaded')) {
+                this.$el.classList.remove('loaded');
+            }
+
+            reader.onload = _handleReaderLoaded.bind(this);
+            reader.readAsDataURL(file);
+          }
+
+          function _handleReaderLoaded(e) {
+            var reader = e.target;
+            this.$img.src = reader.result;
+            this.$el.classList.add('loaded');
+          }
+          
+          window.FileUploader = FileUploader;
+          
+        } ());
+
+
+        new FileUploader('.uploader');
     </script>
     <!-- End custom js for this page -->
   </body>

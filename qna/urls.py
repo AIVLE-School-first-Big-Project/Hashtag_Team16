@@ -12,6 +12,8 @@ urlpatterns = [
     path('create/', views.create, name='qna_create'),
     path('post/<int:pk>/', views.post, name='qna_post'),
     path('', views.logout_custom, name='logout_custom'),
+    #path('update/<int:pk>/', views.post, name='qna_update')
+    #path('update/', views.update, name='qna_update')
     path('p_modify/', views.p_modify, name='p_modify'),
 ]
 

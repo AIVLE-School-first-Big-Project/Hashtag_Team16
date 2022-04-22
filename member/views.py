@@ -129,7 +129,8 @@ def change_password(request):
 
     else:
         return render(request, 'member/change_pw.html')
-
+def change_info(request):
+        return render(request, 'member/change_info.html')
 #회원정보 수정
 # # def update(request, user_id):
 #   user = USER.objects.get(id=user_id)

@@ -258,19 +258,18 @@
                       <p style="margin-left: 23%;">제목</p>
                       <div style="margin-left: 23%; width: 40vw; height: 3vh; background-color: #2b303f88;">
                         <!--제목은 여기다가 작성하면 됩니둥-->
-                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 3px;" id='title'>{{p_title}}</h4>
+                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 3px;">{{p_title}}</h4>
                       </div>
                       <p style="margin-left: 23%; margin-top: 2%;">내용</p>
                       <div style="margin-left: 23%; width: 40vw; height: 35vh; background-color: #2b303f88;">
                         <!--내용은 여기다가 작성하면 됩니둥-->
-                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 5px;" id='content'>
+                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 5px;">
                           {{p_content}}
                           {% comment %} 친구는 세월의 도둑이다.
 
                           봄부터 흐르는 물은 겨울이 되어도 얼지 않듯이
                           마음에서 우러나오는 우적은 역경이 닥친다고 해서 식지 않는다.
                           불행했을 때 만난 친구는 가장 소중히 여겨야 한다.
-
 
                           행복했을 때 함께 기쁨을 누리는 친구보다
                           힘들 떄 슬픔을 덜어지는 친구를 더 많이 신뢰할 수 있다.
@@ -288,15 +287,18 @@
                   </div>
                 </div>
                 <div>
-                    <button name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;" onclick="javascript:sender()"> 글 수정</button>
- 
+                  <form id='upd' method = "POST">
+                    {% csrf_token %}
+                    <button class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
+                    onclick="location.href = 'http://127.0.0.1:8000/qna/p_modify/' ">글 수정</button>
+                  </form>
                   <form id='del' method='POST'>
                     {% csrf_token %}
-                    <button name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+                    <button class="btn btn-light" name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
                     onclick= 'Check();'>글 삭제</button>
                   </form>
-                  <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick="location.href=http://127.0.0.1:8000/qna">뒤로</button>
+                  <button class="btn btn-light" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+                    onclick="location.href = 'http://127.0.0.1:8000/qna' ">뒤로</button>
                 </div>
               </div>
             </div>
@@ -337,25 +339,7 @@
   <!-- endinject -->
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
-
-  <!-- 수정 게시판에 원래 내용 데이터 전송해주기-->
-  <script>
-  function sender() {
-    const url2 = window.location.href + 'p_modify';
-    
-    $.ajax({
-        type : "GET",
-        url : url2,
-        async: true,
-        error : function() {
-            alert("fail!");
-          },
-        success : function(result) {
-            window.location.href = url2
-          }});
-    };
-    </script>
-    <!-- End custom js for this page -->
+  <!-- End custom js for this page -->
 </body>
 
 </html>

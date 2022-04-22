@@ -60,18 +60,7 @@ def post(request, pk):
         if request.POST.get('cancel') == "삭제":
             poster.delete()
             return redirect('http://127.0.0.1:8000/qna')
-        elif request.POST.get('update') == '수정':
-            p_title = poster.title
-            p_content = poster.content
-            return render(request, 'qna/p_modify.html',{'p_title':p_title, 'p_content':p_content, 'user':user})
-        else:
-            if (poster.content == '') or (poster.title == ''):
-                data = {'status':'F'}
-                return JsonResponse(data)
-            else:
-                poster.save()
-                data = {'status':'T'}
-                return JsonResponse(data)
+
     p_title = poster.title
     p_content = poster.content
 
@@ -102,8 +91,24 @@ def logout_custom(request):
 
 #     return render(request, 'qna/post.html')
 
-def p_modify(request):
-    return render(request, 'qna/p_modify.html')
+def p_modify(request, pk):
+    al = ARTICLE.objects.get(article_id=pk)
+    if request.method == 'POST':
+       
+        if al.user != request.session['user_id']:
+            data = {'status':'user_error'}
+            return JsonResponse(data)
+        
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        
+        
+        
+        
+    else:
+        title = al.title
+        content=al.content
+        return render(request, 'qna/p_modify.html',  {'title':title, 'content':content})
 
 
 #def index(request):

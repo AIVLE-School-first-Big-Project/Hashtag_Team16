@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
@@ -85,7 +88,7 @@
                     <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
                   </div>
                 </a>
-              </div>s
+              </div>
             </div>
           </li>
 
@@ -94,7 +97,7 @@
             <span class="nav-link">Navigation</span>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/main/function/">
+            <a class="nav-link" href="http://127.0.0.1:8000/function/">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
@@ -190,197 +193,61 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            
-            <div class="row">
-              <div class="col-md-12 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body" style="height: 55vh;">
-                    <h4 class="card-title" style="text-align: center;">이미지를 첨부해 주세요</h4>
-                    <form>
-                    <label class="uploader" ondragover="return false">
-                      <i class="fa-solid fa-upload"></i>
-                      <img src="" class="">
-                      <input type="file" accept="image/*" name="file">
-                    </label>
-                    </form>
-                    <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:20px;">Submit!</button>
-                  </div>
-                </div>
-              </div>
-
-              <!---->
-              <div class="col-md-12 col-xl-8 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                      <div class="card-title mb-1" style="width: calc(100%);">
-                        <h4>#해시태그 생성</h4>
-                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding-top: 6%;">
-                          <p style="float: left; padding-left: 5%;">#취업해야디</p>
-                          <p style="float: left; padding-left: 1%;">#KT</p>
-                          <p style="float: left; padding-left: 1%;">#에이블스쿨</p>
-                          <p style="float: left; padding-left: 1%;">#HTML</p>
-                          <p style="float: left; padding-left: 1%;">#화이팅</p>
-                          <p style="float: left; padding-left: 1%;">#버라이어티 정신</p>
-                        </div>
-                      </div> 
+            <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="section-heading">
+                      <h2>어떤 가치를 전해주나요?</h2>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                      <div class="card-title mb-1" style="width: calc(100%);">
-                        <h4>#글귀 생성</h4>
-                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em;">
-                          <p style="width: calc(100% - 15px); padding-left: 8%; padding: 6%;"> 에이블스쿨 대구경북 1반 에이블러들이 전부 kt에 취업했다.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
-              
-            </div>
-            <!---->
-
-            <div class="row">
-              <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                      <h4 class="card-title">분석1</h4>
-                      <p class="text-muted mb-1 small">View all</p>
-                    </div>
-                    <div class="preview-list">
-                      <div class="preview-item border-bottom">
-                        <div class="preview-thumbnail">
-                          <!-- 이게 그래프 -->
-                          <canvas id="transaction-history" class="transaction-chart"></canvas>
-                          <!-- --- -->
-                        </div>
-                        <div class="preview-item-content d-flex flex-grow">
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Leonard</h6>
-                              <p class="text-muted text-small">5 minutes ago</p>
-                            </div>
-                            <p class="text-muted">Well, it seems to be working now.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="preview-item border-bottom">
-                        <div class="preview-item-content d-flex flex-grow">
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Luella Mills</h6>
-                              <p class="text-muted text-small">10 Minutes Ago</p>
-                            </div>
-                            <p class="text-muted">Well, it seems to be working now.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="preview-item border-bottom">
-                        <div class="preview-item-content d-flex flex-grow">
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Ethel Kelly</h6>
-                              <p class="text-muted text-small">2 Hours Ago</p>
-                            </div>
-                            <p class="text-muted">Please review the tickets</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="preview-item border-bottom">
-                        <div class="preview-item-content d-flex flex-grow">
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Herman May</h6>
-                              <p class="text-muted text-small">4 Hours Ago</p>
-                            </div>
-                            <p class="text-muted">Thanks a lot. It was easy to fix it .</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">분석 2</h4>
-                    <div class="d-flex py-4">
-                      <div class="preview-list w-100">
-                        <div class="preview-item p-0">
-                          <div class="preview-item-content d-flex flex-grow">
-                            <div class="flex-grow">
-                              <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                                <h6 class="preview-subject">CeeCee Bass</h6>
-                                <p class="text-muted text-small">4 Hours Ago</p>
-                              </div>
-                              <p class="text-muted">Well, it seems to be working now.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-muted">Well, it seems to be working now. </p>
-                    <div class="progress progress-md portfolio-progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">분석3</h4>
-                    <div class="add-items d-flex">
-                      <input type="text" class="form-control todo-list-input" placeholder="enter task..">
-                      <button class="add btn btn-primary todo-list-add-btn">Add</button>
-                    </div>
-                    <div class="list-wrapper">
-                      <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Create invoice </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Meeting with Alita </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li class="completed">
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Plan weekend outing </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Pick up kids from school </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
+                  <div class="col-md-12">
+                    <div id='tabs'>
+                      <ul>
+                        <li><a href='#tabs-1'>AI 해시태그 추천</a></li>
+                        <li><a href='#tabs-2'>AI 이미지 분석</a></li>
+                        <li><a href='#tabs-3'>해시태그 분석 시각화</a></li>
                       </ul>
+                      <section class='tabs-content'>
+                        <article id='tabs-1'>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <img src="{% static 'assets/images/Insta-Hashtag.png' %}" alt="">
+                            </div>
+                            <div class="col-md-6">
+                              <h4>AI 해시태그 추천</h4>
+                              <p>사용자가 올린 이미지를 분석하여 노출빈도를 높이는 최적의 해시태그를 AI 알고리즘을 통해서 추천해드려요. </p>
+                              <p>당신의 시간은 소중하니깐 더 이상 한글자 한글자 타이핑하지 않아도 될꺼에요!</p> 
+                            </div>
+                          </div>
+                        </article>
+                        <article id='tabs-2'>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <img src="{% static 'assets/images/brain-image.jpg' %}" alt="">
+                            </div>
+                            <div class="col-md-6">
+                              <h4>AI 이미지 분석</h4>
+                              <p>사용자가 올린 이미지에 설명을 더 해줄거에요. 구구절절!</p> 
+                              <p>AI 모델은 과연 당신이 올린 사진의 의도를 읽을 수 있을까요?</p>
+                            </div>
+                          </div>
+                        </article>
+                        <article id='tabs-3'>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <img src="{% static 'assets/images/data-visualization.png' %}" alt="">
+                            </div>
+                            <div class="col-md-6">
+                              <h4>해시태그 분석 시각화</h4>
+                              <p>어떤 해시태그가 어느 정도로 사용되고 있는건지 너무 궁금한데요?</p>
+                              <p>HashTaig는 추천하고 있는 해시태그의 사용빈도 등을 한눈에 보기 쉽도록 정리해줄거에요!</p>
+                            </div>
+                          </div>
+                        </article>
+                      </section>
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
           <!-- content-wrapper ends -->

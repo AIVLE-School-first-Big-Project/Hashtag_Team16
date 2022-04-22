@@ -66,7 +66,7 @@
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">Henry Klein</h5>
+                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
                 <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                 <span>로그아웃</span>
               </div>
@@ -207,7 +207,7 @@
               <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                 <div class="navbar-profile">
                   <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
@@ -260,18 +260,18 @@
                   <div class="table-responsive" style="height: 70vh;">
                     <div style="margin-top: 5%;">
                       <div style="margin-left: 30%;">
-                        <form class="save-form">
+                        <form class="update-form">
                           {% csrf_token %}
                           <h4> 제목 </h4>
-                          <textarea name='title' style="width: 25.5vw; height: 4vh;">여기에 기존 데이터 입력하면 됨</textarea>
+                          <textarea name='title' style="width: 25.5vw; height: 4vh;">{{p_title}}</textarea>
                       </div>
                       <div style="margin-left: 30%; padding-bottom: 3%; padding-top: 1%;">
                         <h4 style="margin-top: 2%;">내용</h4>
-                        <textarea name='content' style="width: 25.5vw;; height: 25vh;">여기에 기존 데이터 입력하면 됨</textarea>
+                        <textarea name='content' style="width: 25.5vw;; height: 25vh;">{{p_content}}</textarea>
                       </div>
                     </div>
                     <button type="button" style="margin-left: 2%; position:absolute; bottom:4%; left: 39%;"
-                      onclick="save();"> 저장 </button>
+                      onclick="update();"> 수정 </button>
                     </form>
                     <button style="margin-left: 2%; position:absolute; bottom:4%; left: 45%;"
                       onclick="location.href = 'http://127.0.0.1:8000/qna'">취소</button>
@@ -318,8 +318,8 @@
   <!-- End custom js for this page -->
 
   <script>
-    function save() {
-      var form = document.getElementsByClassName('save-form');
+    function update() {
+      var form = document.getElementsByClassName('update-form');
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
 
@@ -346,9 +346,9 @@
         success: function (result) {
           if (result.status == 'T') {
             window.location.href = '/qna';
-            alert("등록 완료!");
+            alert("수정 완료!");
           } else {
-            window.location.href = '/qna/create';
+            window.location.href = '/qna/p_modify';
             alert("제목/내용을 입력해주세요");
           }
 

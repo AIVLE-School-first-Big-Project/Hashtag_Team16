@@ -18,8 +18,7 @@ def qna_board(request):
     end_page = start_page + 9
     if end_page > p.num_pages:
         end_page = p.num_pages
-    
-        
+         
     return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
 
 
@@ -41,6 +40,7 @@ def create(request):
             image = None,
             comment_cnt = 0
             )
+
         print(article.content)
         if (article.content == '') or (article.title == ''):
             data = {'status':'F'}
@@ -91,20 +91,33 @@ def logout_custom(request):
 
 def p_modify(request, pk):
     al = ARTICLE.objects.get(article_id=pk)
+    user = USER.objects.get(user_id = request.session['user_id']).user_id
     if request.method == 'POST':
-       
-        if al.user != request.session['user_id']:
+        if al.user.user_id != request.session['user_id']:
             data = {'status':'user_error'}
             return JsonResponse(data)
-        
+
         title = request.POST.get('title')
         content = request.POST.get('content')
-                
+        al.title = title
+        al.content = content
+        al.image ='123'
+        
+        #al.save()
+        if (al.title == '') or (al.content == ''):
+            data = {'status':'F'}
+            return JsonResponse(data)
+        else:
+            print('check1')
+            al.save()
+            print('check2')
+            data = {'status':'T'}
+            return JsonResponse(data)        
         
     else:
         title = al.title
         content=al.content
-        return render(request, 'qna/p_modify.html',  {'title':title, 'content':content})
+        return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user})
 
 
 #def index(request):

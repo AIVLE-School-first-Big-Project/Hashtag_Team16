@@ -66,7 +66,7 @@
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
+                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}님, 반갑습니다</h5>
                 <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                 <span>로그아웃</span>
               </div>
@@ -322,17 +322,19 @@
       var form = document.getElementsByClassName('update-form');
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
-
+  
+      const url1 = window.location.href;
+      
       myformData.append('title', form[0][1].value);
       myformData.append('content', form[0][2].value);
       //myformData.append('user', form[0][3].value);
       //myformData.append('title', form[0][4].value);
       //myformData.append('content', form[0][5].value);
       //myformData.append('date', form[0][6].value);
-
+      
       $.ajax({
         type: "POST",
-        url: "",
+        url: url1,
         async: true,
         headers: { 'X-CSRFToken': csrftoken },
         enctype: "multipart/form-data",
@@ -348,7 +350,7 @@
             window.location.href = '/qna';
             alert("수정 완료!");
           } else {
-            window.location.href = '/qna/p_modify';
+            window.location.href = url1;
             alert("제목/내용을 입력해주세요");
           }
 

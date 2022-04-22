@@ -27,13 +27,16 @@
   <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
   
   <script type='text/javascript'>
-    function removeCheck(){ 
+    function Check(){ 
         if (confirm("삭제") == true){    //확인
             document.getElementById('del').submit();
-        }else{   //취소
+        }
+        else{   //취소
             return false;
         }
     }
+
+    
 </script>
 </head>
 
@@ -42,9 +45,10 @@
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img
-            src="{% static 'assets/images/logo5.gif' %}"
-            style='width:50%; height:auto; padding-top: 1%; padding-bottom: 1%; padding-left:5%' alt="logo" /></a>
+        <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/">
+          <img src="{% static 'assets/images/logo3.svg' %}"
+          style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" />
+        </a>
         <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img
             src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
       </div>
@@ -58,7 +62,7 @@
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">Henry Klein</h5>
+                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
                 <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                 <span>로그아웃</span>
               </div>
@@ -143,8 +147,9 @@
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img
-              src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/">
+            <img src="{% static 'assets/images/logo-mini3.svg' %}" style = 'width:70%; height:auto;' alt="logo" />
+          </a>
         </div>
         <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
           <ul class="navbar-nav w-100">
@@ -198,7 +203,7 @@
               <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                 <div class="navbar-profile">
                   <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
@@ -251,14 +256,14 @@
                   <div class="table-responsive">
                     <table class="table">
                       <p style="margin-left: 23%;">제목</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 5vh;">
+                      <div style="margin-left: 23%; width: 40vw; height: 3vh; background-color: #2b303f88;">
                         <!--제목은 여기다가 작성하면 됩니둥-->
-                        <p style="color: rgb(108, 114, 147);">{{p_title}}</p>
+                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 3px;">{{p_title}}</h4>
                       </div>
                       <p style="margin-left: 23%; margin-top: 2%;">내용</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 35vh;">
+                      <div style="margin-left: 23%; width: 40vw; height: 35vh; background-color: #2b303f88;">
                         <!--내용은 여기다가 작성하면 됩니둥-->
-                        <p style="color: rgb(108, 114, 147);">
+                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 5px;">
                           {{p_content}}
                           {% comment %} 친구는 세월의 도둑이다.
 
@@ -277,7 +282,7 @@
 
                           짧은 시간 안에 많은 친구를 얻기란 불가능하다.
                           왜냐하면 그들은 진정한 친구가 아니기 때문이다. {% endcomment %}
-                        </p>
+                        </h5>
                       </div>
                     </table>
                   </div>
@@ -285,13 +290,13 @@
                 <div>
                   <form id='upd' method = "POST">
                     {% csrf_token %}
-                    <button name='update' style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna' ">글 수정</button>
+                    <button name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
+                    onclick="location.href = 'http://127.0.0.1:8000/qna/p_modify/' ">글 수정</button>
                   </form>
                   <form id='del' method='POST'>
                     {% csrf_token %}
                     <button name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick= 'removeCheck()'>글 삭제</button>
+                    onclick= 'Check();'>글 삭제</button>
                   </form>
                   <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna' ">뒤로</button>

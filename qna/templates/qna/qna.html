@@ -30,7 +30,10 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo5.gif' %}" style = 'width:50%; height:auto; padding-top: 1%; padding-bottom: 1%; padding-left:5%' alt="logo" /></a>
+          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/">
+            <img src="{% static 'assets/images/logo3.svg' %}"
+            style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" />
+          </a>
           <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
         </div>
         <ul class="nav">
@@ -127,7 +130,9 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/">
+              <img src="{% static 'assets/images/logo-mini3.svg' %}" style = 'width:70%; height:auto;' alt="logo" />
+            </a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <ul class="navbar-nav w-100">
@@ -234,8 +239,8 @@
                         <thead>
                           <tr>
                             <th> </th>
-                            <th style="width: 10%; height: 48.5;"> No </th>
-                            <th style="width: 50%; height: 48.5; text-align: center;"> 제목 </th>
+                            <th style="width: 14%; height: 48.5; padding-left: 5%;"> No </th>
+                            <th style="width: 46%; height: 48.5; padding-left: 21%;"> 제목 </th>
                             <th style="width: 20%; height: 48.5;"> 작성자 </th>
                             <th style="width: 20%; height: 48.5;"> 작성시간 </th>
                           </tr>
@@ -250,8 +255,8 @@
                                 </label>-->
                               </div>
                             </td>
-                            <td> {{w.article_id}} </td>
-                            <td style="width: 60%; height: 48.5; padding-left: 5%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/post/{{w.article_id}}/'"><u>{{w.title}} [{{w.comment_cnt}}] </u></td>
+                            <td style="padding-left: 5%;"> {{w.article_id}} </td>
+                            <td style="width: 60%; height: 48.5; padding-left: 10%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/post/{{w.article_id}}/'"><u>{{w.title}} [{{w.comment_cnt}}] </u></td>
                             <td> {{w.user_id}} </td>
                             <td> {{w.date}} </td>
                             <td>

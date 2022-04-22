@@ -255,8 +255,8 @@
                                 </label>-->
                               </div>
                             </td>
-                            <td style="padding-left: 5%;"> {{w.article_id}} </td>
-                            <td style="width: 60%; height: 48.5; padding-left: 10%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/post/{{w.article_id}}/'"><u>{{w.title}} [{{w.comment_cnt}}] </u></td>
+                            <td style="padding-left: 5%;"> {{w.article_id}} </a></td>
+                            <td style="width: 60%; height: 48.5; padding-left: 10%;"><a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">{{w.title}} [{{w.comment_cnt}}] </a></td>
                             <td> {{w.user_id}} </td>
                             <td> {{w.date}} </td>
                             <td>
@@ -267,7 +267,7 @@
                     </div>
                   </div>
                   <div>
-                    <button style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
+                    <button type="button" class="btn-red" style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>

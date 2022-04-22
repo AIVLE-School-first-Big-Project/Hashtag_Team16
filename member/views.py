@@ -101,7 +101,7 @@ def logout_custom(request):
 def change_password(request):
 
     if request.method == "POST":
-        e =  USER.objects.get(user_id='sh', pw='2222')
+        e =  USER.objects.get(user_id='sh', pw='1234')
         request.session['user_id']= e.user_id
         request.session['pw']= e.pw
         user = USER.objects.get(user_id=request.session['user_id'], pw=request.session['pw'])
@@ -129,7 +129,7 @@ def change_password(request):
 def change_info(request):
     
     if request.method == 'POST':
-        e =  USER.objects.get(user_id='hello', name = 'hello', email = 'hello@naver.com', phone_num = '010-1234-1234')
+        e =  USER.objects.get(user_id='hello',pw='hello', name = 'hello', email = 'hello@naver.com', phone_num = '010-1234-1234')
         request.session['user_id']= e.user_id
         request.session['name']= e.name
         request.session['email']= e.email
@@ -138,22 +138,18 @@ def change_info(request):
                                 name = request.session['name'] , 
                                 email = request.session['email'], 
                                 phone_num = request.session['phone_num'])
-        user = request.user
 
-        new_name = request.POST.get('name')
-        new_email = request.POST.get('email')
-        
-        new_phone_num = request.POST.get('phone_num')
-        
+        new_name = request.POST['name']
+        new_email = request.POST['email']
+        new_phone_num = request.POST['phone_num']
         
         user.name = new_name
         user.email = new_email
         user.phone_num = new_phone_num
-
         user.save()
 
 
         return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
 
-    elif request.method == 'GET':
+    else: 
         return render(request, 'member/change_info.html')

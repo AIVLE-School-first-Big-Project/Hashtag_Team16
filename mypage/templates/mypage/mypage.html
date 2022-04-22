@@ -43,7 +43,7 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">Henry Klein</h5>
+                  <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
                   <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                   <span>로그아웃</span>
                 </div>
@@ -180,7 +180,7 @@
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
                     <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -232,7 +232,7 @@
                     <div class="table-responsive">
                       <table class="table" style="margin-bottom: 4%;">
                           <tr style="width: 10%; height: 48.5;"> 
-                            <h3 style="float: left; margin-top: 1%; margin-left: 5%;">윤지민</h3>
+                            <h3 style="float: left; margin-top: 1%; margin-left: 5%;">{{user}}</h3>
                             <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
                             <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "location.href ='modify'">회원정보 수정</button>
                             <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "location.href ='changepw'">비밀번호 수정</button>
@@ -253,23 +253,26 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <!--
+                              
                               {% for w in info %}
                               <tr>
                                 <td>
                                 </td>
-                                <td> {{w.article_id}} </td>
-                                <td style="width: 60%; height: 48.5; padding-left: 5%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/post'"><u>{{w.title}} [{{w.comment_cnt}}] </u></td>
-                                <td> {{w.user_id}} </td>
+                                <td> {{w.log_id}} </td>
+                                <td> {{w.log_id}} </td>
+                                <td style="width: 60%; height: 48.5; padding-left: 5%;" 
+                                    onclick = "location.href = 'mypage/'">
+                                    <u>[{{w.image}}] </u></td>
+                                <td> {{w.prior_tag}} </td>
                                 <td> {{w.date}} </td>
                                 <td>
                               </tr>
                               {% endfor%}
-                              -->
-                              <tr>
+                              
+                              {% comment %} <tr>
                                 <th> </th>
                                 <th style="width: 10%; height: 48.5; font-weight: normal;"> 2 </th>
-                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 22.04.20 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;">22.04.20 </th>
                                 <th style="width: 20%; height: 48.5; font-weight: normal;"> 셀카.jpg </th>
                                 <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #정우성, #장동건, #강동원, #and 나, #동원참치, #잘생김 </th>
                               </tr>
@@ -279,7 +282,7 @@
                                 <th style="width: 20%; height: 48.5; font-weight: normal;"> 22.04.19 </th>
                                 <th style="width: 20%; height: 48.5; font-weight: normal;"> 강아지.jpg </th>
                                 <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #큐트, #귀엽, #커엽, #댕댕, #강아지, #말티즈 </th>
-                              </tr>
+                              </tr> {% endcomment %}
                             </tbody>
                           </table>
                         </div>

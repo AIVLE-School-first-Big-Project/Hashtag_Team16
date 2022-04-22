@@ -101,11 +101,6 @@
 </script>
 
 <script>
-  function sleep(ms) {
-    const wakeUpTime = Date.now() + ms;
-    while (Date.now() < wakeUpTime) {}
-  };
-
   function login() {
       var form = document.getElementsByClassName('login-form');
       const myformData = new FormData();

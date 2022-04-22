@@ -239,8 +239,8 @@
                           <tr style="width: 10%; height: 48.5;"> 
                             <h3 style="float: left; margin-top: 1%; margin-left: 5%;">윤지민</h3>
                             <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
-                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "location.href ='modify'">회원정보 수정</button>
-                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "location.href ='changepw'">비밀번호 수정</button>
+                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "location.href ='changepw'">회원정보 수정</button>
+                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "javascript:showPopUp()">비밀번호 수정</button>
                           </tr>
                       </table>
                       <hr color="grey" style="height: 5%;">
@@ -347,5 +347,31 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
+    <script type="text/javascript">
+       function showPopUp() {
+        //창 크기 지정
+        var width = 500; 
+        var height = 500; 
+        //pc화면기준 가운데 정렬 
+        var left = (window.screen.width / 2) - (width/2);
+        var top = (window.screen.height / 4); 
+        //윈도우 속성 지정 
+        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+        //연결하고싶은url 
+        const url = "member/login"; 
+        //등록된 url 및 window 속성 기준으로 팝업창을 연다. 
+  
+        window.name = "title";
+        // window name 
+        var newWindow;
+        newWindow = window.open('/member/changepw',"changepw", windowStatus);
+       };
+   </script>
+ 
+   <script type="text/javascript"> function Logout() {
+     alert("로그아웃 되었습니다.");
+     location.href = "member/logout"
+   }
+   </script>
   </body>
 </html>

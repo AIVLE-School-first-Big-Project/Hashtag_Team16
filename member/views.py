@@ -90,10 +90,19 @@ def signup_custom(request):
         return render(request, 'member/signup_custom.html')
 
 def logout_custom(request):
-    del request.session['user_id']
-    del request.session['user_name']
+    try:
+        user = USER.objects.get(user_id=request.session['user_id']).user_id
+        
+        del request.session['user_id']
+        del request.session['user_name']
 
-    request.session.flush()
+        request.session.flush()
+        return redirect('/')
+    
+    except KeyError:
+        return redirect('/')
+    
+
 
     return redirect('/')
 
@@ -128,7 +137,12 @@ def change_password(request):
             return JsonResponse(data)
 
     else:
-        return render(request, 'member/change_pw.html')
+        try:
+            user = USER.objects.get(user_id=request.session['user_id']).user_id
+            return render(request, 'member/change_pw.html')
+        except KeyError:
+            return redirect('/')
+        
 
 
 def change_info(request):
@@ -137,15 +151,6 @@ def change_info(request):
         user_id = request.session['user_id']
         print(user_id)
         user_inst =  USER.objects.get(user_id=user_id)
-        # request.session['user_id']= e.user_id
-        # request.session['name']= e.name
-        # request.session['email']= e.email
-        # request.session['phone_num']= e.phone_num
-        # user = USER.objects.get(user_id=request.session['user_id'], 
-        #                         name = request.session['name'] , 
-        #                         email = request.session['email'], 
-        #                         phone_num = request.session['phone_num'])
-
         new_name = request.POST['name']
         new_email = request.POST['email']
         new_phone_num = request.POST['phone_num']
@@ -157,4 +162,9 @@ def change_info(request):
         return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
 
     else: 
-        return render(request, 'member/change_info.html')
+        try:
+            user = USER.objects.get(user_id=request.session['user_id']).user_id
+            return render(request, 'member/change_info.html')
+        except KeyError:
+            return redirect('/')
+        

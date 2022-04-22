@@ -291,7 +291,7 @@
                   <form id='upd' method = "POST">
                     {% csrf_token %}
                     <button name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna/p_modify/' ">글 수정</button>
+                    onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
                   </form>
                   <form id='del' method='POST'>
                     {% csrf_token %}

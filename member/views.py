@@ -129,51 +129,31 @@ def change_password(request):
 
     else:
         return render(request, 'member/change_pw.html')
+
 def change_info(request):
-        return render(request, 'member/change_info.html')
-#회원정보 수정
-# # def update(request, user_id):
-#   user = USER.objects.get(id=user_id)
-#   if request.method == "POST":
-#     post.title = request.POST['title']
-#     post.body = request.POST['body']
-#     post.date = timezone.now()
-#     try:
-#       post.image = request.FILES['image']
-#     except:
-#       post.image = None
-#     post.save()
-#     return redirect('/detail/'+str(post.id),{'post':post})
-#   else:
-#     post=Post()
-#     return render(request, 'update.html', {'post':post})
-
-# def delete(request, post_id):
-#   post = Post.objects.get(id=post_id)
-#   post.delete()
-#   return redirect('home')
-# def change_info(request):
     
-#     if request.method == 'POST':
-#         e =  USER.objects.get(user_id='hello',pw='hello', name = 'hello', email = 'hello@naver.com', phone_num = '010-1234-1234')
-#         request.session['user_id']= e.user_id
-#         request.session['name']= e.name
-#         request.session['email']= e.email
-#         request.session['phone_num']= e.phone_num
-#         user = USER.objects.get(user_id=request.session['user_id'], 
-#                                 name = request.session['name'] , 
-#                                 email = request.session['email'], 
-#                                 phone_num = request.session['phone_num'])
+    if request.method == 'POST':
+        user_id = request.session['user_id']
+        print(user_id)
+        user_inst =  USER.objects.get(user_id=user_id)
+        # request.session['user_id']= e.user_id
+        # request.session['name']= e.name
+        # request.session['email']= e.email
+        # request.session['phone_num']= e.phone_num
+        # user = USER.objects.get(user_id=request.session['user_id'], 
+        #                         name = request.session['name'] , 
+        #                         email = request.session['email'], 
+        #                         phone_num = request.session['phone_num'])
 
-#         new_name = request.POST['name']
-#         new_email = request.POST['email']
-#         new_phone_num = request.POST['phone_num']
+        new_name = request.POST['name']
+        new_email = request.POST['email']
+        new_phone_num = request.POST['phone_num']
         
-#         user.name = new_name
-#         user.email = new_email
-#         user.phone_num = new_phone_num
-#         user.save()
-#         return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
+        user_inst.name = new_name
+        user_inst.email = new_email
+        user_inst.phone_num = new_phone_num
+        user_inst.save()
+        return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
 
-#     else: 
-#         return render(request, 'member/change_info.html')
+    else: 
+        return render(request, 'member/change_info.html')

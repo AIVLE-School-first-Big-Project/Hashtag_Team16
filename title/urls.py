@@ -5,5 +5,6 @@ app_name = 'title'
 
 urlpatterns = [
     path('', views.index),
+    path('need_login', views.need_login)
 ]
 

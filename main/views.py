@@ -9,7 +9,7 @@ def index(request):
         request.session['user_id']
         return render(request, 'main/index.html', {'user' : user})
     except KeyError:
-        return redirect('/')
+        return redirect('/need_login')
 
 def function(request):
     try:
@@ -17,4 +17,4 @@ def function(request):
         request.session['user_id']
         return render(request, 'main/function.html', {'user' : user})
     except KeyError:
-        return redirect('/')
+        return redirect('/need_login')

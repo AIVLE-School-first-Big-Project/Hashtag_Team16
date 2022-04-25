@@ -100,7 +100,7 @@ def logout_custom(request):
         return redirect('/')
     
     except KeyError:
-        return redirect('/')
+        return redirect('/need_login')
 
 # 비밀번호 변경
 def change_password(request):
@@ -137,7 +137,7 @@ def change_password(request):
             user = USER.objects.get(user_id=request.session['user_id']).user_id
             return render(request, 'member/change_pw.html')
         except KeyError:
-            return redirect('/')
+            return redirect('/need_login')
         
 
 def change_info(request):
@@ -161,5 +161,5 @@ def change_info(request):
             user = USER.objects.get(user_id=request.session['user_id']).user_id
             return render(request, 'member/change_info.html')
         except KeyError:
-            return redirect('/')
+            return redirect('/need_login')
         

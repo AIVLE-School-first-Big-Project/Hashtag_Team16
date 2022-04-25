@@ -22,8 +22,7 @@ def qna_board(request):
         return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
     
     except KeyError:
-        return redirect('/')
-
+        return redirect('/need_login')
 
 def create(request):
     
@@ -58,7 +57,7 @@ def create(request):
             user = USER.objects.get(user_id=request.session['user_id']).user_id
             return render(request, 'qna/create.html', {'user':user})
         except KeyError:
-            return redirect('/')
+            return redirect('/need_login')
 
 def post(request, pk):
     try:
@@ -73,7 +72,7 @@ def post(request, pk):
 
         return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user})
     except KeyError:
-        return redirect('/')
+        return redirect('/need_login')
 
 
 def p_modify(request, pk):
@@ -108,6 +107,6 @@ def p_modify(request, pk):
             content=al.content
             return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user})
         except KeyError:
-            return redirect('/')
+            return redirect('/need_login')
 
 

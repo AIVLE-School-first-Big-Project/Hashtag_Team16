@@ -7,14 +7,18 @@ def index(request):
     try:
         user = USER.objects.get(user_id=request.session['user_id']).user_id
         request.session['user_id']
-        return render(request, 'main/index.html', {'user' : user})
+        return render(request, 'main/index.html',{'user' : user})
     except KeyError:
         return redirect('/')
 
 def function(request):
     try:
-        user = USER.objects.get(user_id=request.session['user_id']).user_id                
+        user = USER.objects.get(user_id=request.session['user_id']).user_id
         request.session['user_id']
         return render(request, 'main/function.html', {'user' : user})
     except KeyError:
         return redirect('/')
+
+def nav(request):
+    user = USER.objects.get(user_id=request.session['user_id']).user_id
+    return render(request, 'main/nav.html', {'user' : user})

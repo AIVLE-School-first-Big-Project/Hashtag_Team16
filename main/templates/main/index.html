@@ -27,167 +27,14 @@
     <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
 
   </head>
+
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo3.svg' %}" style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" /></a>
-          <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
-        </div>
-        <ul class="nav">
-          <!-- 프로필 -->
-          <li class="nav-item profile">
-            <div class="profile-desc">
-              <div class="profile-pic">
-                <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <span class="count bg-success"></span>
-                </div>
-                <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">{{user}}</h5>
-                  {% comment %} <p style="font-size: 13px; color: navajowhite;"></p> {% endcomment %}
-                  {% comment %} <a href="javascript:Logout()">Logout</a> {% endcomment %}
-                </div>
-              </div>
-
-              <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
-              <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                <a href="https://www.instagram.com/" class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-settings text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Instagram</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="/mypage/changepw/" class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-onepassword  text-info"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-calendar-today text-success"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <!-- 네비게이션 -->
-          <li class="nav-item nav-category">
-            <span class="nav-link">Navigation</span>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/main/function/">
-              <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
-              </span>
-              <span class="menu-title">우리의 정신</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/main/">
-              <span class="menu-icon">
-                <i class="mdi mdi-chart-bar"></i>
-              </span>
-              <span class="menu-title">분석페이지</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/qna/">
-              <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
-              </span>
-              <span class="menu-title">Q&A게시판</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/mypage/">
-              <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
-              </span>
-              <span class="menu-title">마이페이지</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-
+      <div data-include-path="{% static 'nav.html' %}"></div>
+      <script src="{% static 'custom/nav_loader.js' %}"></script>
       <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_navbar.html -->
-        <nav class="navbar p-0 fixed-top d-flex flex-row">
-          <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/">
-              <img src="{% static 'assets/images/logo-mini3.svg' %}" style = 'width:70%; height:auto;' alt="logo" />
-            </a>
-          </div>
-          <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-            <ul class="navbar-nav w-100">
-              <li class="nav-item w-100">
-              </li>
-            </ul>
-            <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
-                  <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}님, 반갑습니다</p>
-                    <i class="mdi mdi-menu-down d-none d-sm-block"></i>
-                  </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                  <h6 class="p-3 mb-0">Profile</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item" href="https://www.instagram.com/">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-settings text-success"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Instagram</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item" href="javascript:Logout()">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-logout text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Logout</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <!-- <p class="p-3 mb-0 text-center">Advanced settings</p> -->
-                </div>
-              </li>
-            </ul>
-            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-              <span class="mdi mdi-format-line-spacing"></span>
-            </button>
-          </div>
-        </nav>
-
-        <!-- partial -->
+      
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
@@ -526,6 +373,10 @@
 
 
         new FileUploader('.uploader');
+    </script>
+
+    <script>
+
     </script>
     <!-- End custom js for this page -->
   </body>

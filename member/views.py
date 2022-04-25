@@ -130,7 +130,6 @@ def change_password(request):
     else:
         return render(request, 'member/change_pw.html')
 
-
 def change_info(request):
     
     if request.method == 'POST':

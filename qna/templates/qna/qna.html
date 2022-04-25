@@ -54,14 +54,14 @@
 
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                <a href="#" class="dropdown-item preview-item">
+                <a href="https://www.instagram.com/" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-settings text-primary"></i>
                     </div>
                   </div>
                   <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+                    <p class="preview-subject ellipsis mb-1 text-small">Instagram</p>
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
@@ -193,14 +193,14 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="https://www.instagram.com/">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
                       </div>
                     </div>
                     <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Settings</p>
+                      <p class="preview-subject mb-1">Instagram</p>
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
@@ -227,11 +227,10 @@
 
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper">
-
+          <div class="content-wrapper" style="height: 80vh;">
             <div class="row ">
               <div class="col-12 grid-margin">
-                <div class="card" style="height: 72vh;">
+                <div class="card" style="height: 79vh; width: 75vw;">
                   <div class="card-body">
                     <h4 class="card-title">Q&A 게시판</h4>
                     <div class="table-responsive">
@@ -267,7 +266,7 @@
                     </div>
                   </div>
                   <div>
-                    <button type="button" class="btn-red" style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
+                    <button type="button" class="btn btn-light" style="width: 8%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>
@@ -276,28 +275,22 @@
               <div class="col-12 grid-margin">
                 <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
                   <ul class='pagination'>
-                    <button type="button">◀</button>
-                      {% for i in page_range %}
-                        <li>
-                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
-                            <button type="button">{{ i }}</button>
-                          </a>
-                        </li>
-                      {% endfor %}
-                    <button type="button">▶</button>
+                    <div style="width: 40vw; margin-left: 5%; margin-right: 5%;">
+                      <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 3%; color:rgb(108, 114, 147);">◀</a>
+                      <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 95%; color:rgb(108, 114, 147);">▶</a>
+                        <div style="width: 30vw; height: 5vh; text-align: center; padding-top: 1.5%; margin-left: 8%;">
+                          {% for i in page_range %}
+                            <a href = '{% url "qna:qna_board" %}?page={{ i }}' style="text-align: center; padding: 3%; color:rgb(108, 114, 147);"> {{ i }} </a>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
           <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">AI대구경북 화이팅</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made by jimi</a></span>
-            </div>
-          </footer>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

@@ -1,21 +1,8 @@
-from unicodedata import name
 from django.shortcuts import render, redirect
 import json
-from .forms import USERFORM
 from django.http import JsonResponse
 from .models import USER
 from django.utils import timezone
-from django.http import HttpResponse
-from django.contrib import auth 
-from django.contrib import messages
-# 나중에 쓸거야!
-# from django.contrib.auth.hashers import check_password
-# from django.contrib.auth import update_session_auth_hash 
-# from django.contrib.auth.forms import PasswordChangeForm
-# from django.contrib.auth.decorators import login_required 
-# from django.contrib.auth.hashers import make_password
-
-
 
 # Create your views here.
 
@@ -92,12 +79,17 @@ def signup_custom(request):
         return render(request, 'member/signup_custom.html')
 
 def logout_custom(request):
-    del request.session['user_id']
-    del request.session['user_name']
+    try:
+        user = USER.objects.get(user_id=request.session['user_id']).user_id
+        
+        del request.session['user_id']
+        del request.session['user_name']
 
-    request.session.flush()
-
-    return redirect('/')
+        request.session.flush()
+        return redirect('/')
+    
+    except KeyError:
+        return redirect('/need_login')
 
 # 비밀번호 변경
 def change_password(request):
@@ -130,15 +122,17 @@ def change_password(request):
             return JsonResponse(data)
 
     else:
-        return render(request, 'member/change_pw.html')
-
+        try:
+            user = USER.objects.get(user_id=request.session['user_id']).user_id
+            return render(request, 'member/change_pw.html')
+        except KeyError:
+            return redirect('/need_login')
+        
 
 def change_info(request):
     user_id = request.session['user_id']
     user_inst = USER.objects.get(user_id=user_id)
-    
-    #user_list = USER.objects.all()
-    #user_inst = USER.objects.get()
+
     if request.method == "POST":
         
         name = request.POST.get('name')

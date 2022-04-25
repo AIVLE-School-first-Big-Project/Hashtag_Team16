@@ -223,7 +223,7 @@
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
+                <a class="dropdown-item preview-item" href="javascript:Logout()">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-logout text-danger"></i>
@@ -286,10 +286,9 @@
                   </div>
                 </div>
                 <div>
-                  <form id='upd' method = "POST">
-                    {% csrf_token %}
-                    <button class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna/p_modify/' ">글 수정</button>
+                  <form id='upd'>
+                    <button type='button' class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
+                    onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
                   </form>
                   <form id='del' method='POST'>
                     {% csrf_token %}
@@ -339,6 +338,14 @@
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page -->
+  <script type="text/javascript"> 
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
+  </script>
+
 </body>
 
 </html>

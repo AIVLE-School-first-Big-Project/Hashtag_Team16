@@ -72,23 +72,6 @@ def logout_custom(request):
 
     return redirect('/')
 
-# def update(request):
-    
-#     article = ARTICLE(
-#         article_id = ARTICLE.objects.get(user_id='hw').article_id,
-#         board = BOARD.objects.get(board_name='qna게시판'),
-#         #user = USER.objects.get(user_id=request.session['user_id']),
-#         user = USER.objects.get(user_id='hw'),
-#         title = request.POST.get('title'),
-#         content = request.POST.get('content'),
-#         date = timezone.now(),
-#         image = None,
-#         comment_cnt = 0
-#         )
-#     article.save()
-
-#     return render(request, 'qna/post.html')
-
 def p_modify(request, pk):
     al = ARTICLE.objects.get(article_id=pk)
     user = USER.objects.get(user_id = request.session['user_id']).user_id
@@ -117,7 +100,7 @@ def p_modify(request, pk):
     else:
         title = al.title
         content=al.content
-        return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user})
+        return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
 
 
 #def index(request):

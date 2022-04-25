@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+  
+    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <div class="container-scroller">
@@ -204,7 +207,7 @@
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="javascript:Logout()">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-logout text-danger"></i>
@@ -318,5 +321,12 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
+    <script type="text/javascript"> 
+      function Logout() {
+        sessionStorage.clear();
+        alert("로그아웃 되었습니다.");
+        location.href = "/member/logout";
+      }
+    </script>
   </body>
 </html>

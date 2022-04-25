@@ -26,8 +26,9 @@ def qna_board(request):
 
 
 def create(request):
-    user = USER.objects.get(user_id=request.session['user_id']).user_id  
+    
     if request.method == 'POST':
+        user = USER.objects.get(user_id=request.session['user_id']).user_id  
         print(ARTICLE.objects.order_by('-article_id').first().article_id)
         
         article = ARTICLE(
@@ -73,14 +74,6 @@ def post(request, pk):
     except KeyError:
         return redirect('/')
     
-def logout_custom(request):
-    del request.session['user_id']
-    del request.session['user_name']
-
-    request.session.flush()
-
-    return redirect('/')
-
 
 def p_modify(request, pk):
     al = ARTICLE.objects.get(article_id=pk)

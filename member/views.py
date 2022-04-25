@@ -101,10 +101,6 @@ def logout_custom(request):
     
     except KeyError:
         return redirect('/')
-    
-
-
-    return redirect('/')
 
 # 비밀번호 변경
 def change_password(request):

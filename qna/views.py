@@ -83,7 +83,7 @@ def logout_custom(request):
 #         content = request.POST.get('content'),
 #         date = timezone.now(),
 #         image = None,
-#         comment_cnt = 0ㅂ
+#         comment_cnt = 0
 #         )
 #     article.save()
 

@@ -3,17 +3,6 @@ import json
 from django.http import JsonResponse
 from .models import USER
 from django.utils import timezone
-from django.http import HttpResponse
-from django.contrib import auth 
-from django.contrib import messages
-# 나중에 쓸거야!
-# from django.contrib.auth.hashers import check_password
-# from django.contrib.auth import update_session_auth_hash 
-# from django.contrib.auth.forms import PasswordChangeForm
-# from django.contrib.auth.decorators import login_required 
-# from django.contrib.auth.hashers import make_password
-
-
 
 # Create your views here.
 
@@ -90,12 +79,17 @@ def signup_custom(request):
         return render(request, 'member/signup_custom.html')
 
 def logout_custom(request):
-    del request.session['user_id']
-    del request.session['user_name']
+    try:
+        user = USER.objects.get(user_id=request.session['user_id']).user_id
+        
+        del request.session['user_id']
+        del request.session['user_name']
 
-    request.session.flush()
-
-    return redirect('/')
+        request.session.flush()
+        return redirect('/')
+    
+    except KeyError:
+        return redirect('/need_login')
 
 # 비밀번호 변경
 def change_password(request):
@@ -128,32 +122,38 @@ def change_password(request):
             return JsonResponse(data)
 
     else:
-        return render(request, 'member/change_pw.html')
+        try:
+            user = USER.objects.get(user_id=request.session['user_id']).user_id
+            return render(request, 'member/change_pw.html')
+        except KeyError:
+            return redirect('/need_login')
+        
 
 def change_info(request):
-    
-    if request.method == 'POST':
-        user_id = request.session['user_id']
-        print(user_id)
-        user_inst =  USER.objects.get(user_id=user_id)
-        # request.session['user_id']= e.user_id
-        # request.session['name']= e.name
-        # request.session['email']= e.email
-        # request.session['phone_num']= e.phone_num
-        # user = USER.objects.get(user_id=request.session['user_id'], 
-        #                         name = request.session['name'] , 
-        #                         email = request.session['email'], 
-        #                         phone_num = request.session['phone_num'])
+    user_id = request.session['user_id']
+    user_inst = USER.objects.get(user_id=user_id)
 
-        new_name = request.POST['name']
-        new_email = request.POST['email']
-        new_phone_num = request.POST['phone_num']
+    if request.method == "POST":
         
-        user_inst.name = new_name
-        user_inst.email = new_email
-        user_inst.phone_num = new_phone_num
-        user_inst.save()
-        return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_num = request.POST.get('phone_num')
 
-    else: 
-        return render(request, 'member/change_info.html')
+        user_inst.name = name
+        user_inst.email = email
+        user_inst.phone_num = phone_num
+
+        user_inst.save()
+        return redirect('../../mypage')
+
+            
+    else:    
+        
+        try:
+            name = user_inst.name
+            email = user_inst.email
+            phone_num = user_inst.phone_num
+            return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
+        except KeyError:
+            return redirect('/')
+        

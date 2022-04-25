@@ -1,0 +1,6 @@
+(1) 크롤러 작동: (NEW_Crawling.ipynb)
+(2) 크롤링_데이터프레임_전처리.ipynb
+(3) 데이터프레임에 존재하는 이미지만 따로 저장하기.ipynb
+(4) jpg를 png로 바꾸기: jpg2png.py
+(5) "이전에 걸러냈던 데이터프레임 적용"
+(6) 직접 이미지 걸러내기: image_check.py

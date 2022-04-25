@@ -1,5 +1,7 @@
+from unicodedata import name
 from django.shortcuts import render, redirect
 import json
+from .forms import USERFORM
 from django.http import JsonResponse
 from .models import USER
 from django.utils import timezone
@@ -132,29 +134,32 @@ def change_password(request):
 
 
 def change_info(request):
+    user_id = request.session['user_id']
+    user_inst = USER.objects.get(user_id=user_id)
     
-    if request.method == 'POST':
-        user_id = request.session['user_id']
-        print(user_id)
-        user_inst =  USER.objects.get(user_id=user_id)
-        # request.session['user_id']= e.user_id
-        # request.session['name']= e.name
-        # request.session['email']= e.email
-        # request.session['phone_num']= e.phone_num
-        # user = USER.objects.get(user_id=request.session['user_id'], 
-        #                         name = request.session['name'] , 
-        #                         email = request.session['email'], 
-        #                         phone_num = request.session['phone_num'])
-
-        new_name = request.POST['name']
-        new_email = request.POST['email']
-        new_phone_num = request.POST['phone_num']
+    #user_list = USER.objects.all()
+    #user_inst = USER.objects.get()
+    if request.method == "POST":
         
-        user_inst.name = new_name
-        user_inst.email = new_email
-        user_inst.phone_num = new_phone_num
-        user_inst.save()
-        return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_num = request.POST.get('phone_num')
 
-    else: 
-        return render(request, 'member/change_info.html')
+        user_inst.name = name
+        user_inst.email = email
+        user_inst.phone_num = phone_num
+
+        user_inst.save()
+        return redirect('../../mypage')
+
+            
+    else:    
+        
+        try:
+            name = user_inst.name
+            email = user_inst.email
+            phone_num = user_inst.phone_num
+            return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
+        except KeyError:
+            return redirect('/')
+        

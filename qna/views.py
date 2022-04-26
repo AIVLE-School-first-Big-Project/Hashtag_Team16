@@ -91,20 +91,9 @@ def p_modify(request, pk):
         if al.user.user_id != request.session['user_id']:
             data = {'status':'user_error'}
             return JsonResponse(data)
+
         title = request.POST.get('title')
         content = request.POST.get('content')
-        al.title = title
-        al.content = content
-        al.image ='123'
-        
-        if (al.title == '') or (al.content == ''):
-            data = {'status':'F'}
-            return JsonResponse(data)
-        else:
-            al.save()
-            data = {'status':'T'}
-            return JsonResponse(data) 
-        
     else:
         try:
             user = USER.objects.get(user_id=request.session['user_id']).user_id  

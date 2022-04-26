@@ -1,6 +1,6 @@
 (0) 업데이트를 위한 파일명 변경
 - 기존에 존재하는 old_insta_df.pkl 삭제
-- 기존에 존해나는 insta_df.pkl은 old_insta_df.pkl로 변경
+- 기존에 존해나는 insta_df.pkl은 old_insta_df.pkl(과거에 전처리가 완료된 데이터)로 변경
 ===============================================
 (1) 크롤러 작동: (NEW_Crawling.ipynb) <-- local
 
@@ -66,14 +66,14 @@
 	- *jpg2png.py
 
 ===============================================
-(5) 수작업으로 걸러낸(by경용) 광고이미지 적용(이거는 처음 한 번만 작동시키면 됨)- 일회용(코랩에서) <--colab, googledrive
+((5)) 수작업으로 걸러낸(by경용) 광고이미지 적용(이거는 처음 한 번만 작동시키면 됨)- 일회용(코랩에서) <--colab, googledrive
 
-- preprocessed/dataframe의 insta_df.pkl이 최신화됨
-- 해당 단계에서는 instal_df.pkl을 old_instal_df.pkl로 따로 저장.
-- 수작업으로 걸러낸 데이터를 insta_df.pkl로 저장
+- preprocessed/dataframe의 update_df.pkl이 생김
+- update_df.pkl을 insta_df.pkl로 저장하고 update_df.pkl은 삭제
+- ((5))실행시에는 6번을 건너뜀
 
 ===============================================
-(6) 이전 크롤링 데이터랑 새로운 크롤링 데이터 병합(데이터프레임의 길이가 다름)
+(6) 이전 크롤링 데이터의 전처리 된 내용을 신규 크롤링 데이터에 반영
 
 ===============================================
 (7) 직접 이미지, 해시태그 걸러내기: image_check.py <-- 각자의 local
@@ -84,8 +84,8 @@
 		- dataframe
 			- old_insta_df.pkl
 			- insta_df.pkl 
-			- *insta_df_user1.pkl
-			- *insta_df_user2.pkl
+			- *update_df_user1.pkl
+			- *update_df_user2.pkl
 			- *...
 		- image
 		- image_png
@@ -105,8 +105,8 @@
 		- dataframe
 			- old_insta_df.pkl
 			- *insta_df.pkl (insta_df_user를 활용하여 업데이트)
-			- insta_df_user1.pkl
-			- insta_df_user2.pkl
+			- update_df_user1.pkl
+			- update_df_user2.pkl
 			- ...
 		- image
 		- image_png
@@ -118,4 +118,4 @@
 	- image_check.py
 	- *insta_df_user 병합.ipynb
 
-(9) 모델에 최신화 데이터 업데이트(insta <-- googledrive
+(9) 모델에 최신화 데이터 업데이트(insta <-- googledrive)

@@ -6,7 +6,6 @@ from pyspark.sql import SparkSession
 from pyspark.ml.recommendation import ALS, ALSModel
 
 def index(request):
-<<<<<<< HEAD
     global neural_network,als_model,pics,recommender_df,hashtags_df
     #######모델 불러오기 (dnn feature뽑아오기,als 해시태그 추천)
     model_path='C:/django/Hashtag_Team16/modeling/mobilenetv2.pkl'
@@ -19,14 +18,17 @@ def index(request):
     recommender_df=joblib.load('C:/django/Hashtag_Team16/modeling/recommender_df_0424_1.pkl')
     hashtags_df=joblib.load('C:/django/Hashtag_Team16/modeling/hashtags_df_0424_1.pkl')
     # Login이 안된 상태에서는 연결하지 못하도록         
-=======
-    # Login이 안된 상태에서는 연결하지 못하도록
->>>>>>> 86c4dd12ba01100e8cdee761e258ff6d675e831d
     try:
-        user = USER.objects.get(user_id=request.session['user_id']).user_id                
+        user = USER.objects.get(user_id=request.session['user_id']).user_id
         request.session['user_id']
         return render(request, 'main/index.html', {'user' : user})
     except KeyError:
         return redirect('/')
 
-    
+def function(request):
+    try:
+        user = USER.objects.get(user_id=request.session['user_id']).user_id                
+        request.session['user_id']
+        return render(request, 'main/function.html', {'user' : user})
+    except KeyError:
+        return redirect('/')

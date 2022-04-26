@@ -1,18 +1,23 @@
-
 <div class=fsize style = "text-align : center;">
     <form method="POST">
     <h2>회원정보 수정</h2>
     {% csrf_token %}
     <h5>이름:</h5>
-    <textarea name='name' type="text">{{name}}</textarea>
+    <input name="name" type="text" placeholder="username" >
     <h5>이메일 :</h5>
-    <textarea name='email' type="email">{{email}}</textarea>
+    <input name="email" type="email" placeholder="email">
     <h5>휴대폰 번호 :</h5> 
-    <textarea name='phone_num'  type="text" >{{phone_num}}</textarea>
+    <input name="phone_num" type="text" placeholder="010-0000-0000">
     <br><br>
     <input class="btn" type="submit" value="변경"> 
     <a href="../../mypage">
         <button type="button" class="btn">취소</button>
     </a>
     </form>
-</div>  
+</div>
+
+{% comment %} <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+    
+
+</script> {% endcomment %}

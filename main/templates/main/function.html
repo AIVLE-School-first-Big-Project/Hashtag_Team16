@@ -12,32 +12,34 @@
     <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    
+    <link rel="stylesheet" href="{% static 'assets/css/image_upload.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/jvectormap/jquery-jvectormap.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+
+    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/">
-            <img src="{% static 'assets/images/logo3.svg' %}"
-            style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" />
-          </a>
+          <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo3.svg' %}" style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" /></a>
           <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
         </div>
         <ul class="nav">
-          <!-- 좌측 프로필 -->
+          <!-- 프로필 -->
           <li class="nav-item profile">
             <div class="profile-desc">
               <div class="profile-pic">
@@ -46,26 +48,26 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">Henry Klein</h5>
-                  <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
-                  <span>로그아웃</span>
+                  <h5 class="mb-0 font-weight-normal">{{user}}</h5>
+                  <!-- <p style="font-size: 13px; color: navajowhite;">Gold Member</p> -->
+                  <!-- <a href="javascript:Logout()">Logout</a> -->
                 </div>
               </div>
 
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                <a href="#" class="dropdown-item preview-item">
+                <a href="https://www.instagram.com/" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-settings text-primary"></i>
                     </div>
                   </div>
                   <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+                    <p class="preview-subject ellipsis mb-1 text-small">Instagram</p>
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
+                <a href="/mypage/changepw/" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-onepassword  text-info"></i>
@@ -94,7 +96,14 @@
           <li class="nav-item nav-category">
             <span class="nav-link">Navigation</span>
           </li>
-
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="http://127.0.0.1:8000/main/function/">
+              <span class="menu-icon">
+                <i class="mdi mdi-contacts"></i>
+              </span>
+              <span class="menu-title">우리의 정신</span>
+            </a>
+          </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href="http://127.0.0.1:8000/main/">
               <span class="menu-icon">
@@ -119,8 +128,6 @@
               <span class="menu-title">마이페이지</span>
             </a>
           </li>
-
-          <!-- 네비게이션 끝 -->
         </ul>
       </nav>
 
@@ -140,82 +147,40 @@
               </li>
             </ul>
             <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item dropdown d-none d-lg-block">
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
-                  <h6 class="p-3 mb-0">Projects</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-file-outline text-primary"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Software Development</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-web text-info"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">UI Development</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-layers text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Software Testing</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">See all projects</p>
-                </div>
-              </li>
-
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
                     <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}님, 반갑습니다</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
-                <!-- 우측 상단 프로필 드롭다운-->
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="https://www.instagram.com/">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
                       </div>
                     </div>
                     <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Settings</p>
+                      <p class="preview-subject mb-1">Instagram</p>
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="javascript:Logout()">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-logout text-danger"></i>
                       </div>
                     </div>
                     <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Log out</p>
+                      <p class="preview-subject mb-1">Logout</p>
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">Advanced settings</p>
+                  <!-- <p class="p-3 mb-0 text-center">Advanced settings</p> -->
                 </div>
               </li>
             </ul>
@@ -224,49 +189,65 @@
             </button>
           </div>
         </nav>
+
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-
-            <div class="row ">
-              <div class="col-12 grid-margin">
-                <div class="card" style="height: 86vh;">
-                  <div class="card-body">
-                    <h4 class="card-title">마이페이지</h4>
-                    <div class="table-responsive" style="height: 70vh;">
-                      <table class="table" style="margin-bottom: 4%;">
-                          <tr style="width: 10%;"> 
-                            <h3 style="float: left; margin-top: 1%; margin-left: 5%;">윤지민</h3>
-                            <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
-                          </tr>
-                      </table>
-                      <div>
-                        <div style="margin-left: 38%; padding-bottom: 3%;">
-                          <h4 style="display: inline;"> 아이디 </h4>
-                          <h4 style="display: inline;"> : dasdasdasd </h4>
-                        </div>
-                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
-                          <h4 style="display: inline;"> 이메일 </h4>
-                          <h4 style="display: inline;"> : dasdas@dasd.com </h4>
-                          <button style="margin-left: 2%;"> 변경 </button>
-                        </div>
-                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
-                          <h4 style="display: inline;"> 생년월일 </h4>
-                          <h4 style="display: inline;"> : 1996-08-02 </h4>
-                          <button style="margin-left: 2%;"> 변경 </button>
-                        </div>
-                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
-                          <h4 style="display: inline;"> phone</h4>
-                          <h4 style="display: inline;"> : 010-0000-0000 </h4>
-                          <button style="margin-left: 2%;"> 변경 </button>
-                        </div>
-                      </div>
-                      <button style="margin-left: 2%; position:absolute; bottom:4%; left: 40%;"> 확인 </button>
-                      <button style="margin-left: 2%; position:absolute; bottom:4%; left: 45%;"> 뒤로 </button>
+            <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="section-heading">
+                      <h2>어떤 가치를 전해주나요?</h2>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div id='tabs'>
+                      <ul>
+                        <li><a href='#tabs-1'>AI 해시태그 추천</a></li>
+                        <li><a href='#tabs-2'>AI 이미지 분석</a></li>
+                        <li><a href='#tabs-3'>해시태그 분석 시각화</a></li>
+                      </ul>
+                      <section class='tabs-content'>
+                        <article id='tabs-1'>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <img src="{% static 'assets/images/Insta-Hashtag.png' %}" alt="">
+                            </div>
+                            <div class="col-md-6">
+                              <h4>AI 해시태그 추천</h4>
+                              <p>사용자가 올린 이미지를 분석하여 노출빈도를 높이는 최적의 해시태그를 AI 알고리즘을 통해서 추천해드려요. </p>
+                              <p>당신의 시간은 소중하니깐 더 이상 한글자 한글자 타이핑하지 않아도 될꺼에요!</p> 
+                            </div>
+                          </div>
+                        </article>
+                        <article id='tabs-2'>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <img src="{% static 'assets/images/brain-image.jpg' %}" alt="">
+                            </div>
+                            <div class="col-md-6">
+                              <h4>AI 이미지 분석</h4>
+                              <p>사용자가 올린 이미지에 설명을 더 해줄거에요. 구구절절!</p> 
+                              <p>AI 모델은 과연 당신이 올린 사진의 의도를 읽을 수 있을까요?</p>
+                            </div>
+                          </div>
+                        </article>
+                        <article id='tabs-3'>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <img src="{% static 'assets/images/data-visualization.png' %}" alt="">
+                            </div>
+                            <div class="col-md-6">
+                              <h4>해시태그 분석 시각화</h4>
+                              <p>어떤 해시태그가 어느 정도로 사용되고 있는건지 너무 궁금한데요?</p>
+                              <p>HashTaig는 추천하고 있는 해시태그의 사용빈도 등을 한눈에 보기 쉽도록 정리해줄거에요!</p>
+                            </div>
+                          </div>
+                        </article>
+                      </section>
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
           <!-- content-wrapper ends -->
@@ -293,6 +274,7 @@
     <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap.min.js' %}"></script>
     <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
     <script src="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.js' %}"></script>
+
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{% static 'assets/js/off-canvas.js' %}"></script>
@@ -303,6 +285,116 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
+
+    <script type="text/javascript"> 
+      function Logout() {
+        sessionStorage.clear();
+        alert("로그아웃 되었습니다.");
+        location.href = "/member/logout";
+      }
+    </script>
+
+    <script>
+      (function() {
+  
+          function FileUploader(selector) {
+            if (undefined !== selector) {
+              this.init(selector);
+            }
+          }
+          
+          FileUploader.prototype.init = function(selector) {
+            if (undefined !== this.$el) {
+              this.unsuscribe();
+            }
+            
+            this.$el = document.querySelector(selector);
+            this.$fileInput = this.$el.querySelector('input');
+            this.$img = this.$el.querySelector('img');
+            
+            this.suscribe();
+          }
+
+          FileUploader.prototype.suscribe = function() {
+            this.$fileInput.addEventListener('change', _handleInputChange.bind(this));
+            this.$img.addEventListener('load', _handleImageLoaded.bind(this));
+            this.$el.addEventListener('dragenter', _handleDragEnter.bind(this));
+            this.$el.addEventListener('dragleave', _handleDragLeave.bind(this));
+            this.$el.addEventListener('drop', _handleDrop.bind(this));
+          }
+          
+          FileUploader.prototype.unsuscribe = function() {
+            this.$fileInput.removeEventListener('change', _handleInputChange.bind(this));
+            this.$img.removeEventListener('load', _handleImageLoaded.bind(this));
+            this.$el.removeEventListener('dragenter', _handleDragEnter.bind(this));
+            this.$el.removeEventListener('dragleave', _handleDragLeave.bind(this));
+            this.$el.removeEventListener('drop', _handleDrop.bind(this));
+          }
+
+          function _handleDragEnter(e){
+            e.preventDefault();
+
+            if (!this.$el.classList.contains('dragging')) {
+                this.$el.classList.add('dragging');
+            }
+          }
+
+          function _handleDragLeave(e) {
+            e.preventDefault();
+
+            if (this.$el.classList.contains('dragging')) {
+                this.$el.classList.remove('dragging');
+            }
+          }
+
+          function _handleDrop(e) {
+            e.preventDefault();
+            this.$el.classList.remove('dragging');
+            this.$img.files = e.dataTransfer.files;
+            this.$fileInput.files = e.dataTransfer.files;
+            _handleInputChange.call(this);
+          }
+
+          function _handleImageLoaded() {
+            if (!this.$img.classList.contains('loaded')) {
+                this.$img.classList.add('loaded');
+            }
+          }
+
+          function _handleInputChange(e) {
+            var file = (undefined !== e)
+                ? e.target.files[0]
+                : this.$img.files[0];
+
+            var pattern = /image-*/;
+            var reader = new FileReader();
+
+            if (!file.type.match(pattern)) {
+                alert('invalid format');
+                return;
+            }
+
+            if (this.$el.classList.contains('loaded')) {
+                this.$el.classList.remove('loaded');
+            }
+
+            reader.onload = _handleReaderLoaded.bind(this);
+            reader.readAsDataURL(file);
+          }
+
+          function _handleReaderLoaded(e) {
+            var reader = e.target;
+            this.$img.src = reader.result;
+            this.$el.classList.add('loaded');
+          }
+          
+          window.FileUploader = FileUploader;
+          
+        } ());
+
+
+        new FileUploader('.uploader');
+    </script>
     <!-- End custom js for this page -->
   </body>
 </html>

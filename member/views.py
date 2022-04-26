@@ -1,10 +1,24 @@
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
-from .models import USER
+from .models import *
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 # Create your views here.
+# mypage
+def mypage(request):
+    user = USER.objects.get(user_id=request.session['user_id']).user_id
+    log_list = LOG.objects.all()
+    p = Paginator(log_list, 10)
+    now_page = request.GET.get('page', 1)
+    now_page = int(now_page)
+    info = p.get_page(now_page)
+    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info})
+
+def modify(request):
+    return render(request, 'member/modify.html')
+
 
 # user 출력
 def user(request):

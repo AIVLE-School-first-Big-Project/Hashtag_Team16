@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>HashTaig</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
-  
-    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
-
   </head>
   <body>
     <div class="container-scroller">
@@ -49,7 +46,7 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
+                  <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">Henry Klein</h5>
                   <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                   <span>로그아웃</span>
                 </div>
@@ -188,7 +185,7 @@
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
                     <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}님, 반갑습니다</p>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -227,68 +224,47 @@
             </button>
           </div>
         </nav>
-
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
 
             <div class="row ">
               <div class="col-12 grid-margin">
-                <div class="card" style="height: 72vh;">
+                <div class="card" style="height: 86vh;">
                   <div class="card-body">
-                    <h4 class="card-title">Q&A 게시판</h4>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th> </th>
-                            <th style="width: 14%; height: 48.5; padding-left: 5%;"> No </th>
-                            <th style="width: 46%; height: 48.5; padding-left: 21%;"> 제목 </th>
-                            <th style="width: 20%; height: 48.5;"> 작성자 </th>
-                            <th style="width: 20%; height: 48.5;"> 작성시간 </th>
+                    <h4 class="card-title">마이페이지</h4>
+                    <div class="table-responsive" style="height: 70vh;">
+                      <table class="table" style="margin-bottom: 4%;">
+                          <tr style="width: 10%;"> 
+                            <h3 style="float: left; margin-top: 1%; margin-left: 5%;">윤지민</h3>
+                            <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {% for w in info %}
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <!--<label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>-->
-                              </div>
-                            </td>
-                            <td style="padding-left: 5%;"> {{w.article_id}} </a></td>
-                            <td style="width: 60%; height: 48.5; padding-left: 10%;"><a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">{{w.title}} [{{w.comment_cnt}}] </a></td>
-                            <td> {{w.user_id}} </td>
-                            <td> {{w.date}} </td>
-                            <td>
-                          </tr>
-                          {% endfor%}
-                        </tbody>
                       </table>
+                      <div>
+                        <div style="margin-left: 38%; padding-bottom: 3%;">
+                          <h4 style="display: inline;"> 아이디 </h4>
+                          <h4 style="display: inline;"> : dasdasdasd </h4>
+                        </div>
+                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
+                          <h4 style="display: inline;"> 이메일 </h4>
+                          <h4 style="display: inline;"> : dasdas@dasd.com </h4>
+                          <button style="margin-left: 2%;"> 변경 </button>
+                        </div>
+                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
+                          <h4 style="display: inline;"> 생년월일 </h4>
+                          <h4 style="display: inline;"> : 1996-08-02 </h4>
+                          <button style="margin-left: 2%;"> 변경 </button>
+                        </div>
+                        <div style="margin-left: 38%; padding-bottom: 3%; padding-top: 2%;">
+                          <h4 style="display: inline;"> phone</h4>
+                          <h4 style="display: inline;"> : 010-0000-0000 </h4>
+                          <button style="margin-left: 2%;"> 변경 </button>
+                        </div>
+                      </div>
+                      <button style="margin-left: 2%; position:absolute; bottom:4%; left: 40%;"> 확인 </button>
+                      <button style="margin-left: 2%; position:absolute; bottom:4%; left: 45%;"> 뒤로 </button>
                     </div>
                   </div>
-                  <div>
-                    <button type="button" class="btn-red" style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col-12 grid-margin">
-                <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
-                  <ul class='pagination'>
-                    <button type="button">◀</button>
-                      {% for i in page_range %}
-                        <li>
-                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
-                            <button type="button">{{ i }}</button>
-                          </a>
-                        </li>
-                      {% endfor %}
-                    <button type="button">▶</button>
-                  </ul>
                 </div>
               </div>
             </div>

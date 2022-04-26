@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
-  
-    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
-
   </head>
   <body>
     <div class="container-scroller">
@@ -188,7 +185,7 @@
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
                     <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}님, 반갑습니다</p>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -236,41 +233,64 @@
               <div class="col-12 grid-margin">
                 <div class="card" style="height: 72vh;">
                   <div class="card-body">
-                    <h4 class="card-title">Q&A 게시판</h4>
+                    <h4 class="card-title">마이페이지</h4>
                     <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th> </th>
-                            <th style="width: 14%; height: 48.5; padding-left: 5%;"> No </th>
-                            <th style="width: 46%; height: 48.5; padding-left: 21%;"> 제목 </th>
-                            <th style="width: 20%; height: 48.5;"> 작성자 </th>
-                            <th style="width: 20%; height: 48.5;"> 작성시간 </th>
+                      <table class="table" style="margin-bottom: 4%;">
+                          <tr style="width: 10%; height: 48.5;"> 
+                            <h3 style="float: left; margin-top: 1%; margin-left: 5%;">{{user}}</h3>
+                            <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
+                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "location.href ='../member/changeinfo'">회원정보 수정</button>
+                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "javascript:showPopUp()">비밀번호 수정</button>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {% for w in info %}
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <!--<label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>-->
-                              </div>
-                            </td>
-                            <td style="padding-left: 5%;"> {{w.article_id}} </a></td>
-                            <td style="width: 60%; height: 48.5; padding-left: 10%;"><a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">{{w.title}} [{{w.comment_cnt}}] </a></td>
-                            <td> {{w.user_id}} </td>
-                            <td> {{w.date}} </td>
-                            <td>
-                          </tr>
-                          {% endfor%}
-                        </tbody>
                       </table>
+                      <hr color="grey" style="height: 5%;">
+                      <div>
+                        <h4 style="float: left; margin-top: 1%; margin-left: 5%;">사용 내역</h4>
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th> </th>
+                                <th style="width: 10%; height: 48.5;"><b> No </b></th>
+                                <th style="width: 20%; height: 48.5;"><b> 사용 날짜 </b></th>
+                                <th style="width: 20%; height: 48.5;"><b> 이미지 파일명 </b></th>
+                                <th style="width: 40%; height: 48.5; text-align: center;"><b> 추천 해시태그 </b></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                              {% for w in info %}
+                              <tr>
+                                <td> {{w.log_id}} </td>
+                                <td> {{w.log_id}} </td>
+                                <td style="width: 60%; height: 48.5; padding-left: 5%;" 
+                                    onclick = "location.href = 'member/'">
+                                    <u>[{{w.image}}] </u></td>
+                                <td> {{w.prior_tag}} </td>
+                                <td> {{w.date}} </td>
+                                <td>
+                              </tr>
+                              {% endfor%}
+                              
+                              {% comment %} <tr>
+                                <th> </th>
+                                <th style="width: 10%; height: 48.5; font-weight: normal;"> 2 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;">22.04.20 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 셀카.jpg </th>
+                                <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #정우성, #장동건, #강동원, #and 나, #동원참치, #잘생김 </th>
+                              </tr>
+                              <tr>
+                                <th> </th>
+                                <th style="width: 10%; height: 48.5; font-weight: normal;"> 1 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 22.04.19 </th>
+                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 강아지.jpg </th>
+                                <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #큐트, #귀엽, #커엽, #댕댕, #강아지, #말티즈 </th>
+                              </tr> {% endcomment %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <button type="button" class="btn-red" style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>
@@ -328,12 +348,33 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
-    <script type="text/javascript"> 
-      function Logout() {
-        sessionStorage.clear();
-        alert("로그아웃 되었습니다.");
-        location.href = "/member/logout";
-      }
-    </script>
+    <script type="text/javascript">
+       function showPopUp() {
+        //창 크기 지정
+        var width = 500; 
+        var height = 500; 
+        //pc화면기준 가운데 정렬 
+        var left = (window.screen.width / 2) - (width/2);
+        var top = (window.screen.height / 4); 
+        //윈도우 속성 지정 
+        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+        //연결하고싶은url 
+        const url = "member/login"; 
+        //등록된 url 및 window 속성 기준으로 팝업창을 연다. 
+  
+        window.name = "title";
+        // window name 
+        var newWindow;
+        newWindow = window.open('/member/changepw',"changepw", windowStatus);
+       };
+   </script>
+ 
+   <script type="text/javascript"> 
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
+  </script>
   </body>
 </html>

@@ -75,14 +75,14 @@
             <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
               aria-labelledby="profile-dropdown">
-              <a href="https://www.instagram.com/" class="dropdown-item preview-item">
+              <a href="#" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-dark rounded-circle">
                     <i class="mdi mdi-settings text-primary"></i>
                   </div>
                 </div>
                 <div class="preview-item-content">
-                  <p class="preview-subject ellipsis mb-1 text-small">Instagram</p>
+                  <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
                 </div>
               </a>
               <div class="dropdown-divider"></div>
@@ -207,7 +207,7 @@
               <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                 <div class="navbar-profile">
                   <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}님, 반갑습니다</p>
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
@@ -216,18 +216,18 @@
                 aria-labelledby="profileDropdown">
                 <h6 class="p-3 mb-0">Profile</h6>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item" href="https://www.instagram.com/">
+                <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-settings text-success"></i>
                     </div>
                   </div>
                   <div class="preview-item-content">
-                    <p class="preview-subject mb-1">Instagram</p>
+                    <p class="preview-subject mb-1">Settings</p>
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
+                <a class="dropdown-item preview-item" href="javascript:Logout()">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-logout text-danger"></i>
@@ -322,19 +322,17 @@
       var form = document.getElementsByClassName('update-form');
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
-  
-      const url1 = window.location.href;
-      
+
       myformData.append('title', form[0][1].value);
       myformData.append('content', form[0][2].value);
       //myformData.append('user', form[0][3].value);
       //myformData.append('title', form[0][4].value);
       //myformData.append('content', form[0][5].value);
       //myformData.append('date', form[0][6].value);
-      
+
       $.ajax({
         type: "POST",
-        url: url1,
+        url: "",
         async: true,
         headers: { 'X-CSRFToken': csrftoken },
         enctype: "multipart/form-data",
@@ -349,14 +347,25 @@
           if (result.status == 'T') {
             window.location.href = '/qna';
             alert("수정 완료!");
-          } else {
+          } else if (result.status == 'F'){
             window.location.href = url1;
-            alert("제목/내용을 입력해주세요");
+            alert("제목/내용을 입력해주세요.");
+          } else { //(result.status == 'user_error')
+            window.location.href = url1;
+            alert("권한이 없습니다.");
           }
 
         }
       });
     };
+  </script>
+  
+  <script type="text/javascript"> 
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
   </script>
 </body>
 

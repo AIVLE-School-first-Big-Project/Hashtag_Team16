@@ -24,6 +24,7 @@
   <!-- Layout styles -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
+  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
   
   <script type='text/javascript'>
     function Check(){ 
@@ -61,7 +62,8 @@
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal" >{{user}}</h5>
+                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
+                <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                 <span>로그아웃</span>
               </div>
             </div>
@@ -69,14 +71,14 @@
             <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
               aria-labelledby="profile-dropdown">
-              <a href="https://www.instagram.com/" class="dropdown-item preview-item">
+              <a href="#" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-dark rounded-circle">
                     <i class="mdi mdi-settings text-primary"></i>
                   </div>
                 </div>
                 <div class="preview-item-content">
-                  <p class="preview-subject ellipsis mb-1 text-small">Instagram</p>
+                  <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
                 </div>
               </a>
               <div class="dropdown-divider"></div>
@@ -201,7 +203,7 @@
               <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                 <div class="navbar-profile">
                   <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}님, 반갑습니다</p>
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
@@ -210,18 +212,18 @@
                 aria-labelledby="profileDropdown">
                 <h6 class="p-3 mb-0">Profile</h6>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item" href="https://www.instagram.com/">
+                <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-settings text-success"></i>
                     </div>
                   </div>
                   <div class="preview-item-content">
-                    <p class="preview-subject mb-1">Instagram</p>
+                    <p class="preview-subject mb-1">Settings</p>
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
+                <a class="dropdown-item preview-item" href="javascript:Logout()">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-logout text-danger"></i>
@@ -232,6 +234,7 @@
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
+                <p class="p-3 mb-0 text-center">Advanced settings</p>
               </div>
             </li>
           </ul>
@@ -255,18 +258,19 @@
                       <p style="margin-left: 23%;">제목</p>
                       <div style="margin-left: 23%; width: 40vw; height: 3vh; background-color: #2b303f88;">
                         <!--제목은 여기다가 작성하면 됩니둥-->
-                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 3px;">{{p_title}}</h4>
+                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 3px;" id='title'>{{p_title}}</h4>
                       </div>
                       <p style="margin-left: 23%; margin-top: 2%;">내용</p>
                       <div style="margin-left: 23%; width: 40vw; height: 35vh; background-color: #2b303f88;">
                         <!--내용은 여기다가 작성하면 됩니둥-->
-                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 5px;">
+                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 5px;" id='content'>
                           {{p_content}}
                           {% comment %} 친구는 세월의 도둑이다.
 
                           봄부터 흐르는 물은 겨울이 되어도 얼지 않듯이
                           마음에서 우러나오는 우적은 역경이 닥친다고 해서 식지 않는다.
                           불행했을 때 만난 친구는 가장 소중히 여겨야 한다.
+
 
                           행복했을 때 함께 기쁨을 누리는 친구보다
                           힘들 떄 슬픔을 덜어지는 친구를 더 많이 신뢰할 수 있다.
@@ -284,18 +288,17 @@
                   </div>
                 </div>
                 <div>
-                  <form id='upd' method = "POST">
-                    {% csrf_token %}
-                    <button class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna/p_modify/' ">글 수정</button>
+                  <form id='upd'>
+                    <button type='button' class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
+                    onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
                   </form>
                   <form id='del' method='POST'>
                     {% csrf_token %}
-                    <button class="btn btn-light" name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+                    <button name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
                     onclick= 'Check();'>글 삭제</button>
                   </form>
-                  <button class="btn btn-light" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna' ">뒤로</button>
+                  <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+                    onclick="location.href=http://127.0.0.1:8000/qna">뒤로</button>
                 </div>
               </div>
             </div>
@@ -337,6 +340,33 @@
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page -->
+  <script type="text/javascript"> 
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
+  </script>
+
+
+  <!-- 수정 게시판에 원래 내용 데이터 전송해주기-->
+  <script>
+  function sender() {
+    const url2 = window.location.href + 'p_modify';
+    
+    $.ajax({
+        type : "GET",
+        url : url2,
+        async: true,
+        error : function() {
+            alert("fail!");
+          },
+        success : function(result) {
+            window.location.href = url2
+          }});
+    };
+    </script>
+    <!-- End custom js for this page -->
 </body>
 
 </html>

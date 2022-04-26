@@ -10,5 +10,5 @@ urlpatterns = [
     path('signup/', signup_custom, name='signup_custom'),
     path('logout/', logout_custom, name='logout_custom'),
     path('changepw/', change_password, name='change_password'),
-    # path('changeinfo/', change_info, name='change_info'),
+    path('changeinfo/', change_info, name='change_info'),
 ]

@@ -5,6 +5,5 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.index),
-    path('function/', views.function),
 ]
 

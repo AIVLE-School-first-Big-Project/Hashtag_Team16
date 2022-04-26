@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>HashTaig</title>
+    <title>Corona Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+  
+    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <div class="container-scroller">
@@ -46,22 +49,22 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal" >{{user}}</h5>
-
+                  <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
+                  <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
                   <span>로그아웃</span>
                 </div>
               </div>
 
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                <a href="https://www.instagram.com/" class="dropdown-item preview-item">
+                <a href="#" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-settings text-primary"></i>
                     </div>
                   </div>
                   <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Instagram</p>
+                    <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
@@ -94,14 +97,7 @@
           <li class="nav-item nav-category">
             <span class="nav-link">Navigation</span>
           </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://127.0.0.1:8000/main/function/">
-              <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
-              </span>
-              <span class="menu-title">우리의 정신</span>
-            </a>
-          </li>
+
           <li class="nav-item menu-items">
             <a class="nav-link" href="http://127.0.0.1:8000/main/">
               <span class="menu-icon">
@@ -200,18 +196,18 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item" href="https://www.instagram.com/">
+                  <a class="dropdown-item preview-item">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
                       </div>
                     </div>
                     <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Instagram</p>
+                      <p class="preview-subject mb-1">Settings</p>
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="javascript:Logout()">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-logout text-danger"></i>
@@ -234,10 +230,11 @@
 
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper" style="height: 80vh;">
+          <div class="content-wrapper">
+
             <div class="row ">
               <div class="col-12 grid-margin">
-                <div class="card" style="height: 79vh; width: 75vw;">
+                <div class="card" style="height: 72vh;">
                   <div class="card-body">
                     <h4 class="card-title">Q&A 게시판</h4>
                     <div class="table-responsive">
@@ -273,7 +270,7 @@
                     </div>
                   </div>
                   <div>
-                    <button type="button" class="btn btn-light" style="width: 8%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
+                    <button type="button" class="btn-red" style="width: 5%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>
@@ -282,22 +279,28 @@
               <div class="col-12 grid-margin">
                 <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
                   <ul class='pagination'>
-                    <div style="width: 40vw; margin-left: 5%; margin-right: 5%;">
-                      <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 3%; color:rgb(108, 114, 147);">◀</a>
-                      <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 95%; color:rgb(108, 114, 147);">▶</a>
-                        <div style="width: 30vw; height: 5vh; text-align: center; padding-top: 1.5%; margin-left: 8%;">
-                          {% for i in page_range %}
-                            <a href = '{% url "qna:qna_board" %}?page={{ i }}' style="text-align: center; padding: 3%; color:rgb(108, 114, 147);"> {{ i }} </a>
-                          {% endfor %}
-                        </div>
-                      </div>
-                    </div>
+                    <button type="button">◀</button>
+                      {% for i in page_range %}
+                        <li>
+                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
+                            <button type="button">{{ i }}</button>
+                          </a>
+                        </li>
+                      {% endfor %}
+                    <button type="button">▶</button>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
           <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">AI대구경북 화이팅</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made by jimi</a></span>
+            </div>
+          </footer>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
@@ -325,5 +328,12 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
+    <script type="text/javascript"> 
+      function Logout() {
+        sessionStorage.clear();
+        alert("로그아웃 되었습니다.");
+        location.href = "/member/logout";
+      }
+    </script>
   </body>
 </html>

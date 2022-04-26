@@ -3,17 +3,6 @@ import json
 from django.http import JsonResponse
 from .models import USER
 from django.utils import timezone
-from django.http import HttpResponse
-from django.contrib import auth 
-from django.contrib import messages
-# 나중에 쓸거야!
-# from django.contrib.auth.hashers import check_password
-# from django.contrib.auth import update_session_auth_hash 
-# from django.contrib.auth.forms import PasswordChangeForm
-# from django.contrib.auth.decorators import login_required 
-# from django.contrib.auth.hashers import make_password
-
-
 
 # Create your views here.
 
@@ -100,7 +89,7 @@ def logout_custom(request):
         return redirect('/')
     
     except KeyError:
-        return redirect('/')
+        return redirect('/need_login')
 
 # 비밀번호 변경
 def change_password(request):
@@ -137,29 +126,34 @@ def change_password(request):
             user = USER.objects.get(user_id=request.session['user_id']).user_id
             return render(request, 'member/change_pw.html')
         except KeyError:
-            return redirect('/')
+            return redirect('/need_login')
         
 
 def change_info(request):
-    
-    if request.method == 'POST':
-        user_id = request.session['user_id']
-        print(user_id)
-        user_inst =  USER.objects.get(user_id=user_id)
-        new_name = request.POST['name']
-        new_email = request.POST['email']
-        new_phone_num = request.POST['phone_num']
-        
-        user_inst.name = new_name
-        user_inst.email = new_email
-        user_inst.phone_num = new_phone_num
-        user_inst.save()
-        return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
+    user_id = request.session['user_id']
+    user_inst = USER.objects.get(user_id=user_id)
 
-    else: 
+    if request.method == "POST":
+        
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_num = request.POST.get('phone_num')
+
+        user_inst.name = name
+        user_inst.email = email
+        user_inst.phone_num = phone_num
+
+        user_inst.save()
+        return redirect('../../mypage')
+
+            
+    else:    
+        
         try:
-            user = USER.objects.get(user_id=request.session['user_id']).user_id
-            return render(request, 'member/change_info.html')
+            name = user_inst.name
+            email = user_inst.email
+            phone_num = user_inst.phone_num
+            return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
         except KeyError:
             return redirect('/')
         

@@ -65,9 +65,16 @@ def post(request, pk):
         user = USER.objects.get(user_id=request.session['user_id']).user_id  
         poster = ARTICLE.objects.get(article_id = pk)
         if request.method =='POST':
-            if request.POST.get('cancel') == "삭제":
+            print(user)
+            print(poster.user.user_id)
+            if poster.user.user_id == user:
                 poster.delete()
-                return redirect('http://127.0.0.1:8000/qna')
+                data = {'status':'T'}
+                return JsonResponse(data)
+            else :
+                data = {'status':'user_error'}
+                return JsonResponse(data)
+                
         p_title = poster.title
         p_content = poster.content
 

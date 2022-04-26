@@ -24,19 +24,25 @@
   <!-- Layout styles -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
-  
-  <script type='text/javascript'>
-    function Check(){ 
-        if (confirm("삭제") == true){    //확인
-            document.getElementById('del').submit();
-        }
-        else{   //취소
-            return false;
+
+  <script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
     }
+    return cookieValue;
+  }
 
-    
-</script>
+  </script>
+
 </head>
 
 <body>
@@ -289,9 +295,9 @@
                     <button class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna/p_modify/' ">글 수정</button>
                   </form>
-                  <form id='del' method='POST'>
+                  <form id='del'>
                     {% csrf_token %}
-                    <button class="btn btn-light" name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+                    <button type='button' class="btn btn-light" name="cancel" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
                     onclick= 'Check();'>글 삭제</button>
                   </form>
                   <button class="btn btn-light" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
@@ -337,6 +343,38 @@
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page -->
+
+  <!-- 글 삭제 JS-->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type='text/javascript'>
+    function Check(){ 
+
+      const csrftoken = getCookie('csrftoken');
+
+      $.ajax({
+        type : "POST",
+        url : "",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+
+        error : function() {
+            alert("fail!");
+          },
+        success : function(result) {
+            if (result.status == 'T') {
+              alert("삭제 완료!");
+              window.location.href = '/qna';
+
+            } else {
+              alert("권한이 없습니다!");
+              window.location.reload();
+            }
+          }});
+    };
+
+    
+
+</script>
 </body>
 
 </html>

@@ -170,12 +170,15 @@ def change_info(request):
         data = {'status':'T'}
         return JsonResponse(data)
 
-
+            
     else: 
         try:
-            # user = USER.objects.get(user_id=request.session['user_id']).user_id
-            request.session['user_id']
-            return render(request, 'member/change_info.html')
+            user_id = request.session['user_id']
+            user_inst =  USER.objects.get(user_id=user_id)
+            name = user_inst.name
+            email = user_inst.email
+            phone_num = user_inst.phone_num
+            return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
         except KeyError:
             return redirect('/need_login')
         

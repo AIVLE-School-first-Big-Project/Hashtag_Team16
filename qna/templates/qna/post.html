@@ -33,11 +33,25 @@
         }
         else{   //취소
             return false;
+
+  <script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
     }
+    return cookieValue;
+  }
 
-    
-</script>
+  </script>
+
 </head>
 
 <body>
@@ -293,9 +307,15 @@
                     <button type='button' class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
                   </form>
+<<<<<<< HEAD
                   <form id='del' method='POST'>
                    
                     <button  class="btn btn-light" name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+=======
+                  <form id='del'>
+                    {% csrf_token %}
+                    <button type='button' class="btn btn-light" name="cancel" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
+>>>>>>> 2d22203cf12bb0d9511a5357a3761af899ffcd43
                     onclick= 'Check();'>글 삭제</button>
                   </form>
                   <button class="btn btn-light" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
@@ -341,6 +361,7 @@
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page -->
+<<<<<<< HEAD
   <script type="text/javascript"> 
     function Logout() {
       sessionStorage.clear();
@@ -359,15 +380,48 @@
         type : "GET",
         url : url2,
         async: true,
+=======
+
+  <!-- 글 삭제 JS-->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type='text/javascript'>
+    function Check(){ 
+
+      const csrftoken = getCookie('csrftoken');
+
+      $.ajax({
+        type : "POST",
+        url : "",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+
+>>>>>>> 2d22203cf12bb0d9511a5357a3761af899ffcd43
         error : function() {
             alert("fail!");
           },
         success : function(result) {
+<<<<<<< HEAD
             window.location.href = url2
           }});
     };
     </script>
     <!-- End custom js for this page -->
+=======
+            if (result.status == 'T') {
+              alert("삭제 완료!");
+              window.location.href = '/qna';
+
+            } else {
+              alert("권한이 없습니다!");
+              window.location.reload();
+            }
+          }});
+    };
+
+    
+
+</script>
+>>>>>>> 2d22203cf12bb0d9511a5357a3761af899ffcd43
 </body>
 
 </html>

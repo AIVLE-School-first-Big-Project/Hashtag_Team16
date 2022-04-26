@@ -1,21 +1,24 @@
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
-from .models import USER
+from .models import *
 from django.utils import timezone
-from django.http import HttpResponse
-from django.contrib import auth 
-from django.contrib import messages
-# 나중에 쓸거야!
-# from django.contrib.auth.hashers import check_password
-# from django.contrib.auth import update_session_auth_hash 
-# from django.contrib.auth.forms import PasswordChangeForm
-# from django.contrib.auth.decorators import login_required 
-# from django.contrib.auth.hashers import make_password
-
-
+from django.core.paginator import Paginator
 
 # Create your views here.
+# mypage
+def mypage(request):
+    user = USER.objects.get(user_id=request.session['user_id']).user_id
+    log_list = LOG.objects.all()
+    p = Paginator(log_list, 10)
+    now_page = request.GET.get('page', 1)
+    now_page = int(now_page)
+    info = p.get_page(now_page)
+    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info})
+
+def modify(request):
+    return render(request, 'member/modify.html')
+
 
 # user 출력
 def user(request):
@@ -144,17 +147,29 @@ def change_info(request):
     
     if request.method == 'POST':
         user_id = request.session['user_id']
-        print(user_id)
         user_inst =  USER.objects.get(user_id=user_id)
-        new_name = request.POST['name']
-        new_email = request.POST['email']
-        new_phone_num = request.POST['phone_num']
         
-        user_inst.name = new_name
-        user_inst.email = new_email
-        user_inst.phone_num = new_phone_num
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_num = request.POST.get('phone_num')
+        
+        if (name == '') or (email == '') or (phone_num == ''):
+            data = {'status':'empty_error'}
+            return JsonResponse(data)
+        
+        if ('@' not in email):
+            data = {'status':'email_error'}
+            return JsonResponse(data)
+
+        user_inst.name = name
+        user_inst.email = email
+        user_inst.phone_num = phone_num
+
         user_inst.save()
-        return redirect('../../member/line') #user 변경 확인을 위해 user list 출력창입니다~
+        
+        data = {'status':'T'}
+        return JsonResponse(data)
+
 
     else: 
         try:

@@ -152,13 +152,24 @@ def change_info(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone_num = request.POST.get('phone_num')
+        
+        if (name == '') or (email == '') or (phone_num == ''):
+            data = {'status':'empty_error'}
+            return JsonResponse(data)
+        
+        if ('@' not in email):
+            data = {'status':'email_error'}
+            return JsonResponse(data)
 
         user_inst.name = name
         user_inst.email = email
         user_inst.phone_num = phone_num
 
         user_inst.save()
-        return redirect('../../mypage')
+        
+        data = {'status':'T'}
+        return JsonResponse(data)
+
 
             
     else:    
@@ -169,5 +180,5 @@ def change_info(request):
             phone_num = user_inst.phone_num
             return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
         except KeyError:
-            return redirect('/')
+            return redirect('/need_login')
         

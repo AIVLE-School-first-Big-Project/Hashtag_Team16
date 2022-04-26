@@ -1,18 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
 
-<div class=fsize style = "text-align : center;">
-    <form method="POST">
-    <h2>회원정보 수정</h2>
-    {% csrf_token %}
-    <h5>이름:</h5>
-    <textarea name='name' type="text">{{name}}</textarea>
-    <h5>이메일 :</h5>
-    <textarea name='email' type="email">{{email}}</textarea>
-    <h5>휴대폰 번호 :</h5> 
-    <textarea name='phone_num'  type="text" >{{phone_num}}</textarea>
-    <br><br>
-    <input class="btn" type="submit" value="변경"> 
-    <a href="../../mypage">
-        <button type="button" class="btn">취소</button>
-    </a>
-    </form>
-</div>  
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
+    <script>
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
+
+    <title>HashTaig</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+  </head>
+
+<body>
+   
+  <!--header-->
+  <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
+    <div style='font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);'>
+    <em style="font-style: normal;color: #f5a425;">INFO</em> CHANGE
+    </div>
+  </header>
+
+  <section class="section why-us" data-section="section2" style='padding-bottom: 250px;'>
+    <div class="container2">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            
+            <h2>정보를 입력해주세요</h2>
+            <div class="login-page">
+              <div class="form" style="top:130%;">
+                <form class="login-form">
+
+                    {% csrf_token %}
+                    <h6 style='color: #fff;'>이름:</h6>
+                    <textarea name='name' type="text" rows="1">{{name}}</textarea>
+                    <h6 style='color: #fff;'>이메일 :</h6>
+                    <textarea name='email' type="email" rows="1">{{email}}</textarea>
+                    <h6 style='color: #fff;'>휴대폰 번호 :</h6> 
+                    <textarea name='phone_num'  type="text" rows="1">{{phone_num}}</textarea>
+                    <br><br>
+
+                    <button type="button" onclick="changeInfo();" style='width:45%' >change</button> <button type="button" onclick="window.close();" style='width:45%' >close</button>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><i class="fa fa-copyright"></i> made 2022 by DGU  
+          
+            Designer: <a rel="sponsored" target="_parent">SonHyeonWoo</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script>
+        function changeInfo() {
+            var form = document.getElementsByClassName('login-form');
+            const myformData = new FormData();
+            const csrftoken = getCookie('csrftoken');
+
+            myformData.append('name', form[0][1].value);
+            myformData.append('email', form[0][2].value);
+            myformData.append('phone_num', form[0][3].value);
+
+            $.ajax({
+                type : "POST",
+                url : "",
+                async: true,
+                headers: { 'X-CSRFToken': csrftoken },
+                enctype: "multipart/form-data",
+                data : myformData,
+                processData: false,
+                contentType: false,
+                
+                error : function() {
+                    alert("fail!");
+                  },
+                success : function(result) {
+                    if (result.status == 'empty_error'){
+                        alert("공란을 채워주세요!");
+                        window.location.reload();
+                    }
+                    else if (result.status == 'email_error'){
+                        alert("이메일 양식을 확인해주세요!");
+                        window.location.reload();
+                    }
+                    else if (result.status == 'T'){
+                        alert("변경되었습니다!");
+                        opener.location.href = '/member/';
+                        window.close();
+                    }
+                  }});
+            };
+    </script> 
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -307,21 +307,10 @@
                     <button type='button' class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
                   </form>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  <form id='del' method='POST'>
-                   
-                    <button  class="btn btn-light" name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-=======
+
                   <form id='del'>
                     {% csrf_token %}
                     <button type='button' class="btn btn-light" name="cancel" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
->>>>>>> 2d22203cf12bb0d9511a5357a3761af899ffcd43
-=======
-                  <form id='del'>
-                    {% csrf_token %}
-                    <button type='button' class="btn btn-light" name="cancel" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
->>>>>>> 32f978792e486439e1c9dafe90694175e80d7b9b
                     onclick= 'Check();'>글 삭제</button>
                   </form>
                   <button class="btn btn-light" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"

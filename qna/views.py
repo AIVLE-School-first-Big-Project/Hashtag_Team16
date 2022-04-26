@@ -107,6 +107,6 @@ def p_modify(request, pk):
             content=al.content
             return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user})
         except KeyError:
-            return redirect('/need_login')
+            return redirect('/need_login') 
 
 

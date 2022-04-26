@@ -82,13 +82,12 @@ def p_modify(request, pk):
         
         title = request.POST.get('title')
         content = request.POST.get('content')
-                
-        
     else:
-        title = al.title
-        content=al.content
-        return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
+        try:
+            user = USER.objects.get(user_id=request.session['user_id']).user_id  
+            title = al.title
+            content=al.content
+            return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
+        except KeyError:
+            return redirect('/need_login') 
 
-
-#def index(request):
-#    return render(request, 'qna/qna.html')

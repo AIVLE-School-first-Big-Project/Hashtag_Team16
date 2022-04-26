@@ -24,15 +24,6 @@
   <!-- Layout styles -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
-  
-  <script type='text/javascript'>
-    function Check(){ 
-        if (confirm("삭제") == true){    //확인
-            document.getElementById('del').submit();
-        }
-        else{   //취소
-            return false;
 
   <script>
   function getCookie(name) {
@@ -307,7 +298,6 @@
                     <button type='button' class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
                     onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
                   </form>
-
                   <form id='del'>
                     {% csrf_token %}
                     <button type='button' class="btn btn-light" name="cancel" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
@@ -356,29 +346,6 @@
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <script type="text/javascript"> 
-    function Logout() {
-      sessionStorage.clear();
-      alert("로그아웃 되었습니다.");
-      location.href = "/member/logout";
-    }
-  </script>
-
-
-  <!-- 수정 게시판에 원래 내용 데이터 전송해주기-->
-  <script>
-  function sender() {
-    const url2 = window.location.href + 'p_modify';
-    
-    $.ajax({
-        type : "GET",
-        url : url2,
-        async: true,
-=======
-=======
->>>>>>> 32f978792e486439e1c9dafe90694175e80d7b9b
 
   <!-- 글 삭제 JS-->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -393,24 +360,10 @@
         async: true,
         headers: { 'X-CSRFToken': csrftoken },
 
-<<<<<<< HEAD
->>>>>>> 2d22203cf12bb0d9511a5357a3761af899ffcd43
-=======
->>>>>>> 32f978792e486439e1c9dafe90694175e80d7b9b
         error : function() {
             alert("fail!");
           },
         success : function(result) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            window.location.href = url2
-          }});
-    };
-    </script>
-    <!-- End custom js for this page -->
-=======
-=======
->>>>>>> 32f978792e486439e1c9dafe90694175e80d7b9b
             if (result.status == 'T') {
               alert("삭제 완료!");
               window.location.href = '/qna';
@@ -425,10 +378,6 @@
     
 
 </script>
-<<<<<<< HEAD
->>>>>>> 2d22203cf12bb0d9511a5357a3761af899ffcd43
-=======
->>>>>>> 32f978792e486439e1c9dafe90694175e80d7b9b
 </body>
 
 </html>

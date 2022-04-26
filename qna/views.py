@@ -91,7 +91,6 @@ def p_modify(request, pk):
         if al.user.user_id != request.session['user_id']:
             data = {'status':'user_error'}
             return JsonResponse(data)
-
         title = request.POST.get('title')
         content = request.POST.get('content')
         al.title = title
@@ -105,6 +104,7 @@ def p_modify(request, pk):
             al.save()
             data = {'status':'T'}
             return JsonResponse(data) 
+        
     else:
         try:
             user = USER.objects.get(user_id=request.session['user_id']).user_id  
@@ -113,4 +113,3 @@ def p_modify(request, pk):
             return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
         except KeyError:
             return redirect('/need_login') 
-

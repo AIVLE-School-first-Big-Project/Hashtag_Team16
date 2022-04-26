@@ -334,7 +334,7 @@
       
       $.ajax({
         type: "POST",
-        url: url1,
+        url: "",
         async: true,
         headers: { 'X-CSRFToken': csrftoken },
         enctype: "multipart/form-data",
@@ -349,14 +349,25 @@
           if (result.status == 'T') {
             window.location.href = '/qna';
             alert("수정 완료!");
-          } else {
+          } else if (result.status == 'F'){
             window.location.href = url1;
-            alert("제목/내용을 입력해주세요");
+            alert("제목/내용을 입력해주세요.");
+          } else { //(result.status == 'user_error')
+            window.location.href = url1;
+            alert("권한이 없습니다.");
           }
 
         }
       });
     };
+  </script>
+  
+  <script type="text/javascript"> 
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
   </script>
 </body>
 

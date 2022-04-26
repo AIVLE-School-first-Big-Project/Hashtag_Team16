@@ -17,12 +17,13 @@ def mypage(request):
         return render(request, 'mypage/mypage.html', {'user':user, 'log_list':log_list, 'info':info})
     
     except KeyError:
-        return redirect('/')
+        return redirect('/need_login')
     
     
 def modify(request):
     try:
-        user = USER.objects.get(user_id=request.session['user_id']).user_id
+        # user = USER.objects.get(user_id=request.session['user_id']).user_id
+        request.session['user_id']
         return render(request, 'mypage/modify.html')
     except KeyError:
-        return redirect('/')
+        return redirect('/need_login')

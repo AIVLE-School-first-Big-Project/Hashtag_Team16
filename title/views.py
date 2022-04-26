@@ -5,3 +5,6 @@ from django.shortcuts import render
 
 def index(request):
     return render(request, 'title/index.html')
+
+def need_login(request):
+    return render(request, 'title/need_login.html')

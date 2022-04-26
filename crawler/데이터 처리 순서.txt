@@ -1,8 +1,9 @@
 (1) 크롤러 작동: (NEW_Crawling.ipynb) <-- local
 (2) 크롤링_데이터프레임_전처리.ipynb <-- local
 (3) 데이터프레임에 존재하는 이미지만 따로 저장하기.ipynb <--local
-(4) jpg를 png로 바꾸기: jpg2png.py <--local
+(4) jpg를 png로 바꾸기: jpg2png.py <--local로 작업 진행 후 드라이브 업로드
 (5) 수작업으로 걸러낸 광고이미지 적용(이거는 처음 한 번만 작동시키면 됨)- 일회용(코랩에서) <--colab, googledrive
-(6) "이전에 걸러냈던 데이터프레임 적용" <-- 
-(7) 직접 이미지 걸러내기: image_check.py
-(8) 구글 드라이브에 
+(6) "이전에 걸러냈던 데이터프레임 적용" <-- colab. local도 가능하나 여러 사람들의 파일을 병합해야함
+(7) 직접 이미지, 해시태그 걸러내기: image_check.py <-- 각자의 local
+(9) "직접 걸러낸 데이터를 모두 병합" <-- colab
+(8) 구글 드라이브에 최신화 데이터 업데이트 <-- googledrive

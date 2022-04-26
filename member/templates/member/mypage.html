@@ -252,7 +252,6 @@
                               <tr>
                                 <th> </th>
                                 <th style="width: 10%; height: 48.5;"><b> No </b></th>
-                                <th style="width: 20%; height: 48.5;"><b> 사용 날짜 </b></th>
                                 <th style="width: 20%; height: 48.5;"><b> 이미지 파일명 </b></th>
                                 <th style="width: 40%; height: 48.5; text-align: center;"><b> 추천 해시태그 </b></th>
                               </tr>
@@ -261,14 +260,14 @@
                               
                               {% for w in info %}
                               <tr>
-                                <td> {{w.log_id}} </td>
-                                <td> {{w.log_id}} </td>
-                                <td style="width: 60%; height: 48.5; padding-left: 5%;" 
-                                    onclick = "location.href = 'member/'">
-                                    <u>[{{w.image}}] </u></td>
-                                <td> {{w.prior_tag}} </td>
-                                <td> {{w.date}} </td>
-                                <td>
+                                <th> </th>
+                                <th> {{w.log_id}} </td>
+                                <th style="width: 60%; height: 48.5; padding-left: 5%;" 
+                                    >
+                                    <u>[{{w.image}}] </u></th>
+                                <th> {{w.prior_tag}} </th>
+                                <th> {{w.date}} </th>
+                                
                               </tr>
                               {% endfor%}
                               

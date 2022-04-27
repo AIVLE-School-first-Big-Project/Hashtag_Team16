@@ -257,54 +257,42 @@
             <div class="col-12 grid-margin">
               <div class="card" style="height: 80vh;">
                 <div class="card-body">
-                  <h4 class="card-title"></h4>
-                  <div class="table-responsive">
                     <table class="table">
-                      <p style="margin-left: 23%;">제목</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 3vh; background-color: #2b303f88;">
-                        <!--제목은 여기다가 작성하면 됩니둥-->
-                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 3px;" id='title'>{{p_title}}</h4>
+                      <div class="form-group row" style="padding-top: 3vh;">
+                        <label class="col-sm-3 col-form-label" style="padding-left: 10%; padding-bottom: 4%;">제목</label>
+                        <div class="col-sm-6" style="height: 4.5vh; background-color: #2b303f88; margin-bottom: 10px;">
+                          <!--제목은 여기다가 작성하면 됩니둥-->
+                          <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 6px;" id='title'>{{p_title}}</h4>
+                        </div>
                       </div>
-                      <p style="margin-left: 23%; margin-top: 2%;">내용</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 35vh; background-color: #2b303f88;">
-                        <!--내용은 여기다가 작성하면 됩니둥-->
-                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 5px;" id='content'>
-                          {{p_content}}
-                          {% comment %} 친구는 세월의 도둑이다.
-
-                          봄부터 흐르는 물은 겨울이 되어도 얼지 않듯이
-                          마음에서 우러나오는 우적은 역경이 닥친다고 해서 식지 않는다.
-                          불행했을 때 만난 친구는 가장 소중히 여겨야 한다.
-
-
-                          행복했을 때 함께 기쁨을 누리는 친구보다
-                          힘들 떄 슬픔을 덜어지는 친구를 더 많이 신뢰할 수 있다.
-
-                          부유했을 때는 친구를 사귀기 쉽지만,
-                          어려울 때는 눈을 씻고 찾아봐도 친구를 찾기 어렵다.
-
-                          누군가 진정한 우정을 나누고 있다 할지라도 그 우정을 지키려면 오랜 시간이 걸린다.
-
-                          짧은 시간 안에 많은 친구를 얻기란 불가능하다.
-                          왜냐하면 그들은 진정한 친구가 아니기 때문이다. {% endcomment %}
-                        </h5>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" style="padding-left: 10%; padding-bottom: 4%;">내용</label>
+                        <div class="col-sm-6" style="height: 35vh; background-color: #2b303f88;">
+                          <!--내용은 여기다가 작성하면 됩니둥-->
+                          <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 8px;" id='content'>
+                            {{p_content}}
+                          </h5>
+                        </div>
                       </div>
                     </table>
-                  </div>
                 </div>
-                <div>
-                  <form id='upd' method="POST">
-                    {% csrf_token %}
-                    <button type='button' class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
-                  </form>
-                  <form id='del'>
-                    {% csrf_token %}
-                    <button type='button' class="btn btn-light" name="cancel" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick= 'Check();'>글 삭제</button>
-                  </form>
-                  <button class="btn btn-light" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick="location.href=http://127.0.0.1:8000/qna">뒤로</button>
+                <div style="text-align: center;">
+                  <div style="display:inline-block; padding-bottom: 10%;">
+                    <form id='upd' method="POST" style="float: left; margin-right: 20px;">
+                      {% csrf_token %}
+                      <button type='button' class="btn btn-light" name='update' value="수정" style="width: 70px; font-size: 80%; margin-bottom: 5%;"
+                      onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
+                    </form>
+                    <form id='del' style="float: left; margin-right: 20px;">
+                      {% csrf_token %}
+                      <button type='button' class="btn btn-light" name="cancel" style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;"
+                      onclick= 'Check();'>글 삭제</button>
+                    </form>
+                    <form style="float: left;">
+                    <button class="btn btn-light" style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;"
+                      onclick="location.href=http://127.0.0.1:8000/qna">뒤로</button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

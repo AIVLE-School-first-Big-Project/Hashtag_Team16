@@ -236,15 +236,14 @@
         <div class="main-panel">
           <div class="content-wrapper" style="height: 80vh;">
             <div class="row ">
-              <div class="col-12 grid-margin">
-                <div class="card" style="height: 79vh; width: 75vw;">
+              <div class="col-md-12 grid-margin">
+                <div class="card" style="height: 79vh;">
                   <div class="card-body">
                     <h4 class="card-title">Q&A 게시판</h4>
                     <div class="table-responsive">
                       <table class="table">
                         <thead>
                           <tr>
-                            <th> </th>
                             <th style="width: 14%; height: 48.5; padding-left: 5%;"> No </th>
                             <th style="width: 46%; height: 48.5; padding-left: 21%;"> 제목 </th>
                             <th style="width: 20%; height: 48.5;"> 작성자 </th>
@@ -254,13 +253,6 @@
                         <tbody>
                           {% for w in info %}
                           <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <!--<label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>-->
-                              </div>
-                            </td>
                             <td style="padding-left: 5%;"> {{w.article_id}} </a></td>
                             <td style="width: 60%; height: 48.5; padding-left: 10%;"><a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">{{w.title}} [{{w.comment_cnt}}] </a></td>
                             <td> {{w.user_id}} </td>
@@ -273,7 +265,7 @@
                     </div>
                   </div>
                   <div>
-                    <button type="button" class="btn btn-light" style="width: 8%; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
+                    <button type="button" class="btn btn-light" style="width: 80px; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>

@@ -65,8 +65,6 @@ def post(request, pk):
         user = USER.objects.get(user_id=request.session['user_id']).user_id  
         poster = ARTICLE.objects.get(article_id = pk)
         if request.method =='POST':
-            print(user)
-            print(poster.user.user_id)
             if poster.user.user_id == user:
                 poster.delete()
                 data = {'status':'T'}
@@ -74,6 +72,7 @@ def post(request, pk):
             else :
                 data = {'status':'user_error'}
                 return JsonResponse(data)
+        
                 
         p_title = poster.title
         p_content = poster.content
@@ -113,3 +112,34 @@ def p_modify(request, pk):
             return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
         except KeyError:
             return redirect('/need_login') 
+        
+def comment(request, pk):
+    #     comment_id = models.AutoField(primary_key=True, null=False)
+
+    # user = models.ForeignKey(USER, db_column='c_user_id', on_delete=models.CASCADE, null=False)    
+    # content = models.CharField(max_length=50, null=False)
+    # date = models.DateTimeField(null=True, auto_now=True)
+
+    # article = models.ForeignKey(ARTICLE,  db_column='article_id', on_delete=models.CASCADE, null=False)
+    pk
+    
+    
+    comment = COMMENT(
+        comment_id = 
+        )
+    
+    
+    
+            article = ARTICLE(
+            #article_id = ARTICLE.objects.filter(article_id = pk)[0] ,
+            article_id = ARTICLE.objects.order_by('-article_id').first().article_id + 1,
+            board = BOARD.objects.get(board_name='qna게시판'),
+            #a_user_id=USER.objects.get(u_id=request.session['u_id']),
+            user = USER.objects.get(user_id=request.session['user_id']),
+            # user = request.session['user_id'],
+            title = request.POST.get('title'),
+            content = request.POST.get('content'),
+            date = timezone.now(),
+            image = None,
+            comment_cnt = 0
+            )

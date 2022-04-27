@@ -293,7 +293,41 @@
                       onclick="location.href='http://127.0.0.1:8000/qna' ">뒤로</button>
                     </form>
 
-                    
+                    <!--댓글 기능 -->
+                    <center>
+
+                    <form>
+                      {% csrf_token %}    <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
+                      <input type="text" name="content" size="50%" placeholder="댓글을 입력해 주세요.">
+                      <button type='button' onclick= 'comment();' value="comment_create">
+                    </form>
+
+                    <form>
+                      {% for comment in comments %}
+                          {{ comment.comment }} &nbsp | &nbsp {{ comment.writer }} &nbsp | &nbsp {{ comment.date|date:"m-d/H:i"  }} &nbsp
+          
+                          <button type="button" class = 'delete' id={{comment.id}} onclick="deleteFun({{comment.id}});">삭제</button>
+                      <br>
+                      {% empty %}
+                          <p>아직 댓글이 없습니다.</p>
+                      {% endfor %}
+                      </form>
+                      <hr />
+                  
+
+          
+                      <a  href="download/">사진 저장하기</a>
+          
+                      <div style="position: relative; top:15px">
+                  
+                      <a href="remove/">삭제</a>
+                      <a href="edit/">수정</a>
+                      <a href="{% url 'placeboard:blog' %}">목록</a>  
+          
+                      </center>
+
+
+
                   </div>
                 </div>
               </div>
@@ -341,13 +375,14 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script type='text/javascript'>
     function Check(){ 
-
+      data = {'status' : 'del'}
       const csrftoken = getCookie('csrftoken');
 
       $.ajax({
         type : "POST",
         url : "",
         async: true,
+        data : data,
         headers: { 'X-CSRFToken': csrftoken },
 
         error : function() {
@@ -364,9 +399,34 @@
             }
           }});
     };
+</script>
 
-    
+<script type='text/javascript'>
+  function comment_create(){ 
+    data = {'status' : 'del'}
+    const csrftoken = getCookie('csrftoken');
 
+    $.ajax({
+      type : "POST",
+      url : "",
+      async: true,
+      data : data,
+      headers: { 'X-CSRFToken': csrftoken },
+
+      error : function() {
+          alert("fail!");
+        },
+      success : function(result) {
+          if (result.status == 'T') {
+            alert("삭제 완료!");
+            window.location.href = '/qna';
+
+          } else {
+            alert("권한이 없습니다!");
+            window.location.reload();
+          }
+        }});
+  };
 </script>
 </body>
 

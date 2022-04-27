@@ -305,6 +305,23 @@
                   </form>
                   <button class="btn btn-light" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
                     onclick="location.href=http://127.0.0.1:8000/qna">뒤로</button>
+                  
+                  <form method="post">
+                    {% csrf_token %}    <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
+                    <input type="text" name="content" size="50%" placeholder="댓글을 입력해 주세요.">
+                    <input class="btn Hyemin " type="submit" value="댓글달기">
+        
+                    {% if messages %}
+                        <div>
+                        {% for message in messages %}
+                            {{ message.tags }}! {{ message.message }}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    <hr />
+                    <p><b>댓글 목록</b></p>
+                    </center>
+                    
                 </div>
               </div>
             </div>

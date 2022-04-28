@@ -33,29 +33,27 @@ def qna_board(request):
         if end_page > p.num_pages:
             end_page = p.num_pages
             
-        # ############comment##############
-        # data = (COMMENT.objects
-        #         .values('post_id')
-        #         .annotate(cnt_sum=Count('id'))
-        #         .values('post_id','cnt_sum')
-        #         .order_by('-post_id'))
+        ############comment##############
+        data = (COMMENT.objects
+                .values('article_id')
+                .annotate(cnt_sum=Count('comment_id'))
+                .values('article_id','cnt_sum')
+                .order_by('-article_id'))
         
-        # cnt_comment = {}
-        # cnt = 1
+        cnt_comment = {}
+        cnt = 1
         
-        # for i in info:
-        #     # key = i.id
-        #     info
-        #     try:
-        #         cnt_comment[cnt] = data.get(post_id = i.id)['cnt_sum']
-        #     except:
-        #         cnt_comment[cnt] = 0
-        #     cnt += 1
-        
-        
-        # #################################
+        for i in write_date_list:
+            # key = i.id
+            info
+            try:
+                cnt_comment[cnt] = data.get(article_id = i.article_id)['cnt_sum']
+            except:
+                cnt_comment[cnt] = 0
+            cnt += 1
+        #################################
             
-        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
+        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user, 'cnt_comment':cnt_comment})
     
     except KeyError:
         return redirect('/need_login') 

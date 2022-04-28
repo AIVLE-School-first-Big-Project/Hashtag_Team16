@@ -7,7 +7,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Corona Admin</title>
+  <title>HashTaig</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
@@ -119,8 +119,7 @@
                       <p><b>댓글 목록</b></p>
                       <form style="font-size: smaller;">
                         {% for comment in comments %}
-                        {{ comment.content }} &nbsp | &nbsp {{ comment.user.user_id }} &nbsp | &nbsp {{
-                        comment.date|date:"m-d/H:i" }} &nbsp
+                        {{ comment.content }} &nbsp | &nbsp {{ comment.user.user_id }} &nbsp | &nbsp {{comment.date|date:"m-d/H:i" }} &nbsp
 
                         <button type="button" class='delete' id={{comment.user.user_id}} style="border-radius: 0.1875rem; width: 50px; font-size: 90%; color: #212529;
                         background-color: #ffffff; border-color: #ffffff; box-shadow: none; border: 1px solid transparent;

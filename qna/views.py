@@ -3,6 +3,7 @@ from django.utils import timezone
 from qna.models import *
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.db.models import Count
 import json
 # Create your views here.
 
@@ -19,6 +20,29 @@ def qna_board(request):
         end_page = start_page + 9
         if end_page > p.num_pages:
             end_page = p.num_pages
+            
+        # ############comment##############
+        # data = (COMMENT.objects
+        #         .values('post_id')
+        #         .annotate(cnt_sum=Count('id'))
+        #         .values('post_id','cnt_sum')
+        #         .order_by('-post_id'))
+        
+        # cnt_comment = {}
+        # cnt = 1
+        
+        # for i in info:
+        #     # key = i.id
+        #     info
+        #     try:
+        #         cnt_comment[cnt] = data.get(post_id = i.id)['cnt_sum']
+        #     except:
+        #         cnt_comment[cnt] = 0
+        #     cnt += 1
+        
+        
+        # #################################
+            
         return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
     
     except KeyError:

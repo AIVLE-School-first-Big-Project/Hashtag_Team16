@@ -147,6 +147,7 @@ a.menu-link { display: none; }
   }
 
   .main-menu {
+     display: block;
       padding-right: 30px!important;
   }
 
@@ -1546,7 +1547,8 @@ footer p a:hover {
 }
 
 @media screen and (max-width: 950px) {
-  .main-menu { padding-right: 0!important; }
+  .main-menu { padding-right: 0!important;
+               display: none; }
   .main-header .logo {
     line-height: 73px;
   }

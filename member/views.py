@@ -1,10 +1,25 @@
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
-from .models import USER
+from .models import *
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 # Create your views here.
+# mypage
+def mypage(request):
+    user = USER.objects.get(user_id=request.session['user_id']).user_id
+    print(user)
+    log_list = LOG.objects.filter(l_user=user)
+    p = Paginator(log_list, 10)
+    now_page = request.GET.get('page', 1)
+    now_page = int(now_page)
+    info = p.get_page(now_page)
+    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info})
+
+def modify(request):
+    return render(request, 'member/modify.html')
+
 
 # user 출력
 def user(request):
@@ -130,30 +145,41 @@ def change_password(request):
         
 
 def change_info(request):
-    user_id = request.session['user_id']
-    user_inst = USER.objects.get(user_id=user_id)
-
-    if request.method == "POST":
+    
+    if request.method == 'POST':
+        user_id = request.session['user_id']
+        user_inst =  USER.objects.get(user_id=user_id)
         
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone_num = request.POST.get('phone_num')
+        
+        if (name == '') or (email == '') or (phone_num == ''):
+            data = {'status':'empty_error'}
+            return JsonResponse(data)
+        
+        if ('@' not in email):
+            data = {'status':'email_error'}
+            return JsonResponse(data)
 
         user_inst.name = name
         user_inst.email = email
         user_inst.phone_num = phone_num
 
         user_inst.save()
-        return redirect('../../mypage')
+        
+        data = {'status':'T'}
+        return JsonResponse(data)
 
             
-    else:    
-        
+    else: 
         try:
+            user_id = request.session['user_id']
+            user_inst =  USER.objects.get(user_id=user_id)
             name = user_inst.name
             email = user_inst.email
             phone_num = user_inst.phone_num
             return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
         except KeyError:
-            return redirect('/')
+            return redirect('/need_login')
         

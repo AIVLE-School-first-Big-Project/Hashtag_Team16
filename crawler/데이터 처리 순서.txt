@@ -1,0 +1,121 @@
+(0) 업데이트를 위한 파일명 변경
+- 기존에 존재하는 old_insta_df.pkl 삭제
+- 기존에 존해나는 insta_df.pkl은 old_insta_df.pkl(과거에 전처리가 완료된 데이터)로 변경
+===============================================
+(1) 크롤러 작동: (NEW_Crawling.ipynb) <-- local
+
+- insta_crawling
+	- *data(100개 단위로 특정 키워드 크롤링)
+		- *키워드1
+			- *df1.pkl
+			- *df2.pkl
+			- *...
+		- *...
+	- *image(파일명은 유일한 값으로 jpg 포맷 저장)
+		- *이미지1.jpg
+		- *이미지2.jpg
+		- *이미지3.jpg
+		- *...
+
+===============================================
+(2) 크롤링_데이터프레임_전처리.ipynb <-- local
+
+- insta_crawling
+	- data
+	- image
+	- preprocessed
+		- *dataframe(null값 등 전처리 후 데이터프레임 단일로 통합)
+			- old_insta_df.pkl
+			- *insta_df.pkl
+	- 크롤링_데이터프레임_전처리.ipynb
+	- *preprocessing_step1.py
+
+===============================================
+(3) 데이터프레임에 존재하는 이미지만 따로 저장하기.ipynb <--local
+
+- insta_crawling
+	- data
+	- image
+	- preprocessed
+		- dataframe
+		- *image(insta_df.pkl에 포함된 이미지만 포함)
+			- *이미지1.jpg
+			- *이미지2.jpg
+			- *...
+	- 크롤링_데이터프레임_전처리.ipynb
+	- preprocessing_step1.py
+	- *데이터프레임에 존재하는 이미지만 따로 저장하기.ipynb 
+
+===============================================
+(4) jpg를 png로 바꾸기: jpg2png.py <--local로 작업 진행 후 드라이브 업로드 or 구글드라이브에서 진행할 수 있게 해놓음.
+
+- insta_crawling
+	- data
+	- image
+	- preprocessed
+		- dataframe
+		- image
+		- *image_png(preprocessed/image의 jpg파일을 png로 변경 - 7번 단계를 위해서)
+			- *이미지1.png
+			- *이미지2.png
+			- *...
+	- 크롤링_데이터프레임_전처리.ipynb
+	- preprocessing_step1.py
+	- 데이터프레임에 존재하는 이미지만 따로 저장하기.ipynb 
+	- *jpg2png.ipynb
+	- *jpg2png.py
+
+===============================================
+((5)) 수작업으로 걸러낸(by경용) 광고이미지 적용(이거는 처음 한 번만 작동시키면 됨)- 일회용(코랩에서) <--colab, googledrive
+
+- preprocessed/dataframe의 update_df.pkl이 생김
+- update_df.pkl을 insta_df.pkl로 저장하고 update_df.pkl은 삭제
+- ((5))실행시에는 6번을 건너뜀
+
+===============================================
+(6) 이전 크롤링 데이터의 전처리 된 내용을 신규 크롤링 데이터에 반영
+
+===============================================
+(7) 직접 이미지, 해시태그 걸러내기: image_check.py <-- 각자의 local
+- insta_crawling
+	- data
+	- image
+	- preprocessed
+		- dataframe
+			- old_insta_df.pkl
+			- insta_df.pkl 
+			- *update_df_user1.pkl
+			- *update_df_user2.pkl
+			- *...
+		- image
+		- image_png
+	- 크롤링_데이터프레임_전처리.ipynb
+	- preprocessing_step1.py
+	- 데이터프레임에 존재하는 이미지만 따로 저장하기.ipynb 
+	- jpg2png.ipynb
+	- jpg2png.py
+	- *image_check.py
+
+===============================================
+(8) "직접 걸러낸 데이터를 모두 병합" <-- 구글드라이브 공유폴더에 업로드 후, 실시
+- insta_crawling
+	- data
+	- image
+	- preprocessed
+		- dataframe
+			- old_insta_df.pkl
+			- *insta_df.pkl (insta_df_user를 활용하여 업데이트)
+			- update_df_user1.pkl
+			- update_df_user2.pkl
+			- ...
+		- image
+		- image_png
+	- 크롤링_데이터프레임_전처리.ipynb
+	- preprocessing_step1.py
+	- 데이터프레임에 존재하는 이미지만 따로 저장하기.ipynb 
+	- jpg2png.ipynb
+	- jpg2png.py
+	- image_check.py
+	- *insta_df_user 병합.ipynb
+
+(9) 모델에 최신화 데이터 업데이트(insta <-- googledrive)

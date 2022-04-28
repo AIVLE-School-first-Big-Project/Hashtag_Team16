@@ -24,5 +24,5 @@ urlpatterns = [
     
     path('main/', include('main.urls')),
     path('qna/', include('qna.urls')),
-    path('mypage/', include('mypage.urls')),
+    
 ]

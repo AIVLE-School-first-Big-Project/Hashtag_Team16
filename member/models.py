@@ -69,7 +69,7 @@ class COMMENT(models.Model):
 class LOG(models.Model):
     log_id = models.AutoField(primary_key=True, null=False)
     #l_user_id = models.CharField(max_length=20,null=False)
-    l_user = models.ForeignKey(USER, db_column='user_id', on_delete=models.CASCADE, null=False)
+    l_user = models.ForeignKey(USER, db_column='l_user_id', on_delete=models.CASCADE, null=False)
 
     service_score = models.IntegerField(null=False)
     feedback = models.TextField(null=True)

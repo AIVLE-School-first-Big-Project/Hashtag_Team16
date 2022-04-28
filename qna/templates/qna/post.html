@@ -24,299 +24,127 @@
   <!-- Layout styles -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
-  
-  <script type='text/javascript'>
-    function Check(){ 
-        if (confirm("삭제") == true){    //확인
-            document.getElementById('del').submit();
+
+  <script>
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
         }
-        else{   //취소
-            return false;
-        }
+      }
+      return cookieValue;
     }
 
-    
-</script>
+  </script>
+
 </head>
 
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_sidebar.html -->
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
-      <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/">
-          <img src="{% static 'assets/images/logo3.svg' %}"
-          style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" />
-        </a>
-        <a class="sidebar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/"><img
-            src="{% static 'assets/images/logo-mini3.svg' %}" alt="logo" /></a>
-      </div>
-      <ul class="nav">
-        <!-- 좌측 프로필 -->
-        <li class="nav-item profile">
-          <div class="profile-desc">
-            <div class="profile-pic">
-              <div class="count-indicator">
-                <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                <span class="count bg-success"></span>
-              </div>
-              <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal" style="padding-top : 20px">{{user}}</h5>
-                <p style="font-size: 13px; color: navajowhite;">Gold Member</p>
-                <span>로그아웃</span>
-              </div>
-            </div>
-
-            <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
-            <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
-              aria-labelledby="profile-dropdown">
-              <a href="#" class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-dark rounded-circle">
-                    <i class="mdi mdi-settings text-primary"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-dark rounded-circle">
-                    <i class="mdi mdi-onepassword  text-info"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-dark rounded-circle">
-                    <i class="mdi mdi-calendar-today text-success"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </li>
-
-        <!-- 네비게이션 -->
-        <li class="nav-item nav-category">
-          <span class="nav-link">Navigation</span>
-        </li>
-
-        <li class="nav-item menu-items">
-          <a class="nav-link" href="http://127.0.0.1:8000/main/">
-            <span class="menu-icon">
-              <i class="mdi mdi-chart-bar"></i>
-            </span>
-            <span class="menu-title">분석페이지</span>
-          </a>
-        </li>
-        <li class="nav-item menu-items">
-          <a class="nav-link" href="http://127.0.0.1:8000/qna/">
-            <span class="menu-icon">
-              <i class="mdi mdi-file-document-box"></i>
-            </span>
-            <span class="menu-title">Q&A게시판</span>
-          </a>
-        </li>
-        <li class="nav-item menu-items">
-          <a class="nav-link" href="http://127.0.0.1:8000/mypage/">
-            <span class="menu-icon">
-              <i class="mdi mdi-contacts"></i>
-            </span>
-            <span class="menu-title">마이페이지</span>
-          </a>
-        </li>
-
-        <!-- 네비게이션 끝 -->
-      </ul>
-    </nav>
+    <!--nav1 zone-->
+    {% include 'main/nav1.html' %}
 
 
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_navbar.html -->
-      <nav class="navbar p-0 fixed-top d-flex flex-row">
-        <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo-mini" href="http://127.0.0.1:8000/main/">
-            <img src="{% static 'assets/images/logo-mini3.svg' %}" style = 'width:70%; height:auto;' alt="logo" />
-          </a>
-        </div>
-        <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-          <ul class="navbar-nav w-100">
-            <li class="nav-item w-100">
-            </li>
-          </ul>
-          <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown d-none d-lg-block">
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                aria-labelledby="createbuttonDropdown">
-                <h6 class="p-3 mb-0">Projects</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-file-outline text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1">Software Development</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-web text-info"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1">UI Development</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-layers text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1">Software Testing</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <p class="p-3 mb-0 text-center">See all projects</p>
-              </div>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
-                <div class="navbar-profile">
-                  <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
-                  <i class="mdi mdi-menu-down d-none d-sm-block"></i>
-                </div>
-              </a>
-              <!-- 우측 상단 프로필 드롭다운-->
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                aria-labelledby="profileDropdown">
-                <h6 class="p-3 mb-0">Profile</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-settings text-success"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject mb-1">Settings</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item" href="javascript:Logout()">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-logout text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject mb-1">Log out</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <p class="p-3 mb-0 text-center">Advanced settings</p>
-              </div>
-            </li>
-          </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-            data-toggle="offcanvas">
-            <span class="mdi mdi-format-line-spacing"></span>
-          </button>
-        </div>
-      </nav>
+      <!--nav2 zone-->
+      {% include 'main/nav2.html' %}
 
       <!-- 여기부터 본문입니당 ㅎㅎ -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
             <div class="col-12 grid-margin">
-              <div class="card" style="height: 80vh;">
+              <div class="card" style="height: 100%;">
                 <div class="card-body">
-                  <h4 class="card-title"></h4>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <p style="margin-left: 23%;">제목</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 3vh; background-color: #2b303f88;">
+                  <table class="table">
+                    <div class="form-group row" style="padding-top: 3vh; margin-top: 29px;">
+                      <label class="col-sm-3 col-form-label"
+                        style="padding-left: 12%; padding-bottom: 4%; font-size: large;">제목</label>
+                      <div class="col-sm-6" style="height: 4.5vh; background-color: #2b303f88; margin-bottom: 10px;">
                         <!--제목은 여기다가 작성하면 됩니둥-->
-                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 3px;" id='title'>{{p_title}}</h4>
+                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 6px;" id='title'>
+                          {{p_title}}</h4>
                       </div>
-                      <p style="margin-left: 23%; margin-top: 2%;">내용</p>
-                      <div style="margin-left: 23%; width: 40vw; height: 35vh; background-color: #2b303f88;">
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label"
+                        style="padding-left: 12%; padding-bottom: 4%; font-size: large;">내용</label>
+                      <div class="col-sm-6" style="height: 35vh; background-color: #2b303f88;">
                         <!--내용은 여기다가 작성하면 됩니둥-->
-                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 5px;" id='content'>
+                        <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 8px;" id='content'>
                           {{p_content}}
-                          {% comment %} 친구는 세월의 도둑이다.
-
-                          봄부터 흐르는 물은 겨울이 되어도 얼지 않듯이
-                          마음에서 우러나오는 우적은 역경이 닥친다고 해서 식지 않는다.
-                          불행했을 때 만난 친구는 가장 소중히 여겨야 한다.
-
-
-                          행복했을 때 함께 기쁨을 누리는 친구보다
-                          힘들 떄 슬픔을 덜어지는 친구를 더 많이 신뢰할 수 있다.
-
-                          부유했을 때는 친구를 사귀기 쉽지만,
-                          어려울 때는 눈을 씻고 찾아봐도 친구를 찾기 어렵다.
-
-                          누군가 진정한 우정을 나누고 있다 할지라도 그 우정을 지키려면 오랜 시간이 걸린다.
-
-                          짧은 시간 안에 많은 친구를 얻기란 불가능하다.
-                          왜냐하면 그들은 진정한 친구가 아니기 때문이다. {% endcomment %}
                         </h5>
                       </div>
-                    </table>
+                    </div>
+                  </table>
+                  <div style="text-align: center; margin-top: 8vw;">
+                    <div style="display:inline-block; padding-bottom: 10%; padding-right: 10px;">
+                      <form id='upd' method="POST" style="float: left; margin-right: 15px;">
+                        {% csrf_token %}
+                        <button type='button' class="btn btn-light" name='update' value="수정"
+                          style="width: 70px; font-size: 80%; margin-bottom: 5%;"
+                          onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글
+                          수정</button>
+                      </form>
+                      <form id='del' style="float: left; margin-right: 15px;">
+                        {% csrf_token %}
+                        <button type='button' class="btn btn-light" name="cancel"
+                          style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;" onclick='Check();'>글
+                          삭제</button>
+                      </form>
+                      <div style="float: left;">
+                        <button class="btn btn-light"
+                          style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;"
+                          onclick="location.href='http://127.0.0.1:8000/qna' ">뒤로</button>
+                      </div>
+                    </div>
+
+                    <!--댓글 기능 -->
+                    <center>
+                      <form class='comment_form'>
+                        {% csrf_token %}
+                        <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
+                        <input type="text" name="content" class="col-8" style="font-size: smaller;" size="60%" placeholder="댓글을 입력해 주세요.">
+                        <button type='button' class="btn btn-light" style="width: 60px; font-size: 80%; margin-left: 1%; margin-top: 5%; margin-bottom: 5%;" onclick='comment("C");' value="comment_create"> 댓글 달기 </button>
+                      </form>
+                      <p><b>댓글 목록</b></p>
+                      <form style="font-size: smaller;">
+                        {% for comment in comments %}
+                        {{ comment.content }} &nbsp | &nbsp {{ comment.user.user_id }} &nbsp | &nbsp {{
+                        comment.date|date:"m-d/H:i" }} &nbsp
+
+                        <button type="button" class='delete' id={{comment.user.user_id}} style="border-radius: 0.1875rem; width: 50px; font-size: 90%; color: #212529;
+                        background-color: #ffffff; border-color: #ffffff; box-shadow: none; border: 1px solid transparent;
+                        margin-left: 1%; margin-top: 5%; margin-bottom: 5%;"
+                          onclick="comment({{ comment.comment_id }});">삭제</button>
+                        <br>
+                        {% empty %}
+                        <p>아직 댓글이 없습니다.</p>
+                        {% endfor %}
+                      </form>
+                    </center>
                   </div>
-                </div>
-                <div>
-                  <form id='upd'>
-                    <button type='button' class="btn btn-light" name='update' value="수정" style="width: 5%; font-size: 80%; float: left; margin-left: 39%; margin-bottom: 5%;"
-                    onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
-                  </form>
-                  <form id='del' method='POST'>
-                    {% csrf_token %}
-                    <button name="cancel" value="삭제" style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick= 'Check();'>글 삭제</button>
-                  </form>
-                  <button style="width: 5%; font-size: 80%; float: left; margin-left: 1%; margin-bottom: 5%;"
-                    onclick="location.href=http://127.0.0.1:8000/qna">뒤로</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">AI대구경북 화이팅</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made by jimi</a></span>
-          </div>
-        </footer>
-        <!-- partial -->
       </div>
-      <!-- main-panel ends -->
+      <!-- content-wrapper ends -->
+      <!-- partial -->
     </div>
-    <!-- page-body-wrapper ends -->
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
   </div>
 
   <!-- container-scroller -->
@@ -340,33 +168,110 @@
   <!-- Custom js for this page -->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page -->
-  <script type="text/javascript"> 
-    function Logout() {
-      sessionStorage.clear();
-      alert("로그아웃 되었습니다.");
-      location.href = "/member/logout";
-    }
+
+  <!-- 글 삭제 JS-->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type='text/javascript'>
+    function Check() {
+
+      const csrftoken = getCookie('csrftoken');
+
+      $.ajax({
+        type: "POST",
+        url: "",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+
+        error: function () {
+          alert("fail!");
+        },
+        success: function (result) {
+          if (result.status == 'T') {
+            alert("삭제 완료!");
+            window.location.href = '/qna';
+
+          } else {
+            alert("권한이 없습니다!");
+            window.location.reload();
+          }
+        }
+      });
+    };
   </script>
 
+  <!--댓글 추가 및 삭제 JS-->
+  <script type='text/javascript'>
+    function comment(key) {
+      // key :
+      //    'C' : 폼데이터를 comment 함수의 create 조건으로 보냄
+      //    not 'C' : key에 comment id를 담아서 comment 함수의 delete 조건으로 보냄
 
-  <!-- 수정 게시판에 원래 내용 데이터 전송해주기-->
-  <script>
-  function sender() {
-    const url2 = window.location.href + 'p_modify';
-    
-    $.ajax({
-        type : "GET",
-        url : url2,
-        async: true,
-        error : function() {
+      const url = window.location.href;
+      const myformData = new FormData();
+      const csrftoken = getCookie('csrftoken');
+
+      // Create 모드
+      if (key == 'C') {
+        var form = document.getElementsByClassName('comment_form');
+        myformData.append('method', key);
+        myformData.append('content', form[0][1].value);
+
+        $.ajax({
+          type: "POST",
+          url: url + 'comment',
+          async: true,
+          data: myformData,
+          headers: { 'X-CSRFToken': csrftoken },
+          enctype: "multipart/form-data",
+          processData: false,
+          contentType: false,
+
+          error: function () {
             alert("fail!");
           },
-        success : function(result) {
-            window.location.href = url2
-          }});
-    };
-    </script>
-    <!-- End custom js for this page -->
+          success: function (result) {
+            if (result.status == 'create_T') {
+              window.location.reload();
+            }
+            else if (result.status == 'create_F') {
+              alert("빈칸을 채워주세요!");
+            }
+          }
+        });
+
+        // delete 모드
+      } else {
+        // 댓글 삭제 재확인을 받고, 결과가 true 경우에만 삭제를 진행한다.
+        if (confirm('정말로 삭제하시겠습니까?') == true) {
+          myformData.append('method', 'delete');
+          myformData.append('id', key);
+
+          $.ajax({
+            type: "POST",
+            url: url + 'comment',
+            async: true,
+            data: myformData,
+            headers: { 'X-CSRFToken': csrftoken },
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+
+            error: function () {
+              alert("fail!");
+            },
+            success: function (result) {
+              if (result.status == 'delete_T') {
+                window.location.reload();
+              }
+              else if (result.status == 'delete_F') {
+                alert("권한이 없습니다!");
+              }
+            }
+          });
+        }
+      };
+    }
+  </script>
 </body>
 
 </html>

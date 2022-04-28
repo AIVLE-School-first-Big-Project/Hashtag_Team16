@@ -4,11 +4,14 @@ from qna.models import *
 import os
 from google.cloud import storage
 from django.http import JsonResponse
+import joblib
+# from pyspark.sql import SparkSession
+# from pyspark.ml.recommendation import ALS, ALSModel
 
 def index(request):
     # Login이 안된 상태에서는 연결하지 못하도록
     try:
-        user = USER.objects.get(user_id=request.session['user_id']).user_id                
+        user = USER.objects.get(user_id=request.session['user_id']).user_id
         request.session['user_id']
         if request.method == 'POST':
             print('post')
@@ -35,7 +38,16 @@ def index(request):
         else:
             return render(request, 'main/index.html', {'user' : user})
     except KeyError:
-        return redirect('/')
+        
+        return redirect('/need_login')
+
+def function(request):
+    try:
+        user = USER.objects.get(user_id=request.session['user_id']).user_id                
+
+        return render(request, 'main/function.html', {'user' : user})
+    except KeyError:
+        return redirect('/need_login')
 
     
 #

@@ -5,6 +5,9 @@ from member.views import *
 app_name = 'member'
 
 urlpatterns = [
+    path('', mypage, name='mypage'),
+    path('modify/', modify, name='modify'),
+    
     path('line/', user, name='line'),
     path('login/', login_custom, name='login_custom'),
     path('signup/', signup_custom, name='signup_custom'),

@@ -57,7 +57,7 @@
     </div>
   </header>
 
-  <section class="section why-us" data-section="section2" style='padding-bottom: 563px;'>
+  <section class="section why-us" data-section="section2" style='padding-bottom: 435px;'>
     <div class="container2">
       <div class="row">
         <div class="col-md-12">
@@ -67,13 +67,21 @@
             <div class="login-page">
               <div class="form">
                 <form class="login-form" method="post">
+                  <style>
+                    .form{
+                      top : 170%;
+                    }
+                    .form input{
+                      padding: 10px;
+                    }
+                  </style>
                   {% csrf_token %}
                   <input type="text" name="user_id" placeholder="아이디"/>
                   <input type="password" name="pw" placeholder="비밀번호"/>
                   <input type="password" name="pw2" placeholder="비밀번호 확인"/>
                   <input type="text" name="name" placeholder="이름"/>
                   <input type="date" name="birth_date" data-bind="dateOfBirth" />  
-                  <input type="email" name="email" placeholder="email"/>
+                  <input type="text" name="email" placeholder="email"/>
                   <input type="text" name="phone_num" placeholder="전화번호"/>
                   <button type="button" onclick="signup();" >create</button>
                   <p class="message">Already registered? <a href="/member/login">Sign In</a></p>
@@ -98,7 +106,7 @@
     </div>
   </footer>
 
-    <script> window.resizeTo(500,770);</script> 
+    <script> window.resizeTo(500,909);</script> 
 
     <script>
         // 회원가입 - 생년월일 - 달력 띄우는 JS

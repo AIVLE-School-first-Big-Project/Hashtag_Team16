@@ -19,25 +19,28 @@ def image_func(): #storage 접근
     return bucket_name
 
 def qna_board(request):
-    user = USER.objects.get(user_id=request.session['user_id']).user_id
-    now_page = request.GET.get('page', 1)
-    qna_list = ARTICLE.objects.all()
-    write_date_list = qna_list.order_by('-date')
-    p = Paginator(write_date_list, 10)
-    now_page = int(now_page)
-    info = p.get_page(now_page)
-    start_page = (now_page - 1) // 10 * 10 + 1
-    end_page = start_page + 9
-    if end_page > p.num_pages:
-        end_page = p.num_pages
+    try:
+        user = USER.objects.get(user_id=request.session['user_id']).user_id
+        now_page = request.GET.get('page', 1)
+        qna_list = ARTICLE.objects.all()
+        write_date_list = qna_list.order_by('-date')
+        p = Paginator(write_date_list, 10)
+        now_page = int(now_page)
+        info = p.get_page(now_page)
+        start_page = (now_page - 1) // 10 * 10 + 1
+        end_page = start_page + 9
+        if end_page > p.num_pages:
+            end_page = p.num_pages
+        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
     
-        
-    return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
+    except KeyError:
+        return redirect('/need_login') 
 
 
 def create(request):
-    user = USER.objects.get(user_id=request.session['user_id']).user_id  
+    
     if request.method == 'POST':
+        user = USER.objects.get(user_id=request.session['user_id']).user_id  
         print(ARTICLE.objects.order_by('-article_id').first().article_id)
         
         article = ARTICLE(
@@ -53,6 +56,7 @@ def create(request):
             image = None,
             comment_cnt = 0
             )
+
         print(article.content)
         if (article.content == '') or (article.title == ''):
             data = {'status':'F'}
@@ -62,45 +66,96 @@ def create(request):
         data = {'status':'T'}
         return JsonResponse(data)
     else:
-        return render(request, 'qna/create.html', {'user':user})
+        try:
+            user = USER.objects.get(user_id=request.session['user_id']).user_id
+            return render(request, 'qna/create.html', {'user':user})
+        except KeyError:
+            return redirect('/need_login') 
 
 def post(request, pk):
-    user = USER.objects.get(user_id=request.session['user_id']).user_id  
-    poster = ARTICLE.objects.get(article_id = pk)
-    if request.method =='POST':
-        if request.POST.get('cancel') == "삭제":
-            poster.delete()
-            return redirect('http://127.0.0.1:8000/qna')
-    p_title = poster.title
-    p_content = poster.content
+    try:
+        user = USER.objects.get(user_id=request.session['user_id']).user_id  
+        poster = ARTICLE.objects.get(article_id = pk)
+        # com = COMMENT.objects.filter(article_id = pk)
+        com = poster.comment_set.all()
+        if request.method =='POST':
+            if poster.user.user_id == user:
+                poster.delete()
+                data = {'status':'T'}
+                return JsonResponse(data)
+            else :
+                data = {'status':'user_error'}
+                return JsonResponse(data)
+        
+                
+        p_title = poster.title
+        p_content = poster.content
 
-    return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user})
+        return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user,'comments': com})
+    except KeyError:
+        return redirect('/need_login') 
 
-def logout_custom(request):
-    del request.session['user_id']
-    del request.session['user_name']
 
-    request.session.flush()
-
-    return redirect('/')
 
 def p_modify(request, pk):
     al = ARTICLE.objects.get(article_id=pk)
+    user = USER.objects.get(user_id = request.session['user_id']).user_id
     if request.method == 'POST':
-       
-        if al.user != request.session['user_id']:
+        if al.user.user_id != request.session['user_id']:
             data = {'status':'user_error'}
             return JsonResponse(data)
-        
         title = request.POST.get('title')
         content = request.POST.get('content')
-                
+        al.title = title
+        al.content = content
+        al.image ='123'
+        
+        if (al.title == '') or (al.content == ''):
+            data = {'status':'F'}
+            return JsonResponse(data)
+        else:
+            al.save()
+            data = {'status':'T'}
+            return JsonResponse(data) 
         
     else:
-        title = al.title
-        content=al.content
-        return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
+        try:
+            user = USER.objects.get(user_id=request.session['user_id']).user_id  
+            title = al.title
+            content=al.content
+            return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
+        except KeyError:
+            return redirect('/need_login') 
+        
+def comment(request, pk):
+    # 생성
+    if request.POST.get('method') == 'C':
+        comment = COMMENT(
+            comment_id = COMMENT.objects.order_by('-comment_id').first().comment_id + 1,
+            user = USER.objects.get(user_id=request.session['user_id']),
+            content = request.POST.get('content'),
+            date = timezone.now(),
+            article =  ARTICLE.objects.get(article_id=pk)
+            )
+        if comment.content != '':
+            comment.save()
+            data = {'status':'create_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'create_F'}
+            return JsonResponse(data)
+    
+    # 삭제
+    else :
+        id = request.POST.get('id')
+        comment = COMMENT.objects.get(comment_id=id)
+        if comment.user.user_id == request.session['user_id']:
+            comment.delete()
+            data = {'status':'delete_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'delete_F'}
+            return JsonResponse(data)
+    
+    
 
-
-#def index(request):
-#    return render(request, 'qna/qna.html')

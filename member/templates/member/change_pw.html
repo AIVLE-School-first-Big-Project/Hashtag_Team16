@@ -57,7 +57,7 @@
     </div>
   </header>
 
-  <section class="section why-us" data-section="section2" style='padding-bottom: 372px;'>
+  <section class="section why-us" data-section="section2" style='padding-bottom: 230px;'>
     <div class="container2">
       <div class="row">
         <div class="col-md-12">
@@ -68,7 +68,7 @@
               <div class="form" style="top:130%;">
                 <form class="login-form" method="post">
                   {% csrf_token %}
-                  <input type="text" name="origin_password" placeholder="기존 비밀번호"/>
+                  <input type="password" name="origin_password" placeholder="기존 비밀번호"/>
                   <input type="password" name="new_password" placeholder="변경할 비밀번호"/>
                   <input type="password" name="confirm_password" placeholder="비밀번호 확인"/>
 
@@ -94,8 +94,6 @@
       </div>
     </div>
   </footer>
-
-    <script> window.resizeTo(500,770);</script> 
 
     <script>
         function changePw() {

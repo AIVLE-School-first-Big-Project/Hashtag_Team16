@@ -23,7 +23,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+
   </head>
   <body>
     <div class="container-scroller">
@@ -60,7 +60,15 @@
                           {% for w in info %}
                           <tr>
                             <td style="padding-left: 5%;"> {{w.article_id}} </a></td>
-                            <td style="width: 60%; height: 48.5; padding-left: 10%;"><a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">{{w.title}} [{{w.comment_cnt}}] </a></td>
+                              <td style="width: 60%; height: 48.5; padding-left: 10%;">
+                                <a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">
+                                  {{w.title}}
+                                  <script>
+                                    var i = {{ forloop.counter }}
+                                    document.write("(" + {{cnt_comment}}[i] + ")" )
+                                  </script>
+                                </a>
+                              </td>
                             <td> {{w.user_id}} </td>
                             <td> {{w.date}} </td>
                             <td>

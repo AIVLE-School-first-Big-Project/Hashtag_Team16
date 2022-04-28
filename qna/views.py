@@ -3,6 +3,7 @@ from django.utils import timezone
 from qna.models import *
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.db.models import Count
 import json
 import os
 from google.cloud import storage
@@ -31,7 +32,28 @@ def qna_board(request):
         end_page = start_page + 9
         if end_page > p.num_pages:
             end_page = p.num_pages
-        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user})
+            
+        ############comment##############
+        data = (COMMENT.objects
+                .values('article_id')
+                .annotate(cnt_sum=Count('comment_id'))
+                .values('article_id','cnt_sum')
+                .order_by('-article_id'))
+        
+        cnt_comment = {}
+        cnt = 1
+        
+        for i in write_date_list:
+            # key = i.id
+            info
+            try:
+                cnt_comment[cnt] = data.get(article_id = i.article_id)['cnt_sum']
+            except:
+                cnt_comment[cnt] = 0
+            cnt += 1
+        #################################
+            
+        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user, 'cnt_comment':cnt_comment})
     
     except KeyError:
         return redirect('/need_login') 

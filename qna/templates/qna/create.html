@@ -251,31 +251,41 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-
-          <div class="row ">
+          <div class="row">
             <div class="col-12 grid-margin">
               <div class="card" style="height: 86vh;">
                 <div class="card-body">
-                  <h4 class="card-title">글쓰기</h4>
-                  <div class="table-responsive" style="height: 70vh;">
-                    <div style="margin-top: 5%;">
-                      <div style="margin-left: 30%;">
+                  <h4>글쓰기</h4>
+                    <table class="table">
+                      <div class="form-group row" style="padding-top: 3vh;">
                         <form class="save-form">
                           {% csrf_token %}
-                          <h4> 제목 </h4>
-                            <textarea name='title' style="width: 25.5vw; height: 4vh; padding-left: 10px; padding-top: 5px;" placeholder="제목을 입력해 주세요"></textarea>
+                        <label class="col-sm-3 col-form-label" style="padding-left: 12%; padding-bottom: 4%; font-size: large;">제목</label>
+                        <textarea name='title' class="col-sm-6" style="height: 4.5vh; padding-left: 10px; padding-top: 5px; margin-bottom: 10px;"
+                            placeholder="제목을 입력해 주세요"></textarea>
                       </div>
-                      <div style="margin-left: 30%; padding-bottom: 3%; padding-top: 1%;">
-                        <h4 style="margin-top: 2%;">내용</h4>
-                        <textarea name='content' style="width: 25.5vw;; height: 25vh; padding-left: 10px; padding-top: 5px;" placeholder="내용을 입력해 주세요"></textarea>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" style="padding-left: 12%; padding-bottom: 4%; font-size: large;">내용</label>
+                        <textarea name='content' class="col-sm-6" style="height: 35vh; padding-left: 10px; padding-top: 5px;"
+                          placeholder="내용을 입력해 주세요"></textarea>
+                      </div>
+                    </table>
+
+                    <div style="text-align: center; margin-top: 8vw;">
+                      <div style="display:inline-block; padding-bottom: 10%; padding-right: 10px;">
+                        <div style="float: left; margin-right: 20px;">
+                          <button type="button" class="btn btn-light"
+                          style="width: 70px; font-size: 80%; margin-bottom: 5%;"
+                          onclick="save();">저장</button>
+                        </div>
+                        </form>
+                        <div style="float: left;">
+                          <button class="btn btn-light"
+                          style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;"
+                          onclick="location.href = 'http://127.0.0.1:8000/qna'">취소</button>
+                        </div>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-light" style="margin-left: 2%; position:absolute; bottom:12%; left: 35%; width: 7%;"
-                      onclick="save();"> 저장 </button>
-                    </form>
-                    <button class="btn btn-light" style="margin-left: 2%; position:absolute; bottom:12%; left: 44%; width: 7%;"
-                      onclick="location.href = 'http://127.0.0.1:8000/qna'">취소</button>
-                  </div>
                 </div>
               </div>
             </div>

@@ -255,11 +255,11 @@
         <div class="content-wrapper">
           <div class="row">
             <div class="col-12 grid-margin">
-              <div class="card" style="height: 80vh;">
+              <div class="card" style="height: 86vh;">
                 <div class="card-body">
                   <table class="table">
-                    <div class="form-group row" style="padding-top: 3vh;">
-                      <label class="col-sm-3 col-form-label" style="padding-left: 10%; padding-bottom: 4%;">제목</label>
+                    <div class="form-group row" style="padding-top: 3vh; margin-top: 29px;">
+                      <label class="col-sm-3 col-form-label" style="padding-left: 12%; padding-bottom: 4%; font-size: large;">제목</label>
                       <div class="col-sm-6" style="height: 4.5vh; background-color: #2b303f88; margin-bottom: 10px;">
                         <!--제목은 여기다가 작성하면 됩니둥-->
                         <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 6px;" id='title'>
@@ -267,7 +267,7 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label" style="padding-left: 10%; padding-bottom: 4%;">내용</label>
+                      <label class="col-sm-3 col-form-label" style="padding-left: 12%; padding-bottom: 4%; font-size: large;">내용</label>
                       <div class="col-sm-6" style="height: 35vh; background-color: #2b303f88;">
                         <!--내용은 여기다가 작성하면 됩니둥-->
                         <h5 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 8px;" id='content'>
@@ -276,24 +276,24 @@
                       </div>
                     </div>
                   </table>
-                </div>
-                <div style="text-align: center;">
-                  <div style="display:inline-block; padding-bottom: 10%;">
-                    <form id='upd' method="POST" style="float: left; margin-right: 20px;">
-                      {% csrf_token %}
-                      <button type='button' class="btn btn-light" name='update' value="수정"
-                        style="width: 70px; font-size: 80%; margin-bottom: 5%;"
-                        onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
-                    </form>
-                    <form id='del' style="float: left; margin-right: 20px;">
-                      {% csrf_token %}
-                      <button type='button' class="btn btn-light" name="cancel"
-                        style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;" onclick='Check();'>글 삭제</button>
-                    </form>
-                    <div style="float: left;">
-                      <button class="btn btn-light"
-                        style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;"
-                        onclick="location.href='http://127.0.0.1:8000/qna' ">뒤로</button>
+                  <div style="text-align: center; margin-top: 8vw;">
+                    <div style="display:inline-block; padding-bottom: 10%; padding-right: 10px;">
+                      <form id='upd' method="POST" style="float: left; margin-right: 15px;">
+                        {% csrf_token %}
+                        <button type='button' class="btn btn-light" name='update' value="수정"
+                          style="width: 70px; font-size: 80%; margin-bottom: 5%;"
+                          onclick="location.href = 'http://127.0.0.1:8000/qna/post/{{article_id}}/p_modify/' ">글 수정</button>
+                      </form>
+                      <form id='del' style="float: left; margin-right: 15px;">
+                        {% csrf_token %}
+                        <button type='button' class="btn btn-light" name="cancel"
+                          style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;" onclick='Check();'>글 삭제</button>
+                      </form>
+                      <div style="float: left;">
+                        <button class="btn btn-light"
+                          style="width: 70px; font-size: 80%; margin-left: 1%; margin-bottom: 5%;"
+                          onclick="location.href='http://127.0.0.1:8000/qna' ">뒤로</button>
+                      </div>
                     </div>
                   </div>
                 </div>

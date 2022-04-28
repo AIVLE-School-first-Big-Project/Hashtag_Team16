@@ -64,6 +64,8 @@ def post(request, pk):
     try:
         user = USER.objects.get(user_id=request.session['user_id']).user_id  
         poster = ARTICLE.objects.get(article_id = pk)
+        # com = COMMENT.objects.filter(article_id = pk)
+        com = poster.comment_set.all()
         if request.method =='POST':
             if poster.user.user_id == user:
                 poster.delete()
@@ -77,7 +79,7 @@ def post(request, pk):
         p_title = poster.title
         p_content = poster.content
 
-        return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user})
+        return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user,'comments': com})
     except KeyError:
         return redirect('/need_login') 
 
@@ -114,32 +116,34 @@ def p_modify(request, pk):
             return redirect('/need_login') 
         
 def comment(request, pk):
-    #     comment_id = models.AutoField(primary_key=True, null=False)
-
-    # user = models.ForeignKey(USER, db_column='c_user_id', on_delete=models.CASCADE, null=False)    
-    # content = models.CharField(max_length=50, null=False)
-    # date = models.DateTimeField(null=True, auto_now=True)
-
-    # article = models.ForeignKey(ARTICLE,  db_column='article_id', on_delete=models.CASCADE, null=False)
-    pk
-    
-    
-    comment = COMMENT(
-        comment_id = 
-        )
-    
-    
-    
-            article = ARTICLE(
-            #article_id = ARTICLE.objects.filter(article_id = pk)[0] ,
-            article_id = ARTICLE.objects.order_by('-article_id').first().article_id + 1,
-            board = BOARD.objects.get(board_name='qna게시판'),
-            #a_user_id=USER.objects.get(u_id=request.session['u_id']),
+    # 생성
+    if request.POST.get('method') == 'C':
+        comment = COMMENT(
+            comment_id = COMMENT.objects.order_by('-comment_id').first().comment_id + 1,
             user = USER.objects.get(user_id=request.session['user_id']),
-            # user = request.session['user_id'],
-            title = request.POST.get('title'),
             content = request.POST.get('content'),
             date = timezone.now(),
-            image = None,
-            comment_cnt = 0
+            article =  ARTICLE.objects.get(article_id=pk)
             )
+        if comment.content != '':
+            comment.save()
+            data = {'status':'create_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'create_F'}
+            return JsonResponse(data)
+    
+    # 삭제
+    else :
+        id = request.POST.get('id')
+        comment = COMMENT.objects.get(comment_id=id)
+        if comment.user.user_id == request.session['user_id']:
+            comment.delete()
+            data = {'status':'delete_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'delete_F'}
+            return JsonResponse(data)
+    
+    
+

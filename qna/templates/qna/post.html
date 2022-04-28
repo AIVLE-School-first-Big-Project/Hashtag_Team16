@@ -296,35 +296,29 @@
                     <!--댓글 기능 -->
                     <center>
 
-                    <form>
+                    <form class='comment_form'>
                       {% csrf_token %}    <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
                       <input type="text" name="content" size="50%" placeholder="댓글을 입력해 주세요.">
-                      <button type='button' onclick= 'comment();' value="comment_create">
+                      <button type='button' onclick= 'comment("C");' value="comment_create"> 댓글 달기 </button>
                     </form>
+
+
+                    <p><b>댓글 목록</b></p>
 
                     <form>
                       {% for comment in comments %}
-                          {{ comment.comment }} &nbsp | &nbsp {{ comment.writer }} &nbsp | &nbsp {{ comment.date|date:"m-d/H:i"  }} &nbsp
+                          {{ comment.content }} &nbsp | &nbsp {{ comment.user.user_id }} &nbsp | &nbsp {{ comment.date|date:"m-d/H:i"  }} &nbsp
           
-                          <button type="button" class = 'delete' id={{comment.id}} onclick="deleteFun({{comment.id}});">삭제</button>
+                          <button type="button" class = 'delete' id={{comment.user.user_id}} onclick="comment({{comment.comment_id}});">삭제</button>
                       <br>
                       {% empty %}
                           <p>아직 댓글이 없습니다.</p>
                       {% endfor %}
-                      </form>
-                      <hr />
-                  
+                    </form>
 
-          
-                      <a  href="download/">사진 저장하기</a>
-          
-                      <div style="position: relative; top:15px">
-                  
-                      <a href="remove/">삭제</a>
-                      <a href="edit/">수정</a>
-                      <a href="{% url 'placeboard:blog' %}">목록</a>  
-          
-                      </center>
+                    
+        
+                    </center>
 
 
 
@@ -375,14 +369,12 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script type='text/javascript'>
     function Check(){ 
-      data = {'status' : 'del'}
       const csrftoken = getCookie('csrftoken');
 
       $.ajax({
         type : "POST",
         url : "",
         async: true,
-        data : data,
         headers: { 'X-CSRFToken': csrftoken },
 
         error : function() {
@@ -401,32 +393,77 @@
     };
 </script>
 
+<!--댓글 추가 및 삭제 JS-->
 <script type='text/javascript'>
-  function comment_create(){ 
-    data = {'status' : 'del'}
+  function comment(key){
+    // key :
+    //    'C' : 폼데이터를 comment 함수의 create 조건으로 보냄
+    //    not 'C' : key에 comment id를 담아서 comment 함수의 delete 조건으로 보냄
+
+    const url = window.location.href;
+    const myformData = new FormData();
     const csrftoken = getCookie('csrftoken');
 
-    $.ajax({
-      type : "POST",
-      url : "",
-      async: true,
-      data : data,
-      headers: { 'X-CSRFToken': csrftoken },
+    // Create 모드
+    if (key == 'C'){
+      var form = document.getElementsByClassName('comment_form');
+      myformData.append('method', key);
+      myformData.append('content', form[0][1].value);
 
-      error : function() {
-          alert("fail!");
-        },
-      success : function(result) {
-          if (result.status == 'T') {
-            alert("삭제 완료!");
-            window.location.href = '/qna';
+      $.ajax({
+        type : "POST",
+        url : url + 'comment',
+        async: true,
+        data : myformData,
+        headers: { 'X-CSRFToken': csrftoken },
+        enctype: "multipart/form-data",
+        processData: false,
+        contentType: false,
+  
+        error : function() {
+            alert("fail!");
+          },
+        success : function(result) {
+            if (result.status == 'create_T') {
+              window.location.reload();
+            } 
+            else if (result.status == 'create_F') {
+              alert("빈칸을 채워주세요!");
+            }
+          }});
 
-          } else {
-            alert("권한이 없습니다!");
-            window.location.reload();
-          }
-        }});
-  };
+    // delete 모드
+    } else {
+      // 댓글 삭제 재확인을 받고, 결과가 true 경우에만 삭제를 진행한다.
+      if (confirm('정말로 삭제하시겠습니까?') == true) {
+        myformData.append('method', 'delete');
+        myformData.append('id', key);
+
+        $.ajax({
+          type : "POST",
+          url : url + 'comment',
+          async: true,
+          data : myformData,
+          headers: { 'X-CSRFToken': csrftoken },
+          enctype: "multipart/form-data",
+          processData: false,
+          contentType: false,
+    
+          error : function() {
+              alert("fail!");
+            },
+          success : function(result) {
+              if (result.status == 'delete_T') {
+                window.location.reload();
+              }
+              else if (result.status == 'delete_F') {
+                alert("권한이 없습니다!");
+              }
+            }
+          });
+      }    
+    };
+  }
 </script>
 </body>
 

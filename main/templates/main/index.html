@@ -25,7 +25,23 @@
     <!-- End layout styles -->
 
     <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    </script>
   </head>
   <body>
     <div class="container-scroller">
@@ -43,6 +59,8 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
+            <form class="save-form" enctype="multipart/form-data">
+              {% csrf_token %}
             <div class="row">
               <div class="col-md-12 col-xl-4 grid-margin stretch-card">
                 <div class="card">
@@ -52,10 +70,11 @@
                     <label class="uploader" ondragover="return false" style="height: 37vh;">
                       <i class="fa-solid fa-upload"></i>
                       <img src="" class="">
-                      <input type="file" accept="image/*" name="file">
+                      <input type="file" accept= image/* id="file-id" name="file_name">
                     </label>
                     </form>
-                    <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:6%;">Submit!</button>
+                    <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
+                  </form>
                   </div>
                 </div>
               </div>
@@ -380,6 +399,77 @@
 
         new FileUploader('.uploader');
     </script>
+
+    
+  <script>
+    function getPath(obj){ 
+      if(obj){  
+        if (window.navigator.userAgent.indexOf("MSIE")>=1)  
+        {  
+          obj.select();
+          return document.selection.createRange().text;  
+        }  
+        else if(window.navigator.userAgent.indexOf("Firefox")>=1)  
+        {  
+          if(obj.files)  
+          {
+            return obj.files.item(0).getAsDataURL();
+          }  
+          return obj.value;
+        }
+        alert(document.selection.createRange().text)
+        return obj.value;  
+      }
+    }
+
+
+    function save() {
+      var form = document.getElementsByClassName('save-form');
+      const myformData = new FormData();
+      const csrftoken = getCookie('csrftoken');
+
+      var filename = document.getElementById('file-id').files[0].name;
+      var filename2 = document.getElementById('file-id').value;
+      //document.getElementById('file-path').value = filename;
+      
+      myformData.append('file_name', filename)
+      myformData.append('file_path', filename2)
+      //myformData.append('title', form[0][1].value);
+      //myformData.append('content', form[0][2].value);
+      //myformData.append('user', form[0][3].value);
+      //myformData.append('title', form[0][4].value);
+      //myformData.append('content', form[0][5].value);
+      //myformData.append('date', form[0][6].value);
+
+      $.ajax({
+        type: "POST",
+        url: "",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+        enctype: "multipart/form-data",
+        data: myformData,
+        processData: false,
+        contentType: false,
+
+        error: function () {
+          alert("fail!");
+          alert(filename2)
+        },
+        success: function (result) {
+          if (result.status == 'T') {
+            window.location.href = '/main';
+            alert("등록 완료!");
+          } else {
+            window.location.href = '/main';
+            alert("이미지를 첨부해주세요");
+          }
+
+        }
+      });
+    };
+  </script>
+
+  
     <!-- End custom js for this page -->
   </body>
 </html>

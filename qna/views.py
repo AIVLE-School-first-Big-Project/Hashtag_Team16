@@ -5,7 +5,19 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Count
 import json
+import os
+from google.cloud import storage
 # Create your views here.
+def image_func(): #storage 접근
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:\\Users\\User\\Downloads\\sample-347306-82fb108d9ea5.json"
+    bucket_name = 'db_image'    # 서비스 계정 생성한 bucket 이름 입력
+    source_file_name = 'C:\\Users\\User\\Desktop\\doggg.jpg'    # GCP에 업로드할 파일 절대경로
+    destination_blob_name = 'dog'    # 업로드할 파일을 GCP에 저장할 때의 이름
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_filename(source_file_name)
+    return bucket_name
 
 def qna_board(request):
     try:

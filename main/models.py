@@ -44,7 +44,8 @@ class ARTICLE(models.Model):
     title = models.CharField(max_length=50,null=False)
     content = models.TextField(null=False)
     date = models.DateTimeField(null=True, auto_now=True)
-    image = models.FileField(upload_to='%Y/%m/%d',null=True)
+    #image = models.ImageField(upload_to='db_image/image_folder/')
+    image = models.CharField(max_length=100, null=False)
     comment_cnt = models.IntegerField(null=True)
 
 
@@ -72,9 +73,11 @@ class LOG(models.Model):
     #l_user_id = models.CharField(max_length=20,null=False)
     user = models.ForeignKey(USER, db_column='l_user_id', on_delete=models.CASCADE, null=False)
 
-    service_score = models.IntegerField(null=False)
+    service_score = models.IntegerField(null=True)
     feedback = models.TextField(null=True)
-    image = models.FileField(upload_to='%Y/%m/%d',null=True)
+    #image = models.FileField(upload_to='%Y/%m/%d',null=True)
+    #image = models.ImageField(upload_to='db_image/image_folder/')
+    image = models.CharField(max_length=100, null=False)
     prior_tag = models.TextField(null=False)
     after_tag = models.TextField(null=False)
 

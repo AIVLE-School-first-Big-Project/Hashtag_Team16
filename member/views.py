@@ -181,5 +181,4 @@ def change_info(request):
             phone_num = user_inst.phone_num
             return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
         except KeyError:
-            return redirect('/need_login')
-        
+            return redirect('/need_login')     

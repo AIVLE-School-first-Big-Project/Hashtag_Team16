@@ -432,14 +432,8 @@
       var filename2 = document.getElementById('file-id').value;
       //document.getElementById('file-path').value = filename;
       
-      myformData.append('file_name', filename)
-      myformData.append('file_path', filename2)
-      //myformData.append('title', form[0][1].value);
-      //myformData.append('content', form[0][2].value);
-      //myformData.append('user', form[0][3].value);
-      //myformData.append('title', form[0][4].value);
-      //myformData.append('content', form[0][5].value);
-      //myformData.append('date', form[0][6].value);
+      myformData.append('file_name', filename);
+      myformData.append('file_path', filename2);
 
       $.ajax({
         type: "POST",
@@ -453,7 +447,7 @@
 
         error: function () {
           alert("fail!");
-          alert(filename2)
+          alert(filename2);
         },
         success: function (result) {
           if (result.status == 'T') {

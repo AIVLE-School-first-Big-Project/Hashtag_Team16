@@ -64,9 +64,9 @@ def post(request, pk):
     try:
         user = USER.objects.get(user_id=request.session['user_id']).user_id  
         poster = ARTICLE.objects.get(article_id = pk)
+        # com = COMMENT.objects.filter(article_id = pk)
+        com = poster.comment_set.all()
         if request.method =='POST':
-            print(user)
-            print(poster.user.user_id)
             if poster.user.user_id == user:
                 poster.delete()
                 data = {'status':'T'}
@@ -74,11 +74,12 @@ def post(request, pk):
             else :
                 data = {'status':'user_error'}
                 return JsonResponse(data)
+        
                 
         p_title = poster.title
         p_content = poster.content
 
-        return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user})
+        return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user,'comments': com})
     except KeyError:
         return redirect('/need_login') 
 
@@ -113,3 +114,36 @@ def p_modify(request, pk):
             return render(request, 'qna/p_modify.html',  {'title':title, 'content':content, 'user':user, 'article_id':pk})
         except KeyError:
             return redirect('/need_login') 
+        
+def comment(request, pk):
+    # 생성
+    if request.POST.get('method') == 'C':
+        comment = COMMENT(
+            comment_id = COMMENT.objects.order_by('-comment_id').first().comment_id + 1,
+            user = USER.objects.get(user_id=request.session['user_id']),
+            content = request.POST.get('content'),
+            date = timezone.now(),
+            article =  ARTICLE.objects.get(article_id=pk)
+            )
+        if comment.content != '':
+            comment.save()
+            data = {'status':'create_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'create_F'}
+            return JsonResponse(data)
+    
+    # 삭제
+    else :
+        id = request.POST.get('id')
+        comment = COMMENT.objects.get(comment_id=id)
+        if comment.user.user_id == request.session['user_id']:
+            comment.delete()
+            data = {'status':'delete_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'delete_F'}
+            return JsonResponse(data)
+    
+    
+

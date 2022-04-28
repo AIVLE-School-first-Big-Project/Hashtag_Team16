@@ -270,21 +270,20 @@
                 </div>
               </div>
             </div>
-            <div class="row ">
-              <div class="col-12 grid-margin">
-                <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
-                  <ul class='pagination'>
-                    <div style="width: 40vw; margin-left: 5%; margin-right: 5%;">
-                      <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 3%; color:rgb(108, 114, 147);">◀</a>
-                      <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 95%; color:rgb(108, 114, 147);">▶</a>
-                        <div style="width: 30vw; height: 5vh; text-align: center; padding-top: 1.5%; margin-left: 8%;">
+            <div class="row">
+              <div class="col-12 grid-margin" style="text-align: center;">
+                <div class="card" style="height: 5vh; width: 46vw; display: inline-block;">
+                    <div style="width: 42vw;">
+                      
+                        <div style="width: 38vw; height: 5vh; text-align: center; padding-top: 1.5%; margin-left: 8%;">
                           {% for i in page_range %}
                             <a href = '{% url "qna:qna_board" %}?page={{ i }}' style="text-align: center; padding: 3%; color:rgb(108, 114, 147);"> {{ i }} </a>
                           {% endfor %}
                         </div>
+                          <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 05%; color:rgb(108, 114, 147);">◀</a>
+                          <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 93%; color:rgb(108, 114, 147);">▶</a>
                       </div>
                     </div>
-                  </ul>
                 </div>
               </div>
             </div>

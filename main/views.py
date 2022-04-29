@@ -9,6 +9,9 @@ from google.cloud import storage
 from django.http import JsonResponse
 from PIL import Image
 import joblib
+
+import json
+import requests
 # from pyspark.sql import SparkSession
 # from pyspark.ml.recommendation import ALS, ALSModel
 
@@ -38,6 +41,14 @@ def index(request):
                 return JsonResponse(data)
             log.save()
             #################################################################'''
+            
+            files = open(tmp_file, 'rb')
+            upload = {'file': files}
+            res = requests.post(' http://118.91.69.43:5000/', files = upload)
+            hashtags_json = json.loads(res.content)
+            print(type(hashtags_json))
+            print(hashtags_json)
+            
             
             ################GCP 파일 업로드#################################
             os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= "static/sample-347306-82fb108d9ea5.json"

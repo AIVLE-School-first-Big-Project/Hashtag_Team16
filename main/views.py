@@ -65,3 +65,6 @@ def image_func(url, real_file_name): #storage 접근
     return url
 
 
+def star(request):
+    return render(request, 'main/star.html')
+

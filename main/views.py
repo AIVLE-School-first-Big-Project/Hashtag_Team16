@@ -50,6 +50,8 @@ def index(request):
             print(hashtags_json)
             
             
+            print(i_name)
+            
             ################GCP 파일 업로드#################################
             os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= "static/sample-347306-82fb108d9ea5.json"
             bucket_name = 'db_image'                        # 서비스 계정 생성한 bucket 이름 입력
@@ -61,6 +63,7 @@ def index(request):
             blob.upload_from_filename(source_file_name)     #
             ################################################################
             
+            files.close()
             os.remove(tmp_file) # 이미지 삭제
             
             

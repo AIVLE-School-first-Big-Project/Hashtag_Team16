@@ -64,6 +64,10 @@ def index(request):
             os.remove(tmp_file) # 이미지 삭제
             
             
+            
+            
+            
+            
             data = {'status':'T'}
             return JsonResponse(data)
         else:

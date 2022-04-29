@@ -424,16 +424,12 @@
 
 
     function save() {
-      var form = document.getElementsByClassName('save-form');
+      //var form = document.getElementsByClassName('image_upload');
+      var fileInput = document.querySelector("#file-id");
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
 
-      var filename = document.getElementById('file-id').files[0].name;
-      var filename2 = document.getElementById('file-id').value;
-      //document.getElementById('file-path').value = filename;
-      
-      myformData.append('file_name', filename);
-      myformData.append('file_path', filename2);
+      myformData.append("attachedImage",fileInput.files[0]);
 
       $.ajax({
         type: "POST",
@@ -447,17 +443,10 @@
 
         error: function () {
           alert("fail!");
-          alert(filename2);
+
         },
         success: function (result) {
-          if (result.status == 'T') {
-            window.location.href = '/main';
-            alert("등록 완료!");
-          } else {
-            window.location.href = '/main';
-            alert("이미지를 첨부해주세요");
-          }
-
+          alert("success!");
         }
       });
     };

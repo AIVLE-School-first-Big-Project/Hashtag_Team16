@@ -27,12 +27,13 @@ def concat_total_df(keywords, ROOT_PATH='./'):
     total_df__LS = []
     for keyword in keywords:
         keyword_df__LS = load_all_df(keyword, ROOT_PATH)
-        keyword_df = concat_df(keyword_df__LS)
-        total_df__LS.append(keyword_df)
-        
+        if keyword_df__LS != []:
+            keyword_df = concat_df(keyword_df__LS)
+            total_df__LS.append(keyword_df)
+        else:
+            pass 
     total_df = concat_df(total_df__LS)
     return total_df
-
 
 
 

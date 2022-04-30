@@ -43,7 +43,7 @@ def index(request):
             os.remove(tmp_file) # 이미지 삭제
 
             
-            # LOG 데이터 저장하기
+            ## LOG 데이터 저장하기
             log = LOG.objects.create(
                 log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
                 user = USER.objects.get(user_id=request.session['user_id']),
@@ -93,3 +93,11 @@ def image_func(tmp_file, image_name):
     blob.upload_from_filename(source_file_name)     #
     return 'https://storage.googleapis.com/db_image/' + image_name
 
+
+##################해시태그 게시글 수 크롤링######################
+def hashtag_cnt_crawling(target):
+    # import requests
+    url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
+    response = requests.get(url)
+    cnt = response.json()['graphql']['hashtag']['edge_hashtag_to_media']['count']
+    return cnt

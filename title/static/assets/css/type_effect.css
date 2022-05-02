@@ -16,14 +16,39 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .container3 p {
-  font-size: 2rem;
+  font-size: 40px;
   padding: 2rem;
   font-weight: bold;
   letter-spacing: 0.1rem;
   text-align: center;
   overflow: hidden;
+  }
+
+@media screen and (max-width: 1180px) {
+  .container3 p {
+    font-size: 32px;
+    padding: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    overflow: hidden;
+    }
+  }
+
+@media screen and (max-width: 767px) {
+  .container3 p {
+    font-size: 5vw;
+    padding: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    overflow: hidden;
+    }
 }
+
+
 .container3 p span.typed-text {
   font-weight: normal;
   color: #dd7732;
@@ -45,3 +70,7 @@ body {
   99% { background-color: transparent; }
   100%  { background-color: #ccc; }
 }
+
+
+
+

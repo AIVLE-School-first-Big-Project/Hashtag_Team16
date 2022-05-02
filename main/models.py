@@ -77,7 +77,7 @@ class LOG(models.Model):
     feedback = models.TextField(null=True)
     #image = models.FileField(upload_to='%Y/%m/%d',null=True)
     #image = models.ImageField(upload_to='db_image/image_folder/')
-    image = models.CharField(max_length=100, null=False)
+    image = models.CharField(max_length=400, null=False)
     prior_tag = models.TextField(null=False)
     after_tag = models.TextField(null=False)
 

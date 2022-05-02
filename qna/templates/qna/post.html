@@ -71,7 +71,7 @@
                         style="padding-left: 12%; padding-bottom: 4%; font-size: large;">제목</label>
                       <div class="col-sm-6" style="height: 4.5vh; background-color: #2b303f88; margin-bottom: 10px;">
                         <!--제목은 여기다가 작성하면 됩니둥-->
-                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 6px;" id='title'>
+                        <h4 style="color: rgb(108, 114, 147); padding-left: 10px; padding-top: 10px;" id='title'>
                           {{p_title}}</h4>
                       </div>
                     </div>
@@ -86,8 +86,8 @@
                       </div>
                     </div>
                   </table>
-                  <div style="text-align: center; margin-top: 8vw;">
-                    <div style="display:inline-block; padding-bottom: 10%; padding-right: 10px;">
+                  <div style="text-align: center; margin-top: 3vw;">
+                    <div style="display:inline-block; padding-bottom: 2%; padding-right: 10px;">
                       <form id='upd' method="POST" style="float: left; margin-right: 15px;">
                         {% csrf_token %}
                         <button type='button' class="btn btn-light" name='update' value="수정"
@@ -107,32 +107,55 @@
                           onclick="location.href='http://127.0.0.1:8000/qna' ">뒤로</button>
                       </div>
                     </div>
-
-                    <!--댓글 기능 -->
-                    <center>
-                      <form class='comment_form'>
-                        {% csrf_token %}
-                        <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
-                        <input type="text" name="content" class="col-8" style="font-size: smaller;" size="60%" placeholder="댓글을 입력해 주세요.">
-                        <button type='button' class="btn btn-light" style="width: 60px; font-size: 80%; margin-left: 1%; margin-top: 5%; margin-bottom: 5%;" onclick='comment("C");' value="comment_create"> 댓글 달기 </button>
-                      </form>
-                      <p><b>댓글 목록</b></p>
-                      <form style="font-size: smaller;">
-                        {% for comment in comments %}
-                        {{ comment.content }} &nbsp | &nbsp {{ comment.user.user_id }} &nbsp | &nbsp {{comment.date|date:"m-d/H:i" }} &nbsp
-
-                        <button type="button" class='delete' id={{comment.user.user_id}} style="border-radius: 0.1875rem; width: 50px; font-size: 90%; color: #212529;
-                        background-color: #ffffff; border-color: #ffffff; box-shadow: none; border: 1px solid transparent;
-                        margin-left: 1%; margin-top: 5%; margin-bottom: 5%;"
-                          onclick="comment({{ comment.comment_id }});">삭제</button>
-                        <br>
-                        {% empty %}
-                        <p>아직 댓글이 없습니다.</p>
-                        {% endfor %}
-                      </form>
-                    </center>
                   </div>
                 </div>
+
+                <!--댓글 기능 -->
+                <center style="margin-bottom: 5vw;">
+                  <form class='comment_form'>
+                    {% csrf_token %}
+                    <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
+                    <input type="text" name="content" class="col-8 col-xl-5" style="font-size: smaller;" size="60%" placeholder="댓글을 입력해 주세요.">
+                    <button type='button' class="btn btn-light"
+                    style="width: 50px; height: 40px; font-size: 70%; margin-left: 1%; margin-top: 5%; margin-bottom: 5%; line-height: 1.2;"
+                    onclick='comment("C");' value="comment_create"> 댓글 달기 </button>
+                  </form>
+
+                  {% if not comments %}
+                    <p>댓글이 없습니다.</p>
+                  {% else %}
+                  <div class="col-md-6">
+                    <table class="table" style="font-size: 5px; table-layout: fixed; white-space: normal; ">
+                      <!--white-space가 nowrap으로 되어있어서 줄바꿈이 안되는거 같은데 왜 안되는걸까 ㅠ-->
+                      <thead style="text-align: center;">
+                        <tr>
+                          <th style="width: 4vw; font-size: 0.8vw;"> 작성자 </th>
+                          <th style="width: 20vw; font-size: 0.8vw;"> 내용 </th>
+                          <th style="width: 10vw; font-size: 0.8vw;"> 작성시간 </th>
+                          <th style="width: 2vw; font-size: 0.8vw;">  </th>
+                        </tr>
+                      </thead>
+                      <tbody style="font-size:x-small;">
+                        {% for comment in comments %}
+                        <tr>
+                          <td style="width: 4vw; text-align: center; font-size: 0.8vw; "> {{ comment.user.user_id }} </td>
+                          <td style="width: 20vw; text-align: justify; font-size: 0.8vw; padding-left: 5%; word-break: break-all;"> {{ comment.content }} </td>
+                          <td style="width: 10vw;"> 
+                            <p style="text-align: center; font-size: 0.8vw; padding-top: 15%; height: fit-content; margin-bottom: 5%; padding-top: 5%;">{{comment.date|date:"m-d" }}</p>
+                            <p style="text-align: center; font-size: 0.8vw; height: fit-content; margin-bottom: 0%;">{{comment.date|date:"H:i" }}</p>
+                          </td>
+                          <td><button type="button" class='delete' id={{comment.user.user_id}}
+                            style="border-radius: 0.1875rem; width: 45px; height: 20px; font-size: 0.8vw; color: #212529; background-color: #ffffff;
+                            border-color: #ffffff; box-shadow: none; border: 1px solid transparent; width: 2vw; margin-left: 1%;"
+                              onclick="comment({{ comment.comment_id }});">삭제</button></td>
+                        </tr>
+                        {% endfor%}
+                      </tbody>
+                    </table>
+                  </div>
+                  {% endif %}
+
+                </center>
               </div>
             </div>
           </div>

@@ -88,10 +88,10 @@ DATABASES = {
     # },
     'default': { # bigproject에 사용할 데이터베이스 설정 추가
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'big_proj',
+    'NAME': 'bigpro',
     'USER': 'root',
-    'PASSWORD': 'DGU1dgu',
-    'HOST': '35.239.117.166',
+    'PASSWORD': 'DGU1dgu1',
+    'HOST': '34.67.13.183',
     'PORT': 3306
     }
 }

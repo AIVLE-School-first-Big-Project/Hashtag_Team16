@@ -20,6 +20,28 @@ def index(request):
         # 현재 로그인이 되어있는건지 test
         request.session['user_id']
         if request.method == 'POST':
+            print('post')
+            # 평점 스코어, 피드백 내용 기능 구현
+            if 'score' in request.POST:
+                #log = LOG.objects.get(l_user_id = request.session['user_id'])
+                log1 = LOG.objects.create(
+                    log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
+                    user = USER.objects.get(user_id=request.session['user_id']),
+                    service_score = request.POST.get('score'),
+                    feedback = request.POST.get('feedback'),
+                    image = None,
+                    prior_tag = '#pig',
+                    after_tag = '#pig'
+                )
+     
+                if (log1.service_score == '') or (log1.feedback == ''):
+                    data = {'status':'F'}
+                    return JsonResponse(data)
+                else:
+                    log1.save()
+                    data = {'status':'T'}
+                    return JsonResponse(data)
+            
             
             
             data = request.FILES['attachedImage']                                       # 1. 이미지를 브라우저로부터 받아옵니다.
@@ -40,7 +62,7 @@ def index(request):
             print(type(hashtags_json))
             print(hashtags_json)
             files.close()
-            os.remove(tmp_file) # 이미지 삭제
+            
 
             
             ## LOG 데이터 저장하기
@@ -53,6 +75,9 @@ def index(request):
                 prior_tag = '#pig',
                 after_tag = '#pig'
             )
+
+            os.remove(tmp_file) # 이미지 삭제
+
             if (tmp_file == ''):
                 data = {'status':'F'}
                 return JsonResponse(data)
@@ -75,10 +100,6 @@ def function(request):
         return render(request, 'main/function.html', {'user' : user})
     except KeyError:
         return redirect('/need_login')
-
-
-def star(request):
-    return render(request, 'main/star.html')
 
 
 ################GCP 파일 업로드#################################

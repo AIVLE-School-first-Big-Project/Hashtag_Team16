@@ -1,7 +1,29 @@
 {% load static %}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <link rel="stylesheet" href="{% static 'assets/css/star.css' %}">
 
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+
+<div id="ex1" class="modal" style="max-width: 80%; width: auto;">
+  <form class = "review-form">
+    {% csrf_token %}
   <article>
     <h4>☺ HashTaig의 서비스를 평가해주세요 ☺</h4>
     <div class="star-rating">
@@ -18,9 +40,75 @@
     </div>
     <h4>Feedback</h4>
     <body>
-      <form>
-        <p><textarea cols="50" rows="10"></textarea></p>
-        <p><input type="submit" value="Submit"></p>
+        <p><textarea id="feedback" cols="40" rows="10"></textarea></p>
+        <p><input type="button" value="Submit" onclick ='getScore()'></p>
+        <div id='result1'></div>
+        <div id='result2'></div>
       </form>
     </body>
   </article>
+  <a href="#" rel="modal:close">닫기</a>
+</div>
+
+<script>
+  function getScore(){
+    // 라디오 버튼에 저장된 별점
+    const ScoreList = document.getElementsByName('rating');
+    var score;
+
+    ScoreList.forEach((node) => {
+      if(node.checked)  {
+        document.getElementById('result1').innerText
+          = node.value;
+        score = node.value;
+      }
+    })
+
+    //feedback내용
+    var txtBox = document.getElementById('feedback')
+    var lines = txtBox.value.split("\n");
+    // generate HTML version of text
+    var resultString  = "<p>";
+    for (var i = 0; i < lines.length; i++) {
+      resultString += lines[i] + "<br />";
+    }
+    resultString += "</p>";
+    // print out to page
+    var   blk   = document.getElementById("result2");
+    blk.innerHTML  =  resultString; 
+
+    var form = document.getElementsByClassName('review-form');
+    const myformData = new FormData();
+    const csrftoken = getCookie('csrftoken');
+
+    myformData.append('score', score);
+    myformData.append('feedback', form[0][6].value);
+
+    $.ajax({
+      type: "POST",
+      url: "",
+      async: true,
+      headers: { 'X-CSRFToken': csrftoken },
+      enctype: "multipart/form-data",
+      data: myformData,
+      processData: false,
+      contentType: false,
+
+      error: function () {
+        alert("fail!");
+      },
+      success: function (result) {
+        if (result.status == 'T') {
+          window.location.href = '';
+          alert("제출 완료!");
+        } else {
+          window.location.href = '';
+          alert("평점 or feedback내용을 입력해주세요");
+        }
+
+      }
+    });
+  };
+</script>
+
+  

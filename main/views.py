@@ -59,12 +59,13 @@ def index(request):
             upload = {'file': files}
             res = requests.post(' http://118.91.69.43:5000/', files = upload)
             hashtags_json = json.loads(res.content)
-            print(type(hashtags_json))
-            print(hashtags_json)
+            # print(type(hashtags_json))
+            # print(hashtags_json)
             files.close()
-            
+            #hashtags_json['']
+            # for hash in hashtags_json['hashtags']:
+            #     print(hash)
 
-            
             ## LOG 데이터 저장하기
             log = LOG.objects.create(
                 log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
@@ -84,7 +85,7 @@ def index(request):
             
             log.save()
             
-            data = {'status':'T'}
+            data = {'status':'T', 'hashtags': hashtags_json['hashtags'] }
             return JsonResponse(data)
         else:
             user = USER.objects.get(user_id=request.session['user_id']).user_id

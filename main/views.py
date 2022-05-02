@@ -105,15 +105,15 @@ def function(request):
 
 ################GCP 파일 업로드#################################
 def image_func(tmp_file, image_name):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= "static/sample-347306-82fb108d9ea5.json"
-    bucket_name = 'db_image'                        # 서비스 계정 생성한 bucket 이름 입력
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= "static/bigpro-349004-9d5cfb49c746.json"
+    bucket_name = 'db_image2'                        # 서비스 계정 생성한 bucket 이름 입력
     source_file_name = tmp_file                     # GCP에 업로드할 파일 절대경로
     destination_blob_name = image_name              # 업로드할 파일을 GCP에 저장할 때의 이름
     storage_client = storage.Client()               #
     bucket = storage_client.bucket(bucket_name)     #
     blob = bucket.blob(destination_blob_name)       #   
     blob.upload_from_filename(source_file_name)     #
-    return 'https://storage.googleapis.com/db_image/' + image_name
+    return 'https://storage.googleapis.com/db_image2/' + image_name
 
 
 ##################해시태그 게시글 수 크롤링######################

@@ -84,8 +84,8 @@ def index(request):
                 return JsonResponse(data)
             
             log.save()
-            
-            data = {'status':'T', 'hashtags': hashtags_json['hashtags'] }
+            result = hashtags_json['hashtags']
+            data = {'status':'T', 'hashtags': result }
             return JsonResponse(data)
         else:
             user = USER.objects.get(user_id=request.session['user_id']).user_id

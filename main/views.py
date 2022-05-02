@@ -15,6 +15,26 @@ def index(request):
         request.session['user_id']
         if request.method == 'POST':
             print('post')
+            # 평점 스코어, 피드백 내용 기능 구현
+            if 'score' in request.POST:
+                #log = LOG.objects.get(l_user_id = request.session['user_id'])
+                log1 = LOG.objects.create(
+                    log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
+                    user = USER.objects.get(user_id=request.session['user_id']),
+                    service_score = request.POST.get('score'),
+                    feedback = request.POST.get('feedback'),
+                    image = None,
+                    prior_tag = '#pig',
+                    after_tag = '#pig'
+                )
+     
+                if (log1.service_score == '') or (log1.feedback == ''):
+                    data = {'status':'F'}
+                    return JsonResponse(data)
+                else:
+                    log1.save()
+                    data = {'status':'T'}
+                    return JsonResponse(data)
             filename = request.POST.get('file_name')
             real_file_name = filename.split('.')[0]
             url = request.POST.get('file_path') #현재 fakepath가 들어있음
@@ -36,6 +56,7 @@ def index(request):
             data = {'status':'T'}
             return JsonResponse(data)
         else:
+            print('get')
             return render(request, 'main/index.html', {'user' : user})
     except KeyError:
         
@@ -49,8 +70,6 @@ def function(request):
     except KeyError:
         return redirect('/need_login')
 
-    
-#
 
 def image_func(url, real_file_name): #storage 접근
     #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:\\Users\\User\\Downloads\\sample-347306-82fb108d9ea5.json" #storage에 접근할 수 있는 json파일(일종의 고유한 key)
@@ -65,6 +84,4 @@ def image_func(url, real_file_name): #storage 접근
     return url
 
 
-def star(request):
-    return render(request, 'main/star.html')
 

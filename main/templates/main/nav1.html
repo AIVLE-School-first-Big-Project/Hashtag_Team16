@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% include 'main/star.html' %}
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
       <a class="sidebar-brand brand-logo" href="http://127.0.0.1:8000/main/"><img src="{% static 'assets/images/logo3.svg' %}" style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" /></a>
@@ -94,6 +95,11 @@
           </span>
           <span class="menu-title">마이페이지</span>
         </a>
+      </li>
+      <li class="nav-item menu-items">
+        <p>
+          <a href="#ex1" rel="modal:open">리뷰작성하기☺</a>
+        </p>
       </li>
     </ul>
   </nav>

@@ -30,8 +30,8 @@ def index(request):
                     service_score = request.POST.get('score'),
                     feedback = request.POST.get('feedback'),
                     image = None,
-                    prior_tag = '#pig',
-                    after_tag = '#pig'
+                    prior_tag = '#pig'
+                    # after_tag = '#pig'
                 )
      
                 if (log1.service_score == '') or (log1.feedback == ''):
@@ -73,8 +73,8 @@ def index(request):
                 service_score = None,
                 feedback = None,
                 image = image_func(tmp_file, secret_name),  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
-                prior_tag = '#pig',
-                after_tag = '#pig'
+                prior_tag = '#pig'
+                # after_tag = '#pig'
             )
 
             os.remove(tmp_file) # 이미지 삭제
@@ -84,9 +84,9 @@ def index(request):
                 return JsonResponse(data)
             
             log.save()
-            result = hashtags_json['hashtags']
-            data = {'status':'T', 'hashtags': result }
+            data = {'status':'T', 'hashtags': hashtags_json['hashtags']}
             return JsonResponse(data)
+            
         else:
             user = USER.objects.get(user_id=request.session['user_id']).user_id
             return render(request, 'main/index.html', {'user' : user})

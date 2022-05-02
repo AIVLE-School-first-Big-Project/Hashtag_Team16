@@ -43,24 +43,24 @@
           <div class="content-wrapper" style="height: 80vh;">
             <div class="row ">
               <div class="col-md-12 grid-margin">
-                <div class="card" style="height: 79vh;">
+                <div class="card" style="height: 75vh;">
                   <div class="card-body">
                     <h4 class="card-title">Q&A 게시판</h4>
                     <div class="table-responsive">
-                      <table class="table">
+                      <table class="table"  style="text-align: center;">
                         <thead>
                           <tr>
-                            <th style="width: 14%; height: 48.5; padding-left: 5%;"> No </th>
-                            <th style="width: 46%; height: 48.5; padding-left: 21%;"> 제목 </th>
-                            <th style="width: 20%; height: 48.5;"> 작성자 </th>
+                            <th style="width: 14%; height: 48.5;"> No </th>
+                            <th style="width: 46%; height: 48.5;"> 제목 </th>
+                            <th style="width: 18%; height: 48.5;"> 작성자 </th>
                             <th style="width: 20%; height: 48.5;"> 작성시간 </th>
                           </tr>
                         </thead>
                         <tbody>
                           {% for w in info %}
                           <tr>
-                            <td style="padding-left: 5%;"> {{w.article_id}} </a></td>
-                              <td style="width: 60%; height: 48.5; padding-left: 10%;">
+                            <td style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.article_id}} </a></td>
+                              <td style="width: 60%; height: 48.5; white-space: normal; word-break: keep-all; line-height: 1.4;">
                                 <a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">
                                   {{w.title}}
                                   <script>
@@ -69,9 +69,8 @@
                                   </script>
                                 </a>
                               </td>
-                            <td> {{w.user_id}} </td>
-                            <td> {{w.date}} </td>
-                            <td>
+                            <td style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.user_id}} </td>
+                            <td style="font-size: 12px; white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.date}} </td>
                           </tr>
                           {% endfor%}
                         </tbody>
@@ -79,7 +78,7 @@
                     </div>
                   </div>
                   <div>
-                    <button type="button" class="btn btn-light" style="width: 80px; font-size: 80%; margin-bottom: 2%; float: right; margin-right: 2%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
+                    <button type="button" class="btn btn-light" style="width: 80px; font-size: 80%; margin-bottom: 4%; float: right; margin-right: 4%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>

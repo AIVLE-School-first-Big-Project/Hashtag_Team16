@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 def mypage(request):
     user = USER.objects.get(user_id=request.session['user_id']).user_id
     print(user)
-    log_list = LOG.objects.filter(l_user=user)
+    log_list = LOG.objects.filter(user=user)
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
     now_page = int(now_page)

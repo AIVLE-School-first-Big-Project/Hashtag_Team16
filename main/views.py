@@ -31,7 +31,7 @@ def index(request):
                     feedback = request.POST.get('feedback'),
                     image = None,
                     prior_tag = '#pig',
-                    after_tag = '#pig'
+                    #after_tag = '#pig'
                 )
      
                 if (log1.service_score == '') or (log1.feedback == ''):
@@ -73,7 +73,7 @@ def index(request):
                 feedback = None,
                 image = image_func(tmp_file, secret_name),  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
                 prior_tag = '#pig',
-                after_tag = '#pig'
+                #after_tag = '#pig'
             )
 
             os.remove(tmp_file) # 이미지 삭제

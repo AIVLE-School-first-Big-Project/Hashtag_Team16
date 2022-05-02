@@ -6,6 +6,5 @@ app_name = 'main'
 urlpatterns = [
     path('', views.index),
     path('function/', views.function),
-    path('star/', views.star),
 ]
 

@@ -86,13 +86,9 @@
                     <div class="d-flex flex-row justify-content-between">
                       <div class="card-title mb-1" style="width: calc(100%);">
                         <h4>#해시태그 생성</h4>
-                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding-top: 6%;">
-                          <p style="float: left; padding-left: 5%;">#취업해야디</p>
-                          <p style="float: left; padding-left: 1%;">#KT</p>
-                          <p style="float: left; padding-left: 1%;">#에이블스쿨</p>
-                          <p style="float: left; padding-left: 1%;">#HTML</p>
-                          <p style="float: left; padding-left: 1%;">#화이팅</p>
-                          <p style="float: left; padding-left: 1%;">#버라이어티 정신</p>
+                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding-top: 6%;" id='tag_output'>
+                          
+
                         </div>
                       </div> 
                     </div>
@@ -430,6 +426,21 @@
       const csrftoken = getCookie('csrftoken');
 
       myformData.append("attachedImage",fileInput.files[0]);
+      var box = document.getElementById('tag_output');
+
+      try {
+        console.error('test');
+
+        for (var i = 0; i < 20; i++) {
+          document.querySelectorAll("#tag_output > span")[0].remove();
+        }
+      } catch (error) {
+        console.error('error');
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+      } finally {
+
+
 
       $.ajax({
         type: "POST",
@@ -446,12 +457,22 @@
 
         },
         success: function (result) {
-          alert("success!");
-
           console.log(result['hashtags']);
+          
+
+
+          for ( tag in result['hashtags']) {
+          
+          var tags = document.createElement('span');
+          box.appendChild( tags );
+          tags.innerHTML = result['hashtags'][tag] + '   ';
+          }
+
+
         }
       });
     };
+  };
   </script>
 
   

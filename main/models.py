@@ -79,7 +79,7 @@ class LOG(models.Model):
     #image = models.ImageField(upload_to='db_image/image_folder/')
     image = models.CharField(max_length=400, null=False)
     prior_tag = models.TextField(null=False)
-    after_tag = models.TextField(null=False)
+    # after_tag = models.TextField(null=False)
 
     
     class Meta:

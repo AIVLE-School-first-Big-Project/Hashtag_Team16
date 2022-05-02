@@ -75,7 +75,7 @@ class LOG(models.Model):
     feedback = models.TextField(null=True)
     image = models.FileField(upload_to='%Y/%m/%d',null=True)
     prior_tag = models.TextField(null=False)
-    after_tag = models.TextField(null=False)
+    #after_tag = models.TextField(null=False)
 
     
     class Meta:

@@ -23,6 +23,7 @@ def index(request):
             print('post')
             # 평점 스코어, 피드백 내용 기능 구현
             if 'score' in request.POST:
+                print('post')
                 #log = LOG.objects.get(l_user_id = request.session['user_id'])
                 log1 = LOG.objects.create(
                     log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
@@ -33,6 +34,8 @@ def index(request):
                     prior_tag = '#pig'
                     # after_tag = '#pig'
                 )
+                print(log1.service_score)
+                print(log1.feedback)
      
                 if (log1.service_score == '') or (log1.feedback == ''):
                     data = {'status':'F'}

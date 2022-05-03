@@ -21,9 +21,12 @@ def image_func(): #storage 접근
 
 def qna_board(request):
     try:
-        user = USER.objects.get(user_id=request.session['user_id']).user_id
+        user = USER.objects.get(user_id = request.session['user_id']).user_id
+        if request.POST.get('select')=='m.y_writing':
+            qna_list=ARTICLE.objects.filter(user=user)
+        else: #all일때
+            qna_list=ARTICLE.objects.all() #모든 게시글 가져오기
         now_page = request.GET.get('page', 1)
-        qna_list = ARTICLE.objects.all()
         write_date_list = qna_list.order_by('-date')
         p = Paginator(write_date_list, 10)
         now_page = int(now_page)

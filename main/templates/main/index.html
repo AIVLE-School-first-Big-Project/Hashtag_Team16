@@ -297,6 +297,21 @@
               box.appendChild( tags );
               tags.innerHTML = result['hashtags'][tag] + '     ';
             }
+            for ( tag in result['best_hashtag']){
+            
+              var li = document.createElement('li');
+              var tag_name = document.createElement('em');
+              var tag_cnt = document.createElement('span');
+              legend.appendChild( li );
+              li.appendChild( tag_name );
+              li.appendChild( tag_cnt );
+              console.log(tag);
+              tag_name.innerHTML = tag;
+              console.log(result['best_hashtag'][tag]);
+              tag_cnt.innerHTML = result['best_hashtag'][tag];
+              createPie(".pieID.legend", ".pieID.pie");
+  
+            }
           }
         });
       };

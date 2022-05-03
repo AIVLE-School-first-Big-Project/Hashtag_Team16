@@ -235,8 +235,8 @@
     <!-- inject:js -->
     <script src="{% static 'assets/js/off-canvas.js' %}"></script>
     <script src="{% static 'assets/js/hoverable-collapse.js' %}"></script>
-    <script src="{% static 'assets/js/misc.js' %}"></script>
-    <script src="{% static 'assets/js/settings.js' %}"></script>
+    {% comment %} <script src="{% static 'assets/js/misc.js' %}"></script>
+    <script src="{% static 'assets/js/settings.js' %}"></script> {% endcomment %}
     <script src="{% static 'assets/js/todolist.js' %}"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
@@ -252,33 +252,8 @@
       }
     </script>
 
-    <script>
-
-    </script>
-
     
   <script>
-    function getPath(obj){ 
-      if(obj){  
-        if (window.navigator.userAgent.indexOf("MSIE")>=1)  
-        {  
-          obj.select();
-          return document.selection.createRange().text;  
-        }  
-        else if(window.navigator.userAgent.indexOf("Firefox")>=1)  
-        {  
-          if(obj.files)  
-          {
-            return obj.files.item(0).getAsDataURL();
-          }  
-          return obj.value;
-        }
-        alert(document.selection.createRange().text)
-        return obj.value;  
-      }
-    }
-
-
     function save() {
       //var form = document.getElementsByClassName('image_upload');
       var fileInput = document.querySelector("#file-id");
@@ -295,8 +270,6 @@
       } catch (error) {
       } finally {
 
-
-
       $.ajax({
         type: "POST",
         url: "",
@@ -308,29 +281,17 @@
         contentType: false,
 
         error: function () {
-          alert("fail!");
-
         },
         success: function (result) {
-          console.log(result['hashtags']);
-          
-
-
           for ( tag in result['hashtags']) {
-          
           var tags = document.createElement('span');
           box.appendChild( tags );
           tags.innerHTML = result['hashtags'][tag] + '     ';
           }
-
-
         }
       });
     };
   };
   </script>
-
-  
-    <!-- End custom js for this page -->
   </body>
 </html>

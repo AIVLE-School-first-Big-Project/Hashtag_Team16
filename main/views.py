@@ -20,7 +20,6 @@ def index(request):
         # 현재 로그인이 되어있는건지 test
         request.session['user_id']
         if request.method == 'POST':
-            print('post')
             # 평점 스코어, 피드백 내용 기능 구현
             if 'score' in request.POST:
                 #log = LOG.objects.get(l_user_id = request.session['user_id'])
@@ -33,7 +32,6 @@ def index(request):
                     prior_tag = '#pig'
                     # after_tag = '#pig'
                 )
-     
                 if (log1.service_score == '') or (log1.feedback == ''):
                     data = {'status':'F'}
                     return JsonResponse(data)
@@ -60,10 +58,16 @@ def index(request):
             res = requests.post(' http://118.91.69.43:5000/', files = upload)
             hashtags_json = json.loads(res.content)
             files.close()
+            
+            print(hashtags_json['hashtags'])
+            for i in hashtags_json['hashtags']:
+                print(i[1:])
+                print(hashtag_cnt_crawling(i[1:]))
+            output_json = {i: hashtag_cnt_crawling(i[1:]) for i in hashtags_json['hashtags']}
+            print(output_json)
 
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
-            print(result)
             
             ## LOG 데이터 저장하기
             log = LOG.objects.create(
@@ -118,6 +122,14 @@ def image_func(tmp_file, image_name):
 def hashtag_cnt_crawling(target):
     # import requests
     url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
-    response = requests.get(url)
-    cnt = response.json()['graphql']['hashtag']['edge_hashtag_to_media']['count']
+    request_headers = {
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+    'cookie': 'ig_did=9218D585-1D45-43F2-8CD8-551A16853932; ig_nrcb=1; mid=YmwBYAALAAH-JdcTDWyYG3JrAfjD; fbm_124024574287414=base_domain=.instagram.com; csrftoken=yWKxBXg9D4gvegl2UnhdJvnTJ38kIOgg; ds_user_id=1994601200; sessionid=1994601200%3AF3q4WINHNeytjM%3A26; datr=BF5tYmZtnVsJotuwxMLxEXCS; shbid="11862\0541994601200\0541683075730:01f73c42489b8d6f5ee1f821a6aad3eeb95f5cf1b997832aa7aefcb86c45ef5885a25d9f"; shbts="1651539730\0541994601200\0541683075730:01f72f006f5f41b9af5b62a6d9f36cdb6b0c4cc89564cd99752f25f70597f1ed97fffce7"; rur="VLL\0541994601200\0541683078196:01f7e692d1d6d80607ce844d5500f17f5f6bb4cba2081e87d450a889812f845eeee8bbc7"',
+
+    } 
+    response = requests.get(url,headers = request_headers)
+    cnt = response.json()['data']['media_count']
+    print(cnt)
     return cnt

@@ -37,13 +37,14 @@ function createPie(dataElement, pieElement) {
     "cornflowerblue", 
     "olivedrab", 
     "orange", 
-    "tomato", 
+    "tomato",
+    'gray', 
     "crimson", 
     "purple", 
     "turquoise", 
     "forestgreen", 
     "navy", 
-    "gray"
+
   ];
   for(var i=0; i<listData.length; i++) {
     var size = sliceSize(listData[i], listTotal);

@@ -338,22 +338,25 @@
 
 
 
-  
+
   function imgthema() {
     
     var fileInput = document.querySelector("#img1_output");
+    const myformData1 = new FormData();
+    const csrftoken = getCookie('csrftoken');
 
-    myformData.append("attachedImage",fileInput.files[0]);
+
+    myformData1.append("attachedImage",fileInput.files);
     var box = document.getElementById('img1_output');
     
-  
+    
     $.ajax({
       type: "POST",
       url: "",
       async: true,
       headers: { 'X-CSRFToken': csrftoken },
       enctype: "multipart/form-data",
-      data: myformData,
+      data: myformData1,
       processData: false,
       contentType: false,
 
@@ -361,8 +364,8 @@
         alert("fail!");
 
       },
-      success: function (result) {
-        console.log(result['img1']);
+      success: function (img1) {
+        console.log(img1);
         
         }
       });

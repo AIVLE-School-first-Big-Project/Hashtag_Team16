@@ -36,7 +36,7 @@ class BOARD(models.Model):
 
 class ARTICLE(models.Model):
     article_id = models.AutoField(primary_key = True, null=False)
-    #board_id = models.IntegerField(null=False)
+    #board:_id = models.IntegerField(null=False)
     board = models.ForeignKey(BOARD,  db_column='board_id', on_delete=models.CASCADE, null=False)
     #a_user_id = models.CharField(max_length=20,null=False)
     user = models.ForeignKey(USER, db_column='a_user_id', on_delete=models.CASCADE, null=False)

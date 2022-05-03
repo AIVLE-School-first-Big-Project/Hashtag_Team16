@@ -295,7 +295,7 @@
             for ( tag in result['hashtags']) {
               var tags = document.createElement('span');
               box.appendChild( tags );
-              tags.innerHTML = result['hashtags'][tag] + '     ';
+              tags.innerHTML = result['hashtags'][tag];
             }
             for ( tag in result['best_hashtag']){
             
@@ -321,13 +321,18 @@
     
     function copyToClipBoard() {
 
-      var content = document.getElementById('tag_output');
-      
-      content.select();
+      var tempElem = document.createElement('textarea');
+
+      tempElem.value  = document.querySelector("#tag_output").textContent;
+      document.body.appendChild(tempElem);
+      tempElem.select();
+      console.log(tempElem.value);
+
       document.execCommand('copy');
+      document.body.removeChild(tempElem);
   
       alert("Copied!");
-  }
+  } 
 
   
   </script>

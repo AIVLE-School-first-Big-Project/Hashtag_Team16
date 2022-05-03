@@ -341,13 +341,13 @@
 
   function imgthema() {
     
-    var fileInput = document.querySelector("#img1_output");
+    var fileInput1 = document.querySelector("#file-id");
     const myformData1 = new FormData();
     const csrftoken = getCookie('csrftoken');
 
 
-    myformData1.append("attachedImage",fileInput.files);
-    var box = document.getElementById('img1_output');
+    myformData1.append("attachedImage",fileInput1.files[0]);
+    var box1 = document.getElementById('img1_output');
     
     
     $.ajax({
@@ -364,13 +364,19 @@
         alert("fail!");
 
       },
-      success: function (img1) {
-        console.log(img1);
+      success: function (result) {
+        console.log(result);
         
-        }
-      });
-    };
- 
+        var tags = document.createElement('span');
+        box1.appendChild( tags );
+        tags.innerHTML = result['img1'];
+        tem=base64.b64decode(result['img1'])
+        tem=BytesIO(tem)
+        Image.open(img)
+      }
+    });
+  };
+
 
 
 

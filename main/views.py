@@ -56,7 +56,7 @@ def index(request):
             # 해쉬태그 생성 API
             files = open(tmp_file, 'rb')
             upload = {'file': files}
-            res = requests.post(' http://118.91.69.43:5001/', files = upload)
+            res = requests.post(' http://118.91.69.43:5002/', files = upload)
             hashtags_json = json.loads(res.content)
             files.close()
             
@@ -66,7 +66,11 @@ def index(request):
             
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
-            
+            img1 =  hashtags_json['img1']
+            img2 =  hashtags_json['img2']
+            img3 =  hashtags_json['img3']
+            img4 =  hashtags_json['img4']
+
             ## LOG 데이터 저장하기
             log = LOG.objects.create(
                 

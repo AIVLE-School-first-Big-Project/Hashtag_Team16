@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
-
+<style>
+  select {
+    width: 100px;
+    padding: .7rem 0;
+    margin-bottom: .4rem;
+  }
+</style>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -22,6 +28,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <!-- End layout styles -->
     <script>
       function getCookie(name) {
@@ -61,12 +68,10 @@
                 <div class="card" style="height: 75vh;">
                   <div class="card-body">
                     <h4 class="card-title">Q&A 게시판</h4>
-                    <form>
-                      <select name = 'select' class="form-control">
-                          <option value = "all">모두</option>
+                      <select onchange="showValue(this)">
+                          <option value = "all" selected>모두</option>
                           <option value = "my_writing">내가 쓴 글</option>
                       </select>
-                    </form>
                       <br/>
                     <div class="table-responsive">
                       <table class="table"  style="text-align: center;">
@@ -152,17 +157,15 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
-{% comment %} 
     <script>
-      function save() {
-        var form = document.getElementsByClassName('form-control');
+      const showValue = (target) => {
+        const value = target.value;
+        const text =  target.options[target.selectedIndex].text;
+        console.log(value);
         const myformData = new FormData();
         const csrftoken = getCookie('csrftoken');
-  
-        myformData.append('title', form[0][1].value);
-        myformData.append('content', form[0][2].value);
-        //myformData.append('user', form[0][3].value);
-  
+        myformData.append('value', value);
+        
         $.ajax({
           type: "POST",
           url: "",
@@ -177,17 +180,17 @@
             alert("fail!");
           },
           success: function (result) {
-            if (result.status == 'T') {
-              window.location.href = '/qna';
-              alert("등록 완료!");
-            } else {
-              window.location.href = '/qna;
-              alert("제목/내용을 입력해주세요");
-            }
-  
+            console.log(result)
+
+            alert("success")
+
+            
+
           }
         });
       };
-    </script> {% endcomment %}
+
+    </script>
+
   </body>
 </html>

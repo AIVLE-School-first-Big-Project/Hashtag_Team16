@@ -22,41 +22,53 @@ def image_func(): #storage 접근
 def qna_board(request):
     try:
         user = USER.objects.get(user_id = request.session['user_id']).user_id
-        if request.POST.get('select')=='m.y_writing':
-            qna_list=ARTICLE.objects.filter(user=user)
-        else: #all일때
-            qna_list=ARTICLE.objects.all() #모든 게시글 가져오기
-        now_page = request.GET.get('page', 1)
-        write_date_list = qna_list.order_by('-date')
-        p = Paginator(write_date_list, 10)
-        now_page = int(now_page)
-        info = p.get_page(now_page)
-        start_page = (now_page - 1) // 10 * 10 + 1
-        end_page = start_page + 9
-        if end_page > p.num_pages:
-            end_page = p.num_pages
+        qna_list=ARTICLE.objects.all()
+        if request.method == "POST":
+            if request.POST.get('value')=='my_writing':#내가 쓴글 가져오기
+                qna_list = ARTICLE.objects.filter(user=user)
+                print(qna_list)
+                print('test1')
+                print(request.POST.get('value'))
+                print(user)
+                qna_list = qna_list[0]
+                data = {'no':  qna_list.article_id, 'title':qna_list.title, 'user':qna_list.user.user_id, 'date':qna_list.date}
+                
+            return JsonResponse(data)
+
+        else:
+            print(qna_list)
+
+            now_page = request.GET.get('page', 1)
+            write_date_list = qna_list.order_by('-date')
+            p = Paginator(write_date_list, 10)
+            now_page = int(now_page)
+            info = p.get_page(now_page)
+            start_page = (now_page - 1) // 10 * 10 + 1
+            end_page = start_page + 9
+            if end_page > p.num_pages:
+                end_page = p.num_pages
+                
+            ############comment##############
+            data = (COMMENT.objects
+                    .values('article_id')
+                    .annotate(cnt_sum=Count('comment_id'))
+                    .values('article_id','cnt_sum')
+                    .order_by('-article_id'))
             
-        ############comment##############
-        data = (COMMENT.objects
-                .values('article_id')
-                .annotate(cnt_sum=Count('comment_id'))
-                .values('article_id','cnt_sum')
-                .order_by('-article_id'))
-        
-        cnt_comment = {}
-        cnt = 1
-        
-        for i in write_date_list:
-            # key = i.id
-            info
-            try:
-                cnt_comment[cnt] = data.get(article_id = i.article_id)['cnt_sum']
-            except:
-                cnt_comment[cnt] = 0
-            cnt += 1
-        #################################
+            cnt_comment = {}
+            cnt = 1
             
-        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user, 'cnt_comment':cnt_comment})
+            for i in write_date_list:
+                # key = i.id
+                #info
+                try:
+                    cnt_comment[cnt] = data.get(article_id = i.article_id)['cnt_sum']
+                except:
+                    cnt_comment[cnt] = 0
+                cnt += 1
+            #################################
+                
+            return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user, 'cnt_comment':cnt_comment, 'key' : 2})
     
     except KeyError:
         return redirect('/need_login') 
@@ -65,9 +77,10 @@ def qna_board(request):
 def create(request):
     
     if request.method == 'POST':
+        print('create')
         user = USER.objects.get(user_id=request.session['user_id']).user_id  
         print(ARTICLE.objects.order_by('-article_id').first().article_id)
-        
+
         article = ARTICLE(
             #article_id = ARTICLE.objects.filter(article_id = pk)[0] ,
             article_id = ARTICLE.objects.order_by('-article_id').first().article_id + 1,

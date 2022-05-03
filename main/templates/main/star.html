@@ -20,28 +20,33 @@
     return cookieValue;
   }
 </script>
-<div id="ex1" class="modal" style="max-width: 80%; width: auto; height: auto;">
+<div id="ex1" class="modal" style="max-width: 80%; width: auto; height: auto; background-color: #191c24;">
   <div class="card">
     <div class="card-body col-12" style="text-align: center; width: 100%; display: inline-block;">
       <form class = "review-form">
         {% csrf_token %}
       <h5>☺ HashTaig의 서비스를 평가해주세요 ☺</h5>
-      <div class="star-rating" style="align-items: center; margin-top: 10%; margin-bottom: 10%;">
-        <input type="radio" id="5-stars" name="rating" value="5" />
-        <label for="5-stars" class="star">&#9733;</label>
-        <input type="radio" id="4-stars" name="rating" value="4" />
-        <label for="4-stars" class="star">&#9733;</label>
-        <input type="radio" id="3-stars" name="rating" value="3" />
-        <label for="3-stars" class="star">&#9733;</label>
-        <input type="radio" id="2-stars" name="rating" value="2" />
-        <label for="2-stars" class="star">&#9733;</label>
-        <input type="radio" id="1-star" name="rating" value="1" />
-        <label for="1-star" class="star">&#9733;</label>
+      <div style="text-align: center; width: auto;">
+        <div class="star-rating" style="margin-top: 10%; margin-bottom: 10%; width: auto;">
+          <input type="radio" id="5-stars" name="rating" value="5" />
+          <label for="5-stars" class="star">&#9733;</label>
+          <input type="radio" id="4-stars" name="rating" value="4" />
+          <label for="4-stars" class="star">&#9733;</label>
+          <input type="radio" id="3-stars" name="rating" value="3" />
+          <label for="3-stars" class="star">&#9733;</label>
+          <input type="radio" id="2-stars" name="rating" value="2" />
+          <label for="2-stars" class="star">&#9733;</label>
+          <input type="radio" id="1-star" name="rating" value="1" />
+          <label for="1-star" class="star">&#9733;</label>
+        </div>
       </div>
       <h4 style="margin-top: 10%; margin-bottom: 10%;">Feedback</h4>
       
       <body>
-        <p><textarea id="feedback" cols="40" rows="10"></textarea></p>
+        <div class="form-group row">
+          <textarea name='content' id="feedback" class="col-12" style="height: 35vh; padding-left: 10px; padding-top: 5px;"
+            placeholder="내용을 입력해 주세요"></textarea>
+        </div>
         <div style="display: inline-block;">
           <div style="width: 100%; text-align: center">
               <button type="button" value="Submit" class="btn btn-light" style="float: left; margin-right: 10px;"

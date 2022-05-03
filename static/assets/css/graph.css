@@ -18,8 +18,7 @@ section {
   margin-top: 30px;
 }
 .pieID {
-  display: inline-block;
-  vertical-align: top;
+  display: block;
 }
 .pie {
   height: 200px;
@@ -82,7 +81,7 @@ section {
   margin-top: 16px;
 }
 .legend li {
-  width: 110px;
+  width: 100%;
   height: 1.25em;
   margin-bottom: 0.7em;
   padding-left: 0.5em;

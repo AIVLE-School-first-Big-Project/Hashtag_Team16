@@ -59,13 +59,10 @@ def index(request):
             hashtags_json = json.loads(res.content)
             files.close()
             
-            print(hashtags_json['hashtags'])
-            for i in hashtags_json['hashtags']:
-                print(i[1:])
-                print(hashtag_cnt_crawling(i[1:]))
-            output_json = {i: hashtag_cnt_crawling(i[1:]) for i in hashtags_json['hashtags']}
-            print(output_json)
-
+            # best 해시태그 만들기
+            output_json = {i: hashtag_cnt_crawling(i[1:]) for i in hashtags_json['hashtags'][:5]}
+            hashtags_json['best_hashtag'] = output_json
+            
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
             
@@ -86,7 +83,7 @@ def index(request):
                 return JsonResponse(data)
             
             log.save()
-            data = {'status':'T', 'hashtags': hashtags_json['hashtags']}
+            data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag']}
             return JsonResponse(data)
             
         else:
@@ -131,5 +128,4 @@ def hashtag_cnt_crawling(target):
     } 
     response = requests.get(url,headers = request_headers)
     cnt = response.json()['data']['media_count']
-    print(cnt)
     return cnt

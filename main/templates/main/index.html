@@ -104,13 +104,12 @@
                     </div>
                     <div class="preview-list">
 
-                      <main>
                         <section style='text-align: center;'>
                           <div class="pieID pie" >
                             
                           </div>
-                          <ul class="pieID legend">
-                            <li>
+                          <ul class="pieID legend" id = "pieID">
+                            {% comment %} <li>
                               <em>Humans</em>
                               <span>718</span>
                             </li>
@@ -129,10 +128,10 @@
                             <li>
                               <em>Aliens</em>
                               <span>1145</span>
-                            </li>
+                            </li> {% endcomment %}
                           </ul>
                         </section>
-                        </main>
+
 
 
 
@@ -262,10 +261,14 @@
 
       myformData.append("attachedImage",fileInput.files[0]);
       var box = document.getElementById('tag_output');
-
+      var legend = document.getElementById('pieID');
+      
       try {
         for (var i = 0; i < 20; i++) {
           document.querySelectorAll("#tag_output > span")[0].remove();
+        }
+        for (var i = 0; i < 5; i++) {
+          document.querySelector("#pieID > li")[0].remove();
         }
       } catch (error) {
       } finally {
@@ -283,11 +286,28 @@
         error: function () {
         },
         success: function (result) {
+          console.log(result);
           for ( tag in result['hashtags']) {
-          var tags = document.createElement('span');
-          box.appendChild( tags );
-          tags.innerHTML = result['hashtags'][tag] + '     ';
+            var tags = document.createElement('span');
+            box.appendChild( tags );
+            tags.innerHTML = result['hashtags'][tag] + '     ';
           }
+          for ( tag in result['best_hashtag']){
+            
+            var li = document.createElement('li');
+            var tag_name = document.createElement('em');
+            var tag_cnt = document.createElement('span');
+            legend.appendChild( li );
+            li.appendChild( tag_name );
+            li.appendChild( tag_cnt );
+            console.log(tag);
+            tag_name.innerHTML = tag;
+            console.log(result['best_hashtag'][tag]);
+            tag_cnt.innerHTML = result['best_hashtag'][tag];
+            createPie(".pieID.legend", ".pieID.pie");
+
+          }
+
         }
       });
     };

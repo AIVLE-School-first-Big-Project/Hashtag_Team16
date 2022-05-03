@@ -53,4 +53,4 @@ function createPie(dataElement, pieElement) {
     offset += size;
   }
 }
-createPie(".pieID.legend", ".pieID.pie");
+

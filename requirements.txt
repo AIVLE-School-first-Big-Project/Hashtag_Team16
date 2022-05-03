@@ -1,0 +1,13 @@
+flask
+werkzeug
+tensorflow
+pandas
+pyspark
+scipy
+joblib
+
+uuid
+torch
+torchvision
+
+IPython

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 {% load static %}
 
+
+<style>
+  .max-small {
+      width: auto; height: auto;
+      max-width: 100px;
+      max-height: 100px;
+  }
+  </style>
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -77,9 +86,9 @@
                               <tr>
                                 <th> </th>
                                 <th> {{w.log_id}} </td>
-                                <th style="width: 60%; height: 48.5; padding-left: 5%;" 
-                                    >
-                                    <u>[{{w.image}}] </u></th>
+                                <th style="width: 100px; height:80px; padding-left: 5%;">
+                                    <u><img class='max-small' style= 'width : 150px; height :100px' src="{{w.image}}"> </u></th>
+
                                 <th> {{w.prior_tag}} </th>
                                 <th> {{w.date}} </th>
                                 

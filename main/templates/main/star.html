@@ -20,35 +20,74 @@
     return cookieValue;
   }
 </script>
-
-<div id="ex1" class="modal" style="max-width: 80%; width: auto;">
-  <form class = "review-form">
-    {% csrf_token %}
-  <article id='ar'>
-    <h4>☺ HashTaig의 서비스를 평가해주세요 ☺</h4>
-    <div class="star-rating">
-      <input type="radio" id="5-stars" name="rating" value="5" />
-      <label for="5-stars" class="star">&#9733;</label>
-      <input type="radio" id="4-stars" name="rating" value="4" />
-      <label for="4-stars" class="star">&#9733;</label>
-      <input type="radio" id="3-stars" name="rating" value="3" />
-      <label for="3-stars" class="star">&#9733;</label>
-      <input type="radio" id="2-stars" name="rating" value="2" />
-      <label for="2-stars" class="star">&#9733;</label>
-      <input type="radio" id="1-star" name="rating" value="1" />
-      <label for="1-star" class="star">&#9733;</label>
-    </div>
-    <h4>Feedback</h4>
-    <body>
+<div id="ex1" class="modal" style="max-width: 80%; width: auto; height: auto;">
+  <div class="card">
+    <div class="card-body col-12" style="text-align: center; width: 100%; display: inline-block;">
+      <form class = "review-form">
+        {% csrf_token %}
+      <h5>☺ HashTaig의 서비스를 평가해주세요 ☺</h5>
+      <div class="star-rating" style="align-items: center; margin-top: 10%; margin-bottom: 10%;">
+        <input type="radio" id="5-stars" name="rating" value="5" />
+        <label for="5-stars" class="star">&#9733;</label>
+        <input type="radio" id="4-stars" name="rating" value="4" />
+        <label for="4-stars" class="star">&#9733;</label>
+        <input type="radio" id="3-stars" name="rating" value="3" />
+        <label for="3-stars" class="star">&#9733;</label>
+        <input type="radio" id="2-stars" name="rating" value="2" />
+        <label for="2-stars" class="star">&#9733;</label>
+        <input type="radio" id="1-star" name="rating" value="1" />
+        <label for="1-star" class="star">&#9733;</label>
+      </div>
+      <h4 style="margin-top: 10%; margin-bottom: 10%;">Feedback</h4>
+      
+      <body>
         <p><textarea id="feedback" cols="40" rows="10"></textarea></p>
-        <p><input type="button" value="Submit" onclick ='getScore()'></p>
+        <div style="display: inline-block;">
+          <div style="width: 100%; text-align: center">
+              <button type="button" value="Submit" class="btn btn-light" style="float: left; margin-right: 10px;"
+              onclick = 'getScore()' >완료</button>
+              <a type="button" class="btn btn-light" href="#" rel="modal:close">닫기</a>
+          </div>
+        </div>
+        
+        
+
         <div id='result1'></div>
         <div id='result2'></div>
       </form>
-    </body>
-  </article>
-  <a href="#" rel="modal:close">닫기</a>
+      </body>
+      <!--
+      <form class = "review-form">
+        {% csrf_token %}
+      <article id='ar'>
+        <h4>☺ HashTaig의 서비스를 평가해주세요 ☺</h4>
+        <div class="star-rating">
+          <input type="radio" id="5-stars" name="rating" value="5" />
+          <label for="5-stars" class="star">&#9733;</label>
+          <input type="radio" id="4-stars" name="rating" value="4" />
+          <label for="4-stars" class="star">&#9733;</label>
+          <input type="radio" id="3-stars" name="rating" value="3" />
+          <label for="3-stars" class="star">&#9733;</label>
+          <input type="radio" id="2-stars" name="rating" value="2" />
+          <label for="2-stars" class="star">&#9733;</label>
+          <input type="radio" id="1-star" name="rating" value="1" />
+          <label for="1-star" class="star">&#9733;</label>
+        </div>
+        <h4>Feedback</h4>
+        <body>
+            <p><textarea id="feedback" cols="40" rows="10"></textarea></p>
+            <p><input type="button" value="Submit" onclick ='getScore()'></p>
+            <div id='result1'></div>
+            <div id='result2'></div>
+          </form>
+        </body>
+      </article>
+      <a href="#" rel="modal:close">닫기</a>
+      -->
+    </div>
+  </div>
 </div>
+
 
 <script>
   function getScore(){

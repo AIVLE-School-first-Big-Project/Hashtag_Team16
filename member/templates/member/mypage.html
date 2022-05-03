@@ -55,64 +55,59 @@
 
             <div class="row ">
               <div class="col-12 grid-margin">
-                <div class="card" style="height: 72vh;">
+                <div class="card" style="height: 100%;">
                   <div class="card-body">
                     <h4 class="card-title">마이페이지</h4>
                     <div class="table-responsive">
                       <table class="table" style="margin-bottom: 4%;">
                           <tr style="width: 10%; height: 48.5;"> 
                             <h3 style="float: left; margin-top: 1%; margin-left: 5%;">{{user}}</h3>
-                            <h4 style="width: 15vw; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
-                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "javascript:showPopUp('info')">회원정보 수정</button>
-                            <button style="font-size: small; margin-top: 1.3%; margin-left: 1%;" onclick = "javascript:showPopUp('pw')">비밀번호 수정</button>
+                            <h4 style="width: auto; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
+                            <div style="width: 100%; text-align: center; display: inline-block;">
+                              <button type="button" class="btn btn-light" style="font-size: small; margin-top: 1.3%; margin-left: 3%; float: left;" onclick = "javascript:showPopUp('info')">회원정보 수정</button>
+                              <button type="button" class="btn btn-light" style="font-size: small; margin-top: 1.3%; margin-left: 15px; float: left;" onclick = "javascript:showPopUp('pw')">비밀번호 수정</button>
+                            </div>
                           </tr>
                       </table>
                       <hr color="grey" style="height: 5%;">
                       <div>
-                        <h4 style="float: left; margin-top: 1%; margin-left: 5%;">사용 내역</h4>
+                        <h4 style="float: left; margin-top: 3%; margin-left: 5%; margin-bottom: 3%;">사용 내역</h4>
                         <div class="table-responsive">
                           <table class="table">
                             <thead>
                               <tr>
-                                <th> </th>
+                                <th style="width: 10%;"> </th>
                                 <th style="width: 10%; height: 48.5;"><b> No </b></th>
-                                <th style="width: 20%; height: 48.5;"><b> 이미지 파일명 </b></th>
-                                <th style="width: 40%; height: 48.5; text-align: center;"><b> 추천 해시태그 </b></th>
+                                <th style="width: 15%; height: 48.5;"><b> 이미지 파일명 </b></th>
+                                <th style="width: 50%; height: 48.5; text-align: center; "><b> 추천 해시태그 </b></th>
                               </tr>
                             </thead>
                             <tbody>
                               
                               {% for w in info %}
                               <tr>
-                                <th> </th>
+                                <th style="padding-left: 5%;">
+                                  <div class="form-check form-check-muted m-0">
+                                    <label class="form-check-label">
+                                      <input type="checkbox" class="form-check-input">
+                                    </label>
+                                  </div>
+                                </th>
                                 <th> {{w.log_id}} </td>
-                                <th style="width: 100px; height:80px; padding-left: 5%;">
+                                <th style="width: 100px; height:80px;">
                                     <u><img class='max-small' style= 'width : 150px; height :100px' src="{{w.image}}"> </u></th>
 
-                                <th> {{w.prior_tag}} </th>
-                                <th> {{w.date}} </th>
+                                <th style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.prior_tag}} </th>
                                 
                               </tr>
                               {% endfor%}
-                              
-                              {% comment %} <tr>
-                                <th> </th>
-                                <th style="width: 10%; height: 48.5; font-weight: normal;"> 2 </th>
-                                <th style="width: 20%; height: 48.5; font-weight: normal;">22.04.20 </th>
-                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 셀카.jpg </th>
-                                <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #정우성, #장동건, #강동원, #and 나, #동원참치, #잘생김 </th>
-                              </tr>
-                              <tr>
-                                <th> </th>
-                                <th style="width: 10%; height: 48.5; font-weight: normal;"> 1 </th>
-                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 22.04.19 </th>
-                                <th style="width: 20%; height: 48.5; font-weight: normal;"> 강아지.jpg </th>
-                                <th style="width: 40%; height: 48.5; font-weight: normal; text-align: center;"> #큐트, #귀엽, #커엽, #댕댕, #강아지, #말티즈 </th>
-                              </tr> {% endcomment %}
+
                             </tbody>
                           </table>
+                          
                         </div>
                       </div>
+                      <button type="button" class="btn btn-light" style="font-size: small; float: right; margin-right: 3%; margin-top: 2%;" onclick = "">삭제</button>
                     </div>
                   </div>
                 </div>

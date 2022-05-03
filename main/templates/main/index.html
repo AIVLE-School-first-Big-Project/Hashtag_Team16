@@ -72,6 +72,7 @@
                       <input type="file" accept= image/* id="file-id" name="file_name">
                     </label>
                     </form>
+                    <!-- 여기 버튼을 눌렀을떄 save로 가야한다. -->
                     <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
                   </form>
                   </div>
@@ -278,8 +279,9 @@
       }
     }
 
-
+    //여기가 버튼 눌렀을떄
     function save() {
+      
       //var form = document.getElementsByClassName('image_upload');
       var fileInput = document.querySelector("#file-id");
       const myformData = new FormData();
@@ -296,7 +298,7 @@
       } finally {
 
 
-
+        
       $.ajax({
         type: "POST",
         url: "",
@@ -311,6 +313,7 @@
           alert("fail!");
 
         },
+        //성공했을때 닫아주기
         success: function (result) {
           console.log(result['hashtags']);
           

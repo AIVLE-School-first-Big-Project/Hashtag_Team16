@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-
+{% include 'member/star.html' %}
 
 <style>
   .max-small {
@@ -98,8 +98,13 @@
                                     <u><img class='max-small' style= 'width : 150px; height :100px' src="{{w.image}}"> </u></th>
 
                                 <th style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.prior_tag}} </th>
-                                
+                                <th>
+                                  <a href="#ex1" rel="modal:open">
+                                  <span class="menu-title">리뷰 작성하기</span>
+                                </a>
+                              </th>
                               </tr>
+
                               {% endfor%}
 
                             </tbody>

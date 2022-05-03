@@ -72,6 +72,7 @@
                       <input type="file" accept= image/* id="file-id" name="file_name">
                     </label>
                     </form>
+                    <!-- 여기 버튼을 눌렀을떄 save로 가야한다. -->
                     <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
                   </form>
                   </div>
@@ -255,6 +256,7 @@
     
   <script>
     function save() {
+      
       //var form = document.getElementsByClassName('image_upload');
       var fileInput = document.querySelector("#file-id");
       const myformData = new FormData();
@@ -294,6 +296,21 @@
               var tags = document.createElement('span');
               box.appendChild( tags );
               tags.innerHTML = result['hashtags'][tag] + '     ';
+            }
+            for ( tag in result['best_hashtag']){
+            
+              var li = document.createElement('li');
+              var tag_name = document.createElement('em');
+              var tag_cnt = document.createElement('span');
+              legend.appendChild( li );
+              li.appendChild( tag_name );
+              li.appendChild( tag_cnt );
+              console.log(tag);
+              tag_name.innerHTML = tag;
+              console.log(result['best_hashtag'][tag]);
+              tag_cnt.innerHTML = result['best_hashtag'][tag];
+              createPie(".pieID.legend", ".pieID.pie");
+  
             }
           }
         });

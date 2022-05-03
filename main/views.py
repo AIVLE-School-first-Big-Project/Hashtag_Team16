@@ -57,7 +57,7 @@ def index(request):
             # 해쉬태그 생성 API
             files = open(tmp_file, 'rb')
             upload = {'file': files}
-            res = requests.post(' http://118.91.69.43:5000/', files = upload)
+            res = requests.post(' http://118.91.69.43:5001/', files = upload)
             hashtags_json = json.loads(res.content)
             files.close()
 

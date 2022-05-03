@@ -56,7 +56,7 @@ def index(request):
             # 해쉬태그 생성 API
             files = open(tmp_file, 'rb')
             upload = {'file': files}
-            res = requests.post(' http://118.91.69.43:5001/', files = upload)
+            res = requests.post(' http://118.91.69.43:5002/', files = upload)
             hashtags_json = json.loads(res.content)
             files.close()
             
@@ -65,7 +65,7 @@ def index(request):
             hashtags_json['best_hashtag'] = output_json
             
             # list 문자열로 변환
-            result = ' '.join(s for s in hashtags_json['hashtags'])
+            result = ' '.join(s for s in hashtags_json['hashtags']) #img1, img2, img3, img4 <-- 스타일 적용된 이미지 키값
             
             ## LOG 데이터 저장하기
             log = LOG.objects.create(

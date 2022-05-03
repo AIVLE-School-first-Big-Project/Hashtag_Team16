@@ -80,6 +80,10 @@ class LOG(models.Model):
     image = models.CharField(max_length=300, null=False)
     prior_tag = models.TextField(null=False)
     # after_tag = models.TextField(null=False)
+    result1 = models.CharField(max_length=300, null=False)
+    result2 = models.CharField(max_length=300, null=False)
+    result3 = models.CharField(max_length=300, null=False)
+    result4 = models.CharField(max_length=300, null=False)
 
     
     class Meta:

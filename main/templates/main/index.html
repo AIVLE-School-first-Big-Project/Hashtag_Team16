@@ -105,13 +105,12 @@
                     </div>
                     <div class="preview-list">
 
-                      <main>
                         <section style='text-align: center;'>
                           <div class="pieID pie" >
                             
                           </div>
-                          <ul class="pieID legend">
-                            <li>
+                          <ul class="pieID legend" id = "pieID">
+                            {% comment %} <li>
                               <em>Humans</em>
                               <span>718</span>
                             </li>
@@ -130,10 +129,10 @@
                             <li>
                               <em>Aliens</em>
                               <span>1145</span>
-                            </li>
+                            </li> {% endcomment %}
                           </ul>
                         </section>
-                        </main>
+
 
 
 
@@ -236,8 +235,8 @@
     <!-- inject:js -->
     <script src="{% static 'assets/js/off-canvas.js' %}"></script>
     <script src="{% static 'assets/js/hoverable-collapse.js' %}"></script>
-    <script src="{% static 'assets/js/misc.js' %}"></script>
-    <script src="{% static 'assets/js/settings.js' %}"></script>
+    {% comment %} <script src="{% static 'assets/js/misc.js' %}"></script>
+    <script src="{% static 'assets/js/settings.js' %}"></script> {% endcomment %}
     <script src="{% static 'assets/js/todolist.js' %}"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
@@ -253,33 +252,8 @@
       }
     </script>
 
-    <script>
-
-    </script>
-
     
   <script>
-    function getPath(obj){ 
-      if(obj){  
-        if (window.navigator.userAgent.indexOf("MSIE")>=1)  
-        {  
-          obj.select();
-          return document.selection.createRange().text;  
-        }  
-        else if(window.navigator.userAgent.indexOf("Firefox")>=1)  
-        {  
-          if(obj.files)  
-          {
-            return obj.files.item(0).getAsDataURL();
-          }  
-          return obj.value;
-        }
-        alert(document.selection.createRange().text)
-        return obj.value;  
-      }
-    }
-
-
     function save() {
       //var form = document.getElementsByClassName('image_upload');
       var fileInput = document.querySelector("#file-id");
@@ -288,10 +262,14 @@
 
       myformData.append("attachedImage",fileInput.files[0]);
       var box = document.getElementById('tag_output');
-
+      var legend = document.getElementById('pieID');
+      
       try {
         for (var i = 0; i < 20; i++) {
           document.querySelectorAll("#tag_output > span")[0].remove();
+        }
+        for (var i = 0; i < 5; i++) {
+          document.querySelector("#pieID > li")[0].remove();
         }
       } catch (error) {
       } finally {
@@ -336,8 +314,5 @@
 
   
   </script>
-
-  
-    <!-- End custom js for this page -->
   </body>
 </html>

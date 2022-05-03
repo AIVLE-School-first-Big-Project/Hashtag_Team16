@@ -86,7 +86,8 @@
                       <div class="card-title mb-1" style="width: calc(100%);">
                         <h4>#해시태그 생성</h4>
                         <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='tag_output'></div>
-                        <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;">해시태그 복사!</button>
+                        <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;" onclick="copyToClipBoard();">해시태그 복사!</button>
+
                       </div> 
                     </div>
                   </div>
@@ -294,40 +295,46 @@
         }
       } catch (error) {
       } finally {
+        $.ajax({
+          type: "POST",
+          url: "",
+          async: true,
+          headers: { 'X-CSRFToken': csrftoken },
+          enctype: "multipart/form-data",
+          data: myformData,
+          processData: false,
+          contentType: false,
 
+          error: function () {
+            alert("fail!");
 
-
-      $.ajax({
-        type: "POST",
-        url: "",
-        async: true,
-        headers: { 'X-CSRFToken': csrftoken },
-        enctype: "multipart/form-data",
-        data: myformData,
-        processData: false,
-        contentType: false,
-
-        error: function () {
-          alert("fail!");
-
-        },
-        success: function (result) {
-          console.log(result['hashtags']);
-          
-
-
-          for ( tag in result['hashtags']) {
-          
-          var tags = document.createElement('span');
-          box.appendChild( tags );
-          tags.innerHTML = result['hashtags'][tag] + '     ';
+          },
+          success: function (result) {
+            console.log(result['hashtags']);
+            
+            for ( tag in result['hashtags']) {
+              var tags = document.createElement('span');
+              box.appendChild( tags );
+              tags.innerHTML = result['hashtags'][tag] + '     ';
+            }
           }
-
-
-        }
-      });
+        });
+      };
     };
-  };
+
+
+    
+    function copyToClipBoard() {
+
+      var content = document.getElementById('tag_output');
+      
+      content.select();
+      document.execCommand('copy');
+  
+      alert("Copied!");
+  }
+
+  
   </script>
 
   

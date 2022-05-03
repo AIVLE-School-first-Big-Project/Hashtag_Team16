@@ -64,6 +64,9 @@ def index(request):
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
             print(result)
+            # img 
+            # result2 = ' '.join(s for s in hashtags_json['img'])
+            # print(imgresult)
             
             ## LOG 데이터 저장하기
             log = LOG.objects.create(
@@ -74,6 +77,7 @@ def index(request):
                 feedback = None,
                 image = image_func(tmp_file, secret_name),  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
                 prior_tag = result
+                # result1 = imgresult
             )
             os.remove(tmp_file) # 이미지 삭제
 

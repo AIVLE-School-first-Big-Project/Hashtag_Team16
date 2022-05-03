@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 {% load static %}
 
+
+{% comment %} image size 적용 <style>
+  .max-small {
+      width: auto; height: auto;
+      max-width: 100px;
+      max-height: 100px;
+  }
+  </style> {% endcomment %}
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -79,7 +88,8 @@
                                 <th> {{w.log_id}} </td>
                                 <th style="width: 60%; height: 48.5; padding-left: 5%;" 
                                     >
-                                    <u>[{{w.image}}] </u></th>
+                                    <u><img class='max-small' src="{{w.image}}"> </u></th>
+
                                 <th> {{w.prior_tag}} </th>
                                 <th> {{w.date}} </th>
                                 

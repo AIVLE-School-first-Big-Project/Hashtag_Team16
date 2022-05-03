@@ -57,7 +57,13 @@
 
         <!-- partial -->
         <div class="main-panel">
+          
           <div class="content-wrapper">
+            <div class="col-md-12" id="noneDiv" style="display: none; width: 79%; height: 100%; background : rgba(0, 0, 0, 0.5); position: absolute; z-index: 2;">
+              <div style="height: 50vw; text-align: center; margin-top: 20%;">
+                <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; " alt="loading" /></a>
+              </div>
+            </div>
             <form class="save-form" enctype="multipart/form-data">
               {% csrf_token %}
             <div class="row">
@@ -78,7 +84,6 @@
                   </div>
                 </div>
               </div>
-
               <!---->
               <div class="col-md-12 col-xl-8 grid-margin stretch-card">
                 <div class="card">
@@ -86,7 +91,7 @@
                     <div class="d-flex flex-row justify-content-between">
                       <div class="card-title mb-1" style="width: calc(100%);">
                         <h4>#해시태그 생성</h4>
-                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='tag_output'></div>
+                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='tag_output'></div>4
                         <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;" onclick="copyToClipBoard();">해시태그 복사!</button>
 
                       </div> 
@@ -133,10 +138,6 @@
                             </li> {% endcomment %}
                           </ul>
                         </section>
-
-
-
-
                     </div>
                   </div>
                 </div>
@@ -204,6 +205,7 @@
               </div>
             </div>
           </div>
+          </div>
 
 
 
@@ -255,8 +257,14 @@
 
     
   <script>
+    function onDisplay(){
+      $('#noneDiv').show();
+    }
+    //여기가 버튼이 눌렸을때
     function save() {
       
+      $('#noneDiv').show();
+
       //var form = document.getElementsByClassName('image_upload');
       var fileInput = document.querySelector("#file-id");
       const myformData = new FormData();
@@ -290,6 +298,9 @@
 
           },
           success: function (result) {
+
+            $('#noneDiv').hide();
+
             console.log(result['hashtags']);
             
             for ( tag in result['hashtags']) {

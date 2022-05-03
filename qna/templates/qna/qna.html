@@ -68,14 +68,14 @@
                 <div class="card" style="height: 75vh;">
                   <div class="card-body">
                     <h4 class="card-title">Q&A 게시판</h4>
-                      <select onchange="showValue(this)">
-                          <option value = "all" selected>모두</option>
-                          <option value = "my_writing">내가 쓴 글</option>
+                      <select class="filter-handle">
+                          <option value = "" selected>모두</option>
+                          <option value = {{user}}>내가 쓴 글</option>
                       </select>
                       <br/>
                     <div class="table-responsive">
                       <table class="table"  style="text-align: center;">
-                        <thead>
+                        <thead >
                           <tr>
                             <th style="width: 14%; height: 48.5;"> No </th>
                             <th style="width: 46%; height: 48.5;"> 제목 </th>
@@ -83,9 +83,9 @@
                             <th style="width: 20%; height: 48.5;"> 작성시간 </th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="filter-table-data">
                           {% for w in info %}
-                          <tr>
+                          <tr data-type={{w.user_id}}>
                             <td style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.article_id}} </a></td>
                               <td style="width: 60%; height: 48.5; white-space: normal; word-break: keep-all; line-height: 1.4;">
                                 <a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">
@@ -158,38 +158,22 @@
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
     <script>
-      const showValue = (target) => {
-        const value = target.value;
-        const text =  target.options[target.selectedIndex].text;
-        console.log(value);
-        const myformData = new FormData();
-        const csrftoken = getCookie('csrftoken');
-        myformData.append('value', value);
-        
-        $.ajax({
-          type: "POST",
-          url: "",
-          async: true,
-          headers: { 'X-CSRFToken': csrftoken },
-          enctype: "multipart/form-data",
-          data: myformData,
-          processData: false,
-          contentType: false,
-  
-          error: function () {
-            alert("fail!");
-          },
-          success: function (result) {
-            console.log(result)
-
-            alert("success")
-
-            
-
-          }
-        });
-      };
-
+      $('.filter-handle').on('change', function(e) {
+        // retrieve the dropdown selected value
+        var location = e.target.value;
+        var table = $('.filter-table-data');
+        // if a location is selected
+        if (location.length) {
+          // hide all not matching
+          table.find('tr[data-type!=' + location + ']').hide();
+          // display all matching
+          table.find('tr[data-type=' + location + ']').show();
+        } else {
+          // location is not selected,
+          // display all
+          table.find('tr').show();
+        }
+      });
     </script>
 
   </body>

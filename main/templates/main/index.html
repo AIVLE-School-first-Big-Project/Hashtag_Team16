@@ -145,10 +145,11 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">AI이미지 테마 적용</h4>
-                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">1번테마!</button>
+                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;" onclick="imgthema();" >1번테마!</button>
                     <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">2번테마!</button>
                     <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">3번테마!!</button>
                     <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">4번테마!!</button>
+                    <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='img1_output'></div>
                   </div>
                 </div>
               </div>
@@ -334,7 +335,42 @@
       alert("Copied!");
   } 
 
+
+
+
   
+  function imgthema() {
+    
+    var fileInput = document.querySelector("#img1_output");
+
+    myformData.append("attachedImage",fileInput.files[0]);
+    var box = document.getElementById('img1_output');
+    
+  
+    $.ajax({
+      type: "POST",
+      url: "",
+      async: true,
+      headers: { 'X-CSRFToken': csrftoken },
+      enctype: "multipart/form-data",
+      data: myformData,
+      processData: false,
+      contentType: false,
+
+      error: function () {
+        alert("fail!");
+
+      },
+      success: function (result) {
+        console.log(result['img1']);
+        
+        }
+      });
+    };
+ 
+
+
+
   </script>
   </body>
 </html>

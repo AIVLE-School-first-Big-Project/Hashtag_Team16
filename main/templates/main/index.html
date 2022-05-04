@@ -84,25 +84,29 @@
                       </label>
                     </form>
                     <!-- 여기 버튼을 눌렀을떄 save로 가야한다. -->
-                    <button type="button" class="add btn btn-primary todo-list-add-btn"
-                      style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!---->
-    <div class="col-md-12 col-xl-8 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex flex-row justify-content-between">
-            <div class="card-title mb-1" style="width: calc(100%);">
-              <h4>#해시태그 생성</h4>
-              <div
-                style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
-                id='tag_output'></div>
-              <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;"
-                onclick="copyToClipBoard();">해시태그 복사!</button>
+                    <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+              <!---->
+              <div class="col-md-12 col-xl-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-row justify-content-between">
+                      <div class="card-title mb-1" style="width: calc(100%);">
+                        <h4>#해시태그 생성</h4>
+                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='tag_output'></div>
+                        <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;" onclick="copyToClipBoard();">해시태그 복사!</button>
 
+                        <h4>qnstjr</h4>
+                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='like_mean'></div>
+
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -124,75 +128,23 @@
               <div class="pieID pie">
 
               </div>
-              <ul class="pieID legend" id="pieID">
-                <!-- pie chart를 위한 li요소가 들어갈 자리 -->
-              </ul>
-            </section>
+              <div class="col-md-6 col-xl-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">AI이미지 테마 적용
+                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;" onclick="imgthema(1);" >1번테마!</button>
+                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;" onclick="imgthema(2);">2번테마!</button>
+                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;" onclick="imgthema(3);">3번테마!!</button>
+                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;" onclick="imgthema(4);">4번테마!!</button>
+                    </h4>
+                    
+                    <div style="width: 100%; height: 80%; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='img1_output'></div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">AI이미지 테마 적용</h4>
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; margin-top:20px;">1번테마!</button>
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; margin-top:20px;">2번테마!</button>
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; margin-top:20px;">3번테마!!</button>
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; margin-top:20px;">4번테마!!</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-12 col-xl-4 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">분석3</h4>
-          <div class="add-items d-flex">
-            <input type="text" class="form-control todo-list-input" placeholder="enter task..">
-            <button class="add btn btn-primary todo-list-add-btn">Add</button>
-          </div>
-          <div class="list-wrapper">
-            <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Create invoice </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Meeting with Alita </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
-              <li class="completed">
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Plan weekend outing </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Pick up kids from school </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -339,6 +291,59 @@
 
       alert("Copied!");
     }
+
+
+
+
+
+  function imgthema(path) {
+    var imgpath='img'+path
+    var fileInput1 = document.querySelector("#file-id");
+    const myformData1 = new FormData();
+    const csrftoken = getCookie('csrftoken');
+    const img = new Image();
+
+    myformData1.append("attachedImage",fileInput1.files[0]);
+    
+    try {
+      for (var i = 0; i < 20; i++) {
+      }document.querySelector("#img1_output > img").remove();
+    } catch (error) {
+    } finally {
+      $.ajax({
+        type: "POST",
+        url: "",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+        enctype: "multipart/form-data",
+        data: myformData1,
+        processData: false,
+        contentType: false,
+
+        error: function () {
+          alert("fail!");
+
+        },
+        success: function (result) {
+          console.log(result);
+          
+          
+
+          img.src = "data:image/;base64,"+result[imgpath];
+          img.style = "width:100%; height: 100%;"
+          img.decode().then(() => {
+            document.getElementById('img1_output').appendChild(img);
+          })
+          .catch((encodingError) => {
+            // Do something with the error.
+          })
+          
+        }
+      });
+    }
+  };
+
+
 
 
   </script>

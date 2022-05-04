@@ -59,9 +59,14 @@ def index(request):
             res = requests.post(' http://118.91.69.43:5002/', files = upload)
             hashtags_json = json.loads(res.content)
             files.close()
-
+            
+            # best 해시태그 만들기
+            output_json = {i: hashtag_cnt_crawling(i[1:]) for i in hashtags_json['hashtags'][:5]}
+            hashtags_json['best_hashtag'] = output_json
+            
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
+
             ## LOG 데이터 저장하기
             log = LOG.objects.create(
                 
@@ -117,6 +122,13 @@ def image_func(tmp_file, image_name):
 def hashtag_cnt_crawling(target):
     # import requests
     url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
-    response = requests.get(url)
-    cnt = response.json()['graphql']['hashtag']['edge_hashtag_to_media']['count']
+    request_headers = {
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+    'cookie': 'mid=YkaYNAALAAHBury3c1M-V7wLWkHN; ig_did=C7EE23C0-7E7D-4E10-BB91-304CB2A48530; ig_nrcb=1; csrftoken=Z0TMAFb0tymhfGqnrhNQHryvj0oxCgJj; ds_user_id=52900354322; sessionid=52900354322%3AgztAGF69WSRw6N%3A13; rur="NAO\05452900354322\0541683092745:01f764a3598f960cdbc2ca5f7515c946dc2025dce1718f2ad313f59cf8f493bcbbdf8987"',
+
+    } 
+    response = requests.get(url,headers = request_headers)
+    cnt = response.json()['data']['media_count']
     return cnt

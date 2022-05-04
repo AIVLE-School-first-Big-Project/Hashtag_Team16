@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from .models import *
 from django.utils import timezone
 from django.core.paginator import Paginator
+import hashlib
 
 # Create your views here.
 # mypage
@@ -80,7 +81,10 @@ def signup_custom(request):
         if ('@' not in email):
             data = {'status':'email_error'}
             return JsonResponse(data)
-        
+            
+        extension = '.' + u_pw.split('.')[-1]
+        u_pw=hashlib.sha256(u_pw.encode()).hexdigest()+ extension 
+
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
             birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0)

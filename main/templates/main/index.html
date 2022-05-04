@@ -338,13 +338,12 @@
 
 
 
-
   function imgthema() {
     
     var fileInput1 = document.querySelector("#file-id");
     const myformData1 = new FormData();
     const csrftoken = getCookie('csrftoken');
-
+    const img = new Image();
 
     myformData1.append("attachedImage",fileInput1.files[0]);
     var box1 = document.getElementById('img1_output');
@@ -367,12 +366,18 @@
       success: function (result) {
         console.log(result);
         
-        var tags = document.createElement('span');
-        box1.appendChild( tags );
-        tags.innerHTML = result['img1'];
-        {% comment %} tem=base64.b64decode(result['img1'])
-        tem=BytesIO(tem)
-        Image.open(tem) {% endcomment %}
+
+       
+        
+
+        img.src = "data:image/;base64,"+result['img1'];
+        img.decode().then(() => {
+          document.body.appendChild(img);
+        })
+        .catch((encodingError) => {
+          // Do something with the error.
+        })
+
       }
     });
   };

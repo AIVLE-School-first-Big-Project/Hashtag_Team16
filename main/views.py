@@ -12,9 +12,6 @@ from django.http import JsonResponse
 import hashlib # image 저장할때 이름을 암호화하기 위함
 import json
 import requests
-import base64
-from io import BytesIO
-from PIL import Image
 ###############################################################
 
 def index(request):
@@ -69,10 +66,6 @@ def index(request):
             
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
-            # img1 =  hashtags_json['img1']
-            # img2 =  hashtags_json['img2']
-            # img3 =  hashtags_json['img3']
-            # img4 =  hashtags_json['img4']
 
             ## LOG 데이터 저장하기
             log = LOG.objects.create(
@@ -90,9 +83,6 @@ def index(request):
                 data = {'status':'F'}
                 return JsonResponse(data)
             
-            tem=base64.b64decode(hashtags_json['img1'])
-            tem=BytesIO(tem)
-            Image.open(tem)
 
             log.save()
             data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag'] , 

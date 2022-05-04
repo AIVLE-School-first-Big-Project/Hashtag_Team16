@@ -171,8 +171,8 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
-    <script type="text/javascript">
-       function showPopUp(x) {
+  <script type="text/javascript">
+      function showPopUp(x) {
         //창 크기 지정
         var width = 500; 
         
@@ -199,13 +199,12 @@
           newWindow = window.open('/member/changeinfo',"changeinfo", windowStatus);
         }
         
-       };
-   </script>
- 
-   <script type="text/javascript"> function Logout() {
-     alert("로그아웃 되었습니다.");
-     location.href = "member/logout"
-   }
-   </script>
+      };
+  </script>
+    <script type="text/javascript"> function Logout() {
+      alert("로그아웃 되었습니다.");
+      location.href = "member/logout"
+    }
+    </script>
   </body>
 </html>

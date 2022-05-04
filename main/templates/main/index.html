@@ -59,9 +59,10 @@
         <div class="main-panel">
           
           <div class="content-wrapper">
-            <div class="col-md-12" id="noneDiv" style="display: none; width: 79%; height: 100%; background : rgba(0, 0, 0, 0.5); position: absolute; z-index: 2;">
-              <div style="height: 50vw; text-align: center; margin-top: 20%;">
-                <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; " alt="loading" /></a>
+            <!-- 로딩페이지 -->>
+            <div class="col-md-12" id="noneDiv" style="display: none; width: 79%; height: 100%; background : rgb(0, 0, 0,0.6); position: absolute; z-index: 2;">
+              <div style="height: 50vw; text-align: center; margin-top: 15%;">
+                <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; width: 10vw;" alt="loading" /></a>
               </div>
             </div>
             <form class="save-form" enctype="multipart/form-data">
@@ -91,7 +92,7 @@
                     <div class="d-flex flex-row justify-content-between">
                       <div class="card-title mb-1" style="width: calc(100%);">
                         <h4>#해시태그 생성</h4>
-                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='tag_output'></div>4
+                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='tag_output'></div>
                         <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;" onclick="copyToClipBoard();">해시태그 복사!</button>
 
                       </div> 
@@ -294,6 +295,8 @@
           contentType: false,
 
           error: function () {
+
+            $('#noneDiv').hide();
             alert("fail!");
 
           },

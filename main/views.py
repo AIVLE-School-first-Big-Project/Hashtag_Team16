@@ -21,7 +21,25 @@ def index(request):
         request.session['user_id']
         if request.method == 'POST':
             # 평점 스코어, 피드백 내용 기능 구현
-
+            if 'score' in request.POST:
+                print('post')
+                #log = LOG.objects.get(l_user_id = request.session['user_id'])
+                log1 = LOG.objects.create(
+                    log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
+                    user = USER.objects.get(user_id=request.session['user_id']),
+                    service_score = request.POST.get('score'),
+                    feedback = request.POST.get('feedback'),
+                    image = None,
+                    prior_tag = '#pig'
+                    # after_tag = '#pig'
+                )
+                if (log1.service_score == '') or (log1.feedback == ''):
+                    data = {'status':'F'}
+                    return JsonResponse(data)
+                else:
+                    log1.save()
+                    data = {'status':'T'}
+                    return JsonResponse(data)
             
             
             

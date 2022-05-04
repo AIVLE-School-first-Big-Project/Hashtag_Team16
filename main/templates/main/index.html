@@ -57,7 +57,14 @@
 
         <!-- partial -->
         <div class="main-panel">
+          
           <div class="content-wrapper">
+            <!-- 로딩페이지 -->>
+            <div class="col-md-12" id="noneDiv" style="display: none; width: 79%; height: 100%; background : rgb(0, 0, 0,0.6); position: absolute; z-index: 2;">
+              <div style="height: 50vw; text-align: center; margin-top: 15%;">
+                <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; width: 10vw;" alt="loading" /></a>
+              </div>
+            </div>
             <form class="save-form" enctype="multipart/form-data">
               {% csrf_token %}
             <div class="row">
@@ -78,7 +85,6 @@
                   </div>
                 </div>
               </div>
-
               <!---->
               <div class="col-md-12 col-xl-8 grid-margin stretch-card">
                 <div class="card">
@@ -111,32 +117,9 @@
                             
                           </div>
                           <ul class="pieID legend" id = "pieID">
-                            {% comment %} <li>
-                              <em>Humans</em>
-                              <span>718</span>
-                            </li>
-                            <li>
-                              <em>Dogs</em>
-                              <span>531</span>
-                            </li>
-                            <li>
-                              <em>Cats</em>
-                              <span>868</span>
-                            </li>
-                            <li>
-                              <em>Slugs</em>
-                              <span>344</span>
-                            </li>
-                            <li>
-                              <em>Aliens</em>
-                              <span>1145</span>
-                            </li> {% endcomment %}
+                            <!-- pie chart를 위한 li요소가 들어갈 자리 -->
                           </ul>
                         </section>
-
-
-
-
                     </div>
                   </div>
                 </div>
@@ -204,6 +187,7 @@
               </div>
             </div>
           </div>
+          </div>
 
 
 
@@ -255,8 +239,14 @@
 
     
   <script>
+    function onDisplay(){
+      $('#noneDiv').show();
+    }
+    //여기가 버튼이 눌렸을때
     function save() {
       
+      $('#noneDiv').show();
+
       //var form = document.getElementsByClassName('image_upload');
       var fileInput = document.querySelector("#file-id");
       const myformData = new FormData();
@@ -286,10 +276,15 @@
           contentType: false,
 
           error: function () {
+
+            $('#noneDiv').hide();
             alert("fail!");
 
           },
           success: function (result) {
+
+            $('#noneDiv').hide();
+
             console.log(result['hashtags']);
             
             for ( tag in result['hashtags']) {

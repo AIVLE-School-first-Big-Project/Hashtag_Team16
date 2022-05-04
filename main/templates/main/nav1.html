@@ -34,25 +34,25 @@
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="/mypage/changepw/" class="dropdown-item preview-item">
+            <a onclick = "javascript:showPopUp_nav('pw')" class="dropdown-item preview-item">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-dark rounded-circle">
                   <i class="mdi mdi-onepassword  text-info"></i>
                 </div>
               </div>
               <div class="preview-item-content">
-                <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+                <p class="preview-subject ellipsis mb-1 text-small">비밀번호 변경</p>
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item preview-item">
+            <a onclick = "javascript:showPopUp_nav('info')" class="dropdown-item preview-item">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-dark rounded-circle">
                   <i class="mdi mdi-calendar-today text-success"></i>
                 </div>
               </div>
               <div class="preview-item-content">
-                <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+                <p class="preview-subject ellipsis mb-1 text-small">회원정보 변경</p>
               </div>
             </a>
           </div>
@@ -105,3 +105,34 @@
       </li> {% endcomment %}
     </ul>
   </nav>
+
+  <script type="text/javascript">
+    function showPopUp_nav(x) {
+      //창 크기 지정
+      var width = 500; 
+      
+      //pc화면기준 가운데 정렬 
+      var left = (window.screen.width / 2) - (width/2);
+      
+      //윈도우 속성 지정 
+      
+      //연결하고싶은url 
+      //등록된 url 및 window 속성 기준으로 팝업창을 연다. 
+
+      window.name = "title";
+      // window name 
+      var newWindow;
+      if (x == 'pw') {
+        var height = 617; 
+        var top = (window.screen.height / 4); 
+        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+        newWindow = window.open('/member/changepw',"changepw", windowStatus);
+      } else if (x == 'info') {
+        var height = 630; 
+        var top = (window.screen.height / 4); 
+        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+        newWindow = window.open('/member/changeinfo',"changeinfo", windowStatus);
+      }
+      
+    };
+</script>

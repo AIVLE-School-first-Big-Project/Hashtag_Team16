@@ -90,8 +90,13 @@ def index(request):
                 data = {'status':'F'}
                 return JsonResponse(data)
             
+            tem=base64.b64decode(hashtags_json['img1'])
+            tem=BytesIO(tem)
+            Image.open(tem)
+
             log.save()
-            data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag'] , 'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4'] }
+            data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag'] , 
+            'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4'] }
             return JsonResponse(data)
             
         else:

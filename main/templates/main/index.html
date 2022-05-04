@@ -370,9 +370,9 @@
         var tags = document.createElement('span');
         box1.appendChild( tags );
         tags.innerHTML = result['img1'];
-        tem=base64.b64decode(result['img1'])
+        {% comment %} tem=base64.b64decode(result['img1'])
         tem=BytesIO(tem)
-        Image.open(img)
+        Image.open(tem) {% endcomment %}
       }
     });
   };

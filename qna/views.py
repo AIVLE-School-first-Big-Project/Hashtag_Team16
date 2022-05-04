@@ -22,10 +22,7 @@ def image_func(): #storage 접근
 def qna_board(request):
     try:
         user = USER.objects.get(user_id = request.session['user_id']).user_id
-        if request.POST.get('select')=='m.y_writing':
-            qna_list=ARTICLE.objects.filter(user=user)
-        else: #all일때
-            qna_list=ARTICLE.objects.all() #모든 게시글 가져오기
+        qna_list=ARTICLE.objects.all()
         now_page = request.GET.get('page', 1)
         write_date_list = qna_list.order_by('-date')
         p = Paginator(write_date_list, 10)
@@ -48,7 +45,7 @@ def qna_board(request):
         
         for i in write_date_list:
             # key = i.id
-            info
+            #info
             try:
                 cnt_comment[cnt] = data.get(article_id = i.article_id)['cnt_sum']
             except:
@@ -56,8 +53,8 @@ def qna_board(request):
             cnt += 1
         #################################
             
-        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user, 'cnt_comment':cnt_comment})
-    
+        return render(request, 'qna/qna.html',{'write_date_list':  write_date_list, 'info' : info, 'page_range' : range(start_page, end_page + 1), 'user':user, 'cnt_comment':cnt_comment, 'key' : 2})
+
     except KeyError:
         return redirect('/need_login') 
 
@@ -65,9 +62,10 @@ def qna_board(request):
 def create(request):
     
     if request.method == 'POST':
+        print('create')
         user = USER.objects.get(user_id=request.session['user_id']).user_id  
         print(ARTICLE.objects.order_by('-article_id').first().article_id)
-        
+
         article = ARTICLE(
             #article_id = ARTICLE.objects.filter(article_id = pk)[0] ,
             article_id = ARTICLE.objects.order_by('-article_id').first().article_id + 1,

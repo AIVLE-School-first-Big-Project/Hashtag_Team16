@@ -2,277 +2,313 @@
 {% load static %}
 
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>HashTaig</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{% static 'assets/css/image_upload.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/jvectormap/jquery-jvectormap.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.theme.default.min.css' %}">
 
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    {% comment %} 그래프용 css {% endcomment %}
-    <link rel="stylesheet" href="{% static 'assets/css/graph.css' %}"> 
-    <!-- End layout styles -->
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>HashTaig</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'assets/css/image_upload.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendors/jvectormap/jquery-jvectormap.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.theme.default.min.css' %}">
 
-    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script>
-      function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-          var cookies = document.cookie.split(';');
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-            }
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  {% comment %} 그래프용 css {% endcomment %}
+  <link rel="stylesheet" href="{% static 'assets/css/graph.css' %}">
+  <!-- End layout styles -->
+
+  <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script>
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
           }
         }
-        return cookieValue;
       }
-    </script>
-  </head>
-  <body>
-    
-    <div class="container-scroller">
-      <!-- partial:partials/_sidebar.html -->
-      <!--nav1 zone-->
-      {% include 'main/nav1.html' %}
+      return cookieValue;
+    }
+  </script>
+</head>
+
+<body>
+
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    <!--nav1 zone-->
+    {% include 'main/nav1.html' %}
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_navbar.html -->
+      <!--nav2 zone-->
+      {% include 'main/nav2.html' %}
 
       <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_navbar.html -->
-        <!--nav2 zone-->
-        {% include 'main/nav2.html' %}
+      <div class="main-panel">
 
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <form class="save-form" enctype="multipart/form-data">
-              {% csrf_token %}
+        <div class="content-wrapper">
+          <!-- 로딩페이지 -->
+          <div class="col-md-12" id="noneDiv"
+            style="display: none; width: 100%; height: 100%; background : rgb(0, 0, 0,0.6); position: absolute; z-index: 2;">
+            <div class="col-xl-8 col-md-8 col-sm-7 col-lg-6 col-3" style="text-align: center; margin-top: 16%;">
+              <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; width: 200px; position: fixed;"
+                alt="loading" /></a>
+            </div>
+          </div>
+          <form class="save-form" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="row">
-              <div class="col-md-12 col-xl-4 grid-margin stretch-card">
+              <div class="col-md-12 col-xl-4 grid-margin stretch-card" style="height: 630px;">
                 <div class="card">
                   <div class="card-body" style="height: 57vh;">
                     <h4 class="card-title" style="text-align: center; padding-bottom: 5%;">이미지를 첨부해 주세요</h4>
                     <form>
-                    <label class="uploader" ondragover="return false" style="height: 37vh;">
-                      <i class="fa-solid fa-upload"></i>
-                      <img src="" class="">
-                      <input type="file" accept= image/* id="file-id" name="file_name">
-                    </label>
+                      <label class="uploader" ondragover="return false" style="height: 37vh;">
+                        <i class="fa-solid fa-upload"></i>
+                        <img src="" class="">
+                        <input type="file" accept=image/* id="file-id" name="file_name">
+                      </label>
                     </form>
                     <!-- 여기 버튼을 눌렀을떄 save로 가야한다. -->
-                    <button type="button" class="add btn btn-primary todo-list-add-btn" style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
-                  </form>
-                  </div>
-                </div>
-              </div>
+                    <button type="button" class="add btn btn-primary todo-list-add-btn"
+                      style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!---->
+    <div class="col-md-12 col-xl-8 grid-margin stretch-card" style="height: 630px;">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-row justify-content-between">
+            <div class="card-title mb-1" style="width: calc(100%); display : inline-block; text-align : center; align-item : center">
+              <h4>#해시태그 생성</h4>
+              <div
+                style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2% "
+                id='tag_output'></div>
+              <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
+                onclick="copyToClipBoard();">해시태그 복사!</button>
 
-              <!---->
-              <div class="col-md-12 col-xl-8 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                      <div class="card-title mb-1" style="width: calc(100%);">
-                        <h4>#해시태그 생성</h4>
-                        <div style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='tag_output'></div>
-                        <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;" onclick="copyToClipBoard();">해시태그 복사!</button>
+              <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
+                onclick="window.open('http://www.instagram.com/accounts/login/','인스타그램','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">instagram 이동~</button>
 
-                      </div> 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!---->
+                <h4>#관련 인플루언서, 평균 좋아요 수</h4>
+              <div
+                style="float:left; width: calc(49% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                id='tag_influ'><h4>#관련 인플루언서</h4></div>
+                
+              <div
+                style="margin-left:3%; float:left; width: calc(49% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                id='tag_likes'><h4>평균 좋아요 수</h4></div>
+              
 
-            <div class="row">
-              <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                      <h4 class="card-title">사용량 분석 - Best Hashtag</h4>
-                    </div>
-                    <div class="preview-list">
-
-                        <section style='text-align: center;'>
-                          <div class="pieID pie" >
-                            
-                          </div>
-                          <ul class="pieID legend" id = "pieID">
-                            {% comment %} <li>
-                              <em>Humans</em>
-                              <span>718</span>
-                            </li>
-                            <li>
-                              <em>Dogs</em>
-                              <span>531</span>
-                            </li>
-                            <li>
-                              <em>Cats</em>
-                              <span>868</span>
-                            </li>
-                            <li>
-                              <em>Slugs</em>
-                              <span>344</span>
-                            </li>
-                            <li>
-                              <em>Aliens</em>
-                              <span>1145</span>
-                            </li> {% endcomment %}
-                          </ul>
-                        </section>
-
-
-
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">AI이미지 테마 적용</h4>
-                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">1번테마!</button>
-                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">2번테마!</button>
-                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">3번테마!!</button>
-                    <button type="button" class="add btn btn-primary" style="margin : auto; display : inline-block; margin-top:20px;">4번테마!!</button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">분석3</h4>
-                    <div class="add-items d-flex">
-                      <input type="text" class="form-control todo-list-input" placeholder="enter task..">
-                      <button class="add btn btn-primary todo-list-add-btn">Add</button>
-                    </div>
-                    <div class="list-wrapper">
-                      <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Create invoice </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Meeting with Alita </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li class="completed">
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Plan weekend outing </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Pick up kids from school </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
-
-
-
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">AI대구경북 화이팅</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made by jimi</a></span>
-            </div>
-          </footer>
-          <!-- partial -->
         </div>
-        <!-- main-panel ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js 드롭다운 가능하게 하는 js-->
-    <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    
-    <script src="{% static 'assets/vendors/progressbar.js/progressbar.min.js' %}"></script>
-    <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap.min.js' %}"></script>
-    <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
-    <script src="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.js' %}"></script>
+  </div>
+  <!---->
 
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{% static 'assets/js/off-canvas.js' %}"></script>
-    <script src="{% static 'assets/js/hoverable-collapse.js' %}"></script>
-    {% comment %} <script src="{% static 'assets/js/misc.js' %}"></script>
-    <script src="{% static 'assets/js/settings.js' %}"></script> {% endcomment %}
-    <script src="{% static 'assets/js/todolist.js' %}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="{% static 'assets/js/dashboard.js' %}"></script>
-    <script src="{% static 'assets/js/drag_drop.js' %}"></script>
-    <script src="{% static 'assets/js/chart.js' %}"></script>
+  <div class="row">
+    <div class="col-md-6 col-xl-4 grid-margin stretch-card" style="height: 800px;">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-row justify-content-between">
+            <h4 class="card-title">사용량 분석 - Best Hashtag</h4>
+          </div>
+          <div class="preview-list">
 
-    <script type="text/javascript"> 
-      function Logout() {
-        sessionStorage.clear();
-        alert("로그아웃 되었습니다.");
-        location.href = "/member/logout";
-      }
-    </script>
+            <section style='text-align: center; font-size: 20px;'>
+              <div class="pieID pie">
 
-    
+              </div>
+              <ul class="pieID legend" id="pieID">
+                <!-- pie chart를 위한 li요소가 들어갈 자리 -->
+              </ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-8 grid-margin stretch-card" style="height: 800px;">
+      <div class="card" style="height: 100%;">
+        <div class="card-body col-12" style="height: 500px; text-align: center;">
+          <h4 class="card-title">AI이미지 테마 적용</h4>
+
+          <!-- 마우스 호버 -->
+          <div id="menu" style="text-align: center; margin-bottom: 10%;">
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;" onclick="imgthema(1);" onmouseover="onHelp1();" onmouseout="offHelp1();" ontouchstart="onHelp1();" ontouchend="offHelp1();">1번테마!</button>
+
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="imgthema(2);" onmouseover="onHelp2();" onmouseout="offHelp2();" ontouchstart="onHelp2();" ontouchend="offHelp2();">2번테마!</button>
+
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="imgthema(3);" onmouseover="onHelp3();" onmouseout="offHelp3();" ontouchstart="onHelp3();" ontouchend="offHelp3();">3번테마!!</button>
+
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px;"onclick="imgthema(4);" onmouseover="onHelp4();" onmouseout="offHelp4();" ontouchstart="onHelp4();" ontouchend="offHelp4();">4번테마!!</button>
+          </div>
+
+          <div class="col-12" style="width: 80%; height: 75%; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; margin-top: 3%; margin-left: 10%; text-align: center;" id='img1_output'>
+
+            <div class="arrow_box" id="helpDiv1" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help1.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+            <div class="arrow_box" id="helpDiv2" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help2.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+            <div class="arrow_box" id="helpDiv3" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help3.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+            <div class="arrow_box" id="helpDiv4" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help4.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- content-wrapper ends -->
+  <!-- partial:partials/_footer.html -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">AI대구경북 화이팅</span>
+      <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made by jimi</a></span>
+    </div>
+  </footer>
+  <!-- partial -->
+  </div>
+  <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js 드롭다운 가능하게 하는 js-->
+  <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{% static 'assets/vendors/progressbar.js/progressbar.min.js' %}"></script>
+  <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap.min.js' %}"></script>
+  <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+  <script src="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.js' %}"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{% static 'assets/js/off-canvas.js' %}"></script>
+  <script src="{% static 'assets/js/hoverable-collapse.js' %}"></script>
+  {% comment %}
+  <script src="{% static 'assets/js/misc.js' %}"></script>
+  <script src="{% static 'assets/js/settings.js' %}"></script> {% endcomment %}
+  <script src="{% static 'assets/js/todolist.js' %}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="{% static 'assets/js/dashboard.js' %}"></script>
+  <script src="{% static 'assets/js/drag_drop.js' %}"></script>
+  <script src="{% static 'assets/js/chart.js' %}"></script>
+
+  <script type="text/javascript">
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
+  </script>
+
   <script>
+    function copyToClipBoard() {
+      var tempElem = document.createElement('textarea');
+      tempElem.value = document.querySelector("#tag_output").textContent;
+      document.body.appendChild(tempElem);
+      tempElem.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempElem);
+      alert("Copied!");
+    }
+  </script>
+
+  <script>
+    function onDisplay() {
+      $('#noneDiv').show();
+    }
+    
+    function onHelp1()
+    {
+        $('#helpDiv1').show();
+    }
+    function onHelp2()
+    {
+        $('#helpDiv2').show();
+    }
+    function onHelp3()
+    {
+        $('#helpDiv3').show();
+    }
+    function onHelp4()
+    {
+        $('#helpDiv4').show();
+    }
+
+    function offHelp1()
+    {
+      $('#helpDiv1').hide();
+    }
+    function offHelp2()
+    {
+      $('#helpDiv2').hide();
+    }
+    function offHelp3()
+    {
+      $('#helpDiv3').hide();
+    }
+    function offHelp4()
+    {
+      $('#helpDiv4').hide();
+    }
+    //여기가 버튼이 눌렸을때
     function save() {
-      
-      //var form = document.getElementsByClassName('image_upload');
+      $('#noneDiv').show();
+
       var fileInput = document.querySelector("#file-id");
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
 
-      myformData.append("attachedImage",fileInput.files[0]);
+      myformData.append("attachedImage", fileInput.files[0]);
       var box = document.getElementById('tag_output');
       var legend = document.getElementById('pieID');
-      
+      var box1 = document.getElementById('tag_likes');
+      var box2 = document.getElementById('tag_influ');
+
       try {
         for (var i = 0; i < 20; i++) {
           document.querySelectorAll("#tag_output > span")[0].remove();
         }
         for (var i = 0; i < 5; i++) {
-          document.querySelector("#pieID > li")[0].remove();
+          document.querySelector("#pieID > li").remove();
         }
+        document.querySelector("#tag_likes > span").remove();
+        document.querySelector("#tag_influ > span").remove();
+
       } catch (error) {
       } finally {
         $.ajax({
@@ -286,50 +322,101 @@
           contentType: false,
 
           error: function () {
+
+            $('#noneDiv').hide();
             alert("fail!");
 
           },
           success: function (result) {
+
+            $('#noneDiv').hide();
+
             console.log(result['hashtags']);
-            
-            for ( tag in result['hashtags']) {
+            console.log(result['likes_hashtag']);
+
+            for (tag in result['hashtags']) {
               var tags = document.createElement('span');
-              box.appendChild( tags );
-              tags.innerHTML = result['hashtags'][tag] + '     ';
+              box.appendChild(tags);
+              tags.innerHTML = result['hashtags'][tag];
             }
-            for ( tag in result['best_hashtag']){
-            
+            for (tag in result['best_hashtag']) {
+
               var li = document.createElement('li');
               var tag_name = document.createElement('em');
               var tag_cnt = document.createElement('span');
-              legend.appendChild( li );
-              li.appendChild( tag_name );
-              li.appendChild( tag_cnt );
+              legend.appendChild(li);
+              li.appendChild(tag_name);
+              li.appendChild(tag_cnt);
               console.log(tag);
               tag_name.innerHTML = tag;
               console.log(result['best_hashtag'][tag]);
               tag_cnt.innerHTML = result['best_hashtag'][tag];
               createPie(".pieID.legend", ".pieID.pie");
-  
             }
+            var tags_likes = document.createElement('span');
+            box1.appendChild( tags_likes );
+            tags_likes.innerHTML = result['likes_hashtag'];
+
+            var tags_influ = document.createElement('span');
+            box2.appendChild( tags_influ );
+            tags_influ.innerHTML = result['influ_hashtag'];  
           }
         });
       };
     };
 
 
-    
-    function copyToClipBoard() {
-
-      var content = document.getElementById('tag_output');
+    function imgthema(path) {
+      var imgpath='img'+path
+      var fileInput1 = document.querySelector("#file-id");
+      const myformData1 = new FormData();
+      const csrftoken = getCookie('csrftoken');
+      const img = new Image();
+  
+      myformData1.append("attachedImage",fileInput1.files[0]);
       
-      content.select();
-      document.execCommand('copy');
+      try {
+        document.querySelector("#img1_output > img").remove();
+      } catch (error) {
+      } finally {
+        $('#noneDiv').show();
+        $.ajax({
+          type: "POST",
+          url: "",
+          async: true,
+          headers: { 'X-CSRFToken': csrftoken },
+          enctype: "multipart/form-data",
+          data: myformData1,
+          processData: false,
+          contentType: false,
   
-      alert("Copied!");
-  }
+          error: function () {
+            $('#noneDiv').hide();
+            alert("fail!");
+  
+          },
+          success: function (result) {
+            $('#noneDiv').hide();
+            console.log(result);
+            
+            
+  
+            img.src = "data:image/;base64,"+result[imgpath];
+            img.style = "width:100%; height: 100%; position:relative;"
+            img.decode().then(() => {
+              document.getElementById('img1_output').appendChild(img);
+            })
+            .catch((encodingError) => {
+              // Do something with the error.
+            })
+            
+          }
+        });
+      }
+    };
 
-  
+
   </script>
-  </body>
+</body>
+
 </html>

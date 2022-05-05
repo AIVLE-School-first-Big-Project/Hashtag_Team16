@@ -20,6 +20,7 @@ class USER(models.Model):
     email = models.CharField(max_length=50, null=True)
     phone_num = models.CharField(max_length=20, null=True)
     usage_count = models.IntegerField(null=True)
+    join_date = models.DateTimeField(null=True, auto_now=True)
 
     class Meta:
         db_table = 'user'

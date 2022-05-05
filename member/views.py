@@ -5,6 +5,7 @@ from sympy import re
 from .models import *
 from django.utils import timezone
 from django.core.paginator import Paginator
+import hashlib
 
 # Create your views here.
 # mypage
@@ -12,6 +13,22 @@ def mypage(request):
     user = USER.objects.get(user_id=request.session['user_id']).user_id
     print(user)
     log_list = LOG.objects.filter(user=user)
+    # 평점 스코어, 피드백 내용 기능 구현
+    if 'score' in request.POST:
+        print('post')
+        real_log = log_list.get(log_id=request.POST.get('key'))
+        real_log.service_score = request.POST.get('score')
+        real_log.feedback = request.POST.get('feedback')
+        print(real_log.service_score)
+        print(real_log.feedback)
+
+        if (real_log.service_score == '') or (real_log.feedback == ''):
+            data = {'status':'F'}
+            return JsonResponse(data)
+        else:
+            real_log.save()
+            data = {'status':'T'}
+            return JsonResponse(data)
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
     now_page = int(now_page)
@@ -42,12 +59,22 @@ def user(request):
         {'user_list': user_list }
    )
 
+<<<<<<< HEAD
+=======
+salt='gdu'
+#로그인
+>>>>>>> 519871809fe7d5e0b722fb4a254083554f696d4b
 def login_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
+
+        u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
+
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
+            user.join_date = timezone.now()
+            user.save()
         except USER.DoesNotExist as e:
             status = {'status' : 'F'}
             return JsonResponse(status)
@@ -91,10 +118,12 @@ def signup_custom(request):
         if ('@' not in email):
             data = {'status':'email_error'}
             return JsonResponse(data)
-        
+            
+        u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
+
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
-            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0)
+            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0, join_date=timezone.now())
         u.date_joined = timezone.now()
         u.save()
 
@@ -126,6 +155,8 @@ def change_password(request):
         
         print(request.session['user_id'])
         
+        o_pw=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
+
         user_inst =  USER.objects.get(user_id=request.session['user_id'])
         if (o_pw == '') or (n_pw == '') or (n_pw2 == ''):
             data = {'status':'empty_error'}
@@ -138,7 +169,9 @@ def change_password(request):
         if (user_inst.pw != o_pw):
             data = {'status':'pw_error'}
             return JsonResponse(data)
-        
+
+        n_pw=hashlib.sha256(str(n_pw+salt).encode()).hexdigest()
+
         if o_pw==user_inst.pw:
             user_inst.pw = n_pw
             user_inst.save()
@@ -193,8 +226,6 @@ def change_info(request):
             return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
         except KeyError:
             return redirect('/need_login')     
-
-
 
 def information(request):
    #user_list = USER.objects.all()

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-
+{% include 'member/star.html' %}
 
 <style>
   .max-small {
@@ -101,8 +101,14 @@
                                     <u><img class='max-small' style= 'width : 150px; height :100px' src="{{w.image}}"> </u></th>
 
                                 <th style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.prior_tag}} </th>
-                                
+                                <th>
+                                  <a href="#ex1" rel="modal:open" id="logId" value="{{w.log_id}}">
+                                  <button type="button" class="review" id = {{w.log_id}} value = "{{w.log_id}}" onclick="test1({{w.log_id}})">리뷰 작성하기</button>
+                                  {% comment %} <span class="menu-title" onclick="test()">리뷰 작성하기</span> {% endcomment %}
+                                </a>
+                              </th>
                               </tr>
+
                               {% endfor%}
                             </tbody>
                           </table>
@@ -180,8 +186,9 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
-    <script type="text/javascript">
-       function showPopUp(x) {
+  <script type="text/javascript">
+
+      function showPopUp(x) {
         //창 크기 지정
         var width = 500; 
         
@@ -210,9 +217,6 @@
         
        };
    </script>
-
-   <
-
 
    <script>
     $(document).ready(function()
@@ -259,5 +263,6 @@
      location.href = "member/logout"
    }
    </script>
+
   </body>
 </html>

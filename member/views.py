@@ -59,11 +59,8 @@ def user(request):
         {'user_list': user_list }
    )
 
-<<<<<<< HEAD
-=======
 salt='gdu'
 #로그인
->>>>>>> 519871809fe7d5e0b722fb4a254083554f696d4b
 def login_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
@@ -226,6 +223,8 @@ def change_info(request):
             return render(request, 'member/change_info.html',  {'name':name, 'email':email, 'phone_num':phone_num})
         except KeyError:
             return redirect('/need_login')     
+
+
 
 def information(request):
    #user_list = USER.objects.all()

@@ -5,6 +5,7 @@ from .models import *
 from django.utils import timezone
 from django.core.paginator import Paginator
 import hashlib
+from django.contrib.auth import logout as auth_logout
 
 # Create your views here.
 # mypage
@@ -28,6 +29,17 @@ def mypage(request):
             real_log.save()
             data = {'status':'T'}
             return JsonResponse(data)
+    elif 'method' in request.POST:
+        if request.POST.get('method') == 'Delete':
+            user = USER.objects.get(user_id = request.POST.get('id'))
+            user.delete()
+            auth_logout(request)
+            data = {'status':'delete_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'delete_F'}
+            return JsonResponse(data)
+    
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
     now_page = int(now_page)

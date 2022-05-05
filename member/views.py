@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
+from sympy import re
 from .models import *
 from django.utils import timezone
 from django.core.paginator import Paginator
@@ -44,11 +45,22 @@ def mypage(request):
     now_page = request.GET.get('page', 1)
     now_page = int(now_page)
     info = p.get_page(now_page)
-    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info})
+    start_page = (now_page - 1) // 10 * 10 + 1
+    end_page = start_page + 9
+    if end_page > p.num_pages:
+        end_page = p.num_pages
+    # check box 선택 후 삭제
+    if request.method == 'POST':
+        print("delete check")
+        delete_log = request.POST.getlist('id[]')   
+        print(delete_log) 
+        for id in delete_log:
+            delete = LOG.objects.get(log_id=id)
+            delete.delete()
+    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info, 'page_range' : range(start_page, end_page + 1)})
 
 def modify(request):
     return render(request, 'member/modify.html')
-
 
 # user 출력
 def user(request):
@@ -224,3 +236,11 @@ def change_info(request):
         except KeyError:
             return redirect('/need_login')     
 
+
+
+def information(request):
+   #user_list = USER.objects.all()
+   print("개인정보 수정 page")
+   return render(
+        request,
+        'member/information.html')

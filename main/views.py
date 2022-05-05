@@ -16,62 +16,36 @@ import mp_module
 
 ###############################################################
 
-def index(request):
-    # Login이 안된 상태에서는 연결하지 못하도록
-    try:
-        # 현재 로그인이 되어있는건지 test
-        request.session['user_id']
-        if request.method == 'POST':
-            # 해쉬태그 생성 API
-            files = open(tmp_file, 'rb')
-            upload = {'file': files}
-            res = requests.post('http://118.91.69.43:5002/', files = upload)
-            hashtags_json = json.loads(res.content)
-
-
-            files.close()
-            
-            # best 해시태그 만들기
-            
-            
-            # 평균 좋아요
-            likes_json = hashtag_likes_crawling(hashtags_json['hashtags'][0][1:])
-            hashtags_json['likes_hashtag'] = likes_json
-
-            # 연관 인플루언서
-            influ_json = hashtag_influ_crawling(hashtags_json['hashtags'][0][1:])
-            hashtags_json['influ_hashtag'] = influ_json
-
-            # list 문자열로 변환
-            result = ' '.join(s for s in hashtags_json['hashtags'])
-
-            ## LOG 데이터 저장하기
-            log = LOG.objects.create(
-                
-                log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
-                user = USER.objects.get(user_id=request.session['user_id']),
-                service_score = None,
-                feedback = None,
-                image = image_func(tmp_file, secret_name),  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
-                prior_tag = result
-            )
-            os.remove(tmp_file) # 이미지 삭제
-
-            if (tmp_file == ''):
-                data = {'status':'F'}
-                return JsonResponse(data)
-            
-
-            log.save()
-            data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag'] ,  'likes_hashtag':hashtags_json['likes_hashtag'], 
-            'influ_hashtag':hashtags_json['influ_hashtag'],'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4'] }
-            return JsonResponse(data)
-            
-        else:
+class index(View):
+    def get(self, request):
+        # Login이 안된 상태에서는 연결하지 못하도록
+        try:
+            # 현재 로그인이 되어있는건지 test
+            request.session['user_id']
             user = USER.objects.get(user_id=request.session['user_id']).user_id
             return render(request, 'main/index.html', {'user' : user})
-    except KeyError:
-        return redirect('/need_login')
+        except KeyError:
+            return redirect('/need_login')
+    
+    def post(self, request):
+        url = request.POST['url']
+        os.remove(url)
+        data = {'status': 'success'}
+        return JsonResponse(data)
+
+class likes(View):
+    def post(self, request):
+        tags = request.POST['tags']
+        tags = tags.split(',')
+        data = {'like' : mp_module.hashtag_likes_crawling(tags[0][1:])}
+        return JsonResponse(data)
+
+class influence(View):
+    def post(self, request):
+        tags = request.POST['tags']
+        tags = tags.split(',')
+        data = {'influence' : mp_module.hashtag_influ_crawling(tags[0][1:])}
+        return JsonResponse(data)
 
 class GAN_image(View):
     def post(self, request):
@@ -93,9 +67,20 @@ class hashtag(View):
         res = requests.post('http://118.91.69.43:5001/hashtags20/', files = upload)
         hashtags_json = json.loads(res.content)
         files.close()
+        # list 문자열로 변환
+        tag_string = ' '.join(s for s in hashtags_json['hashtags'])
+        log = LOG.objects.create(
+                log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
+                user = USER.objects.get(user_id=request.session['user_id']),
+                service_score = None,
+                feedback = None,
+                image = request.POST['url2'],  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
+                prior_tag = tag_string
+            )
+        
+        
         data = {'hashtag' : hashtags_json['hashtags']};
-        data['best_hash'] = mp_module.mult_process(hashtags_json['hashtags'][:8])
-
+        data['best_hash'] = mp_module.mult_process_tag(hashtags_json['hashtags'][:8])
         return JsonResponse(data);
 
 class image_upload_save(View):
@@ -112,7 +97,6 @@ class image_upload_save(View):
         data = {'url' : image_func(tmp_file, secret_name), 'l_url' : tmp_file};
         return JsonResponse(data);
 
-    
 class function(View):
     def get(self, request):
         try:

@@ -1,3 +1,27 @@
+var cnt = 0
+
+function last_func(url) {
+    const myformData = new FormData();
+    const csrftoken = getCookie('csrftoken');
+    myformData.append("url", url);
+    $.ajax({
+        type: "POST",
+        url: "",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+        enctype: "multipart/form-data",
+        data: myformData,
+        processData: false,
+        contentType: false,
+
+        error: function () {
+            alert("fail!");
+            },
+        success: function (result) {
+            }
+        });
+}
+
 function img_btn(id) {
     let img_list = ['img1', 'img2', 'img3', 'img4'];
     let index = img_list.indexOf(id);
@@ -32,6 +56,7 @@ function GAN_image(url) {
 
         error: function () {
             alert("fail!");
+            $('#noneDiv').hide();
             },
         success: function (result) {
             for (tag in result) {
@@ -40,16 +65,96 @@ function GAN_image(url) {
                 img.id = tag
                 img.src = "data:image/;base64,"+result[tag]
                 imgbox.appendChild(img);
+                };
+                cnt++;
+                if (cnt == 3) {
+                    $('#noneDiv').hide();
+                    last_func(url);
                 }
             }
         });
         
 }
 
-function hashtag(url) {
+function likes(tags, url) {
+    const myformData = new FormData();
+    const csrftoken = getCookie('csrftoken');
+    myformData.append("tags", tags);
+    const box = document.getElementById('tag_likes');
+
+    if (document.querySelector("#tag_likes > span")) {
+        document.querySelector("#tag_likes > span").remove();
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "likes/",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+        enctype: "multipart/form-data",
+        data: myformData,
+        processData: false,
+        contentType: false,
+
+        error: function () {
+            alert("fail!");
+            $('#noneDiv').hide();
+        },
+        success: function (result) {
+            var tags_likes = document.createElement('span');
+            box.appendChild( tags_likes );
+            tags_likes.innerHTML = result['like'];
+            cnt++;
+            if (cnt == 3) {
+                $('#noneDiv').hide();
+                last_func(url);
+            }
+        }
+    });
+}
+
+function influence(tags, url) {
+    const myformData = new FormData();
+    const csrftoken = getCookie('csrftoken');
+    myformData.append("tags", tags);
+    const box = document.getElementById('tag_influ');
+
+    if (document.querySelector("#tag_influ > span")) {
+        document.querySelector("#tag_influ > span").remove();
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "influence/",
+        async: true,
+        headers: { 'X-CSRFToken': csrftoken },
+        enctype: "multipart/form-data",
+        data: myformData,
+        processData: false,
+        contentType: false,
+
+        error: function () {
+            alert("fail!");
+            $('#noneDiv').hide();
+        },
+        success: function (result) {
+            var tag_influ = document.createElement('span');
+            box.appendChild( tag_influ );
+            tag_influ.innerHTML = result['influence'];
+            cnt++;
+            if (cnt == 3) {
+                $('#noneDiv').hide();
+                last_func(url);
+            }
+        }
+    });
+}
+
+function hashtag(url, url2) {
     const myformData = new FormData();
     const csrftoken = getCookie('csrftoken');
     myformData.append("url", url);
+    myformData.append("url2", url2);
 
     // 태그 출력 부모요소
     const box = document.getElementById('tag_output');
@@ -64,7 +169,6 @@ function hashtag(url) {
         legend.removeChild(legend.firstChild);
     };
 
-
     $.ajax({
         type: "POST",
         url: "hashtag/",
@@ -77,6 +181,7 @@ function hashtag(url) {
 
         error: function () {
             alert("fail!");
+            $('#noneDiv').hide();
         },
         success: function (result) {
             for (tag in result['hashtag']) {
@@ -95,17 +200,21 @@ function hashtag(url) {
                 tag_cnt.innerHTML = result['best_hash'][tag];
                 createPie(".pieID.legend", ".pieID.pie");
             };
+
+            likes(result['hashtag'], url)
+            influence(result['hashtag'], url)
         }
     });
     
 };
 
 function image_upload() {
+    cnt = 0
     var fileInput = document.querySelector("#file-id");
     const myformData = new FormData();
     const csrftoken = getCookie('csrftoken');
     myformData.append("attachedImage", fileInput.files[0]);
-
+    $('#noneDiv').show();
     $.ajax({
         type: "POST",
         url: "image/",
@@ -118,10 +227,12 @@ function image_upload() {
 
         error: function () {
             alert("fail!");
+            $('#noneDiv').hide();
         },
         success: function (result) {
-            hashtag(result['l_url']);
-            GAN_image(result['l_url']);
+            hashtag(result['l_url'], result['url']);
+            GAN_image(result['l_url'], result['url']);
+
         }
     });
 };

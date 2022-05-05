@@ -63,9 +63,9 @@
         <div class="content-wrapper">
           <!-- 로딩페이지 -->
           <div class="col-md-12" id="noneDiv"
-            style="display: none; width: 79%; height: 100%; background : rgb(0, 0, 0,0.6); position: absolute; z-index: 2;">
-            <div style="height: 50vw; text-align: center; margin-top: 15%;">
-              <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; width: 10vw;"
+            style="display: none; width: 100%; height: 100%; background : rgb(0, 0, 0,0.6); position: absolute; z-index: 2;">
+            <div class="col-xl-8 col-md-8 col-sm-7 col-lg-6 col-3" style="text-align: center; margin-top: 16%;">
+              <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; width: 200px; position: fixed;"
                 alt="loading" /></a>
             </div>
           </div>
@@ -150,8 +150,9 @@
           <button type="button" class="add btn btn-primary"
             style="margin : auto; display : inline-block; margin-top:20px;"onclick="imgthema(4);">4번테마!!</button>
           </h4>
-          <div style="width: 100%; height: 80%; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='img1_output'></div>
-            
+          <div style="width: 100%; height: 80%; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='img1_output'>
+          <img style= "width:100%; height: 100%;">
+          </div>
         </div>
       </div>
     </div>
@@ -178,7 +179,6 @@
   <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
-
   <script src="{% static 'assets/vendors/progressbar.js/progressbar.min.js' %}"></script>
   <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap.min.js' %}"></script>
   <script src="{% static 'assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
@@ -206,17 +206,23 @@
     }
   </script>
 
+  <script>
+    function copyToClipBoard() {
+      var tempElem = document.createElement('textarea');
+      tempElem.value = document.querySelector("#tag_output").textContent;
+      document.body.appendChild(tempElem);
+      tempElem.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempElem);
+      alert("Copied!");
+    }
+  </script>
 
   <script>
-    function onDisplay() {
-      $('#noneDiv').show();
-    }
     //여기가 버튼이 눌렸을때
     function save() {
-
       $('#noneDiv').show();
 
-      //var form = document.getElementsByClassName('image_upload');
       var fileInput = document.querySelector("#file-id");
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
@@ -274,7 +280,6 @@
               console.log(result['best_hashtag'][tag]);
               tag_cnt.innerHTML = result['best_hashtag'][tag];
               createPie(".pieID.legend", ".pieID.pie");
-
             }
           }
         });
@@ -283,30 +288,9 @@
 
 
 
-    function copyToClipBoard() {
-
-      var tempElem = document.createElement('textarea');
-
-      tempElem.value = document.querySelector("#tag_output").textContent;
-      document.body.appendChild(tempElem);
-      tempElem.select();
-      console.log(tempElem.value);
-
-      document.execCommand('copy');
-      document.body.removeChild(tempElem);
-
-      alert("Copied!");
-    }
-
-
-
-
-
-  function imgthema(path) {
+  {% comment %} function imgthema(path) {
     var imgpath='img'+path
     var fileInput1 = document.querySelector("#file-id");
-    const myformData1 = new FormData();
-    const csrftoken = getCookie('csrftoken');
     const img = new Image();
 
     myformData1.append("attachedImage",fileInput1.files[0]);
@@ -315,38 +299,17 @@
       document.querySelector("#img1_output > img").remove();
     } catch (error) {
     } finally {
-      $.ajax({
-        type: "POST",
-        url: "",
-        async: true,
-        headers: { 'X-CSRFToken': csrftoken },
-        enctype: "multipart/form-data",
-        data: myformData1,
-        processData: false,
-        contentType: false,
-
-        error: function () {
-          alert("fail!");
-
-        },
-        success: function (result) {
-          console.log(result);
-          
-          
-
-          img.src = "data:image/;base64,"+result[imgpath];
+        function () {
+          img.src = "data:image/;base64,"+[imgpath];
           img.style = "width:100%; height: 100%;"
           img.decode().then(() => {
             document.getElementById('img1_output').appendChild(img);
           })
           .catch((encodingError) => {
-            // Do something with the error.
           })
-          
-        }
-      });
+      }
     }
-  };
+  } {% endcomment %}
 
 
 

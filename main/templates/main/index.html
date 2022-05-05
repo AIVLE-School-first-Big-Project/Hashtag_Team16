@@ -85,7 +85,7 @@
                     </form>
                     <!-- 여기 버튼을 눌렀을떄 save로 가야한다. -->
                     <button type="button" class="add btn btn-primary todo-list-add-btn"
-                      style="margin : auto; display : block; margin-top:20px;" onclick="save();">Submit!</button>
+                      style="margin : auto; display : block; margin-top:20px;" onclick="image_upload();">Submit!</button>
           </form>
         </div>
       </div>
@@ -197,6 +197,7 @@
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <script src="{% static 'assets/js/drag_drop.js' %}"></script>
   <script src="{% static 'assets/js/chart.js' %}"></script>
+  <script src="{% static 'assets/js/main_page.js' %}"></script>
 
   <script type="text/javascript">
     function Logout() {
@@ -220,7 +221,7 @@
 
   <script>
     //여기가 버튼이 눌렸을때
-    function save() {
+    {% comment %} function save() {
       $('#noneDiv').show();
 
       var fileInput = document.querySelector("#file-id");
@@ -284,7 +285,7 @@
           }
         });
       };
-    };
+    }; {% endcomment %}
 
 
 

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
+from sympy import re
 from .models import *
 from django.utils import timezone
 from django.core.paginator import Paginator
 import hashlib
+from django.contrib.auth import logout as auth_logout
 
 from .forms import RecoveryPwForm
 from .helper import email_auth_num
@@ -41,15 +43,37 @@ def mypage(request):
             real_log.save()
             data = {'status':'T'}
             return JsonResponse(data)
+    elif 'method' in request.POST:
+        if request.POST.get('method') == 'Delete':
+            user = USER.objects.get(user_id = request.POST.get('id'))
+            user.delete()
+            auth_logout(request)
+            data = {'status':'delete_T'}
+            return JsonResponse(data)
+        else:
+            data = {'status':'delete_F'}
+            return JsonResponse(data)
+    
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
     now_page = int(now_page)
     info = p.get_page(now_page)
-    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info})
+    start_page = (now_page - 1) // 10 * 10 + 1
+    end_page = start_page + 9
+    if end_page > p.num_pages:
+        end_page = p.num_pages
+    # check box 선택 후 삭제
+    if request.method == 'POST':
+        print("delete check")
+        delete_log = request.POST.getlist('id[]')   
+        print(delete_log) 
+        for id in delete_log:
+            delete = LOG.objects.get(log_id=id)
+            delete.delete()
+    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info, 'page_range' : range(start_page, end_page + 1)})
 
 def modify(request):
     return render(request, 'member/modify.html')
-
 
 # user 출력
 def user(request):
@@ -313,3 +337,9 @@ def ajax_find_id_view(request):
     result_id = USER.objects.get(name=name, email=email)
        
     return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
+def information(request):
+   #user_list = USER.objects.all()
+   print("개인정보 수정 page")
+   return render(
+        request,
+        'member/information.html')

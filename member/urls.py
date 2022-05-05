@@ -21,4 +21,5 @@ urlpatterns = [
     path('recovery/pw/auth/', auth_confirm_view, name='recovery_auth'),
     path('recovery/pw/reset/', auth_pw_reset_view, name='recovery_pw_reset'),
 
+    path('information/', information, name='information'),
 ]

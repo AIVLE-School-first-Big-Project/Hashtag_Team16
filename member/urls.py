@@ -14,4 +14,5 @@ urlpatterns = [
     path('logout/', logout_custom, name='logout_custom'),
     path('changepw/', change_password, name='change_password'),
     path('changeinfo/', change_info, name='change_info'),
+    path('information/', information, name='information'),
 ]

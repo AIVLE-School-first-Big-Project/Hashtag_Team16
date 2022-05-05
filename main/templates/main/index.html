@@ -108,11 +108,11 @@
 
                 <h4>#관련 인플루언서, 평균 좋아요 수</h4>
               <div
-                style="float:left; width: calc(50% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                style="float:left; width: calc(49% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
                 id='tag_influ'><h4>#관련 인플루언서</h4></div>
                 
               <div
-                style="margin-left:3%; float:left; width: calc(50% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                style="margin-left:3%; float:left; width: calc(49% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
                 id='tag_likes'><h4>평균 좋아요 수</h4></div>
               
 
@@ -305,10 +305,10 @@
           document.querySelectorAll("#tag_output > span")[0].remove();
         }
         for (var i = 0; i < 5; i++) {
-          document.querySelector("#pieID > li")[0].remove();
+          document.querySelector("#pieID > li").remove();
         }
-        document.querySelector("#tag_likes > span")[0].remove();
-        document.querySelector("#tag_influ > span")[0].remove();
+        document.querySelector("#tag_likes > span").remove();
+        document.querySelector("#tag_influ > span").remove();
 
       } catch (error) {
       } finally {

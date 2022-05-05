@@ -104,7 +104,7 @@ def hashtag_cnt_crawling(target):
             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
             'accept-encoding': 'gzip, deflate, br',
             'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-            'cookie': 'mid=YkaYNAALAAHBury3c1M-V7wLWkHN; ig_did=C7EE23C0-7E7D-4E10-BB91-304CB2A48530; ig_nrcb=1; csrftoken=Z0TMAFb0tymhfGqnrhNQHryvj0oxCgJj; ds_user_id=52900354322; sessionid=52900354322%3AgztAGF69WSRw6N%3A13; rur="NAO\05452900354322\0541683092745:01f764a3598f960cdbc2ca5f7515c946dc2025dce1718f2ad313f59cf8f493bcbbdf8987"',
+            'cookie': 'mid=YlYfjwALAAEvqHbHUXULJQJq7qQn; ig_did=343A39EB-4F06-4541-BCC2-DC048E972F3E; ig_nrcb=1; datr=nx9WYpcVM-Icm4CjPMZgINXd; shbid="9028\0545810238458\0541683176261:01f7a2af08c8917ecd8f0b842c0ffe9d1b9892b38ebe9657ce0cdb5ba3510d791a781fb0"; shbts="1651640261\0545810238458\0541683176261:01f7ea888175c8e87d1381ae8e2d84b0d91062ffba393d2a5c4127896f46aacc73baaa87"; csrftoken=IGJ6YetFdUrZQESMiueiWCoJMd5gNV3e; ds_user_id=53290782834; sessionid=53290782834%3A3n8XlfwshDz9bA%3A15; rur="VLL\05453290782834\0541683275516:01f7c7997ceaa181318792a62d682729ae9b66000135e25190ecdb4be1e67452bac0b5e2"'
             } 
         response = requests.get(url,headers = request_headers)
         cnt = response.json()['data']['media_count']

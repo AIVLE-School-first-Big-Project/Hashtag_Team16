@@ -95,20 +95,27 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row justify-content-between">
-            <div class="card-title mb-1" style="width: calc(100%); margin-top: 2%;">
+            <div class="card-title mb-1" style="width: calc(100%); display : inline-block; text-align : center; align-item : center">
               <h4>#해시태그 생성</h4>
               <div
-                style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2% "
                 id='tag_output'></div>
-              <button type="button" class="add btn btn-primary" style="margin : auto; display : block; margin-top:20px;"
+              <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
                 onclick="copyToClipBoard();">해시태그 복사!</button>
-              <div style="margin-top: 4%;">
+
+              <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
+                onclick="window.open('http://www.instagram.com/accounts/login/','인스타그램','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">instagram 이동~</button>
+
                 <h4>#관련 인플루언서, 평균 좋아요 수</h4>
-                <div
-                  style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
-                  id='tag_output'>
-                </div>
-              </div>
+              <div
+                style="float:left; width: calc(50% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                id='tag_influ'><h4>#관련 인플루언서</h4></div>
+                
+              <div
+                style="margin-left:3%; float:left; width: calc(50% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                id='tag_likes'><h4>평균 좋아요 수</h4></div>
+              
+
             </div>
           </div>
         </div>
@@ -289,6 +296,8 @@
       myformData.append("attachedImage", fileInput.files[0]);
       var box = document.getElementById('tag_output');
       var legend = document.getElementById('pieID');
+      var box1 = document.getElementById('tag_likes');
+      var box2 = document.getElementById('tag_influ');
 
       try {
         for (var i = 0; i < 20; i++) {
@@ -297,6 +306,9 @@
         for (var i = 0; i < 5; i++) {
           document.querySelector("#pieID > li")[0].remove();
         }
+        document.querySelector("#tag_likes > span")[0].remove();
+        document.querySelector("#tag_influ > span")[0].remove();
+
       } catch (error) {
       } finally {
         $.ajax({
@@ -320,6 +332,7 @@
             $('#noneDiv').hide();
 
             console.log(result['hashtags']);
+            console.log(result['likes_hashtag']);
 
             for (tag in result['hashtags']) {
               var tags = document.createElement('span');
@@ -340,6 +353,13 @@
               tag_cnt.innerHTML = result['best_hashtag'][tag];
               createPie(".pieID.legend", ".pieID.pie");
             }
+            var tags_likes = document.createElement('span');
+            box1.appendChild( tags_likes );
+            tags_likes.innerHTML = result['likes_hashtag'];
+
+            var tags_influ = document.createElement('span');
+            box2.appendChild( tags_influ );
+            tags_influ.innerHTML = result['influ_hashtag'];  
           }
         });
       };

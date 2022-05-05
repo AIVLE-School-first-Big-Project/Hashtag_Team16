@@ -12,6 +12,22 @@ def mypage(request):
     user = USER.objects.get(user_id=request.session['user_id']).user_id
     print(user)
     log_list = LOG.objects.filter(user=user)
+    # 평점 스코어, 피드백 내용 기능 구현
+    if 'score' in request.POST:
+        print('post')
+        real_log = log_list.get(log_id=request.POST.get('key'))
+        real_log.service_score = request.POST.get('score')
+        real_log.feedback = request.POST.get('feedback')
+        print(real_log.service_score)
+        print(real_log.feedback)
+
+        if (real_log.service_score == '') or (real_log.feedback == ''):
+            data = {'status':'F'}
+            return JsonResponse(data)
+        else:
+            real_log.save()
+            data = {'status':'T'}
+            return JsonResponse(data)
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
     now_page = int(now_page)
@@ -42,6 +58,8 @@ def login_custom(request):
 
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
+            user.join_date = timezone.now()
+            user.save()
         except USER.DoesNotExist as e:
             status = {'status' : 'F'}
             return JsonResponse(status)
@@ -90,7 +108,7 @@ def signup_custom(request):
 
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
-            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0)
+            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0, join_date=timezone.now())
         u.date_joined = timezone.now()
         u.save()
 
@@ -194,27 +212,3 @@ def change_info(request):
         except KeyError:
             return redirect('/need_login')     
 
-def star(request):
-    # 평점 스코어, 피드백 내용 기능 구현
-    if 'score' in request.POST:
-        print('post')
-        #log = LOG.objects.get(l_user_id = request.session['user_id'])
-        log1 = LOG.objects.create(
-            log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
-            user = USER.objects.get(user_id=request.session['user_id']),
-            service_score = request.POST.get('score'),
-            feedback = request.POST.get('feedback'),
-            image = None,
-            prior_tag = LOG.objects.get()
-            # after_tag = '#pig'
-        )
-        print(log1.service_score)
-        print(log1.feedback)
-
-        if (log1.service_score == '') or (log1.feedback == ''):
-            data = {'status':'F'}
-            return JsonResponse(data)
-        else:
-            log1.save()
-            data = {'status':'T'}
-            return JsonResponse(data)

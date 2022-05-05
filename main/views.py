@@ -34,14 +34,24 @@ def index(request):
             # 해쉬태그 생성 API
             files = open(tmp_file, 'rb')
             upload = {'file': files}
-            res = requests.post(' http://192.168.137.1:5002/', files = upload)
+            res = requests.post('http://118.91.69.43:5002/', files = upload)
             hashtags_json = json.loads(res.content)
+
+
             files.close()
             
             # best 해시태그 만들기
             output_json = {i: hashtag_cnt_crawling(i[1:]) for i in hashtags_json['hashtags'][:5]}
             hashtags_json['best_hashtag'] = output_json
             
+            # 평균 좋아요
+            likes_json = hashtag_likes_crawling(hashtags_json['hashtags'][0][1:])
+            hashtags_json['likes_hashtag'] = likes_json
+
+            # 연관 인플루언서
+            influ_json = hashtag_influ_crawling(hashtags_json['hashtags'][0][1:])
+            hashtags_json['influ_hashtag'] = influ_json
+
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
 
@@ -63,8 +73,8 @@ def index(request):
             
 
             log.save()
-            data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag'] , 
-            'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4'] }
+            data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag'] ,  'likes_hashtag':hashtags_json['likes_hashtag'], 
+            'influ_hashtag':hashtags_json['influ_hashtag'],'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4'] }
             return JsonResponse(data)
             
         else:
@@ -113,3 +123,39 @@ def hashtag_cnt_crawling(target):
         cnt = response.json()['graphql']['hashtag']['edge_hashtag_to_media']['count']
         
     return cnt
+
+def hashtag_influ_crawling(target):
+    url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
+    
+    try:
+        request_headers = {
+            'cookie': 'mid=YlTkmwALAAG8_hwvjoIMJQK68cpC; ig_did=7F40C175-A233-4640-BCA4-41546EB3533D; ig_nrcb=1; fbm_124024574287414=base_domain=.instagram.com; dpr=1.25; datr=azRyYqr5KFpgjE009pBFeTyu; shbid="478\05453094873418\0541683262590:01f7abf35b9b15790afd6da1998c0a6c04b516de37658e4c94b19682388a62e31eb9c790"; shbts="1651726590\05453094873418\0541683262590:01f73fe05d535571e3b520d284d9724ba0f892c957e7b1f733636cdd0421d553099be456"; fbsr_124024574287414=Lo33oKXaWMMvk9Lzd6T6cBIRwLWBXJODe3U5Oi5AL40.eyJ1c2VyX2lkIjoiMTAwMDA0MzIyNDA2NTgzIiwiY29kZSI6IkFRQnVoOHNjR2JnbE1vY19maS15NElhanduWWdqOGxtc3lkb0NDNVhEdXBGTUxPSS0xdVNHTG9WRDJ6NGRxcFNoNWMtcFdSdmFuQUpJVFpUdVp5ai1ncXRkcm9LakhmM0pvcXZHMEg2OFdZRkJwblFwTktORFVZMGphcVlGRzI2WC1WRHk0Rk9VNEFSTFc1NjBiR0V2Mlg1SUJaSEM5M19jSF93aVVjVjVERFdEcDVxRUI1YXFFdFJ3Z0pBWHROaW1iR3p4V3MzRGxaelNkdGE1VnhualdZalYxMTQ0MkdKdkVVS1VoMUFoNDRMMThLdmFsM1ZldmRnN2gtMjBFWnJfeFR5S0NHNVEtTGVPUWx1M1hzVmFZa1JIZDRoaGF4c2pyMmx0Zy1DVEZKTWNlTGgtb3ZoTjdPZGZFdVhqS0NkV3JQbWtYMlRybHMwTmh2TFJnT01CNEZ1Iiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQUg5V0NLT3hkRHhhN3U5NnhrWkNEdlJXZlZzVlpDSkxUZTl6VVpCR0l5bFJwTUx2QmpvaTJsY0w0VDBOZ2tiV2V2cWhGWHZ1d3VBTEhSaG9aQU9JVlRveEdqY21YRXFUZXM5aURpWkFaQ2ozYjN1N0VUZk9jYWxvREp2WXlPRUdxS051a090aVdaQk4xSHpZWkJlcXhEQVlPamIxOGtwWkE5OHJ2SFVFRHVJcEkiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc0MDgwMn0; fbsr_124024574287414=Lo33oKXaWMMvk9Lzd6T6cBIRwLWBXJODe3U5Oi5AL40.eyJ1c2VyX2lkIjoiMTAwMDA0MzIyNDA2NTgzIiwiY29kZSI6IkFRQnVoOHNjR2JnbE1vY19maS15NElhanduWWdqOGxtc3lkb0NDNVhEdXBGTUxPSS0xdVNHTG9WRDJ6NGRxcFNoNWMtcFdSdmFuQUpJVFpUdVp5ai1ncXRkcm9LakhmM0pvcXZHMEg2OFdZRkJwblFwTktORFVZMGphcVlGRzI2WC1WRHk0Rk9VNEFSTFc1NjBiR0V2Mlg1SUJaSEM5M19jSF93aVVjVjVERFdEcDVxRUI1YXFFdFJ3Z0pBWHROaW1iR3p4V3MzRGxaelNkdGE1VnhualdZalYxMTQ0MkdKdkVVS1VoMUFoNDRMMThLdmFsM1ZldmRnN2gtMjBFWnJfeFR5S0NHNVEtTGVPUWx1M1hzVmFZa1JIZDRoaGF4c2pyMmx0Zy1DVEZKTWNlTGgtb3ZoTjdPZGZFdVhqS0NkV3JQbWtYMlRybHMwTmh2TFJnT01CNEZ1Iiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQUg5V0NLT3hkRHhhN3U5NnhrWkNEdlJXZlZzVlpDSkxUZTl6VVpCR0l5bFJwTUx2QmpvaTJsY0w0VDBOZ2tiV2V2cWhGWHZ1d3VBTEhSaG9aQU9JVlRveEdqY21YRXFUZXM5aURpWkFaQ2ozYjN1N0VUZk9jYWxvREp2WXlPRUdxS051a090aVdaQk4xSHpZWkJlcXhEQVlPamIxOGtwWkE5OHJ2SFVFRHVJcEkiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc0MDgwMn0; csrftoken=YUC6zheOPTs9GvKQCW1ZQSPCkoEDdBmy; ds_user_id=53094873418; sessionid=53094873418%3AFhzv1tKIbSTUs4%3A15; rur="NAO\05453094873418\0541683276929:01f795f5c7d1e83dee8e3bae7c9538897e737ee0ef58706436cd3c78bb48e31f53652465"'            } 
+        response = requests.get(url,headers = request_headers)
+        cnt = response.json()['data']['top']['sections'][0]['layout_content']['medias'][0]['media']['user']['username']
+    except:
+        response = requests.get(url)
+        cnt = response.json()['graphql']['hashtag']['edge_hashtag_to_media']['count']
+        
+    return cnt
+
+def hashtag_likes_crawling(target):
+    # import requests
+    url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
+    try:
+        request_headers = {
+            'cookie': 'mid=YlTkmwALAAG8_hwvjoIMJQK68cpC; ig_did=7F40C175-A233-4640-BCA4-41546EB3533D; ig_nrcb=1; fbm_124024574287414=base_domain=.instagram.com; dpr=1.25; datr=azRyYqr5KFpgjE009pBFeTyu; shbid="478\05453094873418\0541683262590:01f7abf35b9b15790afd6da1998c0a6c04b516de37658e4c94b19682388a62e31eb9c790"; shbts="1651726590\05453094873418\0541683262590:01f73fe05d535571e3b520d284d9724ba0f892c957e7b1f733636cdd0421d553099be456"; fbsr_124024574287414=Lo33oKXaWMMvk9Lzd6T6cBIRwLWBXJODe3U5Oi5AL40.eyJ1c2VyX2lkIjoiMTAwMDA0MzIyNDA2NTgzIiwiY29kZSI6IkFRQnVoOHNjR2JnbE1vY19maS15NElhanduWWdqOGxtc3lkb0NDNVhEdXBGTUxPSS0xdVNHTG9WRDJ6NGRxcFNoNWMtcFdSdmFuQUpJVFpUdVp5ai1ncXRkcm9LakhmM0pvcXZHMEg2OFdZRkJwblFwTktORFVZMGphcVlGRzI2WC1WRHk0Rk9VNEFSTFc1NjBiR0V2Mlg1SUJaSEM5M19jSF93aVVjVjVERFdEcDVxRUI1YXFFdFJ3Z0pBWHROaW1iR3p4V3MzRGxaelNkdGE1VnhualdZalYxMTQ0MkdKdkVVS1VoMUFoNDRMMThLdmFsM1ZldmRnN2gtMjBFWnJfeFR5S0NHNVEtTGVPUWx1M1hzVmFZa1JIZDRoaGF4c2pyMmx0Zy1DVEZKTWNlTGgtb3ZoTjdPZGZFdVhqS0NkV3JQbWtYMlRybHMwTmh2TFJnT01CNEZ1Iiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQUg5V0NLT3hkRHhhN3U5NnhrWkNEdlJXZlZzVlpDSkxUZTl6VVpCR0l5bFJwTUx2QmpvaTJsY0w0VDBOZ2tiV2V2cWhGWHZ1d3VBTEhSaG9aQU9JVlRveEdqY21YRXFUZXM5aURpWkFaQ2ozYjN1N0VUZk9jYWxvREp2WXlPRUdxS051a090aVdaQk4xSHpZWkJlcXhEQVlPamIxOGtwWkE5OHJ2SFVFRHVJcEkiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc0MDgwMn0; fbsr_124024574287414=Lo33oKXaWMMvk9Lzd6T6cBIRwLWBXJODe3U5Oi5AL40.eyJ1c2VyX2lkIjoiMTAwMDA0MzIyNDA2NTgzIiwiY29kZSI6IkFRQnVoOHNjR2JnbE1vY19maS15NElhanduWWdqOGxtc3lkb0NDNVhEdXBGTUxPSS0xdVNHTG9WRDJ6NGRxcFNoNWMtcFdSdmFuQUpJVFpUdVp5ai1ncXRkcm9LakhmM0pvcXZHMEg2OFdZRkJwblFwTktORFVZMGphcVlGRzI2WC1WRHk0Rk9VNEFSTFc1NjBiR0V2Mlg1SUJaSEM5M19jSF93aVVjVjVERFdEcDVxRUI1YXFFdFJ3Z0pBWHROaW1iR3p4V3MzRGxaelNkdGE1VnhualdZalYxMTQ0MkdKdkVVS1VoMUFoNDRMMThLdmFsM1ZldmRnN2gtMjBFWnJfeFR5S0NHNVEtTGVPUWx1M1hzVmFZa1JIZDRoaGF4c2pyMmx0Zy1DVEZKTWNlTGgtb3ZoTjdPZGZFdVhqS0NkV3JQbWtYMlRybHMwTmh2TFJnT01CNEZ1Iiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQUg5V0NLT3hkRHhhN3U5NnhrWkNEdlJXZlZzVlpDSkxUZTl6VVpCR0l5bFJwTUx2QmpvaTJsY0w0VDBOZ2tiV2V2cWhGWHZ1d3VBTEhSaG9aQU9JVlRveEdqY21YRXFUZXM5aURpWkFaQ2ozYjN1N0VUZk9jYWxvREp2WXlPRUdxS051a090aVdaQk4xSHpZWkJlcXhEQVlPamIxOGtwWkE5OHJ2SFVFRHVJcEkiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc0MDgwMn0; csrftoken=YUC6zheOPTs9GvKQCW1ZQSPCkoEDdBmy; ds_user_id=53094873418; sessionid=53094873418%3AFhzv1tKIbSTUs4%3A15; rur="NAO\05453094873418\0541683276929:01f795f5c7d1e83dee8e3bae7c9538897e737ee0ef58706436cd3c78bb48e31f53652465"'
+
+            } 
+        response = requests.get(url,headers = request_headers)
+        cnt = 0
+        for i in range(3):
+            for j in range(3):
+              cnt += response.json()['data']['top']['sections'][i]['layout_content']['medias'][j]['media']['like_count']
+
+        result = round(cnt/9,0)
+    except:
+        response = requests.get(url)
+        cnt = response.json()['data']['top']['sections'][0]['layout_content']['medias'][0]['media']['like_count']
+    
+    
+    return result

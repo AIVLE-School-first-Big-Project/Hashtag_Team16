@@ -106,7 +106,7 @@
                 <h4>#관련 인플루언서, 평균 좋아요 수</h4>
               <div
                 style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
-                id='tag_output'></div>
+                id='tag_likes'></div>
 
             </div>
           </div>
@@ -230,6 +230,7 @@
       myformData.append("attachedImage", fileInput.files[0]);
       var box = document.getElementById('tag_output');
       var legend = document.getElementById('pieID');
+      var box1 = document.getElementById('tag_likes');
 
       try {
         for (var i = 0; i < 20; i++) {
@@ -238,6 +239,8 @@
         for (var i = 0; i < 5; i++) {
           document.querySelector("#pieID > li")[0].remove();
         }
+        document.querySelector("#tag_likes > span")[0].remove();
+
       } catch (error) {
       } finally {
         $.ajax({
@@ -261,6 +264,7 @@
             $('#noneDiv').hide();
 
             console.log(result['hashtags']);
+            console.log(result['likes_hashtag']);
 
             for (tag in result['hashtags']) {
               var tags = document.createElement('span');
@@ -281,6 +285,10 @@
               tag_cnt.innerHTML = result['best_hashtag'][tag];
               createPie(".pieID.legend", ".pieID.pie");
             }
+            var tags_likes = document.createElement('span');
+            box1.appendChild( tags_likes );
+            tags_likes.innerHTML = result['likes_hashtag'];  
+          
           }
         });
       };

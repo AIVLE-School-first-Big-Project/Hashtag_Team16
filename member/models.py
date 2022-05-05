@@ -12,7 +12,7 @@ class USER(models.Model):
     
     
     user_id = models.CharField(primary_key=True,  max_length=20, null=False)
-    pw = models.CharField(max_length=20, null=False)
+    pw = models.CharField(max_length=300, null=False)
     name = models.CharField(max_length=20, null=False)
     birth_year = models.IntegerField(null=False)
     birth_month = models.IntegerField(null=False)

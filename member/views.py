@@ -58,6 +58,8 @@ def login_custom(request):
 
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
+            user.join_date = timezone.now()
+            user.save()
         except USER.DoesNotExist as e:
             status = {'status' : 'F'}
             return JsonResponse(status)
@@ -106,7 +108,7 @@ def signup_custom(request):
 
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
-            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0)
+            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0, join_date=timezone.now())
         u.date_joined = timezone.now()
         u.save()
 

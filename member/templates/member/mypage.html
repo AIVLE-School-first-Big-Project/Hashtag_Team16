@@ -83,17 +83,20 @@
                               </tr>
                             </thead>
                             <tbody>
-                              
+                              {% csrf_token %}
+
                               {% for w in info %}
-                              <tr>
+                              <tr id='{{w.log_id}}'>
                                 <th style="padding-left: 5%;">
                                   <div class="form-check form-check-muted m-0">
                                     <label class="form-check-label">
-                                      <input type="checkbox" class="form-check-input">
+                                      <input type="checkbox" name='log_id' value='{{w.log_id}}' class="form-check-input" id='delete_product'>
                                     </label>
                                   </div>
                                 </th>
-                                <th> {{w.log_id}} </td>
+                                <th>
+                                  {{w.log_id}}
+                                </th>
                                 <th style="width: 100px; height:80px;">
                                     <u><img class='max-small' style= 'width : 150px; height :100px' src="{{w.image}}"> </u></th>
 
@@ -101,13 +104,12 @@
                                 
                               </tr>
                               {% endfor%}
-
                             </tbody>
                           </table>
                           
                         </div>
                       </div>
-                      <button type="button" class="btn btn-light" style="font-size: small; float: right; margin-right: 3%; margin-top: 2%;" onclick = "">삭제</button>
+                      <button type="submit" id ="delete_btn" class="btn_delete" style="font-size: small; float: right; margin-right: 3%; margin-top: 2%;">삭제</button>
                     </div>
                   </div>
                 </div>
@@ -117,15 +119,27 @@
               <div class="col-12 grid-margin">
                 <div class="card" style="height: 5vh; width: 40vw; margin-left: 20%;">
                   <ul class='pagination'>
-                    <button type="button">◀</button>
+                    {% comment %} <button type="button">◀</button>
                       {% for i in page_range %}
                         <li>
-                          <a href = '{% url "qna:qna_board" %}?page={{ i }}'>
+                          <a href = '{% url "member:mypage" %}?page={{ i }}'>
                             <button type="button">{{ i }}</button>
                           </a>
                         </li>
                       {% endfor %}
-                    <button type="button">▶</button>
+                    <button type="button">▶</button> {% endcomment %}
+
+                    <div style="width: 42vw;">
+                      
+                      <div style="width: 38vw; height: 5vh; text-align: center; padding-top: 1.5%; margin-left: 8%;">
+                        {% for i in page_range %}
+                          <a href = '{% url "member:mypage" %}?page={{ i }}' style="text-align: center; padding: 3%; color:rgb(108, 114, 147);"> {{ i }} </a>
+                        {% endfor %}
+                      </div>
+                        <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 05%; color:rgb(108, 114, 147);">◀</a>
+                        <a href="?page=1" type="button" style="position:absolute; top: 18%; left: 93%; color:rgb(108, 114, 147);">▶</a>
+                    </div>
+                  </div>
                   </ul>
                 </div>
               </div>
@@ -196,7 +210,50 @@
         
        };
    </script>
- 
+
+   <
+
+
+   <script>
+    $(document).ready(function()
+        {
+          const csrftoken = getCookie('csrftoken');
+          $('#delete_btn').click(function(){
+            if(confirm('삭제하시겠습니까?'))
+              var id=[];
+              $(':checkbox:checked').each(function(i){
+                id[i] = $(this).val()
+                console.log(id)
+              })
+              if(id.length===0){
+                  alert("삭제할 게시글을 선택해 주세요.")
+              }else{
+                console.log(id)
+                $.ajax({
+                  url: '',
+                  method:'POST',
+                  headers: { 'X-CSRFToken': csrftoken },
+                  data:{
+                    id
+                  },
+                  error: function () {
+                    alert("fail!");
+                  },
+                  success: function (response) {
+                    for(var i=0; i<id.length; i++){
+                      $('tr#' +id[i]+'').css('background-color', '#css');
+                      $('tr#' +id[i]+'').fadeOut('slow');
+                      document.location.href = document.location.href;
+                    }
+
+                  }
+                })
+              }
+
+          })
+      })
+    </script>
+
    <script type="text/javascript"> function Logout() {
      alert("로그아웃 되었습니다.");
      location.href = "member/logout"

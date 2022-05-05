@@ -25,7 +25,7 @@ def index(request):
             # 해쉬태그 생성 API
             files = open(tmp_file, 'rb')
             upload = {'file': files}
-            res = requests.post('http://192.168.137.1:5002/', files = upload)
+            res = requests.post('http://118.91.69.43:5002/', files = upload)
             hashtags_json = json.loads(res.content)
 
 
@@ -37,6 +37,10 @@ def index(request):
             # 평균 좋아요
             likes_json = hashtag_likes_crawling(hashtags_json['hashtags'][0][1:])
             hashtags_json['likes_hashtag'] = likes_json
+
+            # 연관 인플루언서
+            influ_json = hashtag_influ_crawling(hashtags_json['hashtags'][0][1:])
+            hashtags_json['influ_hashtag'] = influ_json
 
             # list 문자열로 변환
             result = ' '.join(s for s in hashtags_json['hashtags'])
@@ -60,7 +64,7 @@ def index(request):
 
             log.save()
             data = {'status':'T', 'hashtags': hashtags_json['hashtags'], 'best_hashtag': hashtags_json['best_hashtag'] ,  'likes_hashtag':hashtags_json['likes_hashtag'], 
-            'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4'] }
+            'influ_hashtag':hashtags_json['influ_hashtag'],'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4'] }
             return JsonResponse(data)
             
         else:

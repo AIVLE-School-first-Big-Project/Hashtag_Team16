@@ -1,0 +1,60 @@
+import requests
+from multiprocessing import Pool
+
+def hashtag_cnt_crawling(target):
+    target = target[1:]
+    url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
+    try:
+        request_headers = {
+            'cookie' : 'ig_did=9218D585-1D45-43F2-8CD8-551A16853932; ig_nrcb=1; mid=YmwBYAALAAH-JdcTDWyYG3JrAfjD; fbm_124024574287414=base_domain=.instagram.com; datr=BF5tYmZtnVsJotuwxMLxEXCS; shbid="11862\0541994601200\0541683075730:01f73c42489b8d6f5ee1f821a6aad3eeb95f5cf1b997832aa7aefcb86c45ef5885a25d9f"; shbts="1651539730\0541994601200\0541683075730:01f72f006f5f41b9af5b62a6d9f36cdb6b0c4cc89564cd99752f25f70597f1ed97fffce7"; csrftoken=lF08QydrVyuCWNssIa4HCJ5gRpSGsiF6; ds_user_id=1994601200; sessionid=1994601200%3AbHVDMgen5K46Ph%3A29; fbsr_124024574287414=zM2yABgZqpJGemiq8pJzm7b9oOH7J-CQIi0mucWPaIE.eyJ1c2VyX2lkIjoiMTAwMDAzMjU2MDc3NDUzIiwiY29kZSI6IkFRRFNlTkhaXzh2MEZUN01CQ040OENqTVdBc1ZpZHBCcm1mMWlDY0JWa0l0NmRkaWpES2dvWGRSMEkyZmtLT200dTlKclhCOExGUDUtSGRvS1pZb2VoMmo5eUZScWlBWjdRTGZhd1NMWFJCRXdacjUzeWFGWjdzTFdsRGIwajZwc1JsTTB3TGYtaXdNaXhGTmMtVHlseEJJZFBUN2FDZUhyMkIyWGcxMzRhR1hOZ2NoS1pmWXR2ZGU2bVZadEZ2MmhHaEgzSzNSN2pLeW5oYWdZWVk4MVpVSWlaRnhPWFR5N1VUb2l4ZW9DUTk0UHF3NzlXVms1QVNxWXVlTjFoY0E5QkpMWDN2TGFBVE1kYTlfMWdWTFNmTWYzY1lFc051Zl9VOGVZZmNLNlAtQi0wekkxdllLZ2hna2pwZDJqNV84VWZpeXlnd3N3NUtIcFlMcEFqTWNtOGMtIiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQU5xenM4VXZoemwzWkFZWkJiTkc1ZnFrMzluRDY3b2tYZUlXY3NaQ29vVDBnMnZ6UG1aQWQzd2tDYXg2ZFlZWkNNUk51R3hsT21NQ3Fsd1dKUGVUNjQzRUZuVjBrN2E4a3RTclBnblpDOWFLeG9tV3djZ1pDZ3VaQmNQZTlTN0psSTg3Q0VuT1pCdmpIVkRpdXBSUU1QTVBqUUNkWkNWNERGSkdLS0hJQkNVNlhLRVhEbzRuWkE2T3BvWkQiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc1Mzg3OX0; fbsr_124024574287414=zM2yABgZqpJGemiq8pJzm7b9oOH7J-CQIi0mucWPaIE.eyJ1c2VyX2lkIjoiMTAwMDAzMjU2MDc3NDUzIiwiY29kZSI6IkFRRFNlTkhaXzh2MEZUN01CQ040OENqTVdBc1ZpZHBCcm1mMWlDY0JWa0l0NmRkaWpES2dvWGRSMEkyZmtLT200dTlKclhCOExGUDUtSGRvS1pZb2VoMmo5eUZScWlBWjdRTGZhd1NMWFJCRXdacjUzeWFGWjdzTFdsRGIwajZwc1JsTTB3TGYtaXdNaXhGTmMtVHlseEJJZFBUN2FDZUhyMkIyWGcxMzRhR1hOZ2NoS1pmWXR2ZGU2bVZadEZ2MmhHaEgzSzNSN2pLeW5oYWdZWVk4MVpVSWlaRnhPWFR5N1VUb2l4ZW9DUTk0UHF3NzlXVms1QVNxWXVlTjFoY0E5QkpMWDN2TGFBVE1kYTlfMWdWTFNmTWYzY1lFc051Zl9VOGVZZmNLNlAtQi0wekkxdllLZ2hna2pwZDJqNV84VWZpeXlnd3N3NUtIcFlMcEFqTWNtOGMtIiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQU5xenM4VXZoemwzWkFZWkJiTkc1ZnFrMzluRDY3b2tYZUlXY3NaQ29vVDBnMnZ6UG1aQWQzd2tDYXg2ZFlZWkNNUk51R3hsT21NQ3Fsd1dKUGVUNjQzRUZuVjBrN2E4a3RTclBnblpDOWFLeG9tV3djZ1pDZ3VaQmNQZTlTN0psSTg3Q0VuT1pCdmpIVkRpdXBSUU1QTVBqUUNkWkNWNERGSkdLS0hJQkNVNlhLRVhEbzRuWkE2T3BvWkQiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc1Mzg3OX0; rur="VLL\0541994601200\0541683290207:01f7d5f494c3681837f53e2ce770da1ddc4052da5591a08544c22d1c800ce817171670b4"'
+        }
+        response = requests.get(url ,headers = request_headers)
+        cnt = response.json()['data']['media_count']
+        return (target, cnt)
+    except:
+        
+        response = requests.get(url)
+        cnt = response.json()['graphql']['hashtag']['edge_hashtag_to_media']['count']
+        return (target, cnt)
+    
+def hashtag_influ_crawling(target):
+    url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
+    
+    try:
+        request_headers = {
+            'cookie': 'mid=YlTkmwALAAG8_hwvjoIMJQK68cpC; ig_did=7F40C175-A233-4640-BCA4-41546EB3533D; ig_nrcb=1; fbm_124024574287414=base_domain=.instagram.com; dpr=1.25; datr=azRyYqr5KFpgjE009pBFeTyu; shbid="478\05453094873418\0541683262590:01f7abf35b9b15790afd6da1998c0a6c04b516de37658e4c94b19682388a62e31eb9c790"; shbts="1651726590\05453094873418\0541683262590:01f73fe05d535571e3b520d284d9724ba0f892c957e7b1f733636cdd0421d553099be456"; fbsr_124024574287414=Lo33oKXaWMMvk9Lzd6T6cBIRwLWBXJODe3U5Oi5AL40.eyJ1c2VyX2lkIjoiMTAwMDA0MzIyNDA2NTgzIiwiY29kZSI6IkFRQnVoOHNjR2JnbE1vY19maS15NElhanduWWdqOGxtc3lkb0NDNVhEdXBGTUxPSS0xdVNHTG9WRDJ6NGRxcFNoNWMtcFdSdmFuQUpJVFpUdVp5ai1ncXRkcm9LakhmM0pvcXZHMEg2OFdZRkJwblFwTktORFVZMGphcVlGRzI2WC1WRHk0Rk9VNEFSTFc1NjBiR0V2Mlg1SUJaSEM5M19jSF93aVVjVjVERFdEcDVxRUI1YXFFdFJ3Z0pBWHROaW1iR3p4V3MzRGxaelNkdGE1VnhualdZalYxMTQ0MkdKdkVVS1VoMUFoNDRMMThLdmFsM1ZldmRnN2gtMjBFWnJfeFR5S0NHNVEtTGVPUWx1M1hzVmFZa1JIZDRoaGF4c2pyMmx0Zy1DVEZKTWNlTGgtb3ZoTjdPZGZFdVhqS0NkV3JQbWtYMlRybHMwTmh2TFJnT01CNEZ1Iiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQUg5V0NLT3hkRHhhN3U5NnhrWkNEdlJXZlZzVlpDSkxUZTl6VVpCR0l5bFJwTUx2QmpvaTJsY0w0VDBOZ2tiV2V2cWhGWHZ1d3VBTEhSaG9aQU9JVlRveEdqY21YRXFUZXM5aURpWkFaQ2ozYjN1N0VUZk9jYWxvREp2WXlPRUdxS051a090aVdaQk4xSHpZWkJlcXhEQVlPamIxOGtwWkE5OHJ2SFVFRHVJcEkiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc0MDgwMn0; fbsr_124024574287414=Lo33oKXaWMMvk9Lzd6T6cBIRwLWBXJODe3U5Oi5AL40.eyJ1c2VyX2lkIjoiMTAwMDA0MzIyNDA2NTgzIiwiY29kZSI6IkFRQnVoOHNjR2JnbE1vY19maS15NElhanduWWdqOGxtc3lkb0NDNVhEdXBGTUxPSS0xdVNHTG9WRDJ6NGRxcFNoNWMtcFdSdmFuQUpJVFpUdVp5ai1ncXRkcm9LakhmM0pvcXZHMEg2OFdZRkJwblFwTktORFVZMGphcVlGRzI2WC1WRHk0Rk9VNEFSTFc1NjBiR0V2Mlg1SUJaSEM5M19jSF93aVVjVjVERFdEcDVxRUI1YXFFdFJ3Z0pBWHROaW1iR3p4V3MzRGxaelNkdGE1VnhualdZalYxMTQ0MkdKdkVVS1VoMUFoNDRMMThLdmFsM1ZldmRnN2gtMjBFWnJfeFR5S0NHNVEtTGVPUWx1M1hzVmFZa1JIZDRoaGF4c2pyMmx0Zy1DVEZKTWNlTGgtb3ZoTjdPZGZFdVhqS0NkV3JQbWtYMlRybHMwTmh2TFJnT01CNEZ1Iiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQUg5V0NLT3hkRHhhN3U5NnhrWkNEdlJXZlZzVlpDSkxUZTl6VVpCR0l5bFJwTUx2QmpvaTJsY0w0VDBOZ2tiV2V2cWhGWHZ1d3VBTEhSaG9aQU9JVlRveEdqY21YRXFUZXM5aURpWkFaQ2ozYjN1N0VUZk9jYWxvREp2WXlPRUdxS051a090aVdaQk4xSHpZWkJlcXhEQVlPamIxOGtwWkE5OHJ2SFVFRHVJcEkiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc0MDgwMn0; csrftoken=YUC6zheOPTs9GvKQCW1ZQSPCkoEDdBmy; ds_user_id=53094873418; sessionid=53094873418%3AFhzv1tKIbSTUs4%3A15; rur="NAO\05453094873418\0541683276929:01f795f5c7d1e83dee8e3bae7c9538897e737ee0ef58706436cd3c78bb48e31f53652465"'            } 
+        response = requests.get(url,headers = request_headers)
+        cnt = response.json()['data']['top']['sections'][0]['layout_content']['medias'][0]['media']['user']['username']
+    except:
+        response = requests.get(url)
+        cnt = response.json()['graphql']['hashtag']['edge_hashtag_to_media']['count']
+        
+    return cnt
+
+def hashtag_likes_crawling(target):
+    # import requests
+    url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
+    try:
+        request_headers = {
+            'cookie' : 'ig_did=9218D585-1D45-43F2-8CD8-551A16853932; ig_nrcb=1; mid=YmwBYAALAAH-JdcTDWyYG3JrAfjD; fbm_124024574287414=base_domain=.instagram.com; datr=BF5tYmZtnVsJotuwxMLxEXCS; shbid="11862\0541994601200\0541683075730:01f73c42489b8d6f5ee1f821a6aad3eeb95f5cf1b997832aa7aefcb86c45ef5885a25d9f"; shbts="1651539730\0541994601200\0541683075730:01f72f006f5f41b9af5b62a6d9f36cdb6b0c4cc89564cd99752f25f70597f1ed97fffce7"; csrftoken=lF08QydrVyuCWNssIa4HCJ5gRpSGsiF6; ds_user_id=1994601200; sessionid=1994601200%3AbHVDMgen5K46Ph%3A29; fbsr_124024574287414=zM2yABgZqpJGemiq8pJzm7b9oOH7J-CQIi0mucWPaIE.eyJ1c2VyX2lkIjoiMTAwMDAzMjU2MDc3NDUzIiwiY29kZSI6IkFRRFNlTkhaXzh2MEZUN01CQ040OENqTVdBc1ZpZHBCcm1mMWlDY0JWa0l0NmRkaWpES2dvWGRSMEkyZmtLT200dTlKclhCOExGUDUtSGRvS1pZb2VoMmo5eUZScWlBWjdRTGZhd1NMWFJCRXdacjUzeWFGWjdzTFdsRGIwajZwc1JsTTB3TGYtaXdNaXhGTmMtVHlseEJJZFBUN2FDZUhyMkIyWGcxMzRhR1hOZ2NoS1pmWXR2ZGU2bVZadEZ2MmhHaEgzSzNSN2pLeW5oYWdZWVk4MVpVSWlaRnhPWFR5N1VUb2l4ZW9DUTk0UHF3NzlXVms1QVNxWXVlTjFoY0E5QkpMWDN2TGFBVE1kYTlfMWdWTFNmTWYzY1lFc051Zl9VOGVZZmNLNlAtQi0wekkxdllLZ2hna2pwZDJqNV84VWZpeXlnd3N3NUtIcFlMcEFqTWNtOGMtIiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQU5xenM4VXZoemwzWkFZWkJiTkc1ZnFrMzluRDY3b2tYZUlXY3NaQ29vVDBnMnZ6UG1aQWQzd2tDYXg2ZFlZWkNNUk51R3hsT21NQ3Fsd1dKUGVUNjQzRUZuVjBrN2E4a3RTclBnblpDOWFLeG9tV3djZ1pDZ3VaQmNQZTlTN0psSTg3Q0VuT1pCdmpIVkRpdXBSUU1QTVBqUUNkWkNWNERGSkdLS0hJQkNVNlhLRVhEbzRuWkE2T3BvWkQiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc1Mzg3OX0; fbsr_124024574287414=zM2yABgZqpJGemiq8pJzm7b9oOH7J-CQIi0mucWPaIE.eyJ1c2VyX2lkIjoiMTAwMDAzMjU2MDc3NDUzIiwiY29kZSI6IkFRRFNlTkhaXzh2MEZUN01CQ040OENqTVdBc1ZpZHBCcm1mMWlDY0JWa0l0NmRkaWpES2dvWGRSMEkyZmtLT200dTlKclhCOExGUDUtSGRvS1pZb2VoMmo5eUZScWlBWjdRTGZhd1NMWFJCRXdacjUzeWFGWjdzTFdsRGIwajZwc1JsTTB3TGYtaXdNaXhGTmMtVHlseEJJZFBUN2FDZUhyMkIyWGcxMzRhR1hOZ2NoS1pmWXR2ZGU2bVZadEZ2MmhHaEgzSzNSN2pLeW5oYWdZWVk4MVpVSWlaRnhPWFR5N1VUb2l4ZW9DUTk0UHF3NzlXVms1QVNxWXVlTjFoY0E5QkpMWDN2TGFBVE1kYTlfMWdWTFNmTWYzY1lFc051Zl9VOGVZZmNLNlAtQi0wekkxdllLZ2hna2pwZDJqNV84VWZpeXlnd3N3NUtIcFlMcEFqTWNtOGMtIiwib2F1dGhfdG9rZW4iOiJFQUFCd3pMaXhuallCQU5xenM4VXZoemwzWkFZWkJiTkc1ZnFrMzluRDY3b2tYZUlXY3NaQ29vVDBnMnZ6UG1aQWQzd2tDYXg2ZFlZWkNNUk51R3hsT21NQ3Fsd1dKUGVUNjQzRUZuVjBrN2E4a3RTclBnblpDOWFLeG9tV3djZ1pDZ3VaQmNQZTlTN0psSTg3Q0VuT1pCdmpIVkRpdXBSUU1QTVBqUUNkWkNWNERGSkdLS0hJQkNVNlhLRVhEbzRuWkE2T3BvWkQiLCJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTY1MTc1Mzg3OX0; rur="VLL\0541994601200\0541683290207:01f7d5f494c3681837f53e2ce770da1ddc4052da5591a08544c22d1c800ce817171670b4"'
+        }
+        response = requests.get(url,headers = request_headers)
+        cnt = 0
+        for i in range(3):
+            for j in range(3):
+                cnt += response.json()['data']['top']['sections'][i]['layout_content']['medias'][j]['media']['like_count']
+
+        result = round(cnt/9,0)
+    except:
+        response = requests.get(url)
+        cnt = response.json()['data']['top']['sections'][0]['layout_content']['medias'][0]['media']['like_count']
+    
+    
+    return result
+
+
+
+def mult_process_tag(x):
+    with Pool(8) as p:
+        temp_result = p.map(hashtag_cnt_crawling, x)
+        return {a : b for a,b in temp_result}

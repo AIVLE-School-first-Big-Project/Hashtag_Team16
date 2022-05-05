@@ -1,0 +1,55 @@
+<div>
+    {% csrf_token %}
+    <label name="label_name" for="{{ form_id.name.id_for_label }}">{{ form.name.label }}</label>
+    {{ form.name }}
+    <label name="label_email" for="{{ form_id.email.id_for_label }}">{{ form.email.label }}</label>
+    {{ form.email }}
+    <small>
+        등록하신 이름과 메일주소가 일치해야 합니다.
+    </small>
+    <div>
+        <button id="find_id" name="recovery_id">아이디찾기</button>
+    </div>
+
+    <div id="result_id"></div>
+
+    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+     
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#find_id').click(function () {
+                var name = $("#form_name").val();
+                var email = $("#form_email").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/member/recovery/id/find/",
+                    dataType: "json",
+                    data: {
+                        'name': name,
+                        'email': email,
+                        'csrfmiddlewaretoken': '{{csrf_token}}',
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        $('#result_id').replaceWith(
+                            '<div id="result_id"><hr><div><span>입력된 정보로 가입된 아이디는 </span><span id="result_id">' +
+                                response.result_id +'</span><span> 입니다.</span></div><hr></div>')
+                    },
+                    error: function () {
+                        if (name == "" || email == "") {
+                            alert('이름와 이메일을 입력해주세요.');
+                        } else {
+                            alert('입력하신 정보가 일치하지 않거나 존재하지 않습니다.');
+                        }
+                    },
+                });
+            })
+        });
+    </script>
+</div>

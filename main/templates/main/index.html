@@ -72,7 +72,7 @@
           <form class="save-form" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
-              <div class="col-md-12 col-xl-4 grid-margin stretch-card">
+              <div class="col-md-12 col-xl-4 grid-margin stretch-card" style="height: 630px;">
                 <div class="card">
                   <div class="card-body" style="height: 57vh;">
                     <h4 class="card-title" style="text-align: center; padding-bottom: 5%;">이미지를 첨부해 주세요</h4>
@@ -91,7 +91,7 @@
       </div>
     </div>
     <!---->
-    <div class="col-md-12 col-xl-8 grid-margin stretch-card">
+    <div class="col-md-12 col-xl-8 grid-margin stretch-card" style="height: 630px;">
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row justify-content-between">
@@ -125,7 +125,7 @@
   <!---->
 
   <div class="row">
-    <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+    <div class="col-md-6 col-xl-4 grid-margin stretch-card" style="height: 800px;">
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row justify-content-between">
@@ -133,7 +133,7 @@
           </div>
           <div class="preview-list">
 
-            <section style='text-align: center;'>
+            <section style='text-align: center; font-size: 20px;'>
               <div class="pieID pie">
 
               </div>
@@ -145,22 +145,43 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-xl-8 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">AI이미지 테마 적용
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; "onclick="imgthema(1);">1번테마!</button>
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; "onclick="imgthema(2);">2번테마!</button>
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; "onclick="imgthema(3);">3번테마!!</button>
-          <button type="button" class="add btn btn-primary"
-            style="margin : auto; display : inline-block; "onclick="imgthema(4);">4번테마!!</button>
-          </h4>
-          <div style="width: 100%; height: 80%; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%" id='img1_output'>
-          <img style= "width:100%; height: 100%;">
+    <div class="col-md-6 col-xl-8 grid-margin stretch-card" style="height: 800px;">
+      <div class="card" style="height: 100%;">
+        <div class="card-body col-12" style="height: 500px; text-align: center;">
+          <h4 class="card-title">AI이미지 테마 적용</h4>
+
+          <!-- 마우스 호버 -->
+          <div id="menu" style="text-align: center; margin-bottom: 10%;">
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;" onclick="imgthema(1);" onmouseover="onHelp1();" onmouseout="offHelp1();" ontouchstart="onHelp1();" ontouchend="offHelp1();">1번테마!</button>
+
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="imgthema(2);" onmouseover="onHelp2();" onmouseout="offHelp2();" ontouchstart="onHelp2();" ontouchend="offHelp2();">2번테마!</button>
+
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="imgthema(3);" onmouseover="onHelp3();" onmouseout="offHelp3();" ontouchstart="onHelp3();" ontouchend="offHelp3();">3번테마!!</button>
+
+            <button type="button" class="add btn btn-primary"
+              style="margin : auto; display : inline-block; margin-top:20px;"onclick="imgthema(4);" onmouseover="onHelp4();" onmouseout="offHelp4();" ontouchstart="onHelp4();" ontouchend="offHelp4();">4번테마!!</button>
           </div>
+
+          <div class="col-12" style="width: 80%; height: 75%; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; margin-top: 3%; margin-left: 10%; text-align: center;" id='img1_output'>
+
+            <div class="arrow_box" id="helpDiv1" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help1.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+            <div class="arrow_box" id="helpDiv2" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help2.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+            <div class="arrow_box" id="helpDiv3" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help3.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+            <div class="arrow_box" id="helpDiv4" style="display: none; position: absolute; z-index: 2;">
+              <img src="{% static 'assets/images/help/help4.jpg' %}" style="width: 80%; height: auto; margin-top: 1%;">
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>
@@ -227,6 +248,43 @@
   </script>
 
   <script>
+    function onDisplay() {
+      $('#noneDiv').show();
+    }
+    
+    function onHelp1()
+    {
+        $('#helpDiv1').show();
+    }
+    function onHelp2()
+    {
+        $('#helpDiv2').show();
+    }
+    function onHelp3()
+    {
+        $('#helpDiv3').show();
+    }
+    function onHelp4()
+    {
+        $('#helpDiv4').show();
+    }
+
+    function offHelp1()
+    {
+      $('#helpDiv1').hide();
+    }
+    function offHelp2()
+    {
+      $('#helpDiv2').hide();
+    }
+    function offHelp3()
+    {
+      $('#helpDiv3').hide();
+    }
+    function offHelp4()
+    {
+      $('#helpDiv4').hide();
+    }
     //여기가 버튼이 눌렸을때
     function save() {
       $('#noneDiv').show();
@@ -308,31 +366,54 @@
     };
 
 
-
-  {% comment %} function imgthema(path) {
-    var imgpath='img'+path
-    var fileInput1 = document.querySelector("#file-id");
-    const img = new Image();
-
-    myformData1.append("attachedImage",fileInput1.files[0]);
-    
-    try {
-      document.querySelector("#img1_output > img").remove();
-    } catch (error) {
-    } finally {
-        function () {
-          img.src = "data:image/;base64,"+[imgpath];
-          img.style = "width:100%; height: 100%;"
-          img.decode().then(() => {
-            document.getElementById('img1_output').appendChild(img);
-          })
-          .catch((encodingError) => {
-          })
+    function imgthema(path) {
+      var imgpath='img'+path
+      var fileInput1 = document.querySelector("#file-id");
+      const myformData1 = new FormData();
+      const csrftoken = getCookie('csrftoken');
+      const img = new Image();
+  
+      myformData1.append("attachedImage",fileInput1.files[0]);
+      
+      try {
+        document.querySelector("#img1_output > img").remove();
+      } catch (error) {
+      } finally {
+        $('#noneDiv').show();
+        $.ajax({
+          type: "POST",
+          url: "",
+          async: true,
+          headers: { 'X-CSRFToken': csrftoken },
+          enctype: "multipart/form-data",
+          data: myformData1,
+          processData: false,
+          contentType: false,
+  
+          error: function () {
+            $('#noneDiv').hide();
+            alert("fail!");
+  
+          },
+          success: function (result) {
+            $('#noneDiv').hide();
+            console.log(result);
+            
+            
+  
+            img.src = "data:image/;base64,"+result[imgpath];
+            img.style = "width:100%; height: 100%; position:relative;"
+            img.decode().then(() => {
+              document.getElementById('img1_output').appendChild(img);
+            })
+            .catch((encodingError) => {
+              // Do something with the error.
+            })
+            
+          }
+        });
       }
-    }
-  } {% endcomment %}
-
-
+    };
 
 
   </script>

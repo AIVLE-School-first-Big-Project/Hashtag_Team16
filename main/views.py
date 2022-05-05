@@ -45,8 +45,8 @@ def index(request):
             #         data = {'status':'T'}
             #         return JsonResponse(data)
             
-            
-            
+        
+        
             data = request.FILES['attachedImage']                                       # 1. 이미지를 브라우저로부터 받아옵니다.
             image_name, time = str(data), str(datetime.datetime.now())                  # 2. 이미지 이름과 현재 시간을 문자열로 저장합니다
             extension = '.' + image_name.split('.')[-1]                                       # 3. 이미지 이름에 확장자를 따로 변수에 저장합니다.
@@ -60,7 +60,7 @@ def index(request):
             # 해쉬태그 생성 API
             files = open(tmp_file, 'rb')
             upload = {'file': files}
-            res = requests.post(' http://118.91.69.43:5001/', files = upload)
+            res = requests.post(' http://192.168.137.1:5002/', files = upload)
             hashtags_json = json.loads(res.content)
             files.close()
 

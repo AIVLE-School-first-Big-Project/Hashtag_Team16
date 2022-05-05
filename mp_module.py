@@ -18,6 +18,6 @@ def hashtag_cnt_crawling(target):
         return (target, cnt)
     
 def mult_process(x):
-    with Pool(5) as p:
+    with Pool(8) as p:
         temp_result = p.map(hashtag_cnt_crawling, x)
         return {a : b for a,b in temp_result}

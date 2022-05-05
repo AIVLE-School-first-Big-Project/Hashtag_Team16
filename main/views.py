@@ -72,7 +72,18 @@ def index(request):
             return render(request, 'main/index.html', {'user' : user})
     except KeyError:
         return redirect('/need_login')
-    
+
+class GAN_image(View):
+    def post(self, request):
+        url = request.POST['url']
+        files = open(url, 'rb')
+        upload = {'file': files}
+        res = requests.post('http://118.91.69.43:5001/styleimages4/', files = upload)
+        hashtags_json = json.loads(res.content)
+        files.close()
+        data = {'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4']}
+        return JsonResponse(data);
+
 class hashtag(View):
     def post(self, request):
         url = request.POST['url']
@@ -82,9 +93,8 @@ class hashtag(View):
         res = requests.post('http://118.91.69.43:5001/hashtags20/', files = upload)
         hashtags_json = json.loads(res.content)
         files.close()
-        os.remove(url)
         data = {'hashtag' : hashtags_json['hashtags']};
-        data['best_hash'] = mp_module.mult_process(hashtags_json['hashtags'][:5])
+        data['best_hash'] = mp_module.mult_process(hashtags_json['hashtags'][:8])
 
         return JsonResponse(data);
 
@@ -100,7 +110,6 @@ class image_upload_save(View):
         path = default_storage.save(secret_name, ContentFile(data.read()))          # 5. 암호화된 이름으로 이미지 서버(로컬)에 저장
         tmp_file = os.path.join(settings.MEDIA_ROOT, path)                          # 6. 저장된 이미지의 절대 경로
         data = {'url' : image_func(tmp_file, secret_name), 'l_url' : tmp_file};
-        
         return JsonResponse(data);
 
     

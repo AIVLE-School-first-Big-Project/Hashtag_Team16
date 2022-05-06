@@ -113,7 +113,10 @@
                                   </div>
                                 </th>
                                 <th>
-                                  {{w.log_id}}
+                                  <script>
+                                    var i = {{ forloop.counter }}
+                                    document.write((({{now_page}}-1)*10)+i)
+                                  </script>
                                 </th>
                                 <th style="width: 100px; height:80px;">
                                     <u><img class='max-small' style= 'width : 150px; height :100px' src="{{w.image}}"> </u></th>

@@ -81,7 +81,7 @@ def mypage(request):
         for id in delete_log:
             delete = LOG.objects.get(log_id=id)
             delete.delete()
-    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info, 'page_range' : range(start_page, end_page + 1)})
+    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info, 'page_range' : range(start_page, end_page + 1), 'now_page': now_page})
 
 def modify(request):
     return render(request, 'member/modify.html')

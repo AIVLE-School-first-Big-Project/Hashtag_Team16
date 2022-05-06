@@ -20,7 +20,7 @@ from django.core.mail import send_mail
 from django.views.generic import View
 from .forms import RecoveryIdForm
 
-
+salt='gdu'
 # Create your views here.
 # mypage
 def mypage(request):
@@ -46,10 +46,21 @@ def mypage(request):
     elif 'method' in request.POST:
         if request.POST.get('method') == 'Delete':
             user = USER.objects.get(user_id = request.POST.get('id'))
-            user.delete()
-            auth_logout(request)
-            data = {'status':'delete_T'}
-            return JsonResponse(data)
+            u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw #db에 저장된 암호화된 암호
+            u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
+            
+            print(u_pw_db)
+            print('-')
+            print(u_pw)
+
+            if u_pw_db == u_pw:
+                user.delete()
+                auth_logout(request)
+                data = {'status':'delete_T'}
+                return JsonResponse(data)
+            else:
+                 data = {'status':'delete_F'}
+                 return JsonResponse(data)
         else:
             data = {'status':'delete_F'}
             return JsonResponse(data)
@@ -84,7 +95,7 @@ def user(request):
         {'user_list': user_list }
    )
 
-salt='gdu'
+
 #로그인
 def login_custom(request):
     if request.method == 'POST':

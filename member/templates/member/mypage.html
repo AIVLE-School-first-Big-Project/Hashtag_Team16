@@ -254,10 +254,12 @@
         if (key == 'Delete') {
           // 회원 탈퇴 재확인을 받고, 결과가 true 경우에만 삭제를 진행한다.
           if (confirm('정말로 탈퇴하시겠습니까?') == true) {
+            var password = prompt("비밀번호를 입력해주세요");
+            
+            {% comment %} document.write("<h3>" + text +"</h3>"); {% endcomment %}
             myformData.append('method', key);
             myformData.append('id', user);
-            console.log(key);
-            console.log(user);
+            myformData.append('pw', password);
 
             $.ajax({
               type: "POST",
@@ -279,6 +281,7 @@
                   alert('탈퇴되었습니다!!!')
                 }
                 else if (result.status == 'delete_F') {
+                  window.location.href='';
                   alert("권한이 없습니다!");
                 }
               }

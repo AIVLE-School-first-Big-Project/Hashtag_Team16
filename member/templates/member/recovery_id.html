@@ -1,55 +1,144 @@
-<div>
-    {% csrf_token %}
-    <label name="label_name" for="{{ form_id.name.id_for_label }}">{{ form.name.label }}</label>
-    {{ form.name }}
-    <label name="label_email" for="{{ form_id.email.id_for_label }}">{{ form.email.label }}</label>
-    {{ form.email }}
-    <small>
-        등록하신 이름과 메일주소가 일치해야 합니다.
-    </small>
-    <div>
-        <button id="find_id" name="recovery_id">아이디찾기</button>
-    </div>
+<!DOCTYPE html>
+{% load static %}
 
-    <div id="result_id"></div>
+<html lang="en">
 
-    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-     
+<head>
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <script type="text/javascript">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
-        $(document).ready(function () {
+</script>
 
-            $('#find_id').click(function () {
-                var name = $("#form_name").val();
-                var email = $("#form_email").val();
+<title>HashTaig</title>
 
-                $.ajax({
-                    type: "POST",
-                    url: "/member/recovery/id/find/",
-                    dataType: "json",
-                    data: {
-                        'name': name,
-                        'email': email,
-                        'csrfmiddlewaretoken': '{{csrf_token}}',
-                    },
-                    success: function (response) {
-                        console.log(response);
-                        $('#result_id').replaceWith(
-                            '<div id="result_id"><hr><div><span>입력된 정보로 가입된 아이디는 </span><span id="result_id">' +
-                                response.result_id +'</span><span> 입니다.</span></div><hr></div>')
-                    },
-                    error: function () {
-                        if (name == "" || email == "") {
-                            alert('이름와 이메일을 입력해주세요.');
-                        } else {
-                            alert('입력하신 정보가 일치하지 않거나 존재하지 않습니다.');
-                        }
-                    },
-                });
-            })
-        });
-    </script>
+<!-- Bootstrap core CSS -->
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+<!-- Additional CSS Files -->
+<link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+</head>
+
+<body>
+
+<!--header-->
+<header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
+<div style='font-size: 36px;
+font-weight: 800;
+color: #fff;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);'>
+<em style="font-style: normal;color: #f5a425;">FIND</em>IN
 </div>
+</header>
+
+<section class="section why-us" data-section="section2" style='padding-bottom: 200px;'>
+<div class="container2">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-heading">
+            <h2>정보를 입력해주세요</h2>
+                <div class="login-page">
+                    <div class="form" style='top:110%; padding-bottom: 0px;'>
+                        <small style='color:white;'>등록하신 이름과 메일주소가 일치해야 합니다.</small>
+                        <form class="login-form" >
+                            {% csrf_token %}
+                            <input type="text" placeholder="username" id="user_id"/>
+                            <input type="email" placeholder="email" id="user_email"/>
+                            <button type="button" id="find_id">find</button>
+                            <button type="button" onclick="javascript:window.close();">cancel</button>
+                            <p class="message">Not registered? <a href="/member/information">Create an account</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+    <div class="row">
+    <div class="col-md-12">
+        <p><i class="fa fa-copyright"></i> made 2022 by DGU  
+        
+        | Designer: <a rel="sponsored" target="_parent">SonHyeonWoo</a></p>
+    </div>
+    </div>
+</div>
+</footer>
+
+<script>
+window.resizeTo(500,596);
+</script>
+
+<script>
+    $(document).ready(function()
+        {
+        $('#main').click(function(){
+        window.location.href = "/member/login"
+        })
+    })
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#find_id').click(function () {
+            var name = $("#user_id").val();
+            var email = $("#user_email").val();
+            console.log(name);
+            $.ajax({
+                type: "POST",
+                url: "/member/recovery/id/find/",
+                dataType: "json",
+                data: {
+                    'name': name,
+                    'email': email,
+                    'csrfmiddlewaretoken': '{{csrf_token}}',
+                },
+                success: function (response) {
+                    console.log(response);
+                    $('#result_id').replaceWith(
+                        '<div id="result_id"><hr><div><span>입력된 정보로 가입된 아이디는 </span><span id="result_id">' +
+                            response.result_id +'</span><span> 입니다.</span></div><hr></div>')
+                },
+                error: function () {
+                    if (name == "" || email == "") {
+                        alert('이름와 이메일을 입력해주세요.');
+                    } else {
+                        alert('입력하신 정보가 일치하지 않거나 존재하지 않습니다.');
+                    }
+                },
+            });
+        })
+    });
+</script>
+</body>
+</html>

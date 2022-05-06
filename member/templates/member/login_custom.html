@@ -57,7 +57,7 @@
     </div>
   </header>
 
-  <section class="section why-us" data-section="section2" style='padding-bottom: 150px;'>
+  <section class="section why-us" data-section="section2" style='padding-bottom: 200px;'>
     <div class="container2">
       <div class="row">
         <div class="col-md-12">
@@ -65,14 +65,16 @@
             <h2>정보를 입력해주세요</h2>
 
             <div class="login-page">
-              <div class="form" style='top:110%;'>
+              <div class="form" style='top:110%; padding-bottom: 0px;'>
 
-                <form class="login-form">
+                <form class="login-form" >
                   {% csrf_token %}
                   <input type="text" placeholder="username" name="user_id"/>
                   <input type="password" placeholder="password" name="user_pw"/>
                   <button type="button" onclick="login();">login</button>
                   <p class="message">Not registered? <a href="/member/information">Create an account</a></p>
+                  <p class="message" style="display: inline-block;"><a href="/member/recovery/id/">Find ID / </a></p>
+                  <p class="message" style="display: inline-block;"><a href="/member/recovery/pw/">Find PassWord</a></p>
                 </form>
 
 

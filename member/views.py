@@ -82,7 +82,7 @@ def login_custom(request):
 
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
-            user.join_date = timezone.now()
+            user.join_date = timezone.localtime()
             user.save()
         except USER.DoesNotExist as e:
             status = {'status' : 'F'}

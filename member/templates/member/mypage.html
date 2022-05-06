@@ -235,7 +235,13 @@
         
       };
   </script>
-
+  <script type="text/javascript">
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
+  </script>
 
   <script>
       function onDelete(key, user) {

@@ -1,39 +1,52 @@
+<script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <div>
     {% csrf_token %}
-    <div>
+
         <label name="label_user_id" for="{{ form.user_id.id_for_label }}">{{ form.user_id.label }}</label>
         {{ form.user_id }}
-    </div>
-    <div>
+
         <label name="label_name" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
         {{ form.name }}
-    </div>
-    <div>
+
         <label name="label_email" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-            {{ form.email }}
+        {{ form.email }}
         <small>
             등록하신 메일로 인증번호가 발송됩니다.
         </small>
-    </div>
+
 
     <div id="div_find_pw">
         <button id="find_pw" name="recovery_pw">비밀번호찾기</button>
+        <button type="submit" id = "main" name="no" style="opacity: 90%; font-size: 16px; color: black; background: white;"
+        class="btn btn-red" data-toggle="tooltip" data-placement="top" value="csregister" color= 'white'>뒤로가기</button>
     </div>
+        
+</div>
 
     <div id="result_pw"></div>
 
 
-    <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        $(document).ready(function()
+            {
+              $('#main').click(function(){
+                window.location.href = "/member/login"
+              })
+          })
+    </script>
     <script type="text/javascript">
 
         $(document).ready(function () {
             
             $('#find_pw').click(function () {
+                var user_id = $("#form_user_id").val();
                 var name = $("#form_name").val();
                 var email = $("#form_email").val();
-                var user_id = $("#form_user_id").val();
-                console.log(1);
+                
+                console.log(user_id);
+                console.log(name);
+                console.log(email);
                 $.ajax({
                     type: "POST",
                     url: "/member/recovery/pw/find/",

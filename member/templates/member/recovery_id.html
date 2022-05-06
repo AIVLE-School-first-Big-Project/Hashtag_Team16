@@ -9,23 +9,33 @@
     </small>
     <div>
         <button id="find_id" name="recovery_id">아이디찾기</button>
+        <button type="submit" id = "main" name="no" style="opacity: 90%; font-size: 16px; color: black; background: white;"
+        class="btn btn-red" data-toggle="tooltip" data-placement="top" value="csregister" color= 'white'>뒤로가기</button>
     </div>
-
+    
     <div id="result_id"></div>
 
     <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
      
-
+    <script>
+        $(document).ready(function()
+            {
+              $('#main').click(function(){
+                window.location.href = "/member/login"
+              })
+          })
+    </script>
 
     <script type="text/javascript">
+        
 
         $(document).ready(function () {
 
             $('#find_id').click(function () {
                 var name = $("#form_name").val();
                 var email = $("#form_email").val();
-
+                console.log(name);
                 $.ajax({
                     type: "POST",
                     url: "/member/recovery/id/find/",

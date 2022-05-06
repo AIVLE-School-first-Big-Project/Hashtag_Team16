@@ -335,11 +335,10 @@ def ajax_find_id_view(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
     result_id = USER.objects.get(name=name, email=email)
-       
     return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
 def information(request):
-   #user_list = USER.objects.all()
-   print("개인정보 수정 page")
-   return render(
-        request,
-        'member/information.html')
+    #user_list = USER.objects.all()
+    print("개인정보 수정 page")
+    return render(
+            request,
+            'member/information.html')

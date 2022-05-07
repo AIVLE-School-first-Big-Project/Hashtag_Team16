@@ -1,6 +1,8 @@
 import requests
 from multiprocessing import Pool
 
+def get_json_data(target):
+    return
 def hashtag_cnt_crawling(target):
     target = target[1:]
     url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
@@ -11,6 +13,7 @@ def hashtag_cnt_crawling(target):
             
         response = requests.get(url ,headers = request_headers)
         cnt = response.json()['data']['media_count']
+        
         return (target, cnt)
     except KeyError:
         
@@ -57,6 +60,7 @@ def hashtag_likes_crawling(target):
 
 
 def mult_process_tag(x):
-    with Pool(8) as p:
+    with Pool(6) as p:
         temp_result = p.map(hashtag_cnt_crawling, x)
-        return {a : b for a,b in temp_result}
+        result = {a : b for a,b in temp_result}
+        return result

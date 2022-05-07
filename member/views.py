@@ -142,6 +142,10 @@ def signup_custom(request):
             data = {'status': 'id_error'}
             return JsonResponse(data)    
         
+        if USER.objects.filter(email = email).exists():
+            data = {'status': 'sameemail_error'}
+            return JsonResponse(data) 
+        
         if (u_pw != u_pw2):
             data = {'status':'pw_error'}
             return JsonResponse(data)

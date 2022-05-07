@@ -89,7 +89,7 @@
                           <tr data-type={{w.user_id}}>
                             <td style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.article_id}} </a></td>
                               <td style="width: 60%; height: 48.5; white-space: normal; word-break: keep-all; line-height: 1.4;">
-                                <a href='http://127.0.0.1:8000/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">
+                                <a href='/qna/post/{{w.article_id}}/' style=" color: rgb(108, 114, 147)">
                                   {{w.title}}
                                   <script>
                                     var i = {{ forloop.counter }}
@@ -106,7 +106,7 @@
                     </div>
                   </div>
                   <div>
-                    <button type="button" class="btn btn-light" style="width: 80px; font-size: 80%; margin-bottom: 4%; float: right; margin-right: 4%;" onclick = "location.href = 'http://127.0.0.1:8000/qna/create'">글 작성</button>
+                    <button type="button" class="btn btn-light" style="width: 80px; font-size: 80%; margin-bottom: 4%; float: right; margin-right: 4%;" onclick = "location.href = '/qna/create'">글 작성</button>
                   </div>
                 </div>
               </div>

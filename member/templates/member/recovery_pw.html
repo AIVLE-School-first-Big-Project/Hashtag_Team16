@@ -1,5 +1,57 @@
+<!DOCTYPE html>
+
 <script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+{% load static %}
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>HashTaig</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+<body>
+  </head>
+
+  <!--header-->
+  <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
+    <div style='font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);'>
+    <em style="font-style: normal;color: #f5a425;">Find</em>PassWord
+    </div>
+  </header>
+  
+
+  <section class="section why-us" data-section="section2" style='padding-bottom: 200px;'>
+    <div class="container2">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            <h2></h2>
+
+            <div class="login-page">
+              <div class="form" style='top:130%; padding-bottom: 0px;'>
+
+
 <div>
     {% csrf_token %}
 
@@ -11,9 +63,7 @@
 
         <label name="label_email" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
         {{ form.email }}
-        <small>
-            등록하신 메일로 인증번호가 발송됩니다.
-        </small>
+
 
 
     <div id="div_find_pw">
@@ -24,7 +74,31 @@
         
 </div>
 
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+
     <div id="result_pw"></div>
+
+
+    <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <p><i class="fa fa-copyright"></i> made 2022 by DGU  
+              
+               | Designer: <a rel="sponsored" target="_parent">SonHyeonWoo</a></p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
 
 
     <script>
@@ -36,17 +110,15 @@
           })
     </script>
     <script type="text/javascript">
-
         $(document).ready(function () {
-            
             $('#find_pw').click(function () {
-                var user_id = $("#form_user_id").val();
-                var name = $("#form_name").val();
-                var email = $("#form_email").val();
-                
+                var user_id = $("#pw_form_id").val();
+                var name = $("#pw_form_name").val();
+                var email = $("#pw_form_email").val();
                 console.log(user_id);
                 console.log(name);
                 console.log(email);
+                
                 $.ajax({
                     type: "POST",
                     url: "/member/recovery/pw/find/",
@@ -59,13 +131,73 @@
                     },
                     success: function (response) {
                         console.log(response);
-                        $('#result_pw').replaceWith(
-                            '<div id="result_pw"><hr><div><span>입력된 정보로 가입된 아이디는 </span><span id="result_pw">' +
-                                response.result_id +'</span><span> 입니다.</span></div><hr></div>')
+                        alert('회원님의 이메일로 인증코드를 발송하였습니다.');
+                        location.href = "{% url 'member:recovery_pw_reset' %}";
+                        $('#div_find_pw').remove()
+                        {% comment %} $('#result_pw').replaceWith(
+                            '<hr><div class="row justify-content-md-center"><form class="form-inline" style="margin-bottom:-15px; margin-top:-10px;"><div class="md-form md-outline"><label for="input_auth_num">인증번호 입력 (<span id="timeset"></span>)</label><input type="text" id="input_auth_num" class="form-control mx-sm-2" autofocus/></div></form>'+
+                            '<button type="submit" name="auth_confirm" id="id_auth_confirm" class="btn btn-red" style="opacity: 90%; height:30%; margin-top:10px; font-size: 12px;"><i class="fas fa-check"></i>&nbsp;&nbsp;인증확인</button></div><hr>'
+                        )
+                        function countdown( elementName, minutes, seconds ) {
+                            var elementName, endTime, hours, mins, msLeft, time;
+                            function twoDigits( n ) {
+                                return (n <= 9 ? "0" + n : n);
+                            }
+                            function updateTimer() {
+                                msLeft = endTime - (+new Date);
+                                if ( msLeft < 1000 ) {
+                                    alert("인증시간이 초과되었습니다.");
+                                    $("" + elementName).remove();
+                                    cert_ok = false;
+                                    certificationNum = false;
+                                    location.href = "{% url 'member:recovery_pw' %}"
+                                } else {
+                                    time = new Date( msLeft );
+                                    hours = time.getUTCHours();
+                                    mins = time.getUTCMinutes();
+                                    $("" + elementName).html((hours ? hours + ':' + twoDigits( mins ) : twoDigits(mins))
+                                    + ':' + twoDigits( time.getUTCSeconds()));
+                                    setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
+                                }
+                            }
+                            endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+                            updateTimer();
+                        }
+                        countdown("#timeset", 5, 0);
+
+                        var user = response.result
+                        console.log(user);
+                        $(document).ready(function () {
+                            $('#id_auth_confirm').click(function () {
+                                var input_auth_num = $("#input_auth_num").val();
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/member/recovery/pw/auth/",
+                                    dataType: "json",
+                                    data: {
+                                        'user_id': user,
+                                        'input_auth_num': input_auth_num,
+                                        'csrfmiddlewaretoken': '{{csrf_token}}',
+                                    },
+                                    success: function () {
+                                        console.log(response);
+                                        location.href = "{% url 'member:recovery_pw_reset' %}";
+                                    },
+                                    error: function () {
+                                        if ($('#input_auth_num').val()=="") {
+                                            alert('회원님의 이메일로 전송된 인증번호를 입력해주세요.');
+                                        } else {
+                                            alert('인증번호가 일치하지 않습니다.');
+                                        }
+                                    },
+                                });
+                            })
+                        }) {% endcomment %}
                     },
                     error: function () {
-                        if (name == "" || email == "") {
-                            alert('이름와 이메일을 입력해주세요.');
+                        
+                        if (user_id == "" || name == "" || email == "") {
+                            alert('아이디, 이름, 이메일을 모두 입력해주세요.');
                         } else {
                             alert('입력하신 정보가 일치하지 않거나 존재하지 않습니다.');
                         }
@@ -77,33 +209,5 @@
 </div>
 
 
-
-
-<script>
-function countdown( elementName, minutes, seconds ) {
-    var elementName, endTime, hours, mins, msLeft, time;
-    function twoDigits( n ) {
-        return (n <= 9 ? "0" + n : n);
-    }
-    function updateTimer() {
-        msLeft = endTime - (+new Date);
-        if ( msLeft < 1000 ) {
-            alert("인증시간이 초과되었습니다.");
-            $("" + elementName).remove();
-            cert_ok = false;
-            certificationNum = false;
-            location.href = "{% url 'member:recovery_pw' %}"
-        } else {
-            time = new Date( msLeft );
-            hours = time.getUTCHours();
-            mins = time.getUTCMinutes();
-            $("" + elementName).html((hours ? hours + ':' + twoDigits( mins ) : twoDigits(mins))
-            + ':' + twoDigits( time.getUTCSeconds()));
-            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
-        }
-    }
-    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
-    updateTimer();
-}
-countdown("#timeset", 5, 0);
-</script>
+</body>
+</html>

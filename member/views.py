@@ -8,17 +8,16 @@ import hashlib
 from django.contrib.auth import logout as auth_logout
 
 from .forms import RecoveryPwForm
-from .helper import email_auth_num
+from .helper import email_auth_num,send_mail
 from .forms import CustomSetPasswordForm 
 from member.decorators import *
 from django.contrib.auth import login,logout
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
 from django.views.generic import View
 from .forms import RecoveryIdForm
 
-salt='gdu'
+salt='gdu92839AUHhduAH81824KK&D*JD'
 # Create your views here.
 # mypage
 def mypage(request):
@@ -270,21 +269,22 @@ def ajax_find_pw_view(request):
     user_id = request.POST.get('user_id')
     name = request.POST.get('name')
     email = request.POST.get('email')
-    target_user = USER.objects.get(user_id=user_id, name=name, email=email)
+    result_pw = USER.objects.get(user_id=user_id, name=name, email=email)
+    request.session['auth'] = result_pw.user_id  
 
-    if target_user:
-        auth_num = email_auth_num()
-        target_user.auth = auth_num 
-        target_user.save()
+    # if result_pw:
+    #     auth_num = email_auth_num()
+    #     result_pw.auth = auth_num 
+    #     result_pw.save()
 
-        send_mail(
-            '비밀번호 찾기 인증메일입니다.',
-            [email],
-            html=render_to_string('member/recovery_email.html', {
-                'auth_num': auth_num,
-            }),
-        )
-    return HttpResponse(json.dumps({"result": target_user.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
+        # send_mail(
+        #     '비밀번호 찾기 인증메일입니다.',
+        #     [email],
+        #     html=render_to_string('member/recovery_email.html', {
+        #         'auth_num': auth_num,
+        #     }),
+        # )
+    return HttpResponse(json.dumps({"result": result_pw.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
 
 def auth_confirm_view(request):
     user_id = request.POST.get('user_id')
@@ -298,24 +298,27 @@ def auth_confirm_view(request):
 
 # @logout_message_required
 def auth_pw_reset_view(request):
-    if request.method == 'GET':
-        if not request.session.get('auth', False):
-            raise PermissionDenied
+    # if request.method == 'GET':
+    #     if not request.session.get('auth', False):
+    #         raise PermissionDenied
 
     if request.method == 'POST':
         session_user = request.session['auth']
-        current_user = USER.objects.get(user_id=session_user)
-        login(request, current_user)
+        user_inst =  USER.objects.get(user_id=session_user)
+
+        pw = request.POST.get('new_password2')
+        pw=hashlib.sha256(str(pw+salt).encode()).hexdigest()
 
         reset_password_form = CustomSetPasswordForm(request.user, request.POST)
-        ##변경할 비밀번호 넣는html없음
+        
+
         if reset_password_form.is_valid():
-            reset_password_form.save()
+            print(user_inst)
+            user_inst.pw = pw
+            user_inst.save()
             messages.success(request, "비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.")
-            logout(request)
-            return redirect('/need_login')
+            return redirect('/')
         else:
-            logout(request)
             request.session['auth'] = session_user
     else:
         reset_password_form = CustomSetPasswordForm(request.user)
@@ -341,6 +344,7 @@ def ajax_find_id_view(request):
     email = request.POST.get('email')
     result_id = USER.objects.get(name=name, email=email)
     return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
+
 def information(request):
     #user_list = USER.objects.all()
     print("개인정보 수정 page")

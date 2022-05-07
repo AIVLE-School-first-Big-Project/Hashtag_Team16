@@ -195,7 +195,7 @@
               </div>
               
             </div>
-            <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; " onclick="copyToClipBoardimg();">이미지 복사!</button>
+            <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; " onclick="copy_img();">이미지 복사!</button>
           </div>
         </div>
       </div>
@@ -264,10 +264,11 @@
   </script>
 
   <script>
-    function copyToClipBoardimg() {
-      var tempElem = document.createElement('imgarea');
-      tempElem.value = document.querySelector("#img1").innerHTML;
+    function copy_img(){
+      var tempElem = document.createElement('textarea');
+      tempElem.value = document.querySelector("#img1_output").innerHTML;
       document.body.appendChild(tempElem);
+      tempElem.select();
       document.execCommand('copy');
       document.body.removeChild(tempElem);
       alert("Copied!");

@@ -25,7 +25,7 @@ class EmailThread(threading.Thread):
         self.html = html
         threading.Thread.__init__(self)
 
-    def run (self):
+    def run(self):
         msg = EmailMultiAlternatives(self.subject, self.body, self.from_email, self.recipient_list)
         if self.html:
             msg.attach_alternative(self.html, "text/html")

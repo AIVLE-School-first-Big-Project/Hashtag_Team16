@@ -1,12 +1,9 @@
 # 나중에 해시태그 수정여부, 삭제여부, 광고여부 3개가 있는지 확인을 해봐야겠네
 import pandas as pd
-import numpy as np
 import joblib
 import re
 import tkinter
 from PIL import Image, ImageTk
-import os
-import copy
 #######함수 설정################################
 def preprocessing_hashtags_list(hashtags_LS):
     '''해시태그 텍스트 전처리용 함수'''
@@ -22,11 +19,11 @@ def preprocessing_hashtags_list(hashtags_LS):
     for i in range(len(hashtags_LS)):
         try:
             hashtags_LS[i] = hashtags_LS[i].replace(',', '')
-        except:
+        except :
             pass
         try:
             hashtags_LS[i] = hashtags_LS[i].replace(', ', '')
-        except:
+        except :
             pass
     return hashtags_LS
 

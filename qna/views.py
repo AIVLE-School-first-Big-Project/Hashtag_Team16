@@ -7,7 +7,7 @@ from django.db.models import Count
 import os
 from google.cloud import storage
 # Create your views here.
-def image_func(): #storage 접근
+def image_func(): # storage 접근
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:\\Users\\User\\Downloads\\sample-347306-82fb108d9ea5.json"
     bucket_name = 'db_image'    # 서비스 계정 생성한 bucket 이름 입력
     source_file_name = 'C:\\Users\\User\\Desktop\\doggg.jpg'    # GCP에 업로드할 파일 절대경로
@@ -81,7 +81,7 @@ def create(request):
             date = timezone.now(),
             image = None,
             comment_cnt = 0
-            )
+        )
 
         print(article.content)
         if (article.content == '') or (article.title == ''):
@@ -166,8 +166,8 @@ def comment(request, pk):
             user = USER.objects.get(user_id=request.session['user_id']),
             content = request.POST.get('content'),
             date = timezone.now(),
-            article =  ARTICLE.objects.get(article_id=pk)
-            )
+            article = ARTICLE.objects.get(article_id=pk)
+        )
         if comment.content != '':
             comment.save()
             data = {'status':'create_T'}

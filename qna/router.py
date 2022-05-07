@@ -10,8 +10,7 @@ class DBRouter:
         return None
     
     def allow_relation(self, obj1, obj2, **hints):
-        if obj1._meta.app_label == 'qna' or \
-            obj2._meta.app_label == 'qna':
+        if obj1._meta.app_label == 'qna' or obj2._meta.app_label == 'qna':
             return True
         return None
     

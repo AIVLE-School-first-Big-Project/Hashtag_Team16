@@ -24,12 +24,9 @@ def mypage(request):
     log_list = LOG.objects.filter(user=user)
     # 평점 스코어, 피드백 내용 기능 구현
     if 'score' in request.POST:
-        print('post')
         real_log = log_list.get(log_id=request.POST.get('key'))
         real_log.service_score = request.POST.get('score')
         real_log.feedback = request.POST.get('feedback')
-        print(real_log.service_score)
-        print(real_log.feedback)
 
         if (real_log.service_score == '') or (real_log.feedback == ''):
             data = {'status':'F'}
@@ -66,9 +63,7 @@ def mypage(request):
         end_page = p.num_pages
     # check box 선택 후 삭제
     if request.method == 'POST':
-        print("delete check")
         delete_log = request.POST.getlist('id[]')   
-        print(delete_log) 
         for id in delete_log:
             delete = LOG.objects.get(log_id=id)
             delete.delete()
@@ -188,7 +183,6 @@ def change_password(request):
         n_pw = request.POST.get('new_password')
         n_pw2 = request.POST.get('confirm_password')
         
-        print(request.session['user_id'])
         check = USER.objects.get(user_id = request.session['user_id'])
         salt=check.salt
         o_pw=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
@@ -325,7 +319,6 @@ def auth_pw_reset_view(request):
         
 
         if reset_password_form.is_valid():
-            print(user_inst)
             user_inst.pw = pw
             user_inst.save()
             # return redirect('/')
@@ -358,7 +351,6 @@ def ajax_find_id_view(request):
 
 def information(request):
     #user_list = USER.objects.all()
-    print("개인정보 수정 page")
     return render(
             request,
             'member/information.html')

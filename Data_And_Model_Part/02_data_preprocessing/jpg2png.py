@@ -1,10 +1,7 @@
-from multiprocessing import Process, Queue
-import pandas as pd
-import numpy as np
+from multiprocessing import Process
 import joblib
 from PIL import Image
 import os
-from multiprocessing import Process, Queue
 
 # ROOT_PATH = 'E:\\googledrive\\aivle\\big_proj\\Hashtag-Generator-main\\크롤링코드실험용\\'
 ROOT_PATH = './'

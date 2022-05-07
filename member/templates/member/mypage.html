@@ -113,7 +113,10 @@
                                   </div>
                                 </th>
                                 <th>
-                                  {{w.log_id}}
+                                  <script>
+                                    var i = {{ forloop.counter }}
+                                    document.write((({{now_page}}-1)*10)+i)
+                                  </script>
                                 </th>
                                 <th style="width: 100px; height:80px;">
                                     <u><img class='max-small' style= 'width : 150px; height :100px' src="{{w.image}}"> </u></th>
@@ -235,7 +238,13 @@
         
       };
   </script>
-
+  <script type="text/javascript">
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
+  </script>
 
   <script>
       function onDelete(key, user) {
@@ -248,10 +257,12 @@
         if (key == 'Delete') {
           // 회원 탈퇴 재확인을 받고, 결과가 true 경우에만 삭제를 진행한다.
           if (confirm('정말로 탈퇴하시겠습니까?') == true) {
+            var password = prompt("비밀번호를 입력해주세요");
+            
+            {% comment %} document.write("<h3>" + text +"</h3>"); {% endcomment %}
             myformData.append('method', key);
             myformData.append('id', user);
-            console.log(key);
-            console.log(user);
+            myformData.append('pw', password);
 
             $.ajax({
               type: "POST",
@@ -273,6 +284,7 @@
                   alert('탈퇴되었습니다!!!')
                 }
                 else if (result.status == 'delete_F') {
+                  window.location.href='';
                   alert("권한이 없습니다!");
                 }
               }

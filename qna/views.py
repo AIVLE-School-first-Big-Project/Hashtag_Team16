@@ -4,11 +4,10 @@ from qna.models import *
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Count
-import json
 import os
 from google.cloud import storage
 # Create your views here.
-def image_func(): #storage 접근
+def image_func(): # storage 접근
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:\\Users\\User\\Downloads\\sample-347306-82fb108d9ea5.json"
     bucket_name = 'db_image'    # 서비스 계정 생성한 bucket 이름 입력
     source_file_name = 'C:\\Users\\User\\Desktop\\doggg.jpg'    # GCP에 업로드할 파일 절대경로
@@ -64,11 +63,15 @@ def create(request):
     if request.method == 'POST':
         print('create')
         user = USER.objects.get(user_id=request.session['user_id']).user_id  
-        print(ARTICLE.objects.order_by('-article_id').first().article_id)
 
+        if len(ARTICLE.objects.all()) == 0:
+            article_id = 1
+        else:
+            article_id = ARTICLE.objects.order_by('-article_id').first().article_id + 1
+        
         article = ARTICLE(
             #article_id = ARTICLE.objects.filter(article_id = pk)[0] ,
-            article_id = ARTICLE.objects.order_by('-article_id').first().article_id + 1,
+            article_id = article_id,
             board = BOARD.objects.get(board_name='qna게시판'),
             #a_user_id=USER.objects.get(u_id=request.session['u_id']),
             user = USER.objects.get(user_id=request.session['user_id']),
@@ -78,7 +81,7 @@ def create(request):
             date = timezone.now(),
             image = None,
             comment_cnt = 0
-            )
+        )
 
         print(article.content)
         if (article.content == '') or (article.title == ''):
@@ -153,13 +156,18 @@ def p_modify(request, pk):
 def comment(request, pk):
     # 생성
     if request.POST.get('method') == 'C':
+        if len(COMMENT.objects.all()) == 0:
+            comment_id = 1
+        else:
+            comment_id = COMMENT.objects.order_by('-comment_id').first().comment_id + 1
+            
         comment = COMMENT(
-            comment_id = COMMENT.objects.order_by('-comment_id').first().comment_id + 1,
+            comment_id = comment_id,
             user = USER.objects.get(user_id=request.session['user_id']),
             content = request.POST.get('content'),
             date = timezone.now(),
-            article =  ARTICLE.objects.get(article_id=pk)
-            )
+            article = ARTICLE.objects.get(article_id=pk)
+        )
         if comment.content != '':
             comment.save()
             data = {'status':'create_T'}

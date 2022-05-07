@@ -1,16 +1,8 @@
 from django.db import models
 
 # Create your models here.
-from click import UsageError
-from django.db import models
-from django.db.models.fields import CharField, IntegerField, FloatField, DateField
-from pandas import to_datetime
-
-# Create your models here.
 
 class USER(models.Model):
-    
-    
     user_id = models.CharField(primary_key=True,  max_length=20, null=False)
     pw = models.CharField(max_length=300, null=False)
     name = models.CharField(max_length=20, null=False)

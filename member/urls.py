@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import *
-from member.views import *
-
+from member.views import mypage, modify, user, login_custom, signup_custom, logout_custom, change_password, change_info
+from member.views import RecoveryIdView, ajax_find_id_view , RecoveryPwView, ajax_find_pw_view, auth_confirm_view, auth_pw_reset_view, information
 app_name = 'member'
 
 urlpatterns = [

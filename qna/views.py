@@ -1,11 +1,9 @@
 from django.shortcuts import redirect, render
 from django.utils import timezone
-from sqlalchemy import null
 from qna.models import *
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Count
-import json
 import os
 from google.cloud import storage
 # Create your views here.

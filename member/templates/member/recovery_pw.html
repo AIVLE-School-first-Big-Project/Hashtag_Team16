@@ -24,9 +24,9 @@
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
-<body>
-  </head>
 
+  </head>
+  <body>
   <!--header-->
   <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
     <div style='font-size: 36px;
@@ -46,30 +46,24 @@
       <div class="row">
         <div class="col-md-12">
           <div class="section-heading">
-            <h2></h2>
+            <h2>정보를 입력해주세요</h2>
 
             <div class="login-page">
-              <div class="form" style='top:130%; padding-bottom: 0px;'>
+              <div class="form" style='top:110%; padding-bottom: 0px;'>
 
 
 <div>
     {% csrf_token %}
 
-        <label name="label_user_id" for="{{ form.user_id.id_for_label }}">{{ form.user_id.label }}</label>
-        {{ form.user_id }}
-
-        <label name="label_name" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-        {{ form.name }}
-
-        <label name="label_email" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-        {{ form.email }}
-
+        <input type="text" placeholder="userid" id="pw_form_id"/>
+        <input type="text" placeholder="username" id="pw_form_name"/>
+        <input type="email" placeholder="email" id="pw_form_email"/>
 
 
     <div id="div_find_pw">
-        <button id="find_pw" name="recovery_pw">비밀번호찾기</button>
-        <button type="submit" id = "main" name="no" style="opacity: 90%; font-size: 16px; color: black; background: white;"
-        class="btn btn-red" data-toggle="tooltip" data-placement="top" value="csregister" color= 'white'>뒤로가기</button>
+        <button id="find_pw" name="recovery_pw" >비밀번호찾기</button>
+        <p class="message" style="display: inline-block;"><a href="/member/login/">뒤로가기</a></p>
+        
     </div>
         
 </div>
@@ -131,7 +125,7 @@
                     },
                     success: function (response) {
                         console.log(response);
-                        alert('회원님의 이메일로 인증코드를 발송하였습니다.');
+                        {% comment %} alert('회원님의 이메일로 인증코드를 발송하였습니다.'); {% endcomment %}
                         location.href = "{% url 'member:recovery_pw_reset' %}";
                         $('#div_find_pw').remove()
                         {% comment %} $('#result_pw').replaceWith(

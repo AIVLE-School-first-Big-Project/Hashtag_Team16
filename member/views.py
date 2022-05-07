@@ -316,8 +316,7 @@ def auth_pw_reset_view(request):
             print(user_inst)
             user_inst.pw = pw
             user_inst.save()
-            messages.success(request, "비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.")
-            return redirect('/')
+            # return redirect('/')
         else:
             request.session['auth'] = session_user
     else:

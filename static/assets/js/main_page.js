@@ -43,7 +43,7 @@ function GAN_image(url) {
     while (imgbox.hasChildNodes() ) {	// 부모노드가 자식이 있는지 여부를 알아낸다
         imgbox.removeChild(imgbox.firstChild);
     };
-    
+
     $.ajax({
         type: "POST",
         url: "gan_image/",

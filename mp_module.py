@@ -6,7 +6,9 @@ def hashtag_cnt_crawling(target):
     url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
     try:
         request_headers = {
-            'cookie' : 'mid=YnTOCAALAAHUbix67X3875H_OG2G; ig_did=ABD3C269-43E1-45CF-B7C2-B0862B36F6C8; ig_nrcb=1; shbid="11862\0541994601200\0541683358097:01f713ea00eaefb1edf0f9bfb63983d4f2c01021000717296b4e602a480f45d58fc330a8"; shbts="1651822097\0541994601200\0541683358097:01f7bef1422b6281d9c5b2f8a9698306b31b4b16942fb7a602c3066497e4f40ea7b06861"; csrftoken=Qn2L4u1CUfC5QPnsNsO6jWqsdF2Ua6bc; ds_user_id=52748895430; sessionid=52748895430%3AmkUAtrlswAh1iJ%3A26; rur="PRN\05452748895430\0541683358577:01f7e03590bd1b590f4f74c953477df02fea67602eb5172240c36f502f5569d398c4e67f"'}
+            'cookie' : 'mid=YnTOIQALAAG2A1_J5CA6wXHBlU0b; ig_did=D8D0A136-EB77-4B78-80BB-164EE20D1E38; ig_nrcb=1; csrftoken=Z6d0MFGUexGIMX5SYhwUTcj2ozFsNLkL; ds_user_id=53290782834; sessionid=53290782834:2LtP5O1dtffItA:29; rur="VLL\05453290782834\0541683444288:01f7473a9b07ed196f32adfa02a3719eb04022d1563044e26a58512fb45577fc9a2526bd"'
+            }
+            
         response = requests.get(url ,headers = request_headers)
         cnt = response.json()['data']['media_count']
         return (target, cnt)
@@ -21,8 +23,8 @@ def hashtag_influ_crawling(target):
     
     try:
         request_headers = {
-            'cookie': 'mid=YnTOCAALAAHUbix67X3875H_OG2G; ig_did=ABD3C269-43E1-45CF-B7C2-B0862B36F6C8; ig_nrcb=1; shbid="11862\0541994601200\0541683358097:01f713ea00eaefb1edf0f9bfb63983d4f2c01021000717296b4e602a480f45d58fc330a8"; shbts="1651822097\0541994601200\0541683358097:01f7bef1422b6281d9c5b2f8a9698306b31b4b16942fb7a602c3066497e4f40ea7b06861"; csrftoken=Qn2L4u1CUfC5QPnsNsO6jWqsdF2Ua6bc; ds_user_id=52748895430; sessionid=52748895430%3AmkUAtrlswAh1iJ%3A26; rur="PRN\05452748895430\0541683358577:01f7e03590bd1b590f4f74c953477df02fea67602eb5172240c36f502f5569d398c4e67f"'
-                } 
+            'cookie' : 'mid=YnTOIQALAAG2A1_J5CA6wXHBlU0b; ig_did=D8D0A136-EB77-4B78-80BB-164EE20D1E38; ig_nrcb=1; csrftoken=Z6d0MFGUexGIMX5SYhwUTcj2ozFsNLkL; ds_user_id=53290782834; sessionid=53290782834:2LtP5O1dtffItA:29; rur="VLL\05453290782834\0541683444288:01f7473a9b07ed196f32adfa02a3719eb04022d1563044e26a58512fb45577fc9a2526bd"'
+            }
         response = requests.get(url,headers = request_headers)
         cnt = response.json()['data']['top']['sections'][0]['layout_content']['medias'][0]['media']['user']['username']
     except KeyError:
@@ -36,7 +38,8 @@ def hashtag_likes_crawling(target):
     url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
     try:
         request_headers = {
-            'cookie' : 'mid=YnTOCAALAAHUbix67X3875H_OG2G; ig_did=ABD3C269-43E1-45CF-B7C2-B0862B36F6C8; ig_nrcb=1; shbid="11862\0541994601200\0541683358097:01f713ea00eaefb1edf0f9bfb63983d4f2c01021000717296b4e602a480f45d58fc330a8"; shbts="1651822097\0541994601200\0541683358097:01f7bef1422b6281d9c5b2f8a9698306b31b4b16942fb7a602c3066497e4f40ea7b06861"; csrftoken=Qn2L4u1CUfC5QPnsNsO6jWqsdF2Ua6bc; ds_user_id=52748895430; sessionid=52748895430%3AmkUAtrlswAh1iJ%3A26; rur="PRN\05452748895430\0541683358577:01f7e03590bd1b590f4f74c953477df02fea67602eb5172240c36f502f5569d398c4e67f"'}
+            'cookie' : 'mid=YnTOIQALAAG2A1_J5CA6wXHBlU0b; ig_did=D8D0A136-EB77-4B78-80BB-164EE20D1E38; ig_nrcb=1; csrftoken=Z6d0MFGUexGIMX5SYhwUTcj2ozFsNLkL; ds_user_id=53290782834; sessionid=53290782834:2LtP5O1dtffItA:29; rur="VLL\05453290782834\0541683444288:01f7473a9b07ed196f32adfa02a3719eb04022d1563044e26a58512fb45577fc9a2526bd"'
+            }
         response = requests.get(url,headers = request_headers)
         cnt = 0
         for i in range(3):

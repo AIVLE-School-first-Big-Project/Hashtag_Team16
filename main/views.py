@@ -52,7 +52,7 @@ class GAN_image(View):
         url = request.POST['url']
         files = open(url, 'rb')
         upload = {'file': files}
-        res = requests.post('http://118.91.69.43:60002/styleimages4/', files = upload)
+        res = requests.post('http://192.168.137.1:60002/styleimages4/', files = upload)
         hashtags_json = json.loads(res.content)
         files.close()
         data = {'img1':hashtags_json['img1'], 'img2':hashtags_json['img2'], 'img3':hashtags_json['img3'], 'img4':hashtags_json['img4']}
@@ -64,7 +64,7 @@ class hashtag(View):
         # 해쉬태그 생성 API
         files = open(url, 'rb')
         upload = {'file': files}
-        res = requests.post('http://118.91.69.43:60001/hashtags20/', files = upload)
+        res = requests.post('http://192.168.137.1:60001/hashtags20/', files = upload)
         hashtags_json = json.loads(res.content)
         files.close()
         # list 문자열로 변환

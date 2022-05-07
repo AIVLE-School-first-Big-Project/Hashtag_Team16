@@ -125,7 +125,7 @@
   <!---->
 
   <div class="row">
-    <div class="col-md-6 col-xl-4 grid-margin stretch-card" style="height: 75vh;">
+    <div class="col-md-6 col-xl-4 grid-margin stretch-card" style="height: 80vh;">
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row justify-content-between">
@@ -145,7 +145,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-xl-8 grid-margin stretch-card" style="height: 75vh;">
+    <div class="col-md-6 col-xl-8 grid-margin stretch-card" style="height: 80vh;">
       <div class="card" style="height: 100%;">
         <div class="card-body col-12" style="height: 500px; text-align: center;">
           <h4 class="card-title">AI이미지 테마 적용</h4>
@@ -184,6 +184,7 @@
                 <div class="col-xl-8 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
                   <p>예시 이미지</p>
                   <img src="{% static 'assets/images/help/help3.png' %}" style="width: 95%; margin-top: 0.5%; border-radius: 0.5em;">
+                  
                 </div>
               </div>
               <div class="col-11" id="helpDiv4" style="display: none; position: absolute; z-index: 2; width: 100%; ">
@@ -192,8 +193,9 @@
                   <img src="{% static 'assets/images/help/help4.jpg' %}" style="width: 95%; margin-top: 0.5%; border-radius: 0.5em;">
                 </div>
               </div>
-
+              
             </div>
+            <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; " onclick="copyToClipBoardimg();">이미지 복사!</button>
           </div>
         </div>
       </div>
@@ -255,6 +257,17 @@
       tempElem.value = document.querySelector("#tag_output").textContent;
       document.body.appendChild(tempElem);
       tempElem.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempElem);
+      alert("Copied!");
+    }
+  </script>
+
+  <script>
+    function copyToClipBoardimg() {
+      var tempElem = document.createElement('imgarea');
+      tempElem.value = document.querySelector("#img1").innerHTML;
+      document.body.appendChild(tempElem);
       document.execCommand('copy');
       document.body.removeChild(tempElem);
       alert("Copied!");

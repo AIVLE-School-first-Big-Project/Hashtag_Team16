@@ -80,11 +80,13 @@ class hashtag(View):
         log.save()
         
         data = {'hashtag' : hashtags_json['hashtags']}
-        tag_dict = mp_module.mult_process_tag(hashtags_json['hashtags'][:6])
+        tag_dict, influ, like = mp_module.mult_process_tag(hashtags_json['hashtags'][:6])
         tag_dict = sorted(tag_dict.items(), key=lambda x: -x[1]) 
         tag_dict = {a:b for a,b in tag_dict}
         data['best_hash'] = tag_dict
-        
+        data['influence'] = influ
+        data['like'] = like
+
         return JsonResponse(data)
 
 class image_upload_save(View):

@@ -8,12 +8,12 @@ import hashlib
 from django.contrib.auth import logout as auth_logout
 
 from .forms import RecoveryPwForm
-from .helper import email_auth_num,send_mail
+# from .helper import email_auth_num,send_mail
 from .forms import CustomSetPasswordForm 
 from member.decorators import *
-from django.contrib.auth import login,logout
+# from django.contrib.auth import login,logout
 from django.core.serializers.json import DjangoJSONEncoder
-from django.template.loader import render_to_string
+# from django.template.loader import render_to_string
 from django.views.generic import View
 from .forms import RecoveryIdForm
 
@@ -276,14 +276,13 @@ def ajax_find_pw_view(request):
     #     auth_num = email_auth_num()
     #     result_pw.auth = auth_num 
     #     result_pw.save()
-
-        # send_mail(
-        #     '비밀번호 찾기 인증메일입니다.',
-        #     [email],
-        #     html=render_to_string('member/recovery_email.html', {
-        #         'auth_num': auth_num,
-        #     }),
-        # )
+    #     send_mail(
+    #         '비밀번호 찾기 인증메일입니다.',
+    #         [email],
+    #         html=render_to_string('member/recovery_email.html', {
+    #             'auth_num': auth_num,
+    #         }),
+    #     )
     return HttpResponse(json.dumps({"result": result_pw.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
 
 def auth_confirm_view(request):
@@ -304,7 +303,7 @@ def auth_pw_reset_view(request):
 
     if request.method == 'POST':
         session_user = request.session['auth']
-        user_inst =  USER.objects.get(user_id=session_user)
+        user_inst = USER.objects.get(user_id=session_user)
 
         pw = request.POST.get('new_password2')
         pw=hashlib.sha256(str(pw+salt).encode()).hexdigest()

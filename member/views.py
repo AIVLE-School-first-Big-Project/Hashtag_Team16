@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 import json
-from django.http import JsonResponse
-from sympy import re
+from django.http import JsonResponse, HttpResponse
 from .models import *
 from django.utils import timezone
 from django.core.paginator import Paginator
@@ -12,14 +11,13 @@ from .forms import RecoveryPwForm
 from .helper import email_auth_num,send_mail
 from .forms import CustomSetPasswordForm 
 from member.decorators import *
-from django.utils.decorators import method_decorator
 from django.contrib.auth import login,logout
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
 from django.views.generic import View
 from .forms import RecoveryIdForm
 
-
+salt='gdu92839AUHhduAH81824KK&D*JD'
 # Create your views here.
 # mypage
 def mypage(request):
@@ -45,10 +43,17 @@ def mypage(request):
     elif 'method' in request.POST:
         if request.POST.get('method') == 'Delete':
             user = USER.objects.get(user_id = request.POST.get('id'))
-            user.delete()
-            auth_logout(request)
-            data = {'status':'delete_T'}
-            return JsonResponse(data)
+            u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw # db에 저장된 암호화된 암호
+            u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
+
+            if u_pw_db == u_pw:
+                user.delete()
+                auth_logout(request)
+                data = {'status':'delete_T'}
+                return JsonResponse(data)
+            else:
+                data = {'status':'delete_F'}
+                return JsonResponse(data)
         else:
             data = {'status':'delete_F'}
             return JsonResponse(data)
@@ -69,21 +74,21 @@ def mypage(request):
         for id in delete_log:
             delete = LOG.objects.get(log_id=id)
             delete.delete()
-    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info, 'page_range' : range(start_page, end_page + 1)})
+    return render(request, 'member/mypage.html', {'user':user, 'log_list':log_list, 'info':info, 'page_range' : range(start_page, end_page + 1), 'now_page': now_page})
 
 def modify(request):
     return render(request, 'member/modify.html')
 
 # user 출력
 def user(request):
-   user_list = USER.objects.all()
-   return render(
+    user_list = USER.objects.all()
+    return render(
         request,
         'member/line.html',
-        {'user_list': user_list }
-   )
+        {'user_list': user_list}
+    )
 
-salt='gdu92839AUHhduAH81824KK&D*JD'
+
 #로그인
 def login_custom(request):
     if request.method == 'POST':
@@ -96,7 +101,7 @@ def login_custom(request):
             user = USER.objects.get(user_id = u_id, pw = u_pw)
             user.join_date = timezone.localtime()
             user.save()
-        except USER.DoesNotExist as e:
+        except USER.DoesNotExist:
             status = {'status' : 'F'}
             return JsonResponse(status)
         else:
@@ -156,7 +161,7 @@ def signup_custom(request):
 
 def logout_custom(request):
     try:
-        user = USER.objects.get(user_id=request.session['user_id']).user_id
+        request.session['user_id']
         
         del request.session['user_id']
         del request.session['user_name']
@@ -178,7 +183,7 @@ def change_password(request):
         
         o_pw=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
 
-        user_inst =  USER.objects.get(user_id=request.session['user_id'])
+        user_inst = USER.objects.get(user_id=request.session['user_id'])
         if (o_pw == '') or (n_pw == '') or (n_pw2 == ''):
             data = {'status':'empty_error'}
             return JsonResponse(data)
@@ -203,7 +208,7 @@ def change_password(request):
 
     else:
         try:
-            user = USER.objects.get(user_id=request.session['user_id']).user_id
+            request.session['user_id']
             return render(request, 'member/change_pw.html')
         except KeyError:
             return redirect('/need_login')
@@ -213,7 +218,7 @@ def change_info(request):
     
     if request.method == 'POST':
         user_id = request.session['user_id']
-        user_inst =  USER.objects.get(user_id=user_id)
+        user_inst = USER.objects.get(user_id=user_id)
         
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -240,7 +245,7 @@ def change_info(request):
     else: 
         try:
             user_id = request.session['user_id']
-            user_inst =  USER.objects.get(user_id=user_id)
+            user_inst = USER.objects.get(user_id=user_id)
             name = user_inst.name
             email = user_inst.email
             phone_num = user_inst.phone_num
@@ -258,7 +263,7 @@ class RecoveryPwView(View):
     def get(self, request):
         if request.method=='GET':
             form = self.recovery_pw(None)
-            return render(request, self.template_name, { 'form':form, })
+            return render(request, self.template_name, {'form':form, })
 
 def ajax_find_pw_view(request):
     user_id = request.POST.get('user_id')
@@ -331,19 +336,18 @@ class RecoveryIdView(View):
     def get(self, request):
         if request.method=='GET':
             form = self.recovery_id(None)
-        return render(request, self.template_name, { 'form':form, })
+        return render(request, self.template_name, {'form':form, })
 
 
 def ajax_find_id_view(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
     result_id = USER.objects.get(name=name, email=email)
-       
     return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
 
 def information(request):
-   #user_list = USER.objects.all()
-   print("개인정보 수정 page")
-   return render(
-        request,
-        'member/information.html')
+    #user_list = USER.objects.all()
+    print("개인정보 수정 page")
+    return render(
+            request,
+            'member/information.html')

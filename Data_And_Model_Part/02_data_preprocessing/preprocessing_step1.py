@@ -1,7 +1,5 @@
 import pandas as pd
-import numpy as np
 import joblib
-import os
 from glob import glob
 
 def load_all_df(keyword, ROOT_PATH='./'):
@@ -40,7 +38,7 @@ def concat_total_df(keywords, ROOT_PATH='./'):
 
 def null_processing(df, thresh=0):
     """좋아요가 thresh이상인 것만 가져옴. 기본값은 좋아요 상관없이 다 가져옴."""
-    output_df = df.dropna().copy() #해시태그 null값, 게시글url, 이미지url 제거
+    output_df = df.dropna().copy() # 해시태그 null값, 게시글url, 이미지url 제거
     output_df = output_df.loc[(output_df['이미지파일명'] != 'NaN') & (output_df['좋아요'] >= thresh)].copy()
     output_df = output_df.loc[(output_df['검색키워드'] != 'NaN') | (output_df['파일경로'] != 'NaN') | 
                               (output_df['게시글url'] != 'NaN') | (output_df['이미지url'] != 'NaN')].copy()
@@ -79,22 +77,6 @@ def filtering_in_list_OUT(input_list, ban_list):
 
 
 
-def filtering_in_all(df, ban_list=[]):
-    df['해시태그'] = df['해시태그'].apply(lambda x : filtering_in_list_OUT(x, ban_list))
-    return df
-
-
-
-def filtering_in_category(df, ban_list=[], category=''):
-    cate_df = df.loc[df['검색키워드'] == category].copy()
-    outer_df = df.loc[df['검색키워드'] != category].copy()
-    
-    cate_df['해시태그'] = cate_df['해시태그'].apply(lambda x : filtering_in_list_OUT(x, ban_list))
-    output_df = pd.concat([cate_df, outer_df],axis=0, copy=True)
-    output_df.reset_index(drop=True, inplace=True)
-    return output_df
-
-
 
 def drop_same_image1(df):
     url_counts__SRS = df['게시글url'].value_counts()
@@ -121,7 +103,6 @@ def drop_same_image3(df):
     while True:
         df.reset_index(drop=True, inplace=True)
         first_list = df['해시태그'].iloc[i]
-        first_index = df.iloc[i:i+1].index
         in_df = df.iloc[i+1:].copy()
     
         same_idx__LS = []
@@ -142,7 +123,7 @@ def drop_same_image3(df):
     df.reset_index(drop=True, inplace=True)
     return df
 
-################## 여기서부터 사용 ###########################
+# 여기서부터 사용
 
 def total_proprecessing(keywords, ROOT_PATH='./', thresh=0):
     """ 키워드(list)와 경로를 넣으면, 해당 키워드 폴더로 저장된 데이터프레임을 전부 다 가져옴"""

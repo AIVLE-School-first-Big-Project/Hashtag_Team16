@@ -69,9 +69,9 @@
 
                 <form class="login-form" >
                   {% csrf_token %}
-                  <input type="text" placeholder="username" name="user_id"/>
-                  <input type="password" placeholder="password" name="user_pw"/>
-                  <button type="button" onclick="login();">login</button>
+                  <input type="text" id='id' placeholder="username" name="user_id"/>
+                  <input type="password" id='pw' placeholder="password" name="user_pw"/>
+                  <button type="button" id='button' onclick="login();">login</button>
                   <p class="message">Not registered? <a href="/member/information">Create an account</a></p>
                   <p class="message" style="display: inline-block;"><a href="/member/recovery/id/">Find ID / </a></p>
                   <p class="message" style="display: inline-block;"><a href="/member/recovery/pw/">Find PassWord</a></p>
@@ -137,5 +137,16 @@
             }});
       };
 </script>
+
+<script>
+  $("#id").keydown(function(keyNum){    
+    if(keyNum.keyCode == 13){
+      $("#button").click() }})
+
+  $("#pw").keydown(function(keyNum){    
+    if(keyNum.keyCode == 13){
+      $("#button").click() }})
+</script>
+
 </body>
 </html>

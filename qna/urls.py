@@ -1,8 +1,7 @@
-from venv import create
 from django.urls import path
 from . import views
-from .views import *
-from qna.views import *
+
+
 
 
 app_name = 'qna'

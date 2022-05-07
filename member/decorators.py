@@ -1,8 +1,8 @@
-from django.conf import settings
-from django.shortcuts import redirect
-from django.contrib import messages
-from .models import USER
-from django.http import HttpResponse
+# from django.conf import settings
+# from django.shortcuts import redirect
+# from django.contrib import messages
+# from .models import USER
+# from django.http import HttpResponse
 
 # # 로그인 확인
 # def login_message_required(function):

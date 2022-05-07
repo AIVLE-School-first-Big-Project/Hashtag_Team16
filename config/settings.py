@@ -87,16 +87,16 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
     'default': { # bigproject에 사용할 데이터베이스 설정 추가
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'bigpro',
-    'USER': 'root',
-    'PASSWORD': 'DGU1dgu1',
-    'HOST': '34.67.13.183',
-    'PORT': 3306
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bigpro',
+        'USER': 'root',
+        'PASSWORD': 'DGU1dgu1',
+        'HOST': '34.67.13.183',
+        'PORT': 3306
     }
 }
 
-DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter', 'member.router.DBRouter', 'qna.router.DBRouter' ]
+DATABASE_ROUTERS = ['main.router.DBRouter','title.router.DBRouter', 'member.router.DBRouter', 'qna.router.DBRouter']
 
 # LOGGING = {
 #     'version':1,

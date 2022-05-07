@@ -67,7 +67,7 @@ function GAN_image(url) {
                 imgbox.appendChild(img);
                 };
                 cnt++;
-                if (cnt == 3) {
+                if (cnt == 2) {
                     $('#noneDiv').hide();
                     last_func(url);
                 }
@@ -159,7 +159,16 @@ function hashtag(url, url2) {
     // 태그 출력 부모요소
     const box = document.getElementById('tag_output');
     const legend = document.getElementById('pieID');
+    const influ_box = document.getElementById('tag_influ');
+    const like_box = document.getElementById('tag_likes');
 
+    if (document.querySelector("#tag_likes > span")) {
+        document.querySelector("#tag_likes > span").remove();
+    }
+
+    if (document.querySelector("#tag_influ > span")) {
+        document.querySelector("#tag_influ > span").remove();
+    }
 
     while (box.hasChildNodes() ) {	// 부모노드가 자식이 있는지 여부를 알아낸다
         box.removeChild(box.firstChild);
@@ -184,11 +193,13 @@ function hashtag(url, url2) {
             $('#noneDiv').hide();
         },
         success: function (result) {
+            // 해시태그 생성 div
             for (tag in result['hashtag']) {
                 var tags = document.createElement('span');
                 box.appendChild(tags);
                 tags.innerHTML = result['hashtag'][tag];
             };
+            // 사용량 분석 div
             for (tag in result['best_hash']) {
                 var li = document.createElement('li');
                 var tag_name = document.createElement('em');
@@ -200,9 +211,20 @@ function hashtag(url, url2) {
                 tag_cnt.innerHTML = result['best_hash'][tag];
                 createPie(".pieID.legend", ".pieID.pie");
             };
+            // 관련 인플루언서 div
+            var tag_influ = document.createElement('span');
+            influ_box.appendChild( tag_influ );
+            tag_influ.innerHTML = result['influence'];
 
-            likes(result['hashtag'], url)
-            influence(result['hashtag'], url)
+            // 좋아요 인플루언서 div
+            var tags_likes = document.createElement('span');
+            like_box.appendChild( tags_likes );
+            tags_likes.innerHTML = result['like'];
+            cnt++;
+            if (cnt == 2) {
+                $('#noneDiv').hide();
+                last_func(url);
+            }
         }
     });
     

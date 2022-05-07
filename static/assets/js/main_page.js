@@ -230,7 +230,6 @@ function image_upload() {
             $('#noneDiv').hide();
         },
         success: function (result) {
-            $('#noneDiv').hide();
             hashtag(result['l_url'], result['url']);
             GAN_image(result['l_url'], result['url']);
 

@@ -21,6 +21,7 @@ class USER(models.Model):
     phone_num = models.CharField(max_length=20, null=True)
     usage_count = models.IntegerField(null=True)
     join_date = models.DateTimeField(null=True, auto_now=True)
+    auth= models.CharField(max_length=20, verbose_name="인증번호", null=True)
 
     class Meta:
         db_table = 'user'

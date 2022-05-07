@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 {% load static %}
+<style>
+    body::-webkit-scrollbar-thumb {
+        height: 30%; /* 스크롤바의 길이 */
+        background: black; /* 스크롤바의 색상 */
+        border-radius: 10px;
+    }
+</style>
+
+
+
+
 
 <html lang="en">
 
@@ -39,7 +50,11 @@
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-
+    <style>
+        li {
+            list-style : none;
+        }
+    </style>
   </head>
 
 <body>
@@ -57,22 +72,19 @@
     </div>
   </header>
 
-  <section class="section why-us" data-section="section2" style='padding-bottom: 435px;'>
-    <div class="container2">
+  <section class="section why-us" data-section="section2" >
+    <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="section-heading">
+          <div class="section-heading" >
             
-            <h2>개인정보 수집 동의</h2>
+            <h2 style="font-weight: bold;">개인정보 수집 동의</h2>
                 <div class="login-page">
-                    <div class="form">
-                        <form class="login_form"> </form>
-                    </div>
                 </div>
                 <div class="col-12">
-                    <p style="font-weight: bold; color: #f5a425;"> 이용약관</p>
-                    <div class="z-depth-1"
-                        style="font-size: 13px; background-color: white; border:1px solid #ddd; height:195px;overflow:auto;padding:5px;">
+                    <p style="font-size: 20px; font-weight: bold; color: #f5a425;"> 이용약관</p>
+                    <div class="z-depth-1" 
+                    style="font-size: 13px; color: white; background-color: black; border:1px solid #ddd; height:195px; overflow:auto; padding:5px;">
                         <dl>
                             <dt>
                                 시행일자: 2022년 05월 05일
@@ -87,6 +99,9 @@
                                         모든 정보, 텍스트, 이미지 및 기타 자료를 이용하는 이용자(이하 "회원")와 서비스 이용에 관한 권리 및 의무와 책임사항, 기타
                                         필요한 사항을 규정하는 것을 목적으로 합니다.</li>
                                 </ol>
+
+
+
                             </dd>
                             <dt>
                                 제2조 약관의 게시와 효력, 개정
@@ -391,14 +406,14 @@
                         <div class="col-12 text-right">
                             <label style="padding-top: 10px;">
                                 <input type="checkbox" name="agreement1" id='ckBox1'/>
-                                <span style="font-weight: bold; color: #f5a425;">이용약관에 동의합니다.</span>
+                                <span style= "font-size: 15px; font-weight: bold; color: #f5a425;">이용약관에 동의합니다.(필수)</span>
                             </label>
                             <!-- <strong><input type="checkbox" name="agreement1"> 이용약관에 동의합니다.</strong> -->
                         </div>
                         <br>
-                        <p style="font-weight: bold; color: #f5a425;"> 개인정보 수집 및 이용</p>
+                        <p style="font-weight: bold; font-size: 20px; color: #f5a425;"> 개인정보 수집 및 이용</p>
                         <div class="z-depth-1"
-                            style="font-size: 13px; background-color: white; border:1px solid #ddd; height:195px;overflow:auto;padding:5px;">
+                            style="font-size: 13px; color: white; background-color: black; border:1px solid #ddd; height:195px;overflow:auto;padding:5px;">
                             <dl>
                                 <dt>
                                     시행일자: 2022년 05월 05일
@@ -586,7 +601,7 @@
                         <div class="col-12 text-right">
                             <label style="padding-top: 10px;">
                                 <input type="checkbox" name="agreement2" id='ckBox2' />
-                                <span style="font-weight: bold; color: #f5a425;">개인정보 수집 및 이용에 동의합니다.</span>
+                                <span style="font-weight: bold; color: #f5a425;">개인정보 수집 및 이용에 동의합니다.(필수)</span>
                             </label>
                         </div>
                         <div class="col-12 text-center">
@@ -600,7 +615,6 @@
         <div>
       </div>
     </div>
-    
   </section>
 
   <footer>

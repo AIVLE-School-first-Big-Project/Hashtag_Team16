@@ -8,30 +8,25 @@ import hashlib
 from django.contrib.auth import logout as auth_logout
 
 from .forms import RecoveryPwForm
-from .helper import email_auth_num,send_mail
 from .forms import CustomSetPasswordForm 
 from member.decorators import *
-from django.contrib.auth import login,logout
 from django.core.serializers.json import DjangoJSONEncoder
-from django.template.loader import render_to_string
 from django.views.generic import View
 from .forms import RecoveryIdForm
+import string
+import random
 
-salt='gdu92839AUHhduAH81824KK&D*JD'
 # Create your views here.
 # mypage
 def mypage(request):
     user = USER.objects.get(user_id=request.session['user_id']).user_id
-    print(user)
+    salt=user.salt
     log_list = LOG.objects.filter(user=user)
     # 평점 스코어, 피드백 내용 기능 구현
     if 'score' in request.POST:
-        print('post')
         real_log = log_list.get(log_id=request.POST.get('key'))
         real_log.service_score = request.POST.get('score')
         real_log.feedback = request.POST.get('feedback')
-        print(real_log.service_score)
-        print(real_log.feedback)
 
         if (real_log.service_score == '') or (real_log.feedback == ''):
             data = {'status':'F'}
@@ -68,9 +63,7 @@ def mypage(request):
         end_page = p.num_pages
     # check box 선택 후 삭제
     if request.method == 'POST':
-        print("delete check")
         delete_log = request.POST.getlist('id[]')   
-        print(delete_log) 
         for id in delete_log:
             delete = LOG.objects.get(log_id=id)
             delete.delete()
@@ -94,10 +87,11 @@ def login_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
-
-        u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
-
+        
         try:
+            check = USER.objects.get(user_id = u_id)
+            salt=check.salt
+            u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
             user = USER.objects.get(user_id = u_id, pw = u_pw)
             user.join_date = timezone.localtime()
             user.save()
@@ -125,7 +119,13 @@ def signup_custom(request):
         b_date = request.POST.get('birth_date')
         p_num = request.POST.get('phone_num')
         email = request.POST.get('email')
-        
+        _LENGTH = 28 # 몇자리? 
+        string_pool = string.digits # "0123456789" 
+        salt = "1" # 결과 값 
+        for i in range(_LENGTH) : 
+            # 랜덤한 하나의 숫자를 뽑아서, 문자열 결합을 한다. 
+            salt += random.choice(string_pool) 
+
         b_year, b_month, b_day = b_date[:4], b_date[5:7], b_date[8:]
         
                 
@@ -136,6 +136,10 @@ def signup_custom(request):
         if USER.objects.filter(user_id = u_id).exists():
             data = {'status': 'id_error'}
             return JsonResponse(data)    
+        
+        if USER.objects.filter(email = email).exists():
+            data = {'status': 'sameemail_error'}
+            return JsonResponse(data) 
         
         if (u_pw != u_pw2):
             data = {'status':'pw_error'}
@@ -149,7 +153,7 @@ def signup_custom(request):
 
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
-            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0, join_date=timezone.now())
+            birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, salt=salt, usage_count=0, join_date=timezone.now())
         u.date_joined = timezone.now()
         u.save()
 
@@ -179,8 +183,8 @@ def change_password(request):
         n_pw = request.POST.get('new_password')
         n_pw2 = request.POST.get('confirm_password')
         
-        print(request.session['user_id'])
-        
+        check = USER.objects.get(user_id = request.session['user_id'])
+        salt=check.salt
         o_pw=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
 
         user_inst = USER.objects.get(user_id=request.session['user_id'])
@@ -277,13 +281,13 @@ def ajax_find_pw_view(request):
     #     result_pw.auth = auth_num 
     #     result_pw.save()
 
-        # send_mail(
-        #     '비밀번호 찾기 인증메일입니다.',
-        #     [email],
-        #     html=render_to_string('member/recovery_email.html', {
-        #         'auth_num': auth_num,
-        #     }),
-        # )
+    # send_mail(
+    #     '비밀번호 찾기 인증메일입니다.',
+    #     [email],
+    #     html=render_to_string('member/recovery_email.html', {
+    #         'auth_num': auth_num,
+    #     }),
+    # )
     return HttpResponse(json.dumps({"result": result_pw.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
 
 def auth_confirm_view(request):
@@ -304,7 +308,9 @@ def auth_pw_reset_view(request):
 
     if request.method == 'POST':
         session_user = request.session['auth']
-        user_inst =  USER.objects.get(user_id=session_user)
+        user_inst=USER.objects.get(user_id=session_user)
+
+        salt=user_inst.salt
 
         pw = request.POST.get('new_password2')
         pw=hashlib.sha256(str(pw+salt).encode()).hexdigest()
@@ -313,7 +319,6 @@ def auth_pw_reset_view(request):
         
 
         if reset_password_form.is_valid():
-            print(user_inst)
             user_inst.pw = pw
             user_inst.save()
             # return redirect('/')
@@ -346,7 +351,6 @@ def ajax_find_id_view(request):
 
 def information(request):
     #user_list = USER.objects.all()
-    print("개인정보 수정 page")
     return render(
             request,
             'member/information.html')

@@ -61,9 +61,8 @@ def qna_board(request):
 def create(request):
     
     if request.method == 'POST':
-        print('create')
-        user = USER.objects.get(user_id=request.session['user_id']).user_id  
 
+        user = USER.objects.get(user_id=request.session['user_id']).user_id  
         if len(ARTICLE.objects.all()) == 0:
             article_id = 1
         else:
@@ -82,8 +81,6 @@ def create(request):
             image = None,
             comment_cnt = 0
         )
-
-        print(article.content)
         if (article.content == '') or (article.title == ''):
             data = {'status':'F'}
             return JsonResponse(data)

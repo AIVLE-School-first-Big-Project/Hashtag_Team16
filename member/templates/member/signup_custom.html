@@ -198,6 +198,10 @@
                     alert('이미 존재하는 ID 입니다!')
                     window.location.href = '/member/signup'; 
                   }
+                  else if (result.status == 'sameemail_error') {
+                    alert('이미 존재하는 Email 입니다!')
+                    window.location.href = '/member/signup'; 
+                  }
                   else if (result.status == 'email_error') {
                     alert('이메일 양식을 확인해주세요')
                     window.location.href = '/member/signup';                     

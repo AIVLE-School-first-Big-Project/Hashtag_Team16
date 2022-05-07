@@ -55,13 +55,14 @@
 <div>
     {% csrf_token %}
 
-        <input type="text" placeholder="userid" id="pw_form_id"/>
+        <input type="text" placeholder="id" id="pw_form_id"/>
         <input type="text" placeholder="username" id="pw_form_name"/>
         <input type="email" placeholder="email" id="pw_form_email"/>
 
 
     <div id="div_find_pw">
-        <button id="find_pw" name="recovery_pw" >비밀번호찾기</button>
+        <button id="find_pw" name="recovery_pw" >FIND</button>
+        <p class="message">Not registered? <a href="/member/information">Create an account</a></p>
         <p class="message" style="display: inline-block;"><a href="/member/login/">뒤로가기</a></p>
         
     </div>

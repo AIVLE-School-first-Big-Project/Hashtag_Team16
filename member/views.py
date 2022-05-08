@@ -97,10 +97,23 @@ def login_custom(request):
 
         u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
 
+        if 'rest_password' in request.POST:
+            pw_text = request.POST.get('rest_password')
+            pw_text = hashlib.sha256(str(pw_text+salt).encode()).hexdigest()
+            u_pw_db = USER.objects.get(user_id = u_id).pw
+            if pw_text == u_pw_db:
+                status = {'status' : 'rest_T'}
+                return JsonResponse(status)
+            else:
+                status = {'status' : 'rest_F'}
+                return JsonResponse(status)
+
         try:
             user = USER.objects.get(user_id = u_id, pw = u_pw)
-            user.join_date = timezone.localtime()
-            user.save()
+            if user.account_state == '휴면계정':
+                status = {'status' : 'rest'}
+                return JsonResponse(status)
+            # user.save()
         except USER.DoesNotExist:
             status = {'status' : 'F'}
             return JsonResponse(status)
@@ -150,7 +163,6 @@ def signup_custom(request):
         u = USER(
             user_id=u_id, pw=u_pw, name=u_name, 
             birth_year=b_year,birth_month=b_month,birth_day=b_day, phone_num=p_num, email=email, usage_count=0, join_date=timezone.now())
-        u.date_joined = timezone.now()
         u.save()
 
         data = {'status':'T'}

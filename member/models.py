@@ -16,6 +16,7 @@ class USER(models.Model):
     auth= models.CharField(max_length=20, verbose_name="인증번호", null=True)
     account_state = models.CharField(max_length=30 , null=True)
     login_date = models.DateTimeField(null=True)
+    salt=models.CharField(max_length=50, null=True)
 
     class Meta:
         db_table = 'user'

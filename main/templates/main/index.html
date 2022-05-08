@@ -41,7 +41,19 @@
       }
       return cookieValue;
     }
+
   </script>
+
+  <style>
+    .floating { position: fixed; right: 2%; top: 40%; text-align:center; width: 80px; z-index: 2;}
+
+    @media screen and (max-width: 575px)
+    {
+      .floating { display: none; }
+    }
+
+  </style>
+  
 </head>
 
 <body>
@@ -59,7 +71,20 @@
 
       <!-- partial -->
       <div class="main-panel">
+        <div class="floating" style="background-color: rgba(105, 141, 187,0.7); border-radius: 0.5em;">
+          <div>
+            <button type="button" class="btn" style="width: 100%; background-color: transparent;"  onclick="javascript:window.scrollTo(0,0)">△</button>
+          </div>
 
+            <button class="btn" style="width: 85%; height: 100%; background-color: transparent; text-align: center;" onclick="window.open('https://www.instagram.com/')">
+              <img src="{% static 'assets/images/remote/instagram.png' %}" style=" width: 40px; ">
+              <p style="margin-bottom: 0%; font-size: 10px;">instagram</p>
+            </button>
+
+          <div>
+            <button type="button" class="btn" style="width: 100%; background-color: transparent;" onclick="javascript:window.scrollTo(0,300)">▽</button>
+          </div>
+        </div>
         <div class="content-wrapper">
           <!-- 로딩페이지 -->
           <div class="col-md-12" id="noneDiv"
@@ -72,9 +97,9 @@
           <form class="save-form" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
-              <div class="col-md-12 col-xl-4 grid-margin stretch-card" style="height: 500px;">
+              <div class="col-md-12 col-xl-4 grid-margin stretch-card" style="height: 100%;">
                 <div class="card">
-                  <div class="card-body" style="height: 57vh;">
+                  <div class="card-body" style="height: 50vh;">
                     <h4 class="card-title" style="text-align: center; padding-bottom: 5%;">이미지를 첨부해 주세요</h4>
                     <form>
                       <label class="uploader" ondragover="return false" style="height: 30vh;">
@@ -85,36 +110,42 @@
                     </form>
                     <!-- 여기 버튼을 눌렀을떄 save로 가야한다. -->
                     <button type="button" class="add btn btn-primary todo-list-add-btn"
-                      style="margin : auto; display : block; margin-top:20px;" onclick="image_upload();">Submit!</button>
+                      style="margin : auto; display : block; margin-top:30px;" onclick="image_upload();">Submit!</button>
           </form>
         </div>
       </div>
     </div>
     <!---->
-    <div class="col-md-12 col-xl-8 grid-margin stretch-card" style="height: 500px;">
+    <div class="col-md-12 col-xl-8 grid-margin stretch-card" style="height: 100%;">
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row justify-content-between">
-            <div class="card-title mb-1" style="width: calc(100%); display : inline-block; text-align : center; align-item : center">
-              <h4>#해시태그 생성</h4>
-              <div
-                style="width: calc(100% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2% "
-                id='tag_output'></div>
-              <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
-                onclick="copyToClipBoard();">해시태그 복사!</button>
-
-              <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
-                onclick="window.open('http://www.instagram.com/accounts/login/','인스타그램','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;">instagram 이동~</button>
-
-                <h4>#관련 인플루언서, 평균 좋아요 수</h4>
-              <div
-                style="float:left; width: calc(49% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
-                id='tag_influ'><h4>#관련 인플루언서</h4></div>
-                
-              <div
-                style="margin-left:3%; float:left; width: calc(49% - 15px); height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
-                id='tag_likes'><h4>평균 좋아요 수</h4></div>
+            <div class="card-title mb-1" style="width: 100%; display : inline-block; text-align : center;">
+              <div class="col-12">
+                <h4>#해시태그 생성</h4>
+                <div
+                  style="width: 100%; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2% "
+                  id='tag_output'></div>
+                <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
+                  onclick="copyToClipBoard();">해시태그 복사!</button>
+              </div>
+              <div style="width: 100%;">
+                <div class="col-6" style="float: left;">
+                  <h4>#관련 인플루언서</h4>
+                  <div
+                    style="float:left; width: 100%; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                    id='tag_influ'>
+                  </div>
+                </div>
               
+                <div class="col-6" style="float: left;">
+                  <h4>#평균 좋아요 수</h4>
+                  <div
+                    style="float:left; width: 100%; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                    id='tag_likes'>
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -125,9 +156,9 @@
   <!---->
 
   <div class="row">
-    <div class="col-md-6 col-xl-4 grid-margin stretch-card" style="height: 75vh;">
+    <div class="col-md-6 col-xl-4 grid-margin stretch-card" style="height: 100%;">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="height: 500px; margin-bottom: 40px;">
           <div class="d-flex flex-row justify-content-between">
             <h4 class="card-title">사용량 분석 - Best Hashtag</h4>
           </div>
@@ -145,8 +176,8 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-xl-8 grid-margin stretch-card" style="height: 75vh;">
-      <div class="card" style="height: 100%;">
+    <div class="col-md-6 col-xl-8 grid-margin stretch-card" style="height: 100%;">
+      <div class="card" style="height: 100%; padding-bottom: 40px;">
         <div class="card-body col-12" style="height: 500px; text-align: center;">
           <h4 class="card-title">AI이미지 테마 적용</h4>
 
@@ -165,8 +196,8 @@
               style="margin : auto; display : inline-block; margin-top:20px;"onclick="img_btn('img4');" onmouseover="onHelp4();" onmouseout="offHelp4();" ontouchstart="onHelp4();" ontouchend="offHelp4();">4번테마!!</button>
           </div>
 
-          <div class="col-12" style="text-align: center;">
-            <div class="col-12 col-xl-8" style="height: 50vh; width:auto; margin: auto; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; margin-top: 3%; text-align: center;">
+          <div class="col-12" style="text-align: center; height: 100%;">
+            <div class="col-12 col-xl-8" style="height: 35vh; width:auto; margin: auto; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; margin-top: 3%; text-align: center;">
               
               <div class="col-11" id="helpDiv1" style="display: none; position: absolute; z-index: 2; width: 100%; ">
                 <div class="col-xl-8 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">

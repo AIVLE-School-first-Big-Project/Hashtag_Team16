@@ -88,39 +88,43 @@ def login_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
-
-        u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
-
+        
         if 'rest_password' in request.POST:
+            u_id = request.POST.get('user_id2')
+            check = USER.objects.get(user_id = u_id)
+            salt=check.salt
             pw_text = request.POST.get('rest_password')
             pw_text = hashlib.sha256(str(pw_text+salt).encode()).hexdigest()
             u_pw_db = USER.objects.get(user_id = u_id).pw
             if pw_text == u_pw_db:
+                check.account_state = '활성계정'
+                check.login_date = timezone.now()
+                check.save()
                 status = {'status' : 'rest_T'}
-                return JsonResponse(status)
             else:
                 status = {'status' : 'rest_F'}
-                return JsonResponse(status)
-
-        try:
-            check = USER.objects.get(user_id = u_id)
-            salt=check.salt
-            u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
-            user = USER.objects.get(user_id = u_id, pw = u_pw)
-            if user.account_state == '휴면계정':
-                status = {'status' : 'rest'}
-                return JsonResponse(status)
-            # user.save()
-        except USER.DoesNotExist:
-            status = {'status' : 'F'}
             return JsonResponse(status)
         else:
-            status = {'status' : 'T'}
-            request.session['user_id'] = user.user_id
-            request.session['user_name'] = user.name
-        # 회원정보 조회 실패시 예외 발생
-            return JsonResponse(status)
-
+            try:
+                check = USER.objects.get(user_id = u_id)
+                salt=check.salt
+                u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
+                user = USER.objects.get(user_id = u_id, pw = u_pw)
+                if user.account_state == '휴면계정':
+                    status = {'status' : 'rest', 'u_id':check.user_id}
+                    print(status['u_id'])
+                    return JsonResponse(status)
+                user.login_date = timezone.now()
+                user.save()
+            except USER.DoesNotExist:
+                status = {'status' : 'F'}
+                return JsonResponse(status)
+            else:
+                status = {'status' : 'T'}
+                request.session['user_id'] = user.user_id
+                request.session['user_name'] = user.name
+                # 회원정보 조회 실패시 예외 발생
+                return JsonResponse(status)
     else:
         # return JsonResponse(data, safe=False)
         return render(request, 'member/login_custom.html')

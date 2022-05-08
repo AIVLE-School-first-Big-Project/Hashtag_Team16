@@ -39,7 +39,7 @@ body {
 
 @media screen and (max-width: 767px) {
   .container3 p {
-    font-size: 5vw;
+    font-size: 3vw;
     padding: 2rem;
     font-weight: bold;
     letter-spacing: 0.1rem;

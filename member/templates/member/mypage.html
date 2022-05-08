@@ -8,6 +8,18 @@
       max-width: 100px;
       max-height: 100px;
   }
+  @font-face {
+    font-family: 'adobaonlyR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/adobaonlyR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  .main-panel {
+    font-family: 'adobaonlyR';
+  }
+  .card{
+    font-family: 'adobaonlyR';
+  }
   </style>
 
 <html lang="en">
@@ -52,7 +64,6 @@
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
-
       <!--nav1 zone-->
       {% include 'main/nav1.html' %}
 
@@ -79,9 +90,9 @@
                             <h3 style="float: left; margin-top: 1%; margin-left: 5%;">{{user}}</h3>
                             <h4 style="width: auto; margin-top: 1.7%; margin-left: 1%; float: left;">님의 회원정보</h4>
                             <div style="width: 100%; text-align: center; display: inline-block;">
-                              <button type="button" class="btn btn-light" style="font-size: small; margin-top: 1.3%; margin-left: 3%; float: left;" onclick = "javascript:showPopUp('info')">회원정보 수정</button>
-                              <button type="button" class="btn btn-light" style="font-size: small; margin-top: 1.3%; margin-left: 15px; float: left;" onclick = "javascript:showPopUp('pw')">비밀번호 수정</button>
-                              <button type="button" class="btn btn-light" style="font-size: small; margin-top: 1.3%; margin-left: 15px; float: left;" onclick = "onDelete('Delete', '{{user}}')"> 회원탈퇴</button>
+                              <button type="button" class="btn btn-outline-secondary btn-fw" style="font-size: small; margin-top: 1.3%; margin-left: 3%; float: left;" onclick = "javascript:showPopUp('info')">회원정보 수정</button>
+                              <button type="button" class="btn btn-outline-secondary btn-fw" style="font-size: small; margin-top: 1.3%; margin-left: 15px; float: left;" onclick = "javascript:showPopUp('pw')">비밀번호 수정</button>
+                              <button type="button" class="btn btn-outline-secondary btn-fw" style="font-size: small; margin-top: 1.3%; margin-left: 15px; float: left;" onclick = "onDelete('Delete', '{{user}}')"> 회원탈퇴</button>
                             </div>
                           </tr>
                       </table>
@@ -124,7 +135,10 @@
                                 <th style="white-space: normal; word-break: keep-all; line-height: 1.4;"> {{w.prior_tag}} </th>
                                 <th>
                                   <a href="#ex1" rel="modal:open" id="logId" value="{{w.log_id}}">
-                                  <button type="button" class="review" id = {{w.log_id}} value = "{{w.log_id}}" onclick="test1({{w.log_id}})">리뷰 작성하기</button>
+                                  <button type="button" class="btn btn-outline-secondary btn-icon-text review" id = {{w.log_id}} value = "{{w.log_id}}" onclick="test1({{w.log_id}})" style='font-size:10px'>
+                                    <i class="mdi mdi-star"></i>
+                                    리뷰 작성하기
+                                  </button>
                                   {% comment %} <span class="menu-title" onclick="test()">리뷰 작성하기</span> {% endcomment %}
                                 </a>
                               </th>
@@ -136,7 +150,10 @@
                           
                         </div>
                       </div>
-                      <button type="submit" id ="delete_btn" class="btn_delete" style="font-size: small; float: right; margin-right: 3%; margin-top: 2%;">삭제</button>
+                      <button type="submit" id ="delete_btn" class="btn btn-outline-danger btn-icon-text btn_delete" style="font-size: small; float: right; margin-right: 3%; margin-top: 2%;">
+                        <i class="mdi mdi-delete-forever"></i>
+                        삭제
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -225,12 +242,12 @@
         // window name 
         var newWindow;
         if (x == 'pw') {
-          var height = 617; 
+          var height = 550; 
           var top = (window.screen.height / 4); 
           var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
           newWindow = window.open('/member/changepw',"changepw", windowStatus);
         } else if (x == 'info') {
-          var height = 630; 
+          var height = 570; 
           var top = (window.screen.height / 4); 
           var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
           newWindow = window.open('/member/changeinfo',"changeinfo", windowStatus);

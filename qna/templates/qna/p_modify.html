@@ -41,6 +41,18 @@
   <!-- Layout styles -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <!-- End layout styles -->
+
+  <style>
+    @font-face {
+      font-family: 'adobaonlyR';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/adobaonlyR.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .main-panel {
+      font-family: 'adobaonlyR';
+    }
+    </style>
 </head>
 
 <body>
@@ -59,7 +71,7 @@
       <div class="main-panel">
 
 
-        <div class="content-wrapper">
+        {% comment %} <div class="content-wrapper">
           <div class="row">
             <div class="col-12 grid-margin">
               <div class="card" style="height: 86vh;">
@@ -97,7 +109,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> {% endcomment %}
 
 
 

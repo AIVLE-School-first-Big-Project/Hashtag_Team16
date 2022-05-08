@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.carousel.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/owl-carousel-2/owl.theme.default.min.css' %}">
 
+
+
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   {% comment %} 그래프용 css {% endcomment %}
   <link rel="stylesheet" href="{% static 'assets/css/graph.css' %}">
@@ -52,12 +54,22 @@
       .floating { display: none; }
     }
 
+    @font-face {
+    font-family: 'adobaonlyR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/adobaonlyR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    body {
+      font-family: 'adobaonlyR';
+    }
+
   </style>
   
 </head>
 
 <body>
-
   <div class="container-scroller">
     <!-- partial:partials/_sidebar.html -->
     <!--nav1 zone-->
@@ -71,29 +83,8 @@
 
       <!-- partial -->
       <div class="main-panel">
-        <div class="floating" style="background-color: rgba(105, 141, 187,0.7); border-radius: 0.5em;">
-          <div>
-            <button type="button" class="btn" style="width: 100%; background-color: transparent;"  onclick="javascript:window.scrollTo(0,0)">△</button>
-          </div>
-
-            <button class="btn" style="width: 85%; height: 100%; background-color: transparent; text-align: center;" onclick="window.open('https://www.instagram.com/')">
-              <img src="{% static 'assets/images/remote/instagram.png' %}" style=" width: 40px; ">
-              <p style="margin-bottom: 0%; font-size: 10px;">instagram</p>
-            </button>
-
-          <div>
-            <button type="button" class="btn" style="width: 100%; background-color: transparent;" onclick="javascript:window.scrollTo(0,300)">▽</button>
-          </div>
-        </div>
         <div class="content-wrapper">
-          <!-- 로딩페이지 -->
-          <div class="col-md-12" id="noneDiv"
-            style="display: none; width: 100%; height: 100%; background : rgb(0, 0, 0,0.6); position: absolute; z-index: 2;">
-            <div class="col-xl-8 col-md-8 col-sm-7 col-lg-6 col-3" style="text-align: center; margin-top: 16%;">
-              <img src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; width: 200px; position: fixed;"
-                alt="loading" /></a>
-            </div>
-          </div>
+
           <form class="save-form" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
@@ -109,8 +100,10 @@
                       </label>
                     </form>
                     <!-- 여기 버튼을 눌렀을떄 save로 가야한다. -->
-                    <button type="button" class="add btn btn-primary todo-list-add-btn"
-                      style="margin : auto; display : block; margin-top:30px;" onclick="image_upload();">Submit!</button>
+                    <button type="button" class="btn btn-primary btn-icon-text" style="margin : auto; display : block; margin-top:18px;" onclick="image_upload();">
+                      <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                      Submit!
+                    </button>
           </form>
         </div>
       </div>
@@ -118,22 +111,24 @@
     <!---->
     <div class="col-md-12 col-xl-8 grid-margin stretch-card" style="height: 100%;">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="height: 50vh">
           <div class="d-flex flex-row justify-content-between">
             <div class="card-title mb-1" style="width: 100%; display : inline-block; text-align : center;">
               <div class="col-12">
                 <h4>#해시태그 생성</h4>
-                <div
-                  style="width: 100%; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2% "
+                <div class="col-12"
+                  style="width: 100%; height: 100%; min-height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; padding-top: 5%;align-items: center;  padding-bottom: 5%;"
                   id='tag_output'></div>
-                <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; "
-                  onclick="copyToClipBoard();">해시태그 복사!</button>
+                <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; " onclick="copyToClipBoard();">
+                  <i class='mdi mdi-content-copy'></i>
+                    copy
+                </button>
               </div>
               <div style="width: 100%;">
                 <div class="col-6" style="float: left;">
                   <h4>#관련 인플루언서</h4>
                   <div
-                    style="float:left; width: 100%; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                    style="float:left; width: 100%; display: flex; align-items: center; justify-content:center; height: 7vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
                     id='tag_influ'>
                   </div>
                 </div>
@@ -141,7 +136,7 @@
                 <div class="col-6" style="float: left;">
                   <h4>#평균 좋아요 수</h4>
                   <div
-                    style="float:left; width: 100%; height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
+                    style="float:left; width: 100%; display: flex; align-items: center; justify-content:center; height: 7vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
                     id='tag_likes'>
                   </div>
                 </div>
@@ -159,19 +154,20 @@
     <div class="col-md-6 col-xl-4 grid-margin stretch-card" style="height: 100%;">
       <div class="card">
         <div class="card-body" style="height: 500px; margin-bottom: 40px;">
-          <div class="d-flex flex-row justify-content-between">
-            <h4 class="card-title">사용량 분석 - Best Hashtag</h4>
-          </div>
-          <div class="preview-list">
 
-            <section style='text-align: center; font-size: 20px;'>
-              <div class="pieID pie">
-
-              </div>
-              <ul class="pieID legend" id="pieID" style="font-size:17px;">
-                <!-- pie chart를 위한 li요소가 들어갈 자리 -->
-              </ul>
-            </section>
+          <div class="card-title mb-1" style="text-align: center;">
+              <h4 class="card-title">사용량 분석 - Best Hashtag</h4>
+            <div class="preview-list">
+  
+              <section style='text-align: center; font-size: 20px; padding-left: 35px;'>
+                <div class="pieID pie">
+  
+                </div>
+                <ul class="pieID legend" id="pieID" style="font-size:17px;">
+                  <!-- pie chart를 위한 li요소가 들어갈 자리 -->
+                </ul>
+              </section>
+            </div>
           </div>
         </div>
       </div>
@@ -183,49 +179,49 @@
 
           <!-- 마우스 호버 -->
           <div id="menu" style="text-align: center; margin-bottom: 5%;">
-            <button type="button" class="add btn btn-primary"
-              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;" onclick="img_btn('img1');" onmouseover="onHelp1();" onmouseout="offHelp1();" ontouchstart="onHelp1();" ontouchend="offHelp1();">1번테마!</button>
+            <button type="button" class="add btn btn-primary btn-rounded"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;" onclick="img_btn('img1');" onmouseover="onHelp1();" onmouseout="offHelp1();" ontouchstart="onHelp1();" ontouchend="offHelp1();">1번테마</button>
 
-            <button type="button" class="add btn btn-primary"
-              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img2');" onmouseover="onHelp2();" onmouseout="offHelp2();" ontouchstart="onHelp2();" ontouchend="offHelp2();">2번테마!</button>
+            <button type="button" class="add btn btn-primary btn-rounded"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img2');" onmouseover="onHelp2();" onmouseout="offHelp2();" ontouchstart="onHelp2();" ontouchend="offHelp2();">2번테마</button>
 
-            <button type="button" class="add btn btn-primary"
-              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img3');" onmouseover="onHelp3();" onmouseout="offHelp3();" ontouchstart="onHelp3();" ontouchend="offHelp3();">3번테마!!</button>
+            <button type="button" class="add btn btn-primary btn-rounded"
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img3');" onmouseover="onHelp3();" onmouseout="offHelp3();" ontouchstart="onHelp3();" ontouchend="offHelp3();">3번테마</button>
 
-            <button type="button" class="add btn btn-primary"
-              style="margin : auto; display : inline-block; margin-top:20px;"onclick="img_btn('img4');" onmouseover="onHelp4();" onmouseout="offHelp4();" ontouchstart="onHelp4();" ontouchend="offHelp4();">4번테마!!</button>
+            <button type="button" class="add btn btn-primary btn-rounded"
+              style="margin : auto; display : inline-block; margin-top:20px;"onclick="img_btn('img4');" onmouseover="onHelp4();" onmouseout="offHelp4();" ontouchstart="onHelp4();" ontouchend="offHelp4();">4번테마</button>
           </div>
 
           <div class="col-12" style="text-align: center; height: 100%;">
-            <div class="col-12 col-xl-8" style="height: 35vh; width:auto; margin: auto; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; margin-top: 3%; text-align: center;">
+            <div class="col-12 col-xl-8" style="height: 35vh; width:auto; margin: auto; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; margin-top: 3%; text-align: center; max-width: 470px;">
               
               <div class="col-11" id="helpDiv1" style="display: none; position: absolute; z-index: 2; width: 100%; ">
-                <div class="col-xl-8 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
+                <div class="col-xl-6 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
                   <p>예시 이미지</p>
                   <img src="{% static 'assets/images/help/help1.jpg' %}" style="width: 95%; margin-top: 0.5%; border-radius: 0.5em;">
                 </div>
               </div>
               <div class="col-11" id="helpDiv2" style="display: none; position: absolute; z-index: 2; width: 100%; ">
-                <div class="col-xl-8 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
+                <div class="col-xl-6 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
                   <p>예시 이미지</p>
                   <img src="{% static 'assets/images/help/help2.jpg' %}" style="width: 95%; margin-top: 0.5%; border-radius: 0.5em;">
                 </div>
               </div>
               <div class="col-11" id="helpDiv3" style="display: none; position: absolute; z-index: 2; width: 100%; ">
-                <div class="col-xl-8 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
+                <div class="col-xl-6 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
                   <p>예시 이미지</p>
                   <img src="{% static 'assets/images/help/help3.png' %}" style="width: 95%; margin-top: 0.5%; border-radius: 0.5em;">
                 </div>
               </div>
               <div class="col-11" id="helpDiv4" style="display: none; position: absolute; z-index: 2; width: 100%; ">
-                <div class="col-xl-8 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
+                <div class="col-xl-6 col-md-10 col-lg-10 col-sm-8 col-10" style="margin: auto; background-color: rgb(46, 46, 48); border-radius: 0.5em; padding-top: 2%; padding-bottom: 4%; height: 100%;">
                   <p>예시 이미지</p>
                   <img src="{% static 'assets/images/help/help4.jpg' %}" style="width: 95%; margin-top: 0.5%; border-radius: 0.5em;">
                 </div>
               </div>
 
               
-              <div class="col-12" style="height: 95%; margin: auto; border-radius: 0.5em; padding: 2%; margin-top: 3%; text-align: center; table-layout:fixed;" id='img1_output'>
+              <div class="col-12" style="height: 100%; margin: auto; border-radius: 0.5em; padding: 2%; text-align: center; table-layout:fixed;" id='img1_output'>
               </div>
               
 
@@ -338,6 +334,12 @@
     }
     //여기가 버튼이 눌렸을때
   </script>
+  <!-- 로딩페이지 -->
+  <div id="noneDiv"
+  style="display: none; width: 100%; height: 100%; background : rgb(0, 0, 0,0.6); position: fixed; z-index: 2; text-align: center;">
+    <img class="loading_img" src="{% static 'assets/images/loading.gif' %}" style="vertical-align: middle; width: 200px; margin-top: 35vh;"
+        alt="loading">
+  </div>
 </body>
 
 </html>

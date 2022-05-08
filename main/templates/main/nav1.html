@@ -10,6 +10,16 @@
     .floating { display: none; }
   }
 
+  @font-face {
+    font-family: 'adobaonlyR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/adobaonlyR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  .nav {
+    font-family: 'adobaonlyR';
+  }
+
 </style>
 <div class="floating" style="background-color: rgba(105, 141, 187,0.7); border-radius: 0.5em;">
   <div>
@@ -164,4 +174,12 @@
       }
       
     };
+</script>
+
+<script type="text/javascript">
+  function Logout() {
+    sessionStorage.clear();
+    alert("로그아웃 되었습니다.");
+    location.href = "/member/logout";
+  }
 </script>

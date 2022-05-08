@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 {% load static %}
 
+<style>
+  @font-face {
+    font-family: 'adobaonlyR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/adobaonlyR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  .nav {
+    font-family: 'adobaonlyR';
+  }
+
+</style>
 <nav class="navbar p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
       <a class="navbar-brand brand-logo-mini" href="/main/">
@@ -55,3 +67,11 @@
       </button>
     </div>
   </nav>
+
+  <script type="text/javascript">
+    function Logout() {
+      sessionStorage.clear();
+      alert("로그아웃 되었습니다.");
+      location.href = "/member/logout";
+    }
+  </script>

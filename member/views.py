@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 import hashlib
 from django.contrib.auth import logout as auth_logout
-
+import re
 from .forms import RecoveryPwForm
 from .forms import CustomSetPasswordForm 
 from member.decorators import *
@@ -141,9 +141,22 @@ def signup_custom(request):
             # 랜덤한 하나의 숫자를 뽑아서, 문자열 결합을 한다. 
             salt += random.choice(string_pool) 
 
-        b_year, b_month, b_day = b_date[:4], b_date[5:7], b_date[8:]
+        # 날짜데이터 전처리
+        data_list = b_date.split("-")
+        b_year, b_month, b_day = data_list[0], data_list[1], data_list[2]
         
-                
+        # 휴대전화 유효성 검사
+        phone_regex = re.compile("^(01)\d{1}-\d{3,4}-\d{4}$")
+        phone_validation = phone_regex.search(p_num.replace(" ",""))
+        
+        
+        # 이메일 유효성 검사
+        mail_regex = re.compile('^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+        mail_validation = mail_regex.match(email)
+        print(mail_validation)
+
+
+        # 공란체크
         if (u_id=='') or (u_pw=='') or (u_name=='') or (b_date=='') or (p_num=='') or (email==''):
             data = {'status': 'empty_error'}
             return JsonResponse(data)
@@ -164,8 +177,12 @@ def signup_custom(request):
             data = {'status':'pw_error'}
             return JsonResponse(data)
         
-        if ('@' not in email):
+        if not mail_validation:
             data = {'status':'email_error'}
+            return JsonResponse(data)
+        
+        if not phone_validation:
+            data = {'status': 'phone_error'}
             return JsonResponse(data)
             
         u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()

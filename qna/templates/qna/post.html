@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
-
+<script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <html lang="en">
 
 <head>
@@ -142,7 +143,7 @@
                   <form class='comment_form'>
                     {% csrf_token %}
                     <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
-                    <input id="commentinput" type="text" name="content" class="col-8 col-xl-5" style="font-size: smaller;" size="60%" onkeyup="if(window.event.keyCode==13){comment('C')}" placeholder="댓글을 입력해 주세요."/>
+                    <input id="commentinput" type="text" name="content" class="col-8 col-xl-5" style="font-size: smaller;" size="60%" onkeydown="if(window.event.keyCode==13){comment('C')}" placeholder="댓글을 입력해 주세요."/>
                     <button type='button' class="btn btn-light" id="button1"
                     style="width: 50px; height: 40px; font-size: 70%; margin-left: 1%; margin-top: 1%; margin-bottom: 1%; line-height: 1.2;"
                     onclick='comment("C");' value="comment_create"> 댓글 달기 </button>
@@ -238,8 +239,8 @@
           if (result.status == 'T') {
             alert("삭제 완료!");
             window.location.href = '/qna';
-
-          } else {
+          }
+          else {
             alert("권한이 없습니다!");
             window.location.reload();
           }
@@ -258,13 +259,13 @@
       const url = window.location.href;
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
-
+      console.log(1)
       // Create 모드
       if (key == 'C') {
         var form = document.getElementsByClassName('comment_form');
         myformData.append('method', key);
         myformData.append('content', form[0][1].value);
-
+        console.log(form)
         $.ajax({
           type: "POST",
           url: url + 'comment',
@@ -280,6 +281,7 @@
           },
           success: function (result) {
             if (result.status == 'create_T') {
+              {% comment %} alert("완료!"); {% endcomment %}
               window.location.reload();
             }
             else if (result.status == 'create_F') {
@@ -306,7 +308,7 @@
             contentType: false,
 
             error: function () {
-              alert("fail!");
+              alert("fail!!");
             },
             success: function (result) {
               if (result.status == 'delete_T') {
@@ -321,8 +323,8 @@
       };
     }
   </script>
-  
-  {% comment %} <script>
+{% comment %}   
+  <script>
     $("#commentinput").keydown(function(keyNum){    
       if(keyNum.keyCode == 13){
         $("#button1").click() }})

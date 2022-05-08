@@ -22,9 +22,10 @@ def qna_board(request):
     try:
         user = USER.objects.get(user_id = request.session['user_id']).user_id
         qna_list=ARTICLE.objects.all()
-        now_page = request.GET.get('page', 1)
         write_date_list = qna_list.order_by('-date')
+
         p = Paginator(write_date_list, 10)
+        now_page = request.GET.get('page', 1)
         now_page = int(now_page)
         info = p.get_page(now_page)
         start_page = (now_page - 1) // 10 * 10 + 1

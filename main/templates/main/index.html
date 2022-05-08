@@ -11,6 +11,17 @@
   @media screen and (max-width: 575px)
   {
     .floating { display: none; }
+    #c_hash{ margin-bottom: 30px; }
+    #hash_h_l { font-size: 13px; }
+    #hash_h_r { font-size: 13px; }
+  }
+  @media screen and (min-width: 576px)
+  {
+    #c_hash{ margin-bottom: 90px; }
+    #c_hash_div { margin-left:50px; }
+    #c_hash_h { margin-right:10vw; }
+    #hash_h_l { font-size: 17px; }
+    #hash_h_r { font-size: 17px; }
   }
 
   @font-face {
@@ -116,27 +127,30 @@
         <div class="card-body" style="height: 50vh">
           <div class="d-flex flex-row justify-content-between">
             <div class="card-title mb-1" style="width: 100%; display : inline-block; text-align : center;">
-              <div class="col-12" style="margin-bottom:100px;">
-                <h4>#해시태그 생성</h4>
-                <div class="col-12 col-sm-10"
-                  style="width: 100%; height: 100%; min-height: 15vh; float:left; background-color: rgb(68, 69, 74); border-radius: 0.5em;
-                   padding: 2%; padding-top: 5%;align-items: center;  padding-bottom: 5%;"
-                  id='tag_output'></div>
-                <button type="button" class="add btn btn-primary col-3 col-sm-2 col-md-2 col-xl-2 col-lg-2" style="min-width:90px; width:90px; margin : auto;  margin-top:40px; margin-bottom:20px; "
-                  onclick="copyToClipBoard();">해시태그 복사!</button>
+              <div class="col-12" id="c_hash">
+                <h4 id="c_hash_h">#해시태그 생성</h4>
+                <div id="c_hash_div">
+                  <div class="col-12 col-sm-9 col-xl-9 col-lg-9"
+                    style="min-height: 10vh; float:left; background-color: rgb(68, 69, 74); border-radius: 0.5em;
+                    padding: 2%; padding-top: 5%;align-items: center;  padding-bottom: 5%; margin-top: 20px;"
+                    id='tag_output'></div>
+                  <button type="button" class="add btn btn-primary col-3 col-sm-2 col-md-2 col-xl-2 col-lg-2"
+                  style="min-width:90px; width:90px; margin : auto;  margin-top:40px; margin-bottom:20px;"
+                    onclick="copyToClipBoard();">해시태그 복사!</button>
+                </div>
               </div>
               <div style="width: 100%;">
                 <div class="col-6" style="float: left;">
-                  <h4>#관련 인플루언서</h4>
-                  <div
+                  <p id="hash_h_l">#관련 인플루언서</p>
+                  <div id ="hash_l" 
                     style="float:left; width: 100%; display: flex; align-items: center; justify-content:center; height: 7vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
                     id='tag_influ'>
                   </div>
                 </div>
               
                 <div class="col-6" style="float: left;">
-                  <h4>#평균 좋아요 수</h4>
-                  <div
+                  <p id="hash_h_r">#평균 좋아요 수</p>
+                  <div id ="hash_r"
                     style="float:left; width: 100%; display: flex; align-items: center; justify-content:center; height: 7vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%"
                     id='tag_likes'>
                   </div>

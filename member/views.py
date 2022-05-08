@@ -35,24 +35,24 @@ def mypage(request):
             real_log.save()
             data = {'status':'T'}
             return JsonResponse(data)
-    elif 'method' in request.POST:
-        if request.POST.get('method') == 'Delete':
-            check = USER.objects.get(user_id = user)
-            salt=check.salt
-            u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw # db에 저장된 암호화된 암호
-            u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
+    # elif 'method' in request.POST:
+    #     if request.POST.get('method') == 'Delete':
+    #         check = USER.objects.get(user_id = user)
+    #         salt=check.salt
+    #         u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw # db에 저장된 암호화된 암호
+    #         u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
 
-            if u_pw_db == u_pw:
-                check.delete()
-                auth_logout(request)
-                data = {'status':'delete_T'}
-                return JsonResponse(data)
-            else:
-                data = {'status':'delete_F'}
-                return JsonResponse(data)
-        else:
-            data = {'status':'delete_F'}
-            return JsonResponse(data)
+    #         if u_pw_db == u_pw:
+    #             check.delete()
+    #             auth_logout(request)
+    #             data = {'status':'delete_T'}
+    #             return JsonResponse(data)
+    #         else:
+    #             data = {'status':'delete_F'}
+    #             return JsonResponse(data)
+    #     else:
+    #         data = {'status':'delete_F'}
+    #         return JsonResponse(data)
     
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
@@ -281,7 +281,37 @@ def change_info(request):
         except KeyError:
             return redirect('/need_login')     
 
+def account_withdrawal(request):
+    if request.method == "POST":
+        o_pw = request.POST.get('origin_password')
+        c_pw = request.POST.get('confirm_password')
 
+        if (o_pw == '') or (c_pw == ''):
+            data = {'status':'empty_error'}
+            print(data)
+            return JsonResponse(data)
+        check = USER.objects.get(user_id = request.session['user_id'])
+        salt=check.salt
+        o_pw=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
+        c_pw=hashlib.sha256(str(c_pw+salt).encode()).hexdigest()
+        u_pw_db = check.pw
+
+        if u_pw_db == o_pw and u_pw_db == c_pw:
+            check.delete()
+            auth_logout(request)
+            data = {'status':'delete_T'}
+            print(data)
+            return JsonResponse(data)
+        else:
+            data = {'status':'delete_F'}
+            print(data)
+            return JsonResponse(data)
+    else:
+        try:
+            request.session['user_id']
+            return render(request, 'member/account_withdrawal.html')
+        except KeyError:
+            return redirect('/need_login')
 
 # @method_decorator(logout_message_required, name='dispatch')
 class RecoveryPwView(View):

@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/type_effect.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
+    <style>
+      @font-face {
+        font-family: 'Happiness-Sans-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
 
     
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -30,7 +38,7 @@
   </head>
 
 <body>
-   
+
   <!--header-->
   <header class="main-header clearfix" role="header" style='background-color: rgba(36, 36, 36, 0.95);'>
     <div class="logo">
@@ -61,9 +69,9 @@
           <source src="{% static 'assets/images/course-video3.mp4' %}" type="video/mp4" />
       </video>
 
-      <div class="video-overlay header-text" style='background-color: rgba(36, 36, 36, 0.85);'>
+      <div class="video-overlay header-text" style='background-color: rgba(36, 36, 36, 0.85); '>
           <div class="caption">
-              <div class="container3">
+              <div class="container3" style='font-family: Happiness-Sans-Regular;'>
                 <p>#으로 <span class="typed-text"></span><span class="cursor"> &nbsp;</span>샵</p>
               </div>
               {% comment %} <h6># 으로 가치를 전하는 샵</h6> {% endcomment %}
@@ -82,6 +90,39 @@
       </div>
   </section>
   <!-- ***** Main Banner Area End ***** -->
+  <section class="features" style='font-family: Happiness-Sans-Regular;'>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <div class="features-post">
+            <div class="features-content" id='abc'>
+              <div class="content-show">
+                <h4><i class="fa-solid fa-hashtag"></i></i>해시태그 추천</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-12">
+          <div class="features-post second-features">
+            <div class="features-content">
+              <div class="content-show">
+                <h4><i class="fa-solid fa-hashtag"></i>이미지 설명 자동화</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-12">
+          <div class="features-post third-features">
+            <div class="features-content">
+              <div class="content-show">
+                <h4><i class="fa-solid fa-hashtag"></i>해시태그 사용량 분석</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   
   <footer>
     <div class="container">

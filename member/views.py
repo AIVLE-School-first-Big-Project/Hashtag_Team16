@@ -157,6 +157,10 @@ def signup_custom(request):
             data = {'status': 'sameemail_error'}
             return JsonResponse(data) 
         
+        if (len(u_pw) < 8) or (len(u_pw) > 20):
+            data = {'status': 'pw_len_error'}
+            return JsonResponse(data) 
+        
         if (u_pw != u_pw2):
             data = {'status':'pw_error'}
             return JsonResponse(data)

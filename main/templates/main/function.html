@@ -52,6 +52,28 @@
       -o-transform: scale(1.2);
       transform: scale(1.2);
     }
+
+  </script>
+
+  <style>
+    .floating { position: fixed; right: 2%; top: 40%; text-align:center; width: 80px; z-index: 2;}
+
+    @media screen and (max-width: 575px)
+    {
+      .floating { display: none; }
+    }
+
+    @font-face {
+    font-family: 'adobaonlyR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/adobaonlyR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    body {
+      font-family: 'adobaonlyR';
+    }
+
   </style>
 </head>
 

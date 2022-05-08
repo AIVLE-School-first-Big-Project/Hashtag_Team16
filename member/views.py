@@ -88,14 +88,29 @@ def login_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
-        
+
+        u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
+
+        if 'rest_password' in request.POST:
+            pw_text = request.POST.get('rest_password')
+            pw_text = hashlib.sha256(str(pw_text+salt).encode()).hexdigest()
+            u_pw_db = USER.objects.get(user_id = u_id).pw
+            if pw_text == u_pw_db:
+                status = {'status' : 'rest_T'}
+                return JsonResponse(status)
+            else:
+                status = {'status' : 'rest_F'}
+                return JsonResponse(status)
+
         try:
             check = USER.objects.get(user_id = u_id)
             salt=check.salt
             u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
             user = USER.objects.get(user_id = u_id, pw = u_pw)
-            user.join_date = timezone.localtime()
-            user.save()
+            if user.account_state == '휴면계정':
+                status = {'status' : 'rest'}
+                return JsonResponse(status)
+            # user.save()
         except USER.DoesNotExist:
             status = {'status' : 'F'}
             return JsonResponse(status)

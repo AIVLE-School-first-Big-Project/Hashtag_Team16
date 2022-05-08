@@ -30,6 +30,17 @@ class index(View):
     def post(self, request):
         url = request.POST['url']
         os.remove(url)
+        tag = request.POST['tag']
+        tag_string = ' '.join(s for s in tag)
+        log = LOG.objects.create(
+                log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
+                user = USER.objects.get(user_id=request.session['user_id']),
+                service_score = None,
+                feedback = None,
+                image = request.POST['url2'],  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
+                prior_tag = tag_string
+            )
+        log.save()
         data = {'status': 'success'}
         return JsonResponse(data)
 
@@ -67,17 +78,7 @@ class hashtag(View):
         res = requests.post('http://118.91.69.43:60001/hashtags20/', files = upload)
         hashtags_json = json.loads(res.content)
         files.close()
-        # list 문자열로 변환
-        tag_string = ' '.join(s for s in hashtags_json['hashtags'])
-        log = LOG.objects.create(
-                log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
-                user = USER.objects.get(user_id=request.session['user_id']),
-                service_score = None,
-                feedback = None,
-                image = request.POST['url2'],  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
-                prior_tag = tag_string
-            )
-        log.save()
+
         
         data = {'hashtag' : hashtags_json['hashtags']}
         tag_dict, influ, like = mp_module.mult_process_tag(hashtags_json['hashtags'][:6])

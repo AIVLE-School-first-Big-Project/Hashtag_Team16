@@ -69,7 +69,7 @@
 
                 <form class="login-form" >
                   {% csrf_token %}
-                  <input type="text" id='id' placeholder="username" name="user_id"/>
+                  <input type="text" id='id' placeholder="ID" name="user_id"/>
                   <input type="password" id='pw' placeholder="password" name="user_pw"/>
                   <button type="button" id='button' onclick="login();">login</button>
                   <p class="message">Not registered? <a href="/member/information">Create an account</a></p>
@@ -129,13 +129,53 @@
                 alert("로그인 완료!");
                 opener.location.href = '/main'
                 window.close();
-              } else {
+              } else if(result.status == 'F'){
                 alert("로그인 실패!");
+                opener.location.reload();
+                window.close();
+              }else {
+                {% comment %} alert("휴면계정입니다"); {% endcomment %}
+                if (confirm('휴면계정입니다.\n휴면해제하시겠습니까?') == true) {
+                  var password = prompt("비밀번호를 입력해주세요");
+                  password_check(password);
+                }
                 opener.location.reload();
                 window.close();
               }
             }});
       };
+
+      function password_check(pw) { //휴면해제할 때, 비밀번호 check
+        const myformData = new FormData();
+        const csrftoken = getCookie('csrftoken');
+  
+        myformData.append('rest_password', pw);
+        
+        $.ajax({
+          type: "POST",
+          url: '',
+          async: true,
+          data: myformData,
+          headers: { 'X-CSRFToken': csrftoken },
+          enctype: "multipart/form-data",
+          processData: false,
+          contentType: false,
+
+          error: function () {
+            alert("fail!");
+          },
+          success: function (result) {
+            if (result.status == 'rest_T') {
+              location.href = "/main"; 
+              alert('해제되었습니다!!!')
+            }
+            else if (result.status == 'rest_F') {
+              window.location.href='';
+              alert("권한이 없습니다!");
+            }
+          }
+        });
+        };
 </script>
 
 <script>

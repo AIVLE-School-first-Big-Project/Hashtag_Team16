@@ -20,7 +20,7 @@ import random
 # mypage
 def mypage(request):
     user = USER.objects.get(user_id=request.session['user_id']).user_id
-    salt=user.salt
+    
     log_list = LOG.objects.filter(user=user)
     # 평점 스코어, 피드백 내용 기능 구현
     if 'score' in request.POST:
@@ -37,12 +37,13 @@ def mypage(request):
             return JsonResponse(data)
     elif 'method' in request.POST:
         if request.POST.get('method') == 'Delete':
-            user = USER.objects.get(user_id = request.POST.get('id'))
+            check = USER.objects.get(user_id = user)
+            salt=check.salt
             u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw # db에 저장된 암호화된 암호
             u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
 
             if u_pw_db == u_pw:
-                user.delete()
+                check.delete()
                 auth_logout(request)
                 data = {'status':'delete_T'}
                 return JsonResponse(data)
@@ -87,14 +88,29 @@ def login_custom(request):
     if request.method == 'POST':
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
-        
+
+        u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
+
+        if 'rest_password' in request.POST:
+            pw_text = request.POST.get('rest_password')
+            pw_text = hashlib.sha256(str(pw_text+salt).encode()).hexdigest()
+            u_pw_db = USER.objects.get(user_id = u_id).pw
+            if pw_text == u_pw_db:
+                status = {'status' : 'rest_T'}
+                return JsonResponse(status)
+            else:
+                status = {'status' : 'rest_F'}
+                return JsonResponse(status)
+
         try:
             check = USER.objects.get(user_id = u_id)
             salt=check.salt
             u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
             user = USER.objects.get(user_id = u_id, pw = u_pw)
-            user.join_date = timezone.localtime()
-            user.save()
+            if user.account_state == '휴면계정':
+                status = {'status' : 'rest'}
+                return JsonResponse(status)
+            # user.save()
         except USER.DoesNotExist:
             status = {'status' : 'F'}
             return JsonResponse(status)

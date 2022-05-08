@@ -82,7 +82,7 @@
                   <input type="text" name="name" placeholder="이름"/>
                   <input type="date" name="birth_date" data-bind="dateOfBirth" />  
                   <input type="text" name="email" placeholder="email"/>
-                  <input type="text" name="phone_num" placeholder="전화번호"/>
+                  <input type="text" name="phone_num" placeholder="전화번호(ex : 010-1234-5678)"/>
                   <button type="button" onclick="signup();" >create</button>
                   <p class="message">Already registered? <a href="/member/login">Sign In</a></p>
                 </form>
@@ -208,6 +208,9 @@
                   }
                   else if (result.status == 'pw_len_error') {
                     alert('비밀번호 길이를 확인해주세요!')
+                  }
+                  else if (result.status == 'phone_error') {
+                    alert('전화번호 양식을 확인해주세요!(ex : 010-1234-1234)')
                   }
                   else {
                     alert("가입 완료!");

@@ -89,8 +89,6 @@ def login_custom(request):
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
 
-        u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
-
         if 'rest_password' in request.POST:
             pw_text = request.POST.get('rest_password')
             pw_text = hashlib.sha256(str(pw_text+salt).encode()).hexdigest()

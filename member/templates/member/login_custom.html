@@ -71,6 +71,7 @@
                   {% csrf_token %}
                   <input type="text" id='id' placeholder="ID" name="user_id"/>
                   <input type="password" id='pw' placeholder="password" name="user_pw"/>
+                  <input type="checkbox" onclick="myFunction()">Show Password
                   <button type="button" id='button' onclick="login();">login</button>
                   <p class="message">Not registered? <a href="/member/information">Create an account</a></p>
                   <p class="message" style="display: inline-block;"><a href="/member/recovery/id/">Find ID / </a></p>
@@ -137,6 +138,17 @@
     };
 </script>
 
+
+<script>
+function myFunction() {
+  var x = document.getElementById("pw");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
 <script>
   function login() {
       var form = document.getElementsByClassName('login-form');

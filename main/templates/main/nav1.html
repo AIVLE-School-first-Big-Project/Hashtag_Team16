@@ -1,5 +1,33 @@
 <!DOCTYPE html>
 {% load static %}
+
+<!-- 리모콘 기능 -->
+<style>
+  .floating { position: fixed; right: 2%; top: 40%; text-align:center; width: 80px; z-index: 2;}
+
+  @media screen and (max-width: 575px)
+  {
+    .floating { display: none; }
+  }
+
+</style>
+<div class="floating" style="background-color: rgba(105, 141, 187,0.7); border-radius: 0.5em;">
+  <div>
+    <button type="button" class="btn" style="width: 100%; background-color: transparent;"  onclick="javascript:window.scrollTo(0,0)">△</button>
+  </div>
+
+    <button class="btn" style="width: 85%; height: 100%; background-color: transparent; text-align: center;" onclick="window.open('https://www.instagram.com/')">
+      <img src="{% static 'assets/images/remote/instagram.png' %}" style=" width: 40px; ">
+      <p style="margin-bottom: 0%; font-size: 10px;">instagram</p>
+    </button>
+
+  <div>
+    <button type="button" class="btn" style="width: 100%; background-color: transparent;" onclick="javascript:window.scrollTo(0,5500)">▽</button>
+  </div>
+</div>
+<!-- 리모콘 기능 끝 -->
+
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
       <a class="sidebar-brand brand-logo" href="/main"><img src="{% static 'assets/images/logo3.svg' %}" style = 'width:50%; height:auto; margin: 5%; padding-left:5%' alt="logo" /></a>
@@ -105,6 +133,7 @@
       </li> {% endcomment %}
     </ul>
   </nav>
+  
 
   <script type="text/javascript">
     function showPopUp_nav(x) {

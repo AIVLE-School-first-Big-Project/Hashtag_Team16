@@ -69,7 +69,7 @@ transform: translate(-50%, -50%);'>
                         <small style='color:white;'>등록하신 이름과 메일주소가 일치해야 합니다.</small>
                         <form class="login-form" >
                             {% csrf_token %}
-                            <input type="text" placeholder="ID" id="user_name"/>
+                            <input type="text" placeholder="username" id="user_name"/>
                             <input type="email" placeholder="email" id="user_email"/>
                             <button type="button" id="find_id">find</button>
                             

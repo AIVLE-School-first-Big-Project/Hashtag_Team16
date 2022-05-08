@@ -20,7 +20,7 @@ import random
 # mypage
 def mypage(request):
     user = USER.objects.get(user_id=request.session['user_id']).user_id
-    salt=user.salt
+    
     log_list = LOG.objects.filter(user=user)
     # 평점 스코어, 피드백 내용 기능 구현
     if 'score' in request.POST:
@@ -38,6 +38,7 @@ def mypage(request):
     elif 'method' in request.POST:
         if request.POST.get('method') == 'Delete':
             user = USER.objects.get(user_id = request.POST.get('id'))
+            salt=user.salt
             u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw # db에 저장된 암호화된 암호
             u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
 

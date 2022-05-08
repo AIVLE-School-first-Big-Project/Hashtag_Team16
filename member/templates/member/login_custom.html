@@ -71,7 +71,16 @@
                   {% csrf_token %}
                   <input type="text" id='id' placeholder="ID" name="user_id"/>
                   <input type="password" id='pw' placeholder="password" name="user_pw"/>
-                  <input type="checkbox" onclick="myFunction()">Show Password
+
+                  
+                  
+                  <div style="color : white;  margin: 0; float:left; ">
+                    <input type="checkbox" onclick="myFunction()" style=" margin: 0; float:left; display:inline;"/>
+
+                    <p style="display:inline;">Show Password</p>
+                  </div>
+                  
+
                   <button type="button" id='button' onclick="login();">login</button>
                   <p class="message">Not registered? <a href="/member/information">Create an account</a></p>
                   <p class="message" style="display: inline-block;"><a href="/member/recovery/id/">Find ID / </a></p>

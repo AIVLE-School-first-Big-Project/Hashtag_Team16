@@ -11,5 +11,3 @@
 
 >강민수 강준모 고세림 배경용 손현우 윤지민 이서현
 
-
-<img src="https://img.shields.io/badge/이름-색상코드?style=flat-square&logo=로고명&logoColor=로고색"/>

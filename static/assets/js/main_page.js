@@ -27,7 +27,8 @@ function img_btn(id) {
     let index = img_list.indexOf(id);
     img_list.splice(index,1);
     const target_img = document.getElementById(id);
-    target_img.style.display = 'block';
+    target_img.style.display = 'inline';
+
     for (exception in img_list) {
         const ex_img = document.getElementById(img_list[exception]);
         ex_img.style.display = 'none';
@@ -61,7 +62,7 @@ function GAN_image(url) {
         success: function (result) {
             for (tag in result) {
                 var img = new Image();
-                img.style = "width:100%; height: 100%; position:relative; display:none";
+                img.style = "max-width: 100%; max-height: 100%; position:relative; display:none;"
                 img.id = tag
                 img.src = "data:image/;base64,"+result[tag]
                 imgbox.appendChild(img);

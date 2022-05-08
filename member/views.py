@@ -153,8 +153,6 @@ def signup_custom(request):
         # 이메일 유효성 검사
         mail_regex = re.compile('^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
         mail_validation = mail_regex.match(email)
-        print(mail_validation)
-
 
         # 공란체크
         if (u_id=='') or (u_pw=='') or (u_name=='') or (b_date=='') or (p_num=='') or (email==''):

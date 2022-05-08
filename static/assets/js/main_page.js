@@ -1,13 +1,15 @@
 var cnt = 0
 
-function last_func(url) {
+function last_func(url, url2, tag) {
     const myformData = new FormData();
     const csrftoken = getCookie('csrftoken');
     myformData.append("url", url);
+    myformData.append("url2", url2);
+    myformData.append("tag", tag);
     $.ajax({
         type: "POST",
         url: "",
-        async: true,
+        async: false,
         headers: { 'X-CSRFToken': csrftoken },
         enctype: "multipart/form-data",
         data: myformData,
@@ -224,7 +226,7 @@ function hashtag(url, url2) {
             cnt++;
             if (cnt == 2) {
                 $('#noneDiv').hide();
-                last_func(url);
+                last_func(url, url2,result['hashtag']);
             }
         }
     });

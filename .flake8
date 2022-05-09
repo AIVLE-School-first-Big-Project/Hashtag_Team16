@@ -7,7 +7,8 @@ exclude =
     __pycache__,
     venv,
     .env,
-    static
+    static,
+    Data_And_Model_Part
 
 ignore =
     F405,
@@ -38,5 +39,6 @@ ignore =
     F403,
     B007,
     B950,
+    W605
 
 max-line-length = 200

@@ -48,7 +48,7 @@ def qna_board(request):
             #info
             try:
                 cnt_comment[cnt] = data.get(article_id = i.article_id)['cnt_sum']
-            except:
+            except COMMENT.DoesNotExist:
                 cnt_comment[cnt] = 0
             cnt += 1
         #################################

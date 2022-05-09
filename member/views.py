@@ -33,7 +33,7 @@ def mypage(request):
         else:
             score = log_list.get(log_id=request.POST.get('key')).service_score
             fb = log_list.get(log_id=request.POST.get('key')).feedback
-            if (score != None) and (fb != None):
+            if (score is not None) and (fb is not None):
                 data = {'status':'exist_feedback'}
                 return JsonResponse(data)
             else:
@@ -58,7 +58,7 @@ def mypage(request):
     #     else:
     #         data = {'status':'delete_F'}
     #         return JsonResponse(data)
-    
+
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
     now_page = int(now_page)

@@ -64,7 +64,6 @@
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
-
       <!--nav1 zone-->
       {% include 'main/nav1.html' %}
 
@@ -106,13 +105,12 @@
                               <tr>
                                 <th style="width: 10%;"> </th>
                                 <th style="width: 10%; height: 48.5;"><b> No </b></th>
-                                <th style="width: 15%; height: 48.5;"><b> 이미지 파일명 </b></th>
+                                <th style="width: 15%; height: 48.5;"><b> 이미지 파일</b></th>
                                 <th style="width: 50%; height: 48.5; text-align: center; "><b> 추천 해시태그 </b></th>
                               </tr>
                             </thead>
                             <tbody>
                               {% csrf_token %}
-
                               {% for w in info %}
                               <tr id='{{w.log_id}}'>
                                 <th style="padding-left: 5%;">
@@ -252,6 +250,12 @@
           var top = (window.screen.height / 4); 
           var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
           newWindow = window.open('/member/changeinfo',"changeinfo", windowStatus);
+        } else if (x == 'account_withdrawal')
+        {
+          var height = 570; 
+          var top = (window.screen.height / 4); 
+          var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+          newWindow = window.open('/member/withdrawal',"withdrawal", windowStatus);
         }
         
       };
@@ -275,10 +279,12 @@
         if (key == 'Delete') {
           // 회원 탈퇴 재확인을 받고, 결과가 true 경우에만 삭제를 진행한다.
           if (confirm('정말로 탈퇴하시겠습니까?') == true) {
-            var password = prompt("비밀번호를 입력해주세요");
+            showPopUp('account_withdrawal');
+
+            {% comment %} var password = prompt("비밀번호를 입력해주세요"); {% endcomment %}
             
             {% comment %} document.write("<h3>" + text +"</h3>"); {% endcomment %}
-            myformData.append('method', key);
+            {% comment %} myformData.append('method', key);
             myformData.append('id', user);
             myformData.append('pw', password);
 
@@ -306,7 +312,7 @@
                   alert("권한이 없습니다!");
                 }
               }
-            });
+            }); {% endcomment %}
           }
         };
       };

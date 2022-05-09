@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 {% load static %}
 <style>
+  .max-small {
+    width: auto; height: auto;
+    max-width: 100px;
+    max-height: 100px;
+}
   select {
     width: 100px;
     padding: .7rem 0;
@@ -16,6 +21,9 @@
     font-family: 'adobaonlyR';
   }
   .main-panel {
+    font-family: 'adobaonlyR';
+  }
+  .card{
     font-family: 'adobaonlyR';
   }
 </style>
@@ -74,10 +82,10 @@
 
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper" style="height: 80vh;">
+          <div class="content-wrapper" >
             <div class="row ">
               <div class="col-md-12 grid-margin">
-                <div class="card" style="height: 75vh;">
+                <div class="card" style="height: 100%;">
                   <div class="card-body">
                     <h3 class="card-title">Q&A 게시판
                       <select id= 'dropdown' class="btn btn-outline-secondary dropdown-toggle" style="width:120px; float:right; font-size:13px; margin-right:2%; margin-top:0.5%">

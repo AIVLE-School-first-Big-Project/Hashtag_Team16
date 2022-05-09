@@ -127,17 +127,15 @@
         <div class="card-body" style="height: 50vh">
           <div class="d-flex flex-row justify-content-between">
             <div class="card-title mb-1" style="width: 100%; display : inline-block; text-align : center;">
-              <div class="col-12" id="c_hash">
-                <h4 id="c_hash_h">#해시태그 생성</h4>
-                <div id="c_hash_div">
-                  <div class="col-12 col-sm-9 col-xl-9 col-lg-9"
-                    style="min-height: 10vh; float:left; background-color: rgb(68, 69, 74); border-radius: 0.5em;
-                    padding: 2%; padding-top: 5%;align-items: center;  padding-bottom: 5%; margin-top: 20px;"
-                    id='tag_output'></div>
-                  <button type="button" class="add btn btn-primary col-3 col-sm-2 col-md-2 col-xl-2 col-lg-2"
-                  style="min-width:90px; width:90px; margin : auto;  margin-top:40px; margin-bottom:20px;"
-                    onclick="copyToClipBoard();">해시태그 복사!</button>
-                </div>
+              <div class="col-12">
+                <h4>#해시태그 생성</h4>
+                <div class="col-12"
+                  style="width: 100%; height: 100%; min-height: 15vh; background-color: rgb(68, 69, 74); border-radius: 0.5em; padding: 2%; padding-top: 5%;align-items: center;  padding-bottom: 5%;"
+                  id='tag_output'></div>
+                <button type="button" class="add btn btn-primary" style="margin : auto;  margin-top:20px; margin-bottom:20px; " onclick="copyToClipBoard();">
+                  <i class='mdi mdi-content-copy'></i>
+                    copy
+                </button>
               </div>
               <div style="width: 100%;">
                 <div class="col-6" style="float: left;">
@@ -195,16 +193,16 @@
           <!-- 마우스 호버 -->
           <div id="menu" style="text-align: center; margin-bottom: 5%;">
             <button type="button" class="add btn btn-primary btn-rounded"
-              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;" onclick="img_btn('img1');" onmouseover="onHelp1();" onmouseout="offHelp1();" ontouchstart="onHelp1();" ontouchend="offHelp1();">1번테마!</button>
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;" onclick="img_btn('img1');" onmouseover="onHelp1();" onmouseout="offHelp1();" ontouchstart="onHelp1();" ontouchend="offHelp1();">1번테마</button>
 
             <button type="button" class="add btn btn-primary btn-rounded"
-              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img2');" onmouseover="onHelp2();" onmouseout="offHelp2();" ontouchstart="onHelp2();" ontouchend="offHelp2();">2번테마!</button>
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img2');" onmouseover="onHelp2();" onmouseout="offHelp2();" ontouchstart="onHelp2();" ontouchend="offHelp2();">2번테마</button>
 
             <button type="button" class="add btn btn-primary btn-rounded"
-              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img3');" onmouseover="onHelp3();" onmouseout="offHelp3();" ontouchstart="onHelp3();" ontouchend="offHelp3();">3번테마!!</button>
+              style="margin : auto; display : inline-block; margin-top:20px; margin-right: 20px;"onclick="img_btn('img3');" onmouseover="onHelp3();" onmouseout="offHelp3();" ontouchstart="onHelp3();" ontouchend="offHelp3();">3번테마</button>
 
             <button type="button" class="add btn btn-primary btn-rounded"
-              style="margin : auto; display : inline-block; margin-top:20px;"onclick="img_btn('img4');" onmouseover="onHelp4();" onmouseout="offHelp4();" ontouchstart="onHelp4();" ontouchend="offHelp4();">4번테마!!</button>
+              style="margin : auto; display : inline-block; margin-top:20px;"onclick="img_btn('img4');" onmouseover="onHelp4();" onmouseout="offHelp4();" ontouchstart="onHelp4();" ontouchend="offHelp4();">4번테마</button>
           </div>
 
           <div class="col-12" style="text-align: center; height: 100%;">

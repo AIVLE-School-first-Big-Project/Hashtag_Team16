@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 import hashlib
 from django.contrib.auth import logout as auth_logout
-
+import re
 from .forms import RecoveryPwForm
 from .forms import CustomSetPasswordForm 
 from member.decorators import *
@@ -35,24 +35,24 @@ def mypage(request):
             real_log.save()
             data = {'status':'T'}
             return JsonResponse(data)
-    elif 'method' in request.POST:
-        if request.POST.get('method') == 'Delete':
-            check = USER.objects.get(user_id = user)
-            salt=check.salt
-            u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw # db에 저장된 암호화된 암호
-            u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
+    # elif 'method' in request.POST:
+    #     if request.POST.get('method') == 'Delete':
+    #         check = USER.objects.get(user_id = user)
+    #         salt=check.salt
+    #         u_pw_db = USER.objects.get(user_id = request.POST.get('id')).pw # db에 저장된 암호화된 암호
+    #         u_pw = hashlib.sha256(str(request.POST.get('pw')+salt).encode()).hexdigest() # 암호화된 암호
 
-            if u_pw_db == u_pw:
-                check.delete()
-                auth_logout(request)
-                data = {'status':'delete_T'}
-                return JsonResponse(data)
-            else:
-                data = {'status':'delete_F'}
-                return JsonResponse(data)
-        else:
-            data = {'status':'delete_F'}
-            return JsonResponse(data)
+    #         if u_pw_db == u_pw:
+    #             check.delete()
+    #             auth_logout(request)
+    #             data = {'status':'delete_T'}
+    #             return JsonResponse(data)
+    #         else:
+    #             data = {'status':'delete_F'}
+    #             return JsonResponse(data)
+    #     else:
+    #         data = {'status':'delete_F'}
+    #         return JsonResponse(data)
     
     p = Paginator(log_list, 10)
     now_page = request.GET.get('page', 1)
@@ -89,36 +89,43 @@ def login_custom(request):
         u_id = request.POST.get('user_id')
         u_pw = request.POST.get('user_pw')
 
+        
         if 'rest_password' in request.POST:
+            u_id = request.POST.get('user_id2')
+            check = USER.objects.get(user_id = u_id)
+            salt=check.salt
             pw_text = request.POST.get('rest_password')
             pw_text = hashlib.sha256(str(pw_text+salt).encode()).hexdigest()
             u_pw_db = USER.objects.get(user_id = u_id).pw
             if pw_text == u_pw_db:
+                check.account_state = '활성계정'
+                check.login_date = timezone.now()
+                check.save()
                 status = {'status' : 'rest_T'}
-                return JsonResponse(status)
             else:
                 status = {'status' : 'rest_F'}
-                return JsonResponse(status)
-
-        try:
-            check = USER.objects.get(user_id = u_id)
-            salt=check.salt
-            u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
-            user = USER.objects.get(user_id = u_id, pw = u_pw)
-            if user.account_state == '휴면계정':
-                status = {'status' : 'rest'}
-                return JsonResponse(status)
-            # user.save()
-        except USER.DoesNotExist:
-            status = {'status' : 'F'}
             return JsonResponse(status)
         else:
-            status = {'status' : 'T'}
-            request.session['user_id'] = user.user_id
-            request.session['user_name'] = user.name
-        # 회원정보 조회 실패시 예외 발생
-            return JsonResponse(status)
-
+            try:
+                check = USER.objects.get(user_id = u_id)
+                salt=check.salt
+                u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
+                user = USER.objects.get(user_id = u_id, pw = u_pw)
+                if user.account_state == '휴면계정':
+                    status = {'status' : 'rest', 'u_id':check.user_id}
+                    print(status['u_id'])
+                    return JsonResponse(status)
+                user.login_date = timezone.now()
+                user.save()
+            except USER.DoesNotExist:
+                status = {'status' : 'F'}
+                return JsonResponse(status)
+            else:
+                status = {'status' : 'T'}
+                request.session['user_id'] = user.user_id
+                request.session['user_name'] = user.name
+                # 회원정보 조회 실패시 예외 발생
+                return JsonResponse(status)
     else:
         # return JsonResponse(data, safe=False)
         return render(request, 'member/login_custom.html')
@@ -140,9 +147,20 @@ def signup_custom(request):
             # 랜덤한 하나의 숫자를 뽑아서, 문자열 결합을 한다. 
             salt += random.choice(string_pool) 
 
-        b_year, b_month, b_day = b_date[:4], b_date[5:7], b_date[8:]
+        # 날짜데이터 전처리
+        data_list = b_date.split("-")
+        b_year, b_month, b_day = data_list[0], data_list[1], data_list[2]
         
-                
+        # 휴대전화 유효성 검사
+        phone_regex = re.compile("^(01)\d{1}-\d{3,4}-\d{4}$")
+        phone_validation = phone_regex.search(p_num.replace(" ",""))
+        
+        
+        # 이메일 유효성 검사
+        mail_regex = re.compile('^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+        mail_validation = mail_regex.match(email)
+
+        # 공란체크
         if (u_id=='') or (u_pw=='') or (u_name=='') or (b_date=='') or (p_num=='') or (email==''):
             data = {'status': 'empty_error'}
             return JsonResponse(data)
@@ -163,8 +181,12 @@ def signup_custom(request):
             data = {'status':'pw_error'}
             return JsonResponse(data)
         
-        if ('@' not in email):
+        if not mail_validation:
             data = {'status':'email_error'}
+            return JsonResponse(data)
+        
+        if not phone_validation:
+            data = {'status': 'phone_error'}
             return JsonResponse(data)
             
         u_pw=hashlib.sha256(str(u_pw+salt).encode()).hexdigest()
@@ -275,7 +297,37 @@ def change_info(request):
         except KeyError:
             return redirect('/need_login')     
 
+def account_withdrawal(request):
+    if request.method == "POST":
+        o_pw = request.POST.get('origin_password')
+        c_pw = request.POST.get('confirm_password')
 
+        if (o_pw == '') or (c_pw == ''):
+            data = {'status':'empty_error'}
+            print(data)
+            return JsonResponse(data)
+        check = USER.objects.get(user_id = request.session['user_id'])
+        salt=check.salt
+        o_pw=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
+        c_pw=hashlib.sha256(str(c_pw+salt).encode()).hexdigest()
+        u_pw_db = check.pw
+
+        if u_pw_db == o_pw and u_pw_db == c_pw:
+            check.delete()
+            auth_logout(request)
+            data = {'status':'delete_T'}
+            print(data)
+            return JsonResponse(data)
+        else:
+            data = {'status':'delete_F'}
+            print(data)
+            return JsonResponse(data)
+    else:
+        try:
+            request.session['user_id']
+            return render(request, 'member/account_withdrawal.html')
+        except KeyError:
+            return redirect('/need_login')
 
 # @method_decorator(logout_message_required, name='dispatch')
 class RecoveryPwView(View):

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
-
+<script src="https://kit.fontawesome.com/b4e29eab58.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <html lang="en">
 
 <head>
@@ -76,7 +77,7 @@
             <div class="col-12 grid-margin">
               <div class="card" style="height: 100%;">
                 <div class="card-body">
-                  <table class="table">
+                  {% comment %} <table class="table">
                     <div class="form-group row" style="padding-top: 3vh; margin-top: 29px;">
                       <label class="col-sm-3 col-form-label"
                         style="padding-left: 12%; padding-bottom: 4%; font-size: large;">제목</label>
@@ -96,8 +97,24 @@
                         </h5>
                       </div>
                     </div>
-                  </table>
-                  <div style="text-align: center; margin-top: 3vw;">
+                  </table> {% endcomment %}    
+
+                  <h4 class="card-title">제목</h4>
+                  <div class="template-demo" style="background-color: #2A3038; padding: 10px">
+                    <h5 class="card-description">
+                      {{p_title}}
+                    </h5>
+                  </div>
+
+                  <h4 class="card-title" style="margin-top:1.124rem;">내용</h4>
+                    <div class="template-demo" style="background-color: #2A3038; padding: 10px">
+                      <h6 class="card-description">
+                        {{p_content}}
+                      </h6>
+                      
+                    </div>
+
+                  <div style="text-align: center; margin-top: 1.125rem;">
                     <div style="display:inline-block; padding-bottom: 2%; padding-right: 10px;">
                       <form id='upd' method="POST" style="float: left; margin-right: 15px;">
                         {% csrf_token %}
@@ -126,9 +143,9 @@
                   <form class='comment_form'>
                     {% csrf_token %}
                     <!-- 우리 웹 서버에서 어떤 작성이 일어날때는 csrf_token이 필요하다라는 의미 // 보안상 필요 -->
-                    <input type="text" name="content" class="col-8 col-xl-5" style="font-size: smaller;" size="60%" placeholder="댓글을 입력해 주세요.">
-                    <button type='button' class="btn btn-light"
-                    style="width: 50px; height: 40px; font-size: 70%; margin-left: 1%; margin-top: 5%; margin-bottom: 5%; line-height: 1.2;"
+                    <input id="commentinput" type="text" name="content" class="col-8 col-xl-5" style="font-size: smaller;" size="60%" onkeydown="if(window.event.keyCode==13){comment('C')}" placeholder="댓글을 입력해 주세요."/>
+                    <button type='button' class="btn btn-light" id="button1"
+                    style="width: 50px; height: 40px; font-size: 70%; margin-left: 1%; margin-top: 1%; margin-bottom: 1%; line-height: 1.2;"
                     onclick='comment("C");' value="comment_create"> 댓글 달기 </button>
                   </form>
 
@@ -136,14 +153,14 @@
                     <p>댓글이 없습니다.</p>
                   {% else %}
                   <div class="col-md-6">
-                    <table class="table" style="font-size: 5px; table-layout: fixed;">
+                    <table class="table" style="font-size: 5px;">
                       <!--white-space가 nowrap으로 되어있어서 줄바꿈이 안되는거 같은데 왜 안되는걸까 ㅠ-->
                       <thead style="text-align: center;">
                         <tr>
-                          <th style="width: 4vw; font-size: 0.8vw;"> 작성자 </th>
+                          <th style="width: 6vw; font-size: 0.8vw;"> 작성자 </th>
                           <th style="width: 20vw; font-size: 0.8vw;"> 내용 </th>
                           <th style="width: 10vw; font-size: 0.8vw;"> 작성시간 </th>
-                          <th style="width: 4vw; font-size: 0.8vw;">  </th>
+                          <th style="width: 2vw; font-size: 0.8vw;">  </th>
                         </tr>
                       </thead>
                       <tbody style="font-size:x-small;">
@@ -222,8 +239,8 @@
           if (result.status == 'T') {
             alert("삭제 완료!");
             window.location.href = '/qna';
-
-          } else {
+          }
+          else {
             alert("권한이 없습니다!");
             window.location.reload();
           }
@@ -242,13 +259,13 @@
       const url = window.location.href;
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
-
+      console.log(1)
       // Create 모드
       if (key == 'C') {
         var form = document.getElementsByClassName('comment_form');
         myformData.append('method', key);
         myformData.append('content', form[0][1].value);
-
+        console.log(form)
         $.ajax({
           type: "POST",
           url: url + 'comment',
@@ -264,6 +281,7 @@
           },
           success: function (result) {
             if (result.status == 'create_T') {
+              {% comment %} alert("완료!"); {% endcomment %}
               window.location.reload();
             }
             else if (result.status == 'create_F') {
@@ -290,7 +308,7 @@
             contentType: false,
 
             error: function () {
-              alert("fail!");
+              alert("fail!!");
             },
             success: function (result) {
               if (result.status == 'delete_T') {
@@ -305,6 +323,15 @@
       };
     }
   </script>
+{% comment %}   
+  <script>
+    $("#commentinput").keydown(function(keyNum){    
+      if(keyNum.keyCode == 13){
+        $("#button1").click() }})
+
+       
+  
+  </script> {% endcomment %}
 </body>
 
 </html>

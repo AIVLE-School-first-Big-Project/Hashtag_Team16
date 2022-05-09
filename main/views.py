@@ -79,7 +79,7 @@ class hashtag(View):
         if len(LOG.objects.all()) == 0:
             log_id = 1
         else:
-            log_id = LOG.objects.order_by('-article_id').first().article_id + 1
+            log_id = LOG.objects.order_by('-log_id').first().log_id + 1
         
         log = LOG.objects.create(
                 log_id = log_id,

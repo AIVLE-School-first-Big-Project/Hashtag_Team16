@@ -290,7 +290,11 @@
       tempElem.select();
       document.execCommand('copy');
       document.body.removeChild(tempElem);
-      alert("Copied!");
+      if (tempElem.value == ''){
+        alert("해시태그를 생성해주세요")
+      }else{
+        alert("Copied!");
+      }
     }
   </script>
 

@@ -1,11 +1,8 @@
 import pandas as pd
-import numpy as np
 import joblib
 import re
 import tkinter
 from PIL import Image, ImageTk
-import os
-import copy
 
 # 콜백함수 설정
 def preprocessing_hashtags_list(hashtags_LS):
@@ -22,11 +19,11 @@ def preprocessing_hashtags_list(hashtags_LS):
     for i in range(len(hashtags_LS)):
         try:
             hashtags_LS[i] = hashtags_LS[i].replace(',', '')
-        except:
+        except Exception:
             pass
         try:
             hashtags_LS[i] = hashtags_LS[i].replace(', ', '')
-        except:
+        except Exception:
             pass
     return hashtags_LS
 

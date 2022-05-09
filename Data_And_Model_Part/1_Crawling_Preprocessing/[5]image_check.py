@@ -59,15 +59,15 @@ def next_page():
     hashtags_TEXT.delete(0.0, tkinter.END)
     hashtags_TEXT.insert(0.0, hashtags_text)
 
-    if update_df.loc[idx, '확인여부'] == True:
+    if update_df.loc[idx, '확인여부'] is True:
         check_BUTTON1.select()
     else:
         check_BUTTON1.deselect()
-    if update_df.loc[idx, '삭제여부'] == True:
+    if update_df.loc[idx, '삭제여부'] is True:
         check_BUTTON2.select()
     else:
         check_BUTTON2.deselect()
-    if update_df.loc[idx, '광고여부'] == True:
+    if update_df.loc[idx, '광고여부'] is True:
         check_BUTTON3.select()
     else:
         check_BUTTON3.deselect()
@@ -91,15 +91,15 @@ def backward_page():
     hashtags_TEXT.delete(0.0, tkinter.END)
     hashtags_TEXT.insert(0.0, hashtags_text)
 
-    if update_df.loc[idx, '확인여부'] == True:
+    if update_df.loc[idx, '확인여부'] is True:
         check_BUTTON1.select()
     else:
         check_BUTTON1.deselect()
-    if update_df.loc[idx, '삭제여부'] == True:
+    if update_df.loc[idx, '삭제여부'] is True:
         check_BUTTON2.select()
     else:
         check_BUTTON2.deselect()
-    if update_df.loc[idx, '광고여부'] == True:
+    if update_df.loc[idx, '광고여부'] is True:
         check_BUTTON3.select()
     else:
         check_BUTTON3.deselect()
@@ -117,7 +117,7 @@ def update_dataframe_func():
 
     columns_ = update_df.columns
     values_ = list(update_df.loc[idx])
-    values_[4] = hashtags_LS #해시태그 부분
+    values_[4] = hashtags_LS # 해시태그 부분
     update_df.loc[idx] = pd.Series(values_, index=columns_)
     print('통과0')
     joblib.dump(update_df, UPDATE_DATAFRAME_PATH)
@@ -127,13 +127,13 @@ def fast_next_page():
     global idx, IMG_NAME, img, hashtags_text, update_df, total_page
     while True:
         next_page()
-        if (checkVar1.get() == False) | ((idx + 1) == total_page):
+        if (checkVar1.get() is False) | ((idx + 1) == total_page):
             break
 def fast_backward_page():
     global idx, IMG_NAME, img, hashtags_text, update_df
     while True:
         backward_page()
-        if (checkVar1.get() == False) | ((idx + 1) == 1):
+        if (checkVar1.get() is False) | ((idx + 1) == 1):
             break
 
 def change_page_func(event):
@@ -154,15 +154,15 @@ def change_page_func(event):
     hashtags_TEXT.delete(0.0, tkinter.END)
     hashtags_TEXT.insert(0.0, hashtags_text)
 
-    if update_df.loc[idx, '확인여부'] == True:
+    if update_df.loc[idx, '확인여부'] is True:
         check_BUTTON1.select()
     else:
         check_BUTTON1.deselect()
-    if update_df.loc[idx, '삭제여부'] == True:
+    if update_df.loc[idx, '삭제여부'] is True:
         check_BUTTON2.select()
     else:
         check_BUTTON2.deselect()
-    if update_df.loc[idx, '광고여부'] == True:
+    if update_df.loc[idx, '광고여부'] is True:
         check_BUTTON3.select()
     else:
         check_BUTTON3.deselect()
@@ -186,7 +186,7 @@ try:
     if len(update_df) != len(df):
         print('업데이트 되지 않은 update_df.pkl입니다. 업데이트를 먼저 실시하세요.')
 
-except:
+except Exception:
     print('update_df.pkl 생성.')
     update_df = df.copy()
     joblib.dump(update_df, UPDATE_DATAFRAME_PATH)
@@ -268,15 +268,15 @@ backward_page_BUTTON.place(x=175, y=500)
 fast_backward_page_BUTTON.place(x=175, y=546)
 update_df_BUTTON.place(x=300, y=500)
 
-if update_df.loc[idx, '확인여부'] == True:
+if update_df.loc[idx, '확인여부'] is True:
     check_BUTTON1.select()
 else:
     check_BUTTON1.deselect()
-if update_df.loc[idx, '삭제여부'] == True:
+if update_df.loc[idx, '삭제여부'] is True:
     check_BUTTON2.select()
 else:
     check_BUTTON2.deselect()
-if update_df.loc[idx, '광고여부'] == True:
+if update_df.loc[idx, '광고여부'] is True:
     check_BUTTON3.select()
 else:
     check_BUTTON3.deselect()

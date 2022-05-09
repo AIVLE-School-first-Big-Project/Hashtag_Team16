@@ -7,8 +7,7 @@ exclude =
     __pycache__,
     venv,
     .env,
-    static,
-    Data_And_Model_Part
+    static
 
 ignore =
     F405,

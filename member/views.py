@@ -19,22 +19,27 @@ import random
 # Create your views here.
 # mypage
 def mypage(request):
-    user = USER.objects.get(user_id=request.session['user_id']).user_id
-    
+    user = USER.objects.get(user_id=request.session['user_id']).user_id  
     log_list = LOG.objects.filter(user=user)
     # 평점 스코어, 피드백 내용 기능 구현
     if 'score' in request.POST:
         real_log = log_list.get(log_id=request.POST.get('key'))
         real_log.service_score = request.POST.get('score')
         real_log.feedback = request.POST.get('feedback')
-
+        
         if (real_log.service_score == '') or (real_log.feedback == ''):
             data = {'status':'F'}
             return JsonResponse(data)
         else:
-            real_log.save()
-            data = {'status':'T'}
-            return JsonResponse(data)
+            score = log_list.get(log_id=request.POST.get('key')).service_score
+            fb = log_list.get(log_id=request.POST.get('key')).feedback
+            if (score != None) and (fb != None):
+                data = {'status':'exist_feedback'}
+                return JsonResponse(data)
+            else:
+                real_log.save()
+                data = {'status':'T'}
+                return JsonResponse(data)
     # elif 'method' in request.POST:
     #     if request.POST.get('method') == 'Delete':
     #         check = USER.objects.get(user_id = user)
@@ -224,21 +229,36 @@ def change_password(request):
         
         check = USER.objects.get(user_id = request.session['user_id'])
         salt=check.salt
-        o_pw=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
+        o_pw1=hashlib.sha256(str(o_pw+salt).encode()).hexdigest()
 
         user_inst = USER.objects.get(user_id=request.session['user_id'])
+
+        # 기존 비밀번호, 새 비밀번호, 새 비밀번호 확인이 공란일 때 처리
         if (o_pw == '') or (n_pw == '') or (n_pw2 == ''):
             data = {'status':'empty_error'}
             return JsonResponse(data)
         
+        # 새 비밀번호랑 새 비밀번호 확인이 다를 때 처리
         if (n_pw != n_pw2):
             data = {'status':'cofirm_error'}
             return JsonResponse(data)
         
-        if (user_inst.pw != o_pw):
+        # 로그인한 아이디에 해당하는 user의 pw와 db속 패스워드가 다를 때 처리
+        if (user_inst.pw != o_pw1):
             data = {'status':'pw_error'}
             return JsonResponse(data)
 
+        # 새 비밀번호가 8~20자리가 아닐 경우 처리
+        if not(len(n_pw) >= 8 and len(n_pw) <= 20) or not(len(n_pw2) >= 8 and len(n_pw2) <= 20) :
+            data = {'status':'pw_len_error'}
+            return JsonResponse(data)
+
+        # 기존 비밀번호와 새 비밀번호가 같을 경우 처리
+        if (o_pw == n_pw) or (o_pw == n_pw2):
+            data = {'status' : 'same_pw_error'}
+            return JsonResponse(data)
+
+        
         n_pw=hashlib.sha256(str(n_pw+salt).encode()).hexdigest()
 
         if o_pw==user_inst.pw:

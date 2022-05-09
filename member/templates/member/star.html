@@ -4,18 +4,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <link rel="stylesheet" href="{% static 'assets/css/star.css' %}">
 
-<style>
-  @font-face {
-    font-family: 'adobaonlyR';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/adobaonlyR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
-  .main-panel {
-    font-family: 'adobaonlyR';
-  }
-  </style>
-
 <script>
   function getCookie(name) {
     var cookieValue = null;
@@ -32,6 +20,7 @@
     return cookieValue;
   }
 </script>
+
 <div id="ex1" class="col-xl-3 col-md-6 modal" style="height: auto; background-color: #525768; position: relative; margin-top: 5%;">
   <div class="card">
     <div class="card-body" style="text-align: center; width: 100%; display: inline-block;">
@@ -169,12 +158,13 @@
             if (result.status == 'T') {
               window.location.href = '';
               alert("제출 완료!");
-            } else {
+            } else if (result.status == 'F'){
               window.location.href = '';
-              alert(score);
-              alert(form[0][6].value);
-              alert("평점 or feedback내용을 입력해주세요");
-            }
+              alert("평점 or feedback 내용을 입력해주세요");
+            }else if (result.status == 'exist_feedback'){
+            window.location.href = '';
+            alert("이미 리뷰를 작성하셨습니다");
+          }
 
           }
         });

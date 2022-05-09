@@ -7,7 +7,7 @@ def hashtag_cnt_crawling(target):
     url = 'https://www.instagram.com/explore/tags/'+ target +'/?__a=1&__d=dis'
     try:
         request_headers = {
-            'cookie' : 'mid=YneXhAALAAFOLyC612t4We-ckroZ; ig_did=DF0D006A-7C5F-4B47-BF68-AF3425D9B17B; ig_nrcb=1; csrftoken=wz0XSb7jK9ho69CeEjnNvrLMgYwBQu5R; ds_user_id=49450739206; sessionid=49450739206%3AkAkXHcRx23bKzM%3A23; rur="PRN\05449450739206\0541683598854:01f7a4f3fbf697ab6e08d758d7036b11082c6c10d15b6ecfee3b436543042b046229c6f2"'
+            'cookie' : 'mid=YneXhAALAAFOLyC612t4We-ckroZ; ig_did=DF0D006A-7C5F-4B47-BF68-AF3425D9B17B; ig_nrcb=1; csrftoken=wz0XSb7jK9ho69CeEjnNvrLMgYwBQu5R; ds_user_id=49450739206; sessionid=49450739206%3AkAkXHcRx23bKzM%3A23; rur="PRN\05449450739206\0541683614740:01f779e2237f876807051f3ac889bab731f9c8cc749f73a42cf6c6e275eccd3a7d8d5d38"'
         }
         response = requests.get(url ,headers = request_headers)
         cnt = response.json()

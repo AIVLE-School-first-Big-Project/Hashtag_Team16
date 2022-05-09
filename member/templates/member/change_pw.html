@@ -131,6 +131,14 @@
                         alert("기존 비밀번호가 일치하지 않습니다!");
                         window.location.reload();
                     }
+                    else if (result.status == 'pw_len_error'){
+                        alert("비밀번호 길이를 확인해 주세요(8~20자)");
+                        window.location.reload();
+                    }
+                    else if (result.status == 'same_pw_error'){
+                        alert("기존 비밀번호와 새 비밀번호가 같습니다.");
+                        window.location.reload();
+                    }
                     else if (result.status == 'T'){
                         alert("변경되었습니다!");
                         opener.location.href = '/member/';

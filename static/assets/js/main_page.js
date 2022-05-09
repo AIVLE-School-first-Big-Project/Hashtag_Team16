@@ -201,6 +201,7 @@ function hashtag(url, url2) {
                 var tags = document.createElement('span');
                 box.appendChild(tags);
                 tags.innerHTML = result['hashtag'][tag];
+                tags.innerHTML += ' ';
             };
             // 사용량 분석 div
             for (tag in result['best_hash']) {

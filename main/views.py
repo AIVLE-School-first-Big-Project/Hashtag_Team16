@@ -31,18 +31,7 @@ class index(View):
         url = request.POST['url']
         print(url)
         os.remove(url)
-        tag = request.POST['tag']
-        print(tag)
-        tag_string = ' '.join(s for s in tag)
-        log = LOG.objects.create(
-                log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
-                user = USER.objects.get(user_id=request.session['user_id']),
-                service_score = None,
-                feedback = None,
-                image = request.POST['url2'],  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
-                prior_tag = tag_string
-            )
-        log.save()
+        
         data = {'status': 'success'}
         return JsonResponse(data)
 
@@ -80,11 +69,28 @@ class hashtag(View):
         res = requests.post('http://118.91.69.43:60001/hashtags20/', files = upload)
         hashtags_json = json.loads(res.content)
         files.close()
-
+        # list 문자열로 변환
+        tag_string = ' '.join(s for s in hashtags_json['hashtags'])
+        print(tag_string)
+        
         
         data = {'hashtag' : hashtags_json['hashtags']}
         tag_dict, influ, like = mp_module.mult_process_tag(hashtags_json['hashtags'][:6])
-        print(tag_dict, influ, like)
+        if len(LOG.objects.all()) == 0:
+            log_id = 1
+        else:
+            log_id = LOG.objects.order_by('-article_id').first().article_id + 1
+        
+        log = LOG.objects.create(
+                log_id = log_id,
+                user = USER.objects.get(user_id=request.session['user_id']),
+                service_score = None,
+                feedback = None,
+                image = request.POST['url2'],  # 이미지를 GCP에 올린 후 GCP에서 읽어올 수 있는 경로 저장함( 함수정의 맨 아래 )
+                prior_tag = tag_string
+            )
+        log.save()
+
         tag_dict = sorted(tag_dict.items(), key=lambda x: -x[1]) 
         tag_dict = {a:b for a,b in tag_dict}
         data['best_hash'] = tag_dict

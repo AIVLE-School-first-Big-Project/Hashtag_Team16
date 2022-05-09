@@ -29,8 +29,10 @@ class index(View):
     
     def post(self, request):
         url = request.POST['url']
+        print(url)
         os.remove(url)
         tag = request.POST['tag']
+        print(tag)
         tag_string = ' '.join(s for s in tag)
         log = LOG.objects.create(
                 log_id = LOG.objects.order_by('-log_id').first().log_id + 1,
@@ -82,6 +84,7 @@ class hashtag(View):
         
         data = {'hashtag' : hashtags_json['hashtags']}
         tag_dict, influ, like = mp_module.mult_process_tag(hashtags_json['hashtags'][:6])
+        print(tag_dict, influ, like)
         tag_dict = sorted(tag_dict.items(), key=lambda x: -x[1]) 
         tag_dict = {a:b for a,b in tag_dict}
         data['best_hash'] = tag_dict

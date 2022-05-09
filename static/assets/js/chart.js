@@ -23,6 +23,7 @@ function iterateSlices(sliceSize, pieElement, offset, dataCount, sliceCount, col
     iterateSlices(sliceSize-maxSize, pieElement, offset+maxSize, dataCount, sliceCount+1, color);
   }
 }
+
 function createPie(dataElement, pieElement) {
   var listData = [];
   $(dataElement+" span").each(function() {

@@ -9,7 +9,7 @@ function last_func(url, url2, tag) {
     $.ajax({
         type: "POST",
         url: "",
-        async: false,
+        async: true,
         headers: { 'X-CSRFToken': csrftoken },
         enctype: "multipart/form-data",
         data: myformData,

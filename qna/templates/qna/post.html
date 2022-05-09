@@ -119,7 +119,7 @@
                         {% csrf_token %}
                         <button type='button' class="btn btn-light" id='edit' name='update' value="수정" 
                           style="width: 70px; font-size: 80%; margin-bottom: 5%;"
-                          onclick="onUpdate('{{login_user}}','{{writer}}');">글 수정</button>
+                          onclick="onUpdate('{{user}}','{{writer}}');">글 수정</button>
                       </form>
                       <form id='del' style="float: left; margin-right: 15px;">
                         {% csrf_token %}

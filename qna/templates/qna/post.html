@@ -111,17 +111,15 @@
                       <h6 class="card-description">
                         {{p_content}}
                       </h6>
-                      
                     </div>
 
                   <div style="text-align: center; margin-top: 1.125rem;">
                     <div style="display:inline-block; padding-bottom: 2%; padding-right: 10px;">
                       <form id='upd' method="POST" style="float: left; margin-right: 15px;">
                         {% csrf_token %}
-                        <button type='button' class="btn btn-light" name='update' value="수정"
+                        <button type='button' class="btn btn-light" id='edit' name='update' value="수정" 
                           style="width: 70px; font-size: 80%; margin-bottom: 5%;"
-                          onclick="location.href = '/qna/post/{{article_id}}/p_modify/' ">글
-                          수정</button>
+                          onclick="onUpdate('{{login_user}}','{{writer}}');">글 수정</button>
                       </form>
                       <form id='del' style="float: left; margin-right: 15px;">
                         {% csrf_token %}
@@ -195,7 +193,7 @@
     <!-- main-panel ends -->
   </div>
   <!-- page-body-wrapper ends -->
-  </div>
+
 
   <!-- container-scroller -->
   <!-- plugins:js 드롭다운 가능하게 하는 js-->
@@ -259,7 +257,6 @@
       const url = window.location.href;
       const myformData = new FormData();
       const csrftoken = getCookie('csrftoken');
-      console.log(1)
       // Create 모드
       if (key == 'C') {
         var form = document.getElementsByClassName('comment_form');
@@ -322,6 +319,20 @@
             }
           });
         }
+      };
+    }
+  </script>
+
+  <script>
+    function onUpdate(login, writer){
+      console.log(login);
+      console.log(writer)
+
+      if (login == writer){
+        var url = location.href;
+        location.href = url + 'p_modify'
+      }else if (login != writer){
+        alert('권한이 없습니다.');
       };
     }
   </script>

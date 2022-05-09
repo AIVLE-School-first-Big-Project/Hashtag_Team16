@@ -115,7 +115,10 @@ def post(request, pk):
         p_title = poster.title
         p_content = poster.content
 
-        return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'user':user,'comments': com})
+        print(user)
+        print(poster.user.user_id)
+
+        return render(request, 'qna/post.html', {'p_title':p_title, 'p_content':p_content, 'article_id':pk, 'login_user':user, 'writer':poster.user.user_id, 'comments': com})
     except KeyError:
         return redirect('/need_login') 
 

@@ -71,8 +71,7 @@ class hashtag(View):
         files.close()
         # list 문자열로 변환
         tag_string = ' '.join(s for s in hashtags_json['hashtags'])
-        print(tag_string)
-        
+        #print(tag_string)
         
         data = {'hashtag' : hashtags_json['hashtags']}
         tag_dict, influ, like = mp_module.mult_process_tag(hashtags_json['hashtags'][:6])

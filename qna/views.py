@@ -154,24 +154,29 @@ def p_modify(request, pk):
 def comment(request, pk):
     # 생성
     if request.POST.get('method') == 'C':
-        if len(COMMENT.objects.all()) == 0:
-            comment_id = 1
+        writer = ARTICLE.objects.get(article_id = pk).user_id
+        if request.session['user_id'] == writer:
+            if len(COMMENT.objects.all()) == 0:
+                comment_id = 1
+            else:
+                comment_id = COMMENT.objects.order_by('-comment_id').first().comment_id + 1
+                
+            comment = COMMENT(
+                comment_id = comment_id,
+                user = USER.objects.get(user_id=request.session['user_id']),
+                content = request.POST.get('content'),
+                date = timezone.now(),
+                article = ARTICLE.objects.get(article_id=pk)
+            )
+            if comment.content != '':
+                comment.save()
+                data = {'status':'create_T'}
+                return JsonResponse(data)
+            else:
+                data = {'status':'create_F'}
+                return JsonResponse(data)
         else:
-            comment_id = COMMENT.objects.order_by('-comment_id').first().comment_id + 1
-            
-        comment = COMMENT(
-            comment_id = comment_id,
-            user = USER.objects.get(user_id=request.session['user_id']),
-            content = request.POST.get('content'),
-            date = timezone.now(),
-            article = ARTICLE.objects.get(article_id=pk)
-        )
-        if comment.content != '':
-            comment.save()
-            data = {'status':'create_T'}
-            return JsonResponse(data)
-        else:
-            data = {'status':'create_F'}
+            data = {'status' : 'not_access'}
             return JsonResponse(data)
     
     # 삭제

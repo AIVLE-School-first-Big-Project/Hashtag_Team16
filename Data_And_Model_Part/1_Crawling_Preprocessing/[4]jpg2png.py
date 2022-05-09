@@ -1,13 +1,10 @@
 '''
 GUI도구(Tkinter)에서는 JPG파일을 지원하지 않기 때문에
 '''
-from multiprocessing import Process, Queue
-import pandas as pd
-import numpy as np
 import joblib
 from PIL import Image
 import os
-from multiprocessing import Process, Queue
+from multiprocessing import Process
 
 ROOT_PATH = './'
 DATAFRAME_FILENAME = 'insta_df.pkl'

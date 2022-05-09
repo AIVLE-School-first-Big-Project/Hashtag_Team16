@@ -193,7 +193,6 @@ function myFunction() {
               }else { 
                 if (confirm('휴면계정입니다.\n휴면해제하시겠습니까?') == true) {
                   var password = prompt("비밀번호를 입력해주세요");
-                  alert(result.u_id)
                   password_check(password, result.u_id);
                 }
                 {% comment %} opener.location.reload(); {% endcomment %}

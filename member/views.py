@@ -261,7 +261,7 @@ def change_password(request):
         
         n_pw=hashlib.sha256(str(n_pw+salt).encode()).hexdigest()
 
-        if o_pw==user_inst.pw:
+        if o_pw1==user_inst.pw:
             user_inst.pw = n_pw
             user_inst.save()
             #auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
